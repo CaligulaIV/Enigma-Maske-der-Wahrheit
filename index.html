@@ -123,6 +123,21 @@ details.camp summary{cursor:pointer;font-family:"Cormorant Garamond",serif;font-
 .kv2 .k{color:var(--muted)}
 .kv2 .v{font-weight:600}
 
+/* ---- Gegner */
+.ggrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px}
+.gcard{border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--surface);min-width:0}
+.gsel{display:grid;grid-template-columns:1fr 120px auto auto;gap:6px;align-items:center;margin-bottom:8px}
+.gsel select{padding:4px 6px;font-size:13px;border-color:var(--accent)}
+.gtitle{font-family:"Cormorant Garamond",serif;font-size:26px;font-weight:700;line-height:1.1;color:var(--accent)}
+.gname{margin:6px 0 4px;font-weight:600}
+.gkv{margin:6px 0 8px;font-size:13.5px}
+.gstats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px 8px;margin:6px 0;padding:6px 8px;background:var(--valbg);border-radius:8px;font-size:13px}
+.gstats .k,.gsk .k{color:var(--muted);margin-right:4px}
+.gstats .icon{font-size:12px;padding:0 3px}
+.gsk{border-top:1px dashed var(--line);padding:6px 0 4px;font-size:13.5px}
+.gskt{font-size:13px}
+.gval{display:inline-block;min-width:24px;text-align:center;border-radius:6px;background:var(--valbg);font-weight:700;padding:0 4px}
+
 /* ---- Log */
 .log{margin-top:16px}
 .loghead{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px}
@@ -238,7 +253,7 @@ details.camp summary{cursor:pointer;font-family:"Cormorant Garamond",serif;font-
 <div class="toast" id="toast"></div>
 
 <script>
-const GENS=[{"id": "natur", "title": "Wildnis-Ort", "title_en": "Wilderness place", "group": "Welt", "group_en": "World", "note": "Alte Fassung: 38 Territorien und alte Biomnamen/Klimawerte (Buch 2: 47 Territorien). Territorium und Wetter oben wählen.", "special": null, "lang": "de", "file": "gens/natur.json"}, {"id": "enemies", "title": "Gegner", "title_en": "Enemies", "group": "Kampf", "group_en": "Combat", "note": "Drei Gegner nebeneinander. Klasse und Fraktion/Art je Gegner frei wählen (oder „zufällig“). Raubtiere gehen nur bis Threat.", "special": null, "lang": "en", "file": "gens/enemies.json"}, {"id": "sammeln", "title": "Sammeln (Karten)", "title_en": "Gathering (cards)", "group": "Natur", "group_en": "Nature", "note": "Digitales Sammel-Deck: Karte ziehen oder echte Kartenzahl eintragen. Fund-Wahrscheinlichkeiten aus deinem Sammeln-Blatt.", "special": "sammeln", "lang": "de", "file": "gens/sammeln.json"}, {"id": "budget", "title": "Encounter-Budget", "title_en": "Encounter budget", "group": "Kampf", "group_en": "Combat", "note": "Altes Ausprägungssystem (Brut/Alpha/Mutter) – passt noch nicht zu den Klassen Fledgling…Tyrant.", "special": null, "lang": "de", "file": "gens/budget.json"}, {"id": "urban", "title": "Siedlung", "title_en": "Settlement", "group": "Welt", "group_en": "World", "note": "47 Territorien. Preise noch in Gold (Buch 1: Wealth-Level/Plunder).", "special": null, "lang": "de", "file": "gens/urban.json"}, {"id": "ritual", "title": "Ritual-Ort", "title_en": "Ritual site", "group": "Welt", "group_en": "World", "note": null, "special": null, "lang": "de", "file": "gens/ritual.json"}, {"id": "riss", "title": "Zweitweltriss", "title_en": "Otherworld rift", "group": "Welt", "group_en": "World", "note": null, "special": null, "lang": "de", "file": "gens/riss.json"}, {"id": "ruine", "title": "Ruine", "title_en": "Ruin", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "note": "Alte 38er-Territorienliste.", "special": null, "lang": "de", "file": "gens/ruine.json"}, {"id": "hoehle", "title": "Höhlensystem", "title_en": "Cave system", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "note": null, "special": null, "lang": "de", "file": "gens/hoehle.json"}, {"id": "villa", "title": "Gebäude (Villa)", "title_en": "Building (villa)", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "note": null, "special": null, "lang": "de", "file": "gens/villa.json"}, {"id": "tempel", "title": "Tempel", "title_en": "Temple", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "note": null, "special": null, "lang": "de", "file": "gens/tempel.json"}, {"id": "npc", "title": "NPC", "title_en": "NPC", "group": "Personen", "group_en": "People", "note": "Laune als Wort (Buch 1: Mood 0–100); Fraktionsblöcke alt.", "special": null, "lang": "de", "file": "gens/npc.json"}, {"id": "zirkel", "title": "Zirkel", "title_en": "Circle", "group": "Personen", "group_en": "People", "note": null, "special": null, "lang": "de", "file": "gens/zirkel.json"}, {"id": "charakter", "title": "Zufälliger Charakter", "title_en": "Random character", "group": "Personen", "group_en": "People", "note": null, "special": null, "lang": "de", "file": "gens/charakter.json"}, {"id": "mystery", "title": "Mystery / Verbrechen", "title_en": "Mystery / crime", "group": "Abenteuer", "group_en": "Adventure", "note": null, "special": null, "lang": "de", "file": "gens/mystery.json"}, {"id": "aufgabe", "title": "Auftrag", "title_en": "Task", "group": "Abenteuer", "group_en": "Adventure", "note": null, "special": null, "lang": "de", "file": "gens/aufgabe.json"}, {"id": "hetzjagd", "title": "Verfolgungsjagd", "title_en": "Chase", "group": "Abenteuer", "group_en": "Adventure", "note": "Mechanik veraltet (Buch 1: Chase mit Objective 50). Hindernisse taugen als Beschreibung für Abkürzungen.", "special": null, "lang": "de", "file": "gens/hetzjagd.json"}, {"id": "spuren", "title": "Spuren & Hinweise", "title_en": "Tracks & clues", "group": "Abenteuer", "group_en": "Adventure", "note": null, "special": null, "lang": "de", "file": "gens/spuren.json"}, {"id": "pakt", "title": "Pakt-Aufgabe", "title_en": "Pact task", "group": "Magie", "group_en": "Magic", "note": null, "special": null, "lang": "de", "file": "gens/pakt.json"}, {"id": "fallen", "title": "Runenfalle", "title_en": "Rune-trap", "group": "Magie", "group_en": "Magic", "note": "Runenherzen noch lateinisch (Terram/Aquam/Ignem).", "special": null, "lang": "de", "file": "gens/fallen.json"}, {"id": "wahnsinn", "title": "Trauma & Narben", "title_en": "Trauma & scars", "group": "Magie", "group_en": "Magic", "note": "Psychose ab Seelenintegrität 1 (Buch 1: 0); eigene Narbenliste.", "special": null, "lang": "de", "file": "gens/wahnsinn.json"}, {"id": "loot", "title": "Loot & Dinge", "title_en": "Loot & things", "group": "Dinge", "group_en": "Things", "note": "Preise noch in Gold; deutsche Skillnamen.", "special": null, "lang": "de", "file": "gens/loot.json"}, {"id": "objects", "title": "Objects (neu)", "title_en": "Objects", "group": "Dinge", "group_en": "Things", "note": "Englische, neuere Fassung (Buch-1-Begriffe).", "special": null, "lang": "en", "file": "gens/objects.json"}, {"id": "trank", "title": "Trank & Öl", "title_en": "Potions & oils", "group": "Dinge", "group_en": "Things", "note": null, "special": null, "lang": "de", "file": "gens/trank.json"}, {"id": "gift", "title": "Gift & Krankheit", "title_en": "Poisons & diseases", "group": "Dinge", "group_en": "Things", "note": "Stufenwerte weichen von Buch 1 ab (Gift 2 Schaden am Ende der Battle-Phase).", "special": null, "lang": "de", "file": "gens/gift.json"}, {"id": "box", "title": "Geheimnisvolle Box", "title_en": "Mysterious box", "group": "Dinge", "group_en": "Things", "note": null, "special": null, "lang": "de", "file": "gens/box.json"}, {"id": "tiere", "title": "Pflanze & Kleintier", "title_en": "Plants & small animals", "group": "Natur", "group_en": "Nature", "note": null, "special": null, "lang": "de", "file": "gens/tiere.json"}, {"id": "laden", "title": "Laden", "title_en": "Shop", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold (Buch 1: Wealth-Level).", "special": null, "lang": "de", "file": "gens/laden.json"}, {"id": "tempeldienst", "title": "Tempeldienste", "title_en": "Temple services", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold.", "special": null, "lang": "de", "file": "gens/tempeldienst.json"}, {"id": "taverne", "title": "Taverne", "title_en": "Tavern", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold, Speisenboni mit alten Begriffen.", "special": null, "lang": "de", "file": "gens/taverne.json"}];
+const GENS=[{"id": "natur", "title": "Wildnis-Ort", "title_en": "Wilderness place", "group": "Welt", "group_en": "World", "note": "Alte Fassung: 38 Territorien und alte Biomnamen/Klimawerte (Buch 2: 47 Territorien). Territorium und Wetter oben wählen.", "special": null, "lang": "de", "file": "gens/natur.json"}, {"id": "gegner", "title": "Gegner", "title_en": "Enemies", "group": "Kampf", "group_en": "Combat", "note": "Baut auf der Kreaturentabelle auf (Kreaturen_v6.xlsx): Titel je Klasse, Merkmal, Geruch, Geräusch, Kampfwerte und Skillgruppen. Würfel- und Klassenregeln aus dem Encounter-Sheet. Fehlt einer Fraktion eine Klasse, springt die passende Kreatur ein (z. B. Pseudodämonen für schwache Konklaven).", "special": "gegner", "lang": "en", "file": "gens/gegner.json"}, {"id": "sammeln", "title": "Sammeln (Karten)", "title_en": "Gathering (cards)", "group": "Natur", "group_en": "Nature", "note": "Digitales Sammel-Deck: Karte ziehen oder echte Kartenzahl eintragen. Fund-Wahrscheinlichkeiten aus deinem Sammeln-Blatt.", "special": "sammeln", "lang": "de", "file": "gens/sammeln.json"}, {"id": "budget", "title": "Encounter-Budget", "title_en": "Encounter budget", "group": "Kampf", "group_en": "Combat", "note": "Altes Ausprägungssystem (Brut/Alpha/Mutter) – passt noch nicht zu den Klassen Fledgling…Tyrant.", "special": null, "lang": "de", "file": "gens/budget.json"}, {"id": "urban", "title": "Siedlung", "title_en": "Settlement", "group": "Welt", "group_en": "World", "note": "47 Territorien. Preise noch in Gold (Buch 1: Wealth-Level/Plunder).", "special": null, "lang": "de", "file": "gens/urban.json"}, {"id": "ritual", "title": "Ritual-Ort", "title_en": "Ritual site", "group": "Welt", "group_en": "World", "note": null, "special": null, "lang": "de", "file": "gens/ritual.json"}, {"id": "riss", "title": "Zweitweltriss", "title_en": "Otherworld rift", "group": "Welt", "group_en": "World", "note": null, "special": null, "lang": "de", "file": "gens/riss.json"}, {"id": "ruine", "title": "Ruine", "title_en": "Ruin", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "note": "Alte 38er-Territorienliste.", "special": null, "lang": "de", "file": "gens/ruine.json"}, {"id": "hoehle", "title": "Höhlensystem", "title_en": "Cave system", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "note": null, "special": null, "lang": "de", "file": "gens/hoehle.json"}, {"id": "villa", "title": "Gebäude (Villa)", "title_en": "Building (villa)", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "note": null, "special": null, "lang": "de", "file": "gens/villa.json"}, {"id": "tempel", "title": "Tempel", "title_en": "Temple", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "note": null, "special": null, "lang": "de", "file": "gens/tempel.json"}, {"id": "npc", "title": "NPC", "title_en": "NPC", "group": "Personen", "group_en": "People", "note": "Laune als Wort (Buch 1: Mood 0–100); Fraktionsblöcke alt.", "special": null, "lang": "de", "file": "gens/npc.json"}, {"id": "zirkel", "title": "Zirkel", "title_en": "Circle", "group": "Personen", "group_en": "People", "note": null, "special": null, "lang": "de", "file": "gens/zirkel.json"}, {"id": "charakter", "title": "Zufälliger Charakter", "title_en": "Random character", "group": "Personen", "group_en": "People", "note": null, "special": null, "lang": "de", "file": "gens/charakter.json"}, {"id": "mystery", "title": "Mystery / Verbrechen", "title_en": "Mystery / crime", "group": "Abenteuer", "group_en": "Adventure", "note": null, "special": null, "lang": "de", "file": "gens/mystery.json"}, {"id": "aufgabe", "title": "Auftrag", "title_en": "Task", "group": "Abenteuer", "group_en": "Adventure", "note": null, "special": null, "lang": "de", "file": "gens/aufgabe.json"}, {"id": "hetzjagd", "title": "Verfolgungsjagd", "title_en": "Chase", "group": "Abenteuer", "group_en": "Adventure", "note": "Mechanik veraltet (Buch 1: Chase mit Objective 50). Hindernisse taugen als Beschreibung für Abkürzungen.", "special": null, "lang": "de", "file": "gens/hetzjagd.json"}, {"id": "spuren", "title": "Spuren & Hinweise", "title_en": "Tracks & clues", "group": "Abenteuer", "group_en": "Adventure", "note": null, "special": null, "lang": "de", "file": "gens/spuren.json"}, {"id": "pakt", "title": "Pakt-Aufgabe", "title_en": "Pact task", "group": "Magie", "group_en": "Magic", "note": null, "special": null, "lang": "de", "file": "gens/pakt.json"}, {"id": "fallen", "title": "Runenfalle", "title_en": "Rune-trap", "group": "Magie", "group_en": "Magic", "note": "Runenherzen noch lateinisch (Terram/Aquam/Ignem).", "special": null, "lang": "de", "file": "gens/fallen.json"}, {"id": "wahnsinn", "title": "Trauma & Narben", "title_en": "Trauma & scars", "group": "Magie", "group_en": "Magic", "note": "Psychose ab Seelenintegrität 1 (Buch 1: 0); eigene Narbenliste.", "special": null, "lang": "de", "file": "gens/wahnsinn.json"}, {"id": "loot", "title": "Loot & Dinge", "title_en": "Loot & things", "group": "Dinge", "group_en": "Things", "note": "Preise noch in Gold; deutsche Skillnamen.", "special": null, "lang": "de", "file": "gens/loot.json"}, {"id": "objects", "title": "Objects (neu)", "title_en": "Objects", "group": "Dinge", "group_en": "Things", "note": "Englische, neuere Fassung (Buch-1-Begriffe).", "special": null, "lang": "en", "file": "gens/objects.json"}, {"id": "trank", "title": "Trank & Öl", "title_en": "Potions & oils", "group": "Dinge", "group_en": "Things", "note": null, "special": null, "lang": "de", "file": "gens/trank.json"}, {"id": "gift", "title": "Gift & Krankheit", "title_en": "Poisons & diseases", "group": "Dinge", "group_en": "Things", "note": "Stufenwerte weichen von Buch 1 ab (Gift 2 Schaden am Ende der Battle-Phase).", "special": null, "lang": "de", "file": "gens/gift.json"}, {"id": "box", "title": "Geheimnisvolle Box", "title_en": "Mysterious box", "group": "Dinge", "group_en": "Things", "note": null, "special": null, "lang": "de", "file": "gens/box.json"}, {"id": "tiere", "title": "Pflanze & Kleintier", "title_en": "Plants & small animals", "group": "Natur", "group_en": "Nature", "note": null, "special": null, "lang": "de", "file": "gens/tiere.json"}, {"id": "laden", "title": "Laden", "title_en": "Shop", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold (Buch 1: Wealth-Level).", "special": null, "lang": "de", "file": "gens/laden.json"}, {"id": "tempeldienst", "title": "Tempeldienste", "title_en": "Temple services", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold.", "special": null, "lang": "de", "file": "gens/tempeldienst.json"}, {"id": "taverne", "title": "Taverne", "title_en": "Tavern", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold, Speisenboni mit alten Begriffen.", "special": null, "lang": "de", "file": "gens/taverne.json"}];
 const DATA={"cards":[["Narr","richtig herum","Neustart, Überraschung, Potential, Freiheit, Unschuld",["Überraschung","Potential","Freiheit"]],["Narr","umgedreht","Dummheit, Überstürzt, Chaos, Naive, Grenzen, Hürden",["Dummheit","Chaos","Hürde"]],["Magier","richtig herum","Kraft, Kommunikation, Magie, Selbstbestimmung, Aktion",["Kommunikation","Magie","Selbstbestimmung"]],["Magier","umgedreht","Lüge, Kommunikationsblock, Stagnation, Schummeln, Falschheit",["Lüge","Kommunikationsblock","Stagnation"]],["Hohepriesterin","richtig herum","Mysterium, Intuition, Erleuchtung, Weisheit, Vorahnung",["Mysterium","Erleuchtung","Vorahnung"]],["Hohepriesterin","umgedreht","Geheimnisse, Unsicherheit, Verborgenheit, Unfähigkeit zu hören, Überraschung",["Geheimnis","Unsicherheit","Verborgenheit"]],["Königin","richtig herum","Pflege, Überschuss, Fruchtbarkeit, Mutterschaft, Schönheit, Liebe",["Überschuss","Mutterschaft","Schönheit"]],["Königin","umgedreht","Faulheit, Koordinationschwäche, Verschwendung, Beziehungskrise, Depression, Verbannung",["Koordinationsschwäche","Verschwendung","Beziehung senken"]],["König","richtig herum","Autorität, Ordnung, Struktur, Hierarchie, Aufstieg, Rationalität",["Autorität","Aufstieg","Rationalität"]],["König","umgedreht","Autokratisch, Unterdrücken, Zwang, Grausamkeit, keine Unterstützung, Machtmissbrauch, Irrationalität",["Zwang","Grausamkeit","Machtmissbrauch"]],["Hierophant","richtig herum","Tradition, Gruppenidentifikation, Lehre, Gesetze, Bruderschaft, Religion",["Gruppenidentifikation","Lehre","Religion"]],["Hierophant","umgedreht","Extremismus, Kulte, Verfall Gesellschaft, Abwendung Religion, Abbruch Gespräche, rückständig",["Extremismus","Abwendung Religion","Abbruch Gespräch"]],["Liebhaber","richtig herum","Zusammenkommen, Wahl, Zuneigung, Verpflichtung, Vertrauen, Bündnis",["Zusammenkommen","Vertrauen","Verpflichtung"]],["Liebhaber","umgedreht","Auseinanderbrechen, Angst vor Bindung, Fremd gehen, Bündnis brechen, Misstrauen",["Auseinanderbrechen","Angst vor Bindung","Misstrauen"]],["Wagen","richtig herum","Antrieb, Willenskraft, Richtung, Sieg, Probleme enden, zu Hilfe kommen",["Willenskraft","Richtung","zu Hilfe kommen"]],["Wagen","umgedreht","verirren, richtungslos, antriebslos, Zweifel, abbruch Reise, Verzögerung, braucht Hilfe",["verirren","Zweifel","braucht Hilfe"]],["Stärke","richtig herum","Stärke, Sicherheit, Selbstkontrolle, Geduld, Gesundheit, Leidenschaft",["Sicherheit","Gesundheit","Stärke"]],["Stärke","umgedreht","Schwäche, Zerbrechlichkeit, Ungeduld, Unbeherrscht, Überheblich, Doppelmoral",["Schwäche","Unbeherrscht","Zerbrechlichkeit"]],["Eremit","richtig herum","Selbstbetrachtung, Besinnung, Ruhe, Diskretion, Meditation",["Besinnung","Diskretion","Ruhe"]],["Eremit","umgedreht","Aberkennen, Rückzug, im stich lassen, Isolation, einsamkeit, Exil",["Rückzug","Im Stich lassen","Isolation"]],["Rad","richtig herum","Glück, Chance, Gelegenheit, Umschlagen, Gewinnen, Zyklus, Schicksal, ja",["Glück","Gelegenheit","Zyklus"]],["Rad","umgedreht","Unglück, Fehlschlag, verlieren, Not, Härte, Enttäuschung, nein",["Unglück","Not","Enttäuschung"]],["Gericht","richtig herum","Gerechtigkeit, Karma, Balance, Wahrheit, Verantwortung, Vereinbarung",["Gerechtigkeit","Wahrheit","Vereinbarung"]],["Gericht","umgedreht","Willkür, Unfair, Unrecht, Verruf, Ungleichheit, Falsche Entscheidung",["Willkür/ Unfair","Ungleichheit","Verruf"]],["Gehängte Mann","richtig herum","loslassen, Opferung, Aufgaben, Perspektivwechsel, Musterbrechen, Verspätung, Stoppen",["Loslassen","Perspektivwechsel","Stoppen"]],["Gehängte Mann","umgedreht","in Schwebe, Engstirnig, ins Leben zurück, falsches Motiv, nicht loslassen, zurückhalten",["in schwebe","ins Leben zurück","festhalten"]],["Tod","richtig herum","Ende, Sterblichkeit, echter Wandel, Bruch einer Bindung, Ende einer Ära, Transformation, Wiedergeburt",["Ende","Bindungsbruch","Transformation"]],["Tod","umgedreht","Ende aufgehalten, nicht loslassen können, lange Krankheit, Wandel ablehnen, falscher Wandel",["Aufhalten Ende","Krankheit","Wandel ablehnen"]],["Mäßigkeit","richtig herum","Harmonie, Balance, Mäßigung, Zusammenwirken, vermischen, verbinden",["Balance","Vermischen","Verbinden"]],["Mäßigkeit","umgedreht","Disharmonie,Krankheit, nichts bekommen, Trennen, Bruch",["Unbalance","trennen","leer ausgehen"]],["Dämon","richtig herum","Knechtschaft, Abhängigkeit, Versuchung, Gewalt, Angst, Überarbeitet",["Knechtschaft","Abhängigkeit","Gewalt"]],["Dämon","umgedreht","frei brechen, widerstehen, kraftlosigkeit, keine Verbindung",["frei brechen","widerstehen","keine Bindung"]],["Turm","richtig herum","Zerstörung, unerwarteter Wandel, ruinieren, schaden, stürzen, verdrängen, Gefahr",["Zerstörung","verdrängen","Gefahr"]],["Turm","umgedreht","Anhaltende Zerstörung, langfristige Krise, schwere Gewalt, chaotische Situation, Nachbeben",["Krise","Brutalität","Nachbeben"]],["Sterne","richtig herum","Hoffnung, Freude, Optimismus, Segen, Hilfe, Frieden",["Hoffnung","Segen","Frieden"]],["Sterne","umgedreht","Hoffnungslosigkeit, Unwohlsein, Enttäuschung, hilfe verweigern, Hindernisse des Glaubens",["Enttäuschung","Hoffnungslos","Glaubenskrise"]],["Mond","richtig herum","Träume, Alpträume, Illusionen, verborgene Feinde, Verwirrung, Geheimnis",["Alptraum","Illusion","verborgene Gefahr"]],["Mond","umgedreht","Offenbarung, Vision, durchschauen von Illusionen, Schlaflosigkeit",["Vision","Offenbarung","Schlaflosigkeit"]],["Sonne","richtig herum","Leben, Energie, Wärme, Erschaffung, Reichtum, Erfolg",["Energie","Erschaffung","Reichtum"]],["Sonne","umgedreht","Halber Erfolg, Kälte, hypersensibel, rosarote Brille",["Halber Erfolg","Kälte","rosarote Brille"]],["Urteil","richtig herum","Erlösung, Erwachen, Ruf zu Taten, Berufung, vollendeter Wandel, Entscheidung",["Erwachen","Berufung","Entscheidung"]],["Urteil","umgedreht","Ignorieren, Wider besseren Wissens, Zweifel, Leiten von Angst, entscheidungslos",["Ignorieren","Entgegen Wissen","Leiten von Angst"]],["Welt","richtig herum","Vollendung, Folgen, Resultate, Möglichkeiten, Ziele, Absolutheit, Reisen",["Vollendung","Resultate","Reisen"]],["Welt","umgedreht","Verplanen, unerledigte Aufgaben, Stagnation, festhalten, feststecken",["feststecken","nicht weiterkommen","keine Resultate"]]],"targets":["Spieler","Spieler-Gruppe","Gegenwart","Anderer Spieler","Gegner","NPC","Zukunft","Positiv","Negativ"],"ev":["entferntes Event","NPC Aktion","Neuer NPC","Strang voranbringen","Strang entfernen","Strang verändern","PC negativ","PC positiv","Ambivalentes Ereignis","NPC negativ","NPC positiv","Nemesis positiv","Nemesis negativ"],"act":["Ziel erreichen","Starten","Vernachlässigen","Kämpfen","Rekrutieren","Siegen","Verletzen","Widersetzen","Arglist","Kommunizieren","Verfolgen","Steigern","Senken","Verlassen","Befriedigen","Erkundigen","Verärgern","Bewegen","verschwenden","Wahrheit","Freilassen","Befreunden","urteilen","Desertieren","Dominieren","Aufschieben","Loben","Trennen","Nehmen","Brechen","Heilen","Verzögern","Stoppen","Lügen","Wiederkommen","Nachahmen","Ringen","informieren","verschenken","verschieben","entblößen","verhandeln","einsperren","feiern","verschleiern","entwickeln","reisen","blocken","verletzen","herabsetzen","überladen","Vertagen","Widrigkeiten","töten","unterbrechen","an sich reißen","erschaffen","verraten","zustimmen","ausnutzen","unterdrücken","inspezieren","überfallen","spionieren","tragen","offen","nachlässig","ruinieren","extravagant","Täuschen","ankommen","vorschlagen","trennen","ablehnen","misstrauen","grausamkeit","Intoleranz","vertrauen","Aufregung","Aktivität","Helfen","pflegen","leidenschaft","ablassen","hart arbeiten","kontrollieren","anziehen","versagen","nachgehen","rächen","aufgeben","streiten","bestrafen","führen","transformieren","unterwerfen","verändern","steigern","umstürzen","nähern"],"sub":["Ziele","Träume","Umwelt","Draußen","Innen","Realität","Verbündete","Feinde","Böse","Gute","Gefühle","Gegenteil","Krieg","Frieden","Unschuldige","Liebe","geistlich","intellektuell","Neue Ideen","Freude","Massage","Energie","Gleichgewicht","Spannung","Freundschaft","physisches","Projekt","Freuden","Schmerz","Besitz","Pläne","Lügen","Erwartungen","Gesetz","Bürokratie","Geschäft","Pfad","Neuigkeiten","äußere Faktoren","Ratschlag","Handlung","Wettbewerb","Gefängnis","Krankheit","Nahrung","Aufmerksamkeit","Erfolg","Versagen","Reise","Neid","Streit","Heimat","Investment","Leid","Wünsche","Taktik","Pattsituation","Willkür","Unglück","Tod","Unterbrechung","Macht","Bürde","Intrige","Ängste","Gerücht","Wunden","extravaganz","Repräsentation","Gegner","Reichtum","Freiheit","Militär","Gewöhnliches","Test","Massen","Fahrzeug","Kunst","Sieg","Unklarheit","Fülle","Status Quo","Technik","Hoffnung","Magie","Illusion","Portale","Gefahr","Waffen","Tiere","Wetter","Elemente","Natur","Öffentlichkeit","Führung","Ruhm","Zorn","Information","Vergangenheit","Götter"],"fac":["[GK] Sultane","[GK] Wesire","[GK] Kalifen","[FU] Monarchisten","[FU] Republikaner","[FU] Unabhängige","[ZRO] Restauratoren","[ZRO] Reformisten","[ZRO] Vergelter","[EIS] Familien","[EIS] Lord","[EIS] Marine","[HAI] Kachol","[HAI] Schemeschya","[HAI] Han","[GER] Aisin-Geren","[GER] Süd-Geren","[GER] Nord-Geren","[PIR] Wildling","[PIR] Waldlinge","[PIR] Berglinge","[WS] Waldelfen","[WS] Hochelfen","[WS] Lichterelfen","[HIV] Südkolonie","[HIV] Nordkolonie","[HIV] Exilanten","[ECH] Troglodyten","[ECH] Sumpfechsen","[ECH] Obsidianechsen","[NAG] Manipulatoren","[NAG] Usurpatoren","[NAG] Intriganten","[KOB] Patrioten","[KOB] Anarchisten","[KOB] Hungernd","[SAT] Zentauren","[SAT] Leotauren","[SAT] Aerotauren","[YET] Wanderer","[YET] Eroberer","[YET] Flüchtlinge","[GNO] Seeräuber","[GNO] Fischer","[GNO] Eisgnome"],"pred":["Drachaten","Teufel","Würmer","Schleichen","Pirscher","Säbelaffen","Salamander","Ofanten","Netzfüssler","Weber","Flattervieh","junges Monster"]};
 
 // ================= language =================
@@ -271,7 +286,11 @@ de:{appTitle:"Enigma-Werkzeuge",sessPh:"Sitzung (z. B. Sitzung 12 – Rostriff)"
  sessDefault:"Sitzungsprotokoll",fileBase:"Enigma-Protokoll",copied:"Protokoll kopiert",copyErr:"Kopieren nicht möglich",saved:"Gespeichert",logEmptyT:"Protokoll ist leer",
  libErr:"Export-Bibliothek konnte nicht geladen werden",expErr:"Export nicht möglich",confirmNew:"Protokoll wird geleert – zum Bestätigen nochmal klicken (vorher exportieren!)",
  newDone:"Neue Sitzung – Kampagnenlisten und Generatoren bleiben erhalten",bkDone:"Sicherung gespeichert",bkErr:"Sichern nicht möglich",bkLoaded:"Sicherung geladen",bkWrong:"Das ist keine Sicherung der Enigma-Werkzeuge",
- toLogDone:"Ins Protokoll übernommen",stLocal:"nur in diesem Browser gespeichert",stCloud:"gespeichert (geräteübergreifend)",stSaved:"gespeichert",stFull:"Speicher voll – alte Einträge löschen",stLoad:"lädt…",reroll:"Neu würfeln",locale:"de-DE"},
+ toLogDone:"Ins Protokoll übernommen",stLocal:"nur in diesem Browser gespeichert",stCloud:"gespeichert (geräteübergreifend)",stSaved:"gespeichert",stFull:"Speicher voll – alte Einträge löschen",stLoad:"lädt…",reroll:"Neu würfeln",locale:"de-DE",
+ gAdd:"+ Gegner",gHint:"Kreatur und Klasse wählen oder auf „zufällig“ lassen. ⟳ würfelt einzelne Werte neu.",gRerollAll:"Diesen Gegner neu würfeln",
+ gLook:"Merkmal",gSmell:"Geruch",gSound:"Geräusch",gPassive:"Fraktionspassiv",gDefense:"Verteidigung",gAttack:"Angriff",gSpecial:"Spezial",gEnergy:"Energie",
+ gItem:"sichtbar als",gEPass:"Energie-Passiv",gSwapCls:"%a gibt es nur als %b – Klasse %c wird zu %b.",gSwapCre:"%a stellen in %c keine Kämpfer – hier: %b.",
+ gNoCls:"%a gibt es nicht als %c – stattdessen %b.",gCat_Raubtier:"Raubtiere",gCat_Monster:"Monster",gCat_Abenteurer:"Abenteurer",gCat_Heimatfraktion:"Heimatfraktionen",gCat_Sonderfraktion:"Sonderfraktionen"},
 en:{appTitle:"Enigma Tools",sessPh:"Session (e.g. Session 12 – Rustreef)",fate:"Fate",fateGroup:"Fate",chooseGen:"Choose a tool…",
  fAsk:"Ask fate",fqPh:"Question (optional) – e.g. Is the bridge guarded?",fRoll:"Roll D100",fOrReal:"or real roll:",apply:"Apply",
  lik:["impossible","no chance","unlikely","50/50","likely","very likely","certain"],
@@ -300,7 +319,11 @@ en:{appTitle:"Enigma Tools",sessPh:"Session (e.g. Session 12 – Rustreef)",fate
  sessDefault:"Session log",fileBase:"Enigma log",copied:"Log copied",copyErr:"Copying not possible",saved:"Saved",logEmptyT:"The log is empty",
  libErr:"Export library could not be loaded",expErr:"Export not possible",confirmNew:"The log will be cleared – click again to confirm (export first!)",
  newDone:"New session – campaign lists and generators are kept",bkDone:"Backup saved",bkErr:"Backup not possible",bkLoaded:"Backup restored",bkWrong:"This is not an Enigma Tools backup",
- toLogDone:"Added to log",stLocal:"saved in this browser only",stCloud:"saved (across devices)",stSaved:"saved",stFull:"Storage full – delete old entries",stLoad:"loading…",reroll:"Reroll",locale:"en-GB"}};
+ toLogDone:"Added to log",stLocal:"saved in this browser only",stCloud:"saved (across devices)",stSaved:"saved",stFull:"Storage full – delete old entries",stLoad:"loading…",reroll:"Reroll",locale:"en-GB",
+ gAdd:"+ Enemy",gHint:"Choose creature and class, or leave them on “random”. ⟳ rerolls single values.",gRerollAll:"Reroll this enemy",
+ gLook:"Feature",gSmell:"Smell",gSound:"Sound",gPassive:"Faction passive",gDefense:"Defense",gAttack:"Attack",gSpecial:"Special",gEnergy:"Energy",
+ gItem:"seen as",gEPass:"Energy passive",gSwapCls:"%a only exist as %b – class %c becomes %b.",gSwapCre:"%a have no fighters of class %c – here: %b.",
+ gNoCls:"%a do not exist as %c – %b instead.",gCat_Raubtier:"Predators",gCat_Monster:"Monsters",gCat_Abenteurer:"Adventurers",gCat_Heimatfraktion:"Home factions",gCat_Sonderfraktion:"Special factions"}};
 let LANG="de";
 const t=k=>{const v=I18N[LANG][k];return v===undefined?I18N.de[k]:v};
 const gTitle=g=>LANG==="en"&&g.title_en?g.title_en:g.title;
@@ -507,6 +530,7 @@ async function loadGen(id){
   if(GD[id])return GD[id];
   const g=GENS.find(x=>x.id===id);const r=await fetch(g.file);if(!r.ok)throw new Error("load");
   const d=await r.json();
+  if(d.creatures){GD[id]=d;return d}
   d.inp={};for(const i of d.inputs)d.inp[i.r+","+i.c]=i;
   d.mset={};for(const m of d.merges)d.mset[m[0]+","+m[1]]=m;
   d.bset=new Set(d.bold.map(([r,c])=>r+","+c));
@@ -528,11 +552,12 @@ function renderGen(){
   const id=S.cur;const g=GENS.find(x=>x.id===id);const d=GD[id];const card=$("#genCard");
   if(!g)return;
   if(!d){card.innerHTML=`<div class="loading">${t("loading")} ${esc(gTitle(g))}…</div>`;return}
-  const rs=res(id);const eng=new Engine(d,rs);const vals=computeAll(d,eng);
+  const rs=res(id);const eng=d.creatures?null:new Engine(d,rs);const vals=d.creatures?{}:computeAll(d,eng);
   let h=`<div class="gh"><h2>${esc(gTitle(g))}</h2><span class="badge" title="${t("contentLang")}">${t("contentLang")}: ${(g.lang||"de").toUpperCase()}</span>
    <button class="btn primary" id="regen">${t("regen")}</button><button class="btn" id="toLog">${t("toLog")}</button></div>`;
   if(g.note)h+=`<div class="note"><b>${t("workNote")}:</b> ${esc(g.note)}</div>`;
   h+=`<div class="note">${t("genHint")}</div>`;
+  if(g.special==="gegner"){card.innerHTML=h.replace(`<div class="note">${t("genHint")}</div>`,"")+gegnerHTML(d,rs);return}
   if(g.special==="sammeln")h+=sammelnHTML(d,rs,eng);
   h+=`<div class="panels">`;
   for(const p of panelsOf(d)){
@@ -567,6 +592,7 @@ function renderGen(){
   card.innerHTML=h+`</div>`;
 }
 function genText(id){
+  if(GD[id].creatures)return gegnerText(GD[id],res(id));
   const d=GD[id];const rs=res(id);const eng=new Engine(d,rs);const vals=computeAll(d,eng);const out=[];
   for(const p of panelsOf(d)){
     const[pr1,pc1,pr2,pc2]=p;const used=d.front.filter(([r,c])=>r>=pr1&&r<=pr2&&c>=pc1&&c<=pc2);
@@ -603,6 +629,127 @@ function sammelnHTML(d,rs,eng){
       <span class="k"></span><span class="hint">${t("deckRule")}</span></div>`;
   }else h+=`<div class="pc back">${t("deckBack")}<br>${st.cards.length}</div><div class="hint" style="flex:1;min-width:200px">${t("deckHint")}</div>`;
   return h+`<div style="display:flex;flex-direction:column;gap:6px"><button class="btn primary" id="sDraw">${t("drawCard")}</button><button class="btn" id="sShuffle">${t("shuffle")}</button></div></div>`;
+}
+
+// ================= GEGNER (aus der Kreaturentabelle) =================
+// Regeln wie Encounter-Sheet: Werte je Klasse (2W6+K …), Passiv ab Combatant, Spezial ab Adversary,
+// Energie: Threat 1a · Menace 1b + 2 · Tyrant 1a + 2. Fehlt eine Klasse („Pick …“), springt eine andere Kreatur oder Klasse ein.
+const GFAM={Vision:["Illusion","Conjuration","Necromancy"],Thaumaturgy:["Hyperturgy","Summoning","Arcana"],Metaturgy:["Enchantment","Hexing","Transmutation"]};
+const GALL=[...GFAM.Vision,...GFAM.Thaumaturgy,...GFAM.Metaturgy];
+const GSLOT={def:["Defense-Natur","Defend-Weapon","MythicDefense"],att:["Attack-Natur","Attack-Weapon","Mythic Attack"],
+  spec:["Special- Nature","Special-Weapon","Mythic Special"],e1a:["HumanEnergy","Energy-Nature","Mythic Energy","Rune 1","Rune 2"]};
+const GCOL={def:"Verteidigung",att:"Angriff",spec:"Spezial",e1a:"Energie 1a",e1b:"Energie 1b",e2:"Energie 2"};
+const GCLS=["Fledgling","Combatant","Adversary","Threat","Menace","Tyrant"];
+const GPICK={"Lymphozyts":"Lymphocytes","Erythrozyts":"Erythrocytes","Autoslave":"Autoslaves","Vanir":"Anachrons (Vanir)"};
+const gnorm=s=>String(s??"").replace(/[\s_\-]/g,"").toLowerCase();
+function gResolve(d,slot,group){
+  const out=new Set();
+  for(const g0 of String(group??"").split(",")){const g=g0.trim();if(!g||g==="---"||g==="–"||g==="—")continue;
+    if(slot==="e1b"||slot==="e2"){const blk=slot==="e1b"?1:2;const sch=(g==="ALL"||g==="Spells")?GALL:(GFAM[g]||[g]);
+      let hit=d.skills.filter(s=>s.block===blk&&sch.some(x=>gnorm(x)===gnorm(s.sub)));
+      if(!hit.length)hit=d.skills.filter(s=>s.block===0&&gnorm(s.sub)===gnorm(g));hit.forEach(s=>out.add(s.n));continue}
+    const pool=d.skills.filter(s=>s.block===0&&GSLOT[slot].includes(s.cat));let pick;
+    if(g==="ALL"||g==="Weapon skills")pick=pool.filter(s=>s.cat.includes("Weapon")||s.cat==="HumanEnergy");
+    else if(g==="Natur-skills")pick=pool.filter(s=>s.cat.includes("Natur"));
+    else if(g==="Object energy")pick=pool.filter(s=>["Toxic oil","Potion","Medicine","Projectile","Bomb"].includes(s.sub));
+    else{pick=pool.filter(s=>gnorm(s.sub)===gnorm(g));if(!pick.length)pick=d.skills.filter(s=>s.block===0&&gnorm(s.sub)===gnorm(g))}
+    pick.forEach(s=>out.add(s.n))}
+  return [...out].sort((a,b)=>a-b);
+}
+function gU(e,k){if(e.draws[k]===undefined){let u=Math.round(rand()*1e5)/1e5;if(u>=1)u=.99999;e.draws[k]=u}return e.draws[k]}
+const gDie=(e,k,n,s)=>{let t=0;for(let i=0;i<n;i++)t+=1+Math.floor(gU(e,k+"#"+i)*s);return t};
+const gPick=(e,k,a)=>a.length?a[Math.floor(gU(e,k)*a.length)]:null;
+function gMod(d,x){let m=d.attrmod[0][1];for(const[v,b]of d.attrmod)if(x>=v)m=b;return m}
+function gAttrs(cr){const o={Strength:0,Dexterity:0,Constitution:0,Intuition:0,Intelligence:0};
+  for(const m of String(cr["Attribute"]??"").matchAll(/([+\-−])\s*(\d+)\s+([A-Za-z]+)/g)){const k=Object.keys(o).find(x=>x.toLowerCase().startsWith(m[3].toLowerCase().slice(0,5)));if(k)o[k]+=(m[1]==="+"?1:-1)*+m[2]}
+  return o}
+const gN=c=>LANG==="de"?(c["Name DE"]||c["Name EN"]):c["Name EN"];
+function gCreatureByName(d,n){return d.creatures.find(c=>c["Name EN"]===n)||d.creatures.find(c=>gnorm(c["Name EN"]).startsWith(gnorm(n)))}
+// Kreatur + Klasse auflösen (Ersatz bei „Pick …“ oder fehlender Klasse)
+function gEffective(d,e){
+  let ci=e.cre!=null?e.cre:Math.floor(gU(e,"cre")*d.creatures.length);
+  let cls=e.cls!=null?e.cls:1+Math.floor(gU(e,"cls")*6);
+  let cr=d.creatures[ci],note=[];
+  for(let i=0;i<4;i++){
+    const tt0=cr["Titel "+GCLS[cls-1]];
+    if(tt0&&String(tt0).startsWith("Pick ")){const tgt=String(tt0).slice(5).trim();const k=GCLS.indexOf(tgt);
+      if(k>=0){note.push(t("gSwapCls").replaceAll("%a",gN(cr)).replaceAll("%c",GCLS[cls-1]).replaceAll("%b",tgt));cls=k+1;continue}
+      const alt=gCreatureByName(d,GPICK[tgt]||tgt);if(alt){note.push(t("gSwapCre").replaceAll("%a",gN(cr)).replaceAll("%c",GCLS[cls-1]).replaceAll("%b",gN(alt)));cr=alt;continue}}
+    if(!tt0||tt0==="—"||tt0==="-"){let k=-1;for(let j=cls-1;j>=1&&k<0;j--){const tt=cr["Titel "+GCLS[j-1]];if(tt&&tt!=="—"&&!String(tt).startsWith("Pick "))k=j}
+      for(let j=cls+1;j<=6&&k<0;j++){const tt=cr["Titel "+GCLS[j-1]];if(tt&&tt!=="—"&&!String(tt).startsWith("Pick "))k=j}
+      if(k>0){note.push(t("gNoCls").replaceAll("%a",gN(cr)).replaceAll("%c",GCLS[cls-1]).replaceAll("%b",GCLS[k-1]));cls=k;continue}}
+    break}
+  return{cr,cls,ci,note};
+}
+function gSkill(d,e,slot,cr,key){const nums=gResolve(d,slot,cr[GCOL[slot]]);const n=gPick(e,key,nums);return n==null?null:d.skills.find(s=>s.n===n)}
+function gBuild(d,e){
+  const{cr,cls,note}=gEffective(d,e);const C=cls,K=d.classes[C-1],am=gAttrs(cr);
+  const A={};for(const a of["Strength","Dexterity","Constitution","Intuition","Intelligence"])A[a]=gDie(e,"a:"+a,2,6)+C+am[a];
+  const num=v=>typeof v==="number"?v:(+v||0);
+  const st={health:gDie(e,"health",2,6)+4*C,energy:K.energy,resist:gDie(e,"resist",2,6)+2*C+gMod(d,A.Constitution)+num(cr["Rüstungswert"]),
+    grounding:gDie(e,"grounding",1,6)+2*C-2+num(cr["Grounding"]),fight:K.fight,timing:gDie(e,"timing",2,6)+3+num(cr["Timing"]),
+    move:gDie(e,"move",1,6)+10+num(cr["Timing"]),actions:K.actions,armor:num(cr["Rüstungswert"]),armorType:cr["Rüstung"]||""};
+  const v={def:K.fight+gMod(d,A.Intuition),att:K.fight+gMod(d,A.Dexterity),en:K.fight+gMod(d,A.Intelligence)};
+  const pred=cr["Kategorie"]==="Raubtier";
+  const sk={def:gSkill(d,e,"def",cr,"s:def"),att:gSkill(d,e,"att",cr,"s:att"),
+    spec:C>=3?gSkill(d,e,"spec",cr,"s:spec"):null,
+    e1:C===4||C===6?gSkill(d,e,"e1a",cr,"s:e1"):C===5?(gSkill(d,e,pred?"e1a":"e1b",cr,"s:e1")||gSkill(d,e,"e1a",cr,"s:e1")):null,
+    e2:C>=5&&!pred?gSkill(d,e,"e2",cr,"s:e2"):null};
+  const tier=C<=2?0:C<=4?1:2,w=d.words;
+  const words={desc:w.description[tier][Math.floor(gU(e,"w:desc")*20)],n1:w.name1[tier][Math.floor(gU(e,"w:n1")*20)],n2:w.name2[tier][Math.floor(gU(e,"w:n2")*20)]};
+  return{cr,cls:C,note,A,st,v,sk,words,passive:C>=2?cr["Fraktionspassiv (EN)"]:null,title:cr["Titel "+GCLS[C-1]]};
+}
+const gTxt=(cr,en,de)=>LANG==="de"&&cr[de]?cr[de]:(cr[en]||cr[de]||"");
+function gRR(i,k){return `<button class="icon" title="${t("reroll")}" data-grr="${i}:${k}">⟳</button>`}
+function gSkillHTML(i,k,label,s,val,showPassive){
+  if(!s)return "";
+  return `<div class="gsk"><div class="gskh"><span class="k">${label}</span> <b>${esc(s.name)}</b>${val!=null?` <span class="gval">${val}</span>`:""}${gRR(i,k)}</div>
+   <div class="gskt">${esc(s.text)}</div>${s.item?`<div class="hint">${t("gItem")}: ${esc(s.item)}</div>`:""}${showPassive&&s.passive?`<div class="hint">${t("gEPass")}: ${esc(s.passive)}</div>`:""}</div>`}
+function gegnerHTML(d,rs){
+  if(!rs.list)rs.list=[{cre:null,cls:null,draws:{}},{cre:null,cls:null,draws:{}},{cre:null,cls:null,draws:{}}];
+  const cats=[...new Set(d.creatures.map(c=>c["Kategorie"]))];
+  const optsCre=(sel)=>`<option value="">${t("random")}</option>`+cats.map(k=>`<optgroup label="${esc(t("gCat_"+k)||k)}">`+d.creatures.map((c,i)=>c["Kategorie"]===k?`<option value="${i}" ${sel===i?"selected":""}>${esc(LANG==="de"?c["Name DE"]||c["Name EN"]:c["Name EN"])}</option>`:"").join("")+`</optgroup>`).join("");
+  const optsCls=(sel)=>`<option value="">${t("random")}</option>`+GCLS.map((c,i)=>`<option value="${i+1}" ${sel===i+1?"selected":""}>${c}</option>`).join("");
+  let h=`<div class="row" style="margin-bottom:10px"><button class="btn" id="gAdd">${t("gAdd")}</button><span class="hint">${t("gHint")}</span></div><div class="ggrid">`;
+  rs.list.forEach((e,i)=>{
+    const g=gBuild(d,e),cr=g.cr;
+    h+=`<section class="gcard"><div class="gsel"><select data-gcre="${i}">${optsCre(e.cre)}</select><select data-gcls="${i}">${optsCls(e.cls)}</select>
+      <button class="icon" title="${t("gRerollAll")}" data-greset="${i}">⟳</button><button class="icon" title="${t("del")}" data-gdel="${i}">✕</button></div>
+      <div class="gtitle">${esc(g.title||"")}</div>
+      <div class="sub">${esc(GCLS[g.cls-1])} · ${esc(LANG==="de"?cr["Name DE"]||cr["Name EN"]:cr["Name EN"])}</div>
+      ${g.note.map(n=>`<div class="hint">↪ ${esc(n)}</div>`).join("")}
+      <div class="gname">${esc(g.words.n1)} ${esc(g.words.n2)}${gRR(i,"w:n")} <span class="sub">– ${esc(g.words.desc)}</span>${gRR(i,"w:desc")}</div>
+      <div class="kv2 gkv"><span class="k">${t("gLook")}</span><span class="v">${esc(cr["Merkmal (EN)"]||"–")}</span>
+       <span class="k">${t("gSmell")}</span><span class="v">${esc(gTxt(cr,"Geruch EN","Geruch DE")||"–")}</span>
+       <span class="k">${t("gSound")}</span><span class="v">${esc(gTxt(cr,"Geräusch EN","Geräusch DE")||"–")}</span></div>
+      <div class="gstats">${[["Health",g.st.health,"health"],["Energy",g.st.energy],["Resistance",g.st.resist,"resist"],["Grounding",g.st.grounding,"grounding"],
+        ["Fight-skill",g.st.fight],["Timing",g.st.timing,"timing"],["Movement",g.st.move,"move"],["Actions",g.st.actions],["Armor",g.st.armor+(g.st.armorType?" · "+g.st.armorType:"")]]
+        .map(([k,v,rk])=>`<div><span class="k">${k}</span><b>${esc(v)}</b>${rk?gRR(i,rk):""}</div>`).join("")}</div>
+      <div class="gstats">${Object.entries(g.A).map(([k,v])=>`<div><span class="k">${k}</span><b>${v}</b>${gRR(i,"a:"+k)}</div>`).join("")}</div>
+      ${g.passive?`<div class="gsk"><div class="gskh"><span class="k">${t("gPassive")}</span></div><div class="gskt">${esc(g.passive)}</div></div>`:""}
+      <div class="gsk"><div class="gskh"><span class="k">${t("gDefense")}</span> <b>Duck</b> <span class="gval">${g.v.def}</span></div><div class="gskt">Penalty −X for attacks, 1 target own/adjacent zone</div></div>
+      ${gSkillHTML(i,"s:def",t("gDefense"),g.sk.def,null)}
+      <div class="gsk"><div class="gskh"><span class="k">${t("gAttack")}</span> <b>Attack</b> <span class="gval">${g.v.att}</span></div><div class="gskt">Melee attack, X damage, 1 target own zone</div></div>
+      ${gSkillHTML(i,"s:att",t("gAttack"),g.sk.att,null)}
+      ${gSkillHTML(i,"s:spec",t("gSpecial"),g.sk.spec,g.v.att)}
+      ${gSkillHTML(i,"s:e1",t("gEnergy"),g.sk.e1,g.v.en,true)}
+      ${gSkillHTML(i,"s:e2",t("gEnergy")+" 2",g.sk.e2,g.v.en,true)}
+    </section>`});
+  return h+`</div>`;
+}
+function gegnerText(d,rs){
+  const L=[];(rs.list||[]).forEach((e,i)=>{const g=gBuild(d,e),cr=g.cr;
+    L.push(`${i+1}. ${g.title} (${GCLS[g.cls-1]} · ${LANG==="de"?cr["Name DE"]||cr["Name EN"]:cr["Name EN"]}) – ${g.words.n1} ${g.words.n2}, ${g.words.desc}`);
+    g.note.forEach(n=>L.push("   ↪ "+n));
+    L.push(`   ${t("gLook")}: ${cr["Merkmal (EN)"]||"–"} · ${t("gSmell")}: ${gTxt(cr,"Geruch EN","Geruch DE")} · ${t("gSound")}: ${gTxt(cr,"Geräusch EN","Geräusch DE")}`);
+    L.push(`   Health ${g.st.health} · Energy ${g.st.energy} · Resistance ${g.st.resist} · Grounding ${g.st.grounding} · Fight ${g.st.fight} · Timing ${g.st.timing} · Movement ${g.st.move} · Actions ${g.st.actions} · Armor ${g.st.armor} ${g.st.armorType}`);
+    L.push("   "+Object.entries(g.A).map(([k,v])=>k+" "+v).join(" · "));
+    if(g.passive)L.push(`   ${t("gPassive")}: ${g.passive}`);
+    L.push(`   Duck ${g.v.def} · Attack ${g.v.att}`);
+    for(const[k,lab,val]of[["def",t("gDefense"),null],["att",t("gAttack"),null],["spec",t("gSpecial"),g.v.att],["e1",t("gEnergy"),g.v.en],["e2",t("gEnergy")+" 2",g.v.en]]){
+      const s=g.sk[k];if(s)L.push(`   ${lab}: ${s.name}${val!=null?" ("+val+")":""} – ${s.text}${s.item?" ["+s.item+"]":""}`)}
+    L.push("")});
+  while(L.length&&L[L.length-1]==="")L.pop();return L;
 }
 
 // ================= navigation =================
@@ -645,6 +792,16 @@ document.addEventListener("click",ev=>{
     const eng=new Engine(d,rs);for(const k of eng.keys(d.sheet,r,c))delete rs.draws[k];saveRes(id);renderGen();
     const n=document.querySelector(`[data-cell="${r},${c}"]`);if(n)n.classList.add("flash");return}
   const rs=GD[S.cur]?res(S.cur):null;
+  if(rs&&GD[S.cur].creatures){
+    if(!rs.list)rs.list=[];
+    if(ds.grr){const p=ds.grr.indexOf(":");const i=+ds.grr.slice(0,p),k=ds.grr.slice(p+1);const e=rs.list[i];
+      for(const key of Object.keys(e.draws))if(key===k||key.startsWith(k+"#")||(k==="w:n"&&(key==="w:n1"||key==="w:n2")))delete e.draws[key];
+      saveRes(S.cur);renderGen();return}
+    if(ds.greset!=null){const e=rs.list[+ds.greset];const keep={};if(e.cre==null&&"cre" in e.draws)keep.cre=e.draws.cre;if(e.cls==null&&"cls" in e.draws)keep.cls=e.draws.cls;e.draws=keep;saveRes(S.cur);renderGen();return}
+    if(ds.gdel!=null){rs.list.splice(+ds.gdel,1);saveRes(S.cur);renderGen();return}
+    if(b.id==="gAdd"){rs.list.push({cre:null,cls:null,draws:{}});saveRes(S.cur);renderGen();return}
+    if(b.id==="regen"){rs.list.forEach(e=>e.draws={});saveRes(S.cur);renderGen();return}
+  }
   if(b.id==="regen"){rs.draws={};rs.t=Date.now();if(rs.deck)rs.deck.u=rand();saveRes(S.cur);renderGen();return}
   if(b.id==="toLog"){addGenLog();return}
   if(b.id==="sDraw"){const st=rs.deck;if(!st.cards.length){toast(t("deckEmpty"));return}st.drawn=st.cards.pop();st.u=rand();rs.inputs["9,4"]=st.drawn[1];rs.draws={};saveRes(S.cur);renderGen();return}
@@ -654,6 +811,9 @@ document.addEventListener("click",ev=>{
 document.addEventListener("change",ev=>{
   const e=ev.target;
   if(e.id==="navSel"){go(e.value);return}
+  if(e.dataset.gcre!=null||e.dataset.gcls!=null){const rs=res(S.cur);const i=+(e.dataset.gcre??e.dataset.gcls);const en=rs.list[i];
+    if(e.dataset.gcre!=null){en.cre=e.value===""?null:+e.value;delete en.draws.cre}else{en.cls=e.value===""?null:+e.value;delete en.draws.cls}
+    saveRes(S.cur);renderGen();return}
   if(e.dataset.inp){const rs=res(S.cur);const d=GD[S.cur];const k=e.dataset.inp;
     if(e.tagName==="SELECT"){let v=e.value;if(v==="__rnd"){const o=d.inp[k].opts;v=JSON.stringify(o[rnd(o.length)][0])}rs.inputs[k]=JSON.parse(v)}
     else rs.inputs[k]=e.type==="number"?(e.value===""?null:Number(e.value)):e.value;
