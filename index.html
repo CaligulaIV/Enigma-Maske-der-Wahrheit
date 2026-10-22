@@ -1,20 +1,810 @@
-<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head><body><title>Enigma-Werkzeuge</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Enigma-Werkzeuge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f4f1ea;--surface:#fffdf8;--ink:#22201b;--muted:#6d665a;--line:#d9d1c1;--accent:#7a4a1e}
-@media (prefers-color-scheme:dark){:root{--bg:#17150f;--surface:#211e17;--ink:#ece6d8;--muted:#a59d8c;--line:#3a3529;--accent:#d9a46a}}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 Inter,system-ui,sans-serif}
-.wrap{max-width:760px;margin:0 auto;padding:40px 16px}
-h1{font-family:"Cormorant Garamond",Georgia,serif;font-size:42px;margin:0 0 4px}
-p{color:var(--muted);margin:0 0 28px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
-a.card{display:block;text-decoration:none;color:inherit;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:20px}
-a.card:hover{border-color:var(--accent)}
-a.card h2{font-family:"Cormorant Garamond",Georgia,serif;font-size:28px;margin:0 0 6px;color:var(--accent)}
-a.card span{color:var(--muted);font-size:14px}
+:root{
+  --bg:#f4f1ea;--surface:#fffdf8;--surface2:#efe9dd;--ink:#22201b;--muted:#6d665a;--line:#d9d1c1;
+  --accent:#7a4a1e;--accent-ink:#fff;--val:#22201b;--valbg:#f7f2e7;--err:#b33a32;
+  --xja:#2f62b3;--ja:#3f8a4a;--nein:#c7772a;--xnein:#b33a32;
+  --shadow:0 1px 2px rgba(40,30,10,.06),0 4px 14px rgba(40,30,10,.06);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#17150f;--surface:#211e17;--surface2:#2b271e;--ink:#ece6d8;--muted:#a59d8c;--line:#3a3529;
+  --accent:#d9a46a;--accent-ink:#1b150c;--val:#f3ecdd;--valbg:#2a261d;--err:#e5736a;
+  --xja:#6d9be6;--ja:#6fbf78;--nein:#e3a05a;--xnein:#e5736a;--shadow:none}}
+:root[data-theme="dark"]{
+  --bg:#17150f;--surface:#211e17;--surface2:#2b271e;--ink:#ece6d8;--muted:#a59d8c;--line:#3a3529;
+  --accent:#d9a46a;--accent-ink:#1b150c;--val:#f3ecdd;--valbg:#2a261d;--err:#e5736a;
+  --xja:#6d9be6;--ja:#6fbf78;--nein:#e3a05a;--xnein:#e5736a;--shadow:none}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14.5px/1.45 Inter,system-ui,sans-serif}
+h1,h2,h3{font-family:"Cormorant Garamond",Georgia,serif;font-weight:700;margin:0;letter-spacing:.01em}
+button,input,select,textarea{font:inherit;color:inherit}
+.wrap{max-width:1500px;margin:0 auto;padding:16px}
+header{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin-bottom:14px}
+header .brand{margin-right:auto;min-width:0}
+header h1{font-size:30px;line-height:1.05}
+header .kick{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.status{font-size:12px;color:var(--muted)}
+.langs{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.langs button{border:none;background:var(--surface);padding:5px 10px;cursor:pointer;font-size:13px;font-weight:600;color:var(--muted)}
+.langs button.on{background:var(--accent);color:var(--accent-ink)}
+.layout{display:grid;grid-template-columns:210px minmax(0,1fr);gap:16px;align-items:start}
+@media (max-width:820px){.layout{grid-template-columns:minmax(0,1fr)}nav.side{display:none}#navSel{display:block!important}}
+nav.side{position:sticky;top:12px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px;max-height:calc(100vh - 24px);overflow:auto}
+nav.side .g{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin:10px 6px 4px}
+nav.side .g:first-child{margin-top:2px}
+nav.side button{display:block;width:100%;text-align:left;border:none;background:none;padding:5px 8px;border-radius:7px;cursor:pointer}
+nav.side button:hover{background:var(--surface2)}
+nav.side button.on{background:var(--accent);color:var(--accent-ink);font-weight:600}
+nav.side button.fate{font-family:"Cormorant Garamond",serif;font-size:19px;font-weight:700;padding:4px 8px}
+#navSel{display:none;width:100%;margin-bottom:10px}
+main{min-width:0}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;box-shadow:var(--shadow);min-width:0}
+.card h2{font-size:23px;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.sub{color:var(--muted);font-size:13px}
+.btn{border:1px solid var(--line);background:var(--surface2);border-radius:8px;padding:7px 11px;cursor:pointer;line-height:1.2}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:600}
+.btn.sm{padding:3px 8px;font-size:13px}
+.btn.on{outline:2px solid var(--accent);outline-offset:-1px;font-weight:600}
+.icon{border:none;background:none;cursor:pointer;color:var(--muted);padding:2px 5px;border-radius:6px;font-size:15px}
+.icon:hover{color:var(--accent);background:var(--surface2)}
+input[type=text],input[type=number],select,textarea{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:7px 9px;width:100%}
+textarea{resize:vertical}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.empty{color:var(--muted);font-style:italic;padding:8px 0}
+.hint{font-size:12px;color:var(--muted);margin-top:4px}
+.toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:8px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none;max-width:90vw;z-index:9}
+.toast.show{opacity:1}
+.loading{padding:30px;color:var(--muted)}
+
+/* ---- Fate */
+.fgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+@media (max-width:1250px){.fgrid{grid-template-columns:1fr 1fr}}
+@media (max-width:700px){.fgrid{grid-template-columns:1fr}}
+.lik{display:grid;grid-template-columns:repeat(auto-fit,minmax(92px,1fr));gap:5px;margin:8px 0}
+.lik .btn{padding:6px 4px;font-size:13px}
+.bar{display:flex;height:14px;border-radius:7px;overflow:hidden;position:relative;margin:10px 0 2px}
+.bar span{display:block;height:100%}
+.bar .mk{position:absolute;top:-4px;width:3px;height:22px;background:var(--ink);border-radius:2px;transform:translateX(-50%)}
+.barlab{display:flex;justify-content:space-between;font-size:11px;color:var(--muted)}
+.res{margin-top:10px;border-radius:10px;padding:10px 12px;background:var(--surface2);border-left:6px solid var(--line)}
+.res .big{font-family:"Cormorant Garamond",serif;font-size:30px;font-weight:700;line-height:1.1}
+.res.xja{border-color:var(--xja)}.res.xja .big{color:var(--xja)}
+.res.ja{border-color:var(--ja)}.res.ja .big{color:var(--ja)}
+.res.nein{border-color:var(--nein)}.res.nein .big{color:var(--nein)}
+.res.xnein{border-color:var(--xnein)}.res.xnein .big{color:var(--xnein)}
+.kv{display:grid;grid-template-columns:auto 1fr auto;gap:3px 10px;align-items:baseline;margin-top:6px}
+.kv .k{color:var(--muted);font-size:13px}
+.kv .v{font-weight:600}
+.mask{font-family:"Cormorant Garamond",serif;font-size:19px;line-height:1.3;margin-top:8px}
+.tarot{display:flex;gap:10px;align-items:flex-start;margin-top:10px;padding-top:10px;border-top:1px dashed var(--line)}
+.tarot:first-child{border-top:none;margin-top:0;padding-top:0}
+.tc{flex:0 0 58px;height:92px;border-radius:7px;border:1.5px solid var(--accent);display:flex;align-items:center;justify-content:center;text-align:center;font-family:"Cormorant Garamond",serif;font-weight:700;font-size:14px;padding:4px;background:var(--surface2);color:var(--accent)}
+.tc.rev span{transform:rotate(180deg)}
+.foc{display:inline-block;padding:1px 7px;border-radius:999px;border:1px solid var(--line);font-size:13px;margin:2px 3px 0 0;color:var(--muted)}
+.foc.pick{border-color:var(--accent);color:var(--ink);font-weight:600}
+.tabs{display:flex;gap:6px;margin-bottom:8px}
+details.camp{margin-top:14px}
+details.camp summary{cursor:pointer;font-family:"Cormorant Garamond",serif;font-size:21px;font-weight:700}
+.campgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:10px}
+@media (max-width:800px){.campgrid{grid-template-columns:1fr}}
+.real{display:grid;grid-template-columns:1fr auto;gap:6px;margin-top:6px}
+
+/* ---- Generators */
+.gh{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:6px}
+.gh h2{font-size:26px;margin:0 auto 0 0}
+.badge{font-size:11px;font-weight:600;letter-spacing:.06em;border:1px solid var(--line);border-radius:6px;padding:1px 6px;color:var(--muted);font-family:Inter,sans-serif}
+.note{font-size:13px;color:var(--muted);margin-bottom:10px;max-width:900px}
+.panels{display:flex;flex-direction:column;gap:14px}
+.panel{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.sheet{display:grid;gap:3px 6px;align-items:start;min-width:560px}
+.c{min-width:0;padding:3px 4px;border-radius:5px;overflow-wrap:anywhere;font-size:13px}
+.c.lab{color:var(--muted)}
+.c.lab.b{color:var(--ink);font-weight:600}
+.c.val{background:var(--valbg);color:var(--val);font-weight:500;position:relative}
+.c.val.b{font-weight:700}
+.c.val.rnd{cursor:pointer;padding-right:18px}
+.c.val.rnd::after{content:"⟳";position:absolute;right:4px;top:3px;font-size:11px;color:var(--muted);opacity:.45}
+.c.val.rnd:hover{outline:1px solid var(--accent)}
+.c.val.rnd:hover::after{opacity:1;color:var(--accent)}
+.c.val.flash{animation:fl .6s}
+@keyframes fl{from{background:var(--accent);color:var(--accent-ink)}}
+.c.err{color:var(--err);font-weight:400;font-size:12px}
+.c.inp{padding:0}
+.c.inp select,.c.inp input{padding:3px 6px;font-size:13px;border-color:var(--accent)}
+.deck{display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start;margin-bottom:14px;padding-bottom:14px;border-bottom:1px dashed var(--line)}
+.pc{width:96px;height:150px;border-radius:9px;border:2px solid var(--accent);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;background:var(--surface2);font-family:"Cormorant Garamond",serif;font-weight:700;text-align:center;padding:6px}
+.pc .n{font-size:30px;color:var(--accent);line-height:1}
+.pc .s{font-size:15px}
+.pc.back{background:repeating-linear-gradient(45deg,var(--surface2),var(--surface2) 6px,var(--valbg) 6px,var(--valbg) 12px);color:var(--muted);font-size:14px}
+.kv2{display:grid;grid-template-columns:auto 1fr;gap:3px 12px;font-size:14px}
+.kv2 .k{color:var(--muted)}
+.kv2 .v{font-weight:600}
+
+/* ---- Log */
+.log{margin-top:16px}
+.loghead{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px}
+.loghead h2{margin:0 auto 0 0;font-size:23px}
+.entry{display:grid;grid-template-columns:52px 1fr auto;gap:8px;padding:8px 0;border-top:1px solid var(--line)}
+.entry .tm{font-size:12px;color:var(--muted);padding-top:2px}
+.entry .tt{font-weight:600}
+.entry .ln{font-size:13.5px;white-space:pre-wrap}
+.entry details summary{cursor:pointer;font-size:12px;color:var(--muted)}
+.entry input{margin-top:4px;padding:4px 8px;font-size:13px}
+.tag{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-right:6px}
 </style>
-<div class="wrap"><h1>The Mask of Truth</h1><p>Werkzeuge für das Enigma</p>
-<div class="grid">
-<a class="card" href="schicksal.html"><h2>Schicksal</h2><span>Ja/Nein-Orakel, Tarot, Zufallsereignisse, Sitzungsprotokoll</span></a>
-<a class="card" href="generatoren.html"><h2>Generatoren</h2><span>Wildnis, Gegner, Sammeln, Siedlungen, Ruinen, NPCs, Loot und mehr</span></a>
-</div></div></body></html>
+</head><body>
+
+<div class="wrap">
+<header>
+  <div class="brand"><div class="kick">The Mask of Truth</div><h1 data-t="appTitle">Enigma-Werkzeuge</h1></div>
+  <input type="text" id="sessTitle" data-tp="sessPh" style="width:250px;max-width:100%">
+  <div class="langs" role="group" aria-label="Sprache / Language"><button data-lang="de">DE</button><button data-lang="en">EN</button></div>
+  <span class="status" id="status"></span>
+</header>
+
+<div class="layout">
+  <nav class="side" id="nav"></nav>
+  <main>
+    <select id="navSel"></select>
+
+    <!-- ================= FATE ================= -->
+    <section id="fateView" hidden>
+      <div class="fgrid">
+        <section class="card">
+          <h2 data-t="fAsk">Schicksal befragen</h2>
+          <input type="text" id="fq" data-tp="fqPh">
+          <div class="lik" id="lik"></div>
+          <div class="row">
+            <button class="btn primary" id="fRoll" data-t="fRoll">W100 würfeln</button>
+            <span class="sub" data-t="fOrReal">oder echter Wurf:</span>
+            <input type="number" id="fManual" min="1" max="100" placeholder="1–100" style="width:80px">
+            <button class="btn" id="fManualGo" data-t="apply">Übernehmen</button>
+          </div>
+          <div id="fBar"></div>
+          <div id="fOut"></div>
+        </section>
+        <section class="card">
+          <h2>Tarot</h2>
+          <div class="tabs">
+            <button class="btn sm on" data-tm="gen" data-t="tGenTab">Generieren</button>
+            <button class="btn sm" data-tm="real" data-t="tRealTab">Echte Karte</button>
+          </div>
+          <div id="tGen" class="row">
+            <button class="btn primary" id="tDraw" data-t="tDraw">Karte ziehen</button>
+            <button class="btn" id="tMore" data-t="tMore" data-tt="tMoreT">+ weitere Karte</button>
+          </div>
+          <div id="tReal" hidden>
+            <div class="real">
+              <select id="tCard"></select>
+              <select id="tOri"><option value="richtig herum" data-t="upright">aufrecht</option><option value="umgedreht" data-t="reversed">umgedreht</option></select>
+            </div>
+            <div class="row" style="margin-top:6px">
+              <button class="btn primary" id="tLook" data-t="tLook">Nachschlagen</button>
+              <button class="btn" id="tLookMore" data-t="tLookMore">+ zur Legung</button>
+            </div>
+            <div class="hint" data-t="tRealHint">Für Karten, die ihr am Tisch zieht: Karte und Lage eintragen.</div>
+          </div>
+          <div id="tOut" style="margin-top:10px"></div>
+        </section>
+        <section class="card">
+          <h2 data-t="eTitle">Zufallsereignis</h2>
+          <div class="row">
+            <button class="btn primary" id="eRoll" data-t="eRoll">Ereignis würfeln</button>
+            <button class="btn" id="rRoll" data-t="rRoll">Gerücht ziehen</button>
+          </div>
+          <div class="row" style="margin-top:8px">
+            <label class="sub"><input type="checkbox" id="eFac" checked> <span data-t="faction">Fraktion</span></label>
+            <label class="sub"><input type="checkbox" id="ePred"> <span data-t="ePred">Exotischer Räuber</span></label>
+          </div>
+          <div id="eOut"></div>
+        </section>
+      </div>
+      <details class="camp" id="camp">
+        <summary data-t="campSum">Kampagne: Stränge, NPCs, Gerüchte</summary>
+        <div class="sub" data-t="campHint">Eine Zeile pro Eintrag. Ereignisse ziehen daraus. Wird automatisch gespeichert.</div>
+        <div class="campgrid">
+          <div><h3 data-t="threads">Stränge</h3><textarea id="cThreads" rows="9"></textarea></div>
+          <div><h3>NPCs</h3><textarea id="cNpcs" rows="9"></textarea></div>
+          <div><h3 data-t="rumors">Gerüchte</h3><textarea id="cRumors" rows="9"></textarea></div>
+        </div>
+      </details>
+    </section>
+
+    <!-- ================= GENERATOR ================= -->
+    <section class="card" id="genCard" hidden></section>
+
+    <!-- ================= LOG ================= -->
+    <section class="card log">
+      <div class="loghead">
+        <h2 data-t="log">Protokoll</h2>
+        <input type="text" id="noteIn" data-tp="notePh" style="flex:1 1 200px;max-width:340px">
+        <button class="btn" id="noteAdd" data-t="note">Notiz</button>
+        <button class="btn" data-exp="docx">Word</button>
+        <button class="btn" data-exp="pdf">PDF</button>
+        <button class="btn" data-exp="md" data-t="text">Text</button>
+        <button class="btn" id="copyAll" data-t="copy">Kopieren</button>
+        <button class="btn" id="newSess" data-t="newSess" data-tt="newSessT">Neue Sitzung</button>
+        <button class="btn" id="bkSave" data-t="bkSave" data-tt="bkSaveT">Sichern</button>
+        <button class="btn" id="bkLoad" data-t="bkLoad" data-tt="bkLoadT">Laden</button>
+      </div>
+      <div id="logList"></div>
+    </section>
+  </main>
+</div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const GENS=[{"id": "natur", "title": "Wildnis-Ort", "title_en": "Wilderness place", "group": "Welt", "group_en": "World", "note": "Alte Fassung: 38 Territorien und alte Biomnamen/Klimawerte (Buch 2: 47 Territorien). Territorium und Wetter oben wählen.", "special": null, "lang": "de", "file": "gens/natur.json"}, {"id": "enemies", "title": "Gegner", "title_en": "Enemies", "group": "Kampf", "group_en": "Combat", "note": "Drei Gegner nebeneinander. Klasse und Fraktion/Art je Gegner frei wählen (oder „zufällig“). Raubtiere gehen nur bis Threat.", "special": null, "lang": "en", "file": "gens/enemies.json"}, {"id": "sammeln", "title": "Sammeln (Karten)", "title_en": "Gathering (cards)", "group": "Natur", "group_en": "Nature", "note": "Digitales Sammel-Deck: Karte ziehen oder echte Kartenzahl eintragen. Fund-Wahrscheinlichkeiten aus deinem Sammeln-Blatt.", "special": "sammeln", "lang": "de", "file": "gens/sammeln.json"}, {"id": "budget", "title": "Encounter-Budget", "title_en": "Encounter budget", "group": "Kampf", "group_en": "Combat", "note": "Altes Ausprägungssystem (Brut/Alpha/Mutter) – passt noch nicht zu den Klassen Fledgling…Tyrant.", "special": null, "lang": "de", "file": "gens/budget.json"}, {"id": "urban", "title": "Siedlung", "title_en": "Settlement", "group": "Welt", "group_en": "World", "note": "47 Territorien. Preise noch in Gold (Buch 1: Wealth-Level/Plunder).", "special": null, "lang": "de", "file": "gens/urban.json"}, {"id": "ritual", "title": "Ritual-Ort", "title_en": "Ritual site", "group": "Welt", "group_en": "World", "note": null, "special": null, "lang": "de", "file": "gens/ritual.json"}, {"id": "riss", "title": "Zweitweltriss", "title_en": "Otherworld rift", "group": "Welt", "group_en": "World", "note": null, "special": null, "lang": "de", "file": "gens/riss.json"}, {"id": "ruine", "title": "Ruine", "title_en": "Ruin", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "note": "Alte 38er-Territorienliste.", "special": null, "lang": "de", "file": "gens/ruine.json"}, {"id": "hoehle", "title": "Höhlensystem", "title_en": "Cave system", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "note": null, "special": null, "lang": "de", "file": "gens/hoehle.json"}, {"id": "villa", "title": "Gebäude (Villa)", "title_en": "Building (villa)", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "note": null, "special": null, "lang": "de", "file": "gens/villa.json"}, {"id": "tempel", "title": "Tempel", "title_en": "Temple", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "note": null, "special": null, "lang": "de", "file": "gens/tempel.json"}, {"id": "npc", "title": "NPC", "title_en": "NPC", "group": "Personen", "group_en": "People", "note": "Laune als Wort (Buch 1: Mood 0–100); Fraktionsblöcke alt.", "special": null, "lang": "de", "file": "gens/npc.json"}, {"id": "zirkel", "title": "Zirkel", "title_en": "Circle", "group": "Personen", "group_en": "People", "note": null, "special": null, "lang": "de", "file": "gens/zirkel.json"}, {"id": "charakter", "title": "Zufälliger Charakter", "title_en": "Random character", "group": "Personen", "group_en": "People", "note": null, "special": null, "lang": "de", "file": "gens/charakter.json"}, {"id": "mystery", "title": "Mystery / Verbrechen", "title_en": "Mystery / crime", "group": "Abenteuer", "group_en": "Adventure", "note": null, "special": null, "lang": "de", "file": "gens/mystery.json"}, {"id": "aufgabe", "title": "Auftrag", "title_en": "Task", "group": "Abenteuer", "group_en": "Adventure", "note": null, "special": null, "lang": "de", "file": "gens/aufgabe.json"}, {"id": "hetzjagd", "title": "Verfolgungsjagd", "title_en": "Chase", "group": "Abenteuer", "group_en": "Adventure", "note": "Mechanik veraltet (Buch 1: Chase mit Objective 50). Hindernisse taugen als Beschreibung für Abkürzungen.", "special": null, "lang": "de", "file": "gens/hetzjagd.json"}, {"id": "spuren", "title": "Spuren & Hinweise", "title_en": "Tracks & clues", "group": "Abenteuer", "group_en": "Adventure", "note": null, "special": null, "lang": "de", "file": "gens/spuren.json"}, {"id": "pakt", "title": "Pakt-Aufgabe", "title_en": "Pact task", "group": "Magie", "group_en": "Magic", "note": null, "special": null, "lang": "de", "file": "gens/pakt.json"}, {"id": "fallen", "title": "Runenfalle", "title_en": "Rune-trap", "group": "Magie", "group_en": "Magic", "note": "Runenherzen noch lateinisch (Terram/Aquam/Ignem).", "special": null, "lang": "de", "file": "gens/fallen.json"}, {"id": "wahnsinn", "title": "Trauma & Narben", "title_en": "Trauma & scars", "group": "Magie", "group_en": "Magic", "note": "Psychose ab Seelenintegrität 1 (Buch 1: 0); eigene Narbenliste.", "special": null, "lang": "de", "file": "gens/wahnsinn.json"}, {"id": "loot", "title": "Loot & Dinge", "title_en": "Loot & things", "group": "Dinge", "group_en": "Things", "note": "Preise noch in Gold; deutsche Skillnamen.", "special": null, "lang": "de", "file": "gens/loot.json"}, {"id": "objects", "title": "Objects (neu)", "title_en": "Objects", "group": "Dinge", "group_en": "Things", "note": "Englische, neuere Fassung (Buch-1-Begriffe).", "special": null, "lang": "en", "file": "gens/objects.json"}, {"id": "trank", "title": "Trank & Öl", "title_en": "Potions & oils", "group": "Dinge", "group_en": "Things", "note": null, "special": null, "lang": "de", "file": "gens/trank.json"}, {"id": "gift", "title": "Gift & Krankheit", "title_en": "Poisons & diseases", "group": "Dinge", "group_en": "Things", "note": "Stufenwerte weichen von Buch 1 ab (Gift 2 Schaden am Ende der Battle-Phase).", "special": null, "lang": "de", "file": "gens/gift.json"}, {"id": "box", "title": "Geheimnisvolle Box", "title_en": "Mysterious box", "group": "Dinge", "group_en": "Things", "note": null, "special": null, "lang": "de", "file": "gens/box.json"}, {"id": "tiere", "title": "Pflanze & Kleintier", "title_en": "Plants & small animals", "group": "Natur", "group_en": "Nature", "note": null, "special": null, "lang": "de", "file": "gens/tiere.json"}, {"id": "laden", "title": "Laden", "title_en": "Shop", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold (Buch 1: Wealth-Level).", "special": null, "lang": "de", "file": "gens/laden.json"}, {"id": "tempeldienst", "title": "Tempeldienste", "title_en": "Temple services", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold.", "special": null, "lang": "de", "file": "gens/tempeldienst.json"}, {"id": "taverne", "title": "Taverne", "title_en": "Tavern", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold, Speisenboni mit alten Begriffen.", "special": null, "lang": "de", "file": "gens/taverne.json"}];
+const DATA={"cards":[["Narr","richtig herum","Neustart, Überraschung, Potential, Freiheit, Unschuld",["Überraschung","Potential","Freiheit"]],["Narr","umgedreht","Dummheit, Überstürzt, Chaos, Naive, Grenzen, Hürden",["Dummheit","Chaos","Hürde"]],["Magier","richtig herum","Kraft, Kommunikation, Magie, Selbstbestimmung, Aktion",["Kommunikation","Magie","Selbstbestimmung"]],["Magier","umgedreht","Lüge, Kommunikationsblock, Stagnation, Schummeln, Falschheit",["Lüge","Kommunikationsblock","Stagnation"]],["Hohepriesterin","richtig herum","Mysterium, Intuition, Erleuchtung, Weisheit, Vorahnung",["Mysterium","Erleuchtung","Vorahnung"]],["Hohepriesterin","umgedreht","Geheimnisse, Unsicherheit, Verborgenheit, Unfähigkeit zu hören, Überraschung",["Geheimnis","Unsicherheit","Verborgenheit"]],["Königin","richtig herum","Pflege, Überschuss, Fruchtbarkeit, Mutterschaft, Schönheit, Liebe",["Überschuss","Mutterschaft","Schönheit"]],["Königin","umgedreht","Faulheit, Koordinationschwäche, Verschwendung, Beziehungskrise, Depression, Verbannung",["Koordinationsschwäche","Verschwendung","Beziehung senken"]],["König","richtig herum","Autorität, Ordnung, Struktur, Hierarchie, Aufstieg, Rationalität",["Autorität","Aufstieg","Rationalität"]],["König","umgedreht","Autokratisch, Unterdrücken, Zwang, Grausamkeit, keine Unterstützung, Machtmissbrauch, Irrationalität",["Zwang","Grausamkeit","Machtmissbrauch"]],["Hierophant","richtig herum","Tradition, Gruppenidentifikation, Lehre, Gesetze, Bruderschaft, Religion",["Gruppenidentifikation","Lehre","Religion"]],["Hierophant","umgedreht","Extremismus, Kulte, Verfall Gesellschaft, Abwendung Religion, Abbruch Gespräche, rückständig",["Extremismus","Abwendung Religion","Abbruch Gespräch"]],["Liebhaber","richtig herum","Zusammenkommen, Wahl, Zuneigung, Verpflichtung, Vertrauen, Bündnis",["Zusammenkommen","Vertrauen","Verpflichtung"]],["Liebhaber","umgedreht","Auseinanderbrechen, Angst vor Bindung, Fremd gehen, Bündnis brechen, Misstrauen",["Auseinanderbrechen","Angst vor Bindung","Misstrauen"]],["Wagen","richtig herum","Antrieb, Willenskraft, Richtung, Sieg, Probleme enden, zu Hilfe kommen",["Willenskraft","Richtung","zu Hilfe kommen"]],["Wagen","umgedreht","verirren, richtungslos, antriebslos, Zweifel, abbruch Reise, Verzögerung, braucht Hilfe",["verirren","Zweifel","braucht Hilfe"]],["Stärke","richtig herum","Stärke, Sicherheit, Selbstkontrolle, Geduld, Gesundheit, Leidenschaft",["Sicherheit","Gesundheit","Stärke"]],["Stärke","umgedreht","Schwäche, Zerbrechlichkeit, Ungeduld, Unbeherrscht, Überheblich, Doppelmoral",["Schwäche","Unbeherrscht","Zerbrechlichkeit"]],["Eremit","richtig herum","Selbstbetrachtung, Besinnung, Ruhe, Diskretion, Meditation",["Besinnung","Diskretion","Ruhe"]],["Eremit","umgedreht","Aberkennen, Rückzug, im stich lassen, Isolation, einsamkeit, Exil",["Rückzug","Im Stich lassen","Isolation"]],["Rad","richtig herum","Glück, Chance, Gelegenheit, Umschlagen, Gewinnen, Zyklus, Schicksal, ja",["Glück","Gelegenheit","Zyklus"]],["Rad","umgedreht","Unglück, Fehlschlag, verlieren, Not, Härte, Enttäuschung, nein",["Unglück","Not","Enttäuschung"]],["Gericht","richtig herum","Gerechtigkeit, Karma, Balance, Wahrheit, Verantwortung, Vereinbarung",["Gerechtigkeit","Wahrheit","Vereinbarung"]],["Gericht","umgedreht","Willkür, Unfair, Unrecht, Verruf, Ungleichheit, Falsche Entscheidung",["Willkür/ Unfair","Ungleichheit","Verruf"]],["Gehängte Mann","richtig herum","loslassen, Opferung, Aufgaben, Perspektivwechsel, Musterbrechen, Verspätung, Stoppen",["Loslassen","Perspektivwechsel","Stoppen"]],["Gehängte Mann","umgedreht","in Schwebe, Engstirnig, ins Leben zurück, falsches Motiv, nicht loslassen, zurückhalten",["in schwebe","ins Leben zurück","festhalten"]],["Tod","richtig herum","Ende, Sterblichkeit, echter Wandel, Bruch einer Bindung, Ende einer Ära, Transformation, Wiedergeburt",["Ende","Bindungsbruch","Transformation"]],["Tod","umgedreht","Ende aufgehalten, nicht loslassen können, lange Krankheit, Wandel ablehnen, falscher Wandel",["Aufhalten Ende","Krankheit","Wandel ablehnen"]],["Mäßigkeit","richtig herum","Harmonie, Balance, Mäßigung, Zusammenwirken, vermischen, verbinden",["Balance","Vermischen","Verbinden"]],["Mäßigkeit","umgedreht","Disharmonie,Krankheit, nichts bekommen, Trennen, Bruch",["Unbalance","trennen","leer ausgehen"]],["Dämon","richtig herum","Knechtschaft, Abhängigkeit, Versuchung, Gewalt, Angst, Überarbeitet",["Knechtschaft","Abhängigkeit","Gewalt"]],["Dämon","umgedreht","frei brechen, widerstehen, kraftlosigkeit, keine Verbindung",["frei brechen","widerstehen","keine Bindung"]],["Turm","richtig herum","Zerstörung, unerwarteter Wandel, ruinieren, schaden, stürzen, verdrängen, Gefahr",["Zerstörung","verdrängen","Gefahr"]],["Turm","umgedreht","Anhaltende Zerstörung, langfristige Krise, schwere Gewalt, chaotische Situation, Nachbeben",["Krise","Brutalität","Nachbeben"]],["Sterne","richtig herum","Hoffnung, Freude, Optimismus, Segen, Hilfe, Frieden",["Hoffnung","Segen","Frieden"]],["Sterne","umgedreht","Hoffnungslosigkeit, Unwohlsein, Enttäuschung, hilfe verweigern, Hindernisse des Glaubens",["Enttäuschung","Hoffnungslos","Glaubenskrise"]],["Mond","richtig herum","Träume, Alpträume, Illusionen, verborgene Feinde, Verwirrung, Geheimnis",["Alptraum","Illusion","verborgene Gefahr"]],["Mond","umgedreht","Offenbarung, Vision, durchschauen von Illusionen, Schlaflosigkeit",["Vision","Offenbarung","Schlaflosigkeit"]],["Sonne","richtig herum","Leben, Energie, Wärme, Erschaffung, Reichtum, Erfolg",["Energie","Erschaffung","Reichtum"]],["Sonne","umgedreht","Halber Erfolg, Kälte, hypersensibel, rosarote Brille",["Halber Erfolg","Kälte","rosarote Brille"]],["Urteil","richtig herum","Erlösung, Erwachen, Ruf zu Taten, Berufung, vollendeter Wandel, Entscheidung",["Erwachen","Berufung","Entscheidung"]],["Urteil","umgedreht","Ignorieren, Wider besseren Wissens, Zweifel, Leiten von Angst, entscheidungslos",["Ignorieren","Entgegen Wissen","Leiten von Angst"]],["Welt","richtig herum","Vollendung, Folgen, Resultate, Möglichkeiten, Ziele, Absolutheit, Reisen",["Vollendung","Resultate","Reisen"]],["Welt","umgedreht","Verplanen, unerledigte Aufgaben, Stagnation, festhalten, feststecken",["feststecken","nicht weiterkommen","keine Resultate"]]],"targets":["Spieler","Spieler-Gruppe","Gegenwart","Anderer Spieler","Gegner","NPC","Zukunft","Positiv","Negativ"],"ev":["entferntes Event","NPC Aktion","Neuer NPC","Strang voranbringen","Strang entfernen","Strang verändern","PC negativ","PC positiv","Ambivalentes Ereignis","NPC negativ","NPC positiv","Nemesis positiv","Nemesis negativ"],"act":["Ziel erreichen","Starten","Vernachlässigen","Kämpfen","Rekrutieren","Siegen","Verletzen","Widersetzen","Arglist","Kommunizieren","Verfolgen","Steigern","Senken","Verlassen","Befriedigen","Erkundigen","Verärgern","Bewegen","verschwenden","Wahrheit","Freilassen","Befreunden","urteilen","Desertieren","Dominieren","Aufschieben","Loben","Trennen","Nehmen","Brechen","Heilen","Verzögern","Stoppen","Lügen","Wiederkommen","Nachahmen","Ringen","informieren","verschenken","verschieben","entblößen","verhandeln","einsperren","feiern","verschleiern","entwickeln","reisen","blocken","verletzen","herabsetzen","überladen","Vertagen","Widrigkeiten","töten","unterbrechen","an sich reißen","erschaffen","verraten","zustimmen","ausnutzen","unterdrücken","inspezieren","überfallen","spionieren","tragen","offen","nachlässig","ruinieren","extravagant","Täuschen","ankommen","vorschlagen","trennen","ablehnen","misstrauen","grausamkeit","Intoleranz","vertrauen","Aufregung","Aktivität","Helfen","pflegen","leidenschaft","ablassen","hart arbeiten","kontrollieren","anziehen","versagen","nachgehen","rächen","aufgeben","streiten","bestrafen","führen","transformieren","unterwerfen","verändern","steigern","umstürzen","nähern"],"sub":["Ziele","Träume","Umwelt","Draußen","Innen","Realität","Verbündete","Feinde","Böse","Gute","Gefühle","Gegenteil","Krieg","Frieden","Unschuldige","Liebe","geistlich","intellektuell","Neue Ideen","Freude","Massage","Energie","Gleichgewicht","Spannung","Freundschaft","physisches","Projekt","Freuden","Schmerz","Besitz","Pläne","Lügen","Erwartungen","Gesetz","Bürokratie","Geschäft","Pfad","Neuigkeiten","äußere Faktoren","Ratschlag","Handlung","Wettbewerb","Gefängnis","Krankheit","Nahrung","Aufmerksamkeit","Erfolg","Versagen","Reise","Neid","Streit","Heimat","Investment","Leid","Wünsche","Taktik","Pattsituation","Willkür","Unglück","Tod","Unterbrechung","Macht","Bürde","Intrige","Ängste","Gerücht","Wunden","extravaganz","Repräsentation","Gegner","Reichtum","Freiheit","Militär","Gewöhnliches","Test","Massen","Fahrzeug","Kunst","Sieg","Unklarheit","Fülle","Status Quo","Technik","Hoffnung","Magie","Illusion","Portale","Gefahr","Waffen","Tiere","Wetter","Elemente","Natur","Öffentlichkeit","Führung","Ruhm","Zorn","Information","Vergangenheit","Götter"],"fac":["[GK] Sultane","[GK] Wesire","[GK] Kalifen","[FU] Monarchisten","[FU] Republikaner","[FU] Unabhängige","[ZRO] Restauratoren","[ZRO] Reformisten","[ZRO] Vergelter","[EIS] Familien","[EIS] Lord","[EIS] Marine","[HAI] Kachol","[HAI] Schemeschya","[HAI] Han","[GER] Aisin-Geren","[GER] Süd-Geren","[GER] Nord-Geren","[PIR] Wildling","[PIR] Waldlinge","[PIR] Berglinge","[WS] Waldelfen","[WS] Hochelfen","[WS] Lichterelfen","[HIV] Südkolonie","[HIV] Nordkolonie","[HIV] Exilanten","[ECH] Troglodyten","[ECH] Sumpfechsen","[ECH] Obsidianechsen","[NAG] Manipulatoren","[NAG] Usurpatoren","[NAG] Intriganten","[KOB] Patrioten","[KOB] Anarchisten","[KOB] Hungernd","[SAT] Zentauren","[SAT] Leotauren","[SAT] Aerotauren","[YET] Wanderer","[YET] Eroberer","[YET] Flüchtlinge","[GNO] Seeräuber","[GNO] Fischer","[GNO] Eisgnome"],"pred":["Drachaten","Teufel","Würmer","Schleichen","Pirscher","Säbelaffen","Salamander","Ofanten","Netzfüssler","Weber","Flattervieh","junges Monster"]};
+
+// ================= language =================
+const I18N={
+de:{appTitle:"Enigma-Werkzeuge",sessPh:"Sitzung (z. B. Sitzung 12 – Rostriff)",fate:"Schicksal",fateGroup:"Schicksal",chooseGen:"Werkzeug wählen…",
+ fAsk:"Schicksal befragen",fqPh:"Frage (optional) – z. B. Ist die Brücke bewacht?",fRoll:"W100 würfeln",fOrReal:"oder echter Wurf:",apply:"Übernehmen",
+ lik:["unmöglich","keine Chance","unwahrscheinlich","50/50","wahrscheinlich","sicherlich","muss sein"],
+ res:{xja:"Extremes Ja",ja:"Ja",nein:"Nein",xnein:"Extremes Nein"},resNote:{xja:"Ja – und mehr als erhofft. Weitere Folge:",xnein:"Nein – und es kommt schlimmer. Weitere Folge:"},
+ barX:"extr. Ja",barJ:"Ja",barN:"Nein",barXN:"extr. Nein",fEmpty:"Wahrscheinlichkeit wählen, dann würfeln.",realRoll:"echter Wurf",real:"echt",d100:"W100",
+ tGenTab:"Generieren",tRealTab:"Echte Karte",tDraw:"Karte ziehen",tMore:"+ weitere Karte",tMoreT:"Weitere Karte zur selben Legung",upright:"aufrecht",reversed:"umgedreht",
+ tLook:"Nachschlagen",tLookMore:"+ zur Legung",tRealHint:"Für Karten, die ihr am Tisch zieht: Karte und Lage eintragen.",tEmpty:"Für Fragen, die mehr als Ja/Nein brauchen.",
+ target:"Ziel",otherFocus:"Anderes Fokuswort",rerollTarget:"Ziel neu würfeln",removeCard:"Karte entfernen",
+ eTitle:"Zufallsereignis",eRoll:"Ereignis würfeln",rRoll:"Gerücht ziehen",faction:"Fraktion",ePred:"Exotischer Räuber",eEmpty:"Noch kein Ereignis.",
+ kEvent:"Ereignis",kWho:"Wer/Was",kAct:"Aktion",kSub:"Subjekt",kPred:"Räuber",kExp:"Ausprägung",rumor:"Gerücht",
+ newNpc:"neuer NPC",npcEmpty:"(NPC-Liste leer)",thrEmpty:"(keine Stränge eingetragen)",pc:"Spielercharakter",
+ campSum:"Kampagne: Stränge, NPCs, Gerüchte",campHint:"Eine Zeile pro Eintrag. Ereignisse ziehen daraus. Wird automatisch gespeichert.",threads:"Stränge",rumors:"Gerüchte",
+ thrPh:"Die verschwundene Karawane\nDer Pakt mit dem Wesir",npcPh:"Salaka\nJakar",rumPh:"Im Rostriff wurde ein Wrack gesichtet…",
+ rumorFirst:"Erst Gerüchte unter „Kampagne“ eintragen",num100:"Bitte eine Zahl von 1 bis 100",
+ regen:"Neu generieren",toLog:"Ins Protokoll",genHint:"Felder mit ⟳ antippen, um sie einzeln neu zu würfeln. Felder mit Rahmen sind Eingaben.",
+ loading:"Lade",loadErr:"Konnte den Generator nicht laden.",random:"🎲 zufällig",tblErr:"Tabellenfehler – kommt so auch im Google-Sheet vor",
+ contentLang:"Inhalt",workNote:"Arbeitsstand",
+ deckBack:"Deck",deckHint:"Ziehe eine Karte aus dem Sammel-Deck (56 Karten der kleinen Arkana). Das Deck merkt sich, was gezogen wurde, bis du es neu mischst. Echte Karte gezogen? Kartenzahl unten eintragen.",
+ kCheck:"Check",kFind:"Fund",kDeck:"Deck",noCheck:"kein Check nötig",check:"-Check",left:"Karten übrig",aceRes:"Ass: Der Check einer anderen Karte gelingt automatisch.",
+ deckRule:"Pro Aktion ein Finden-Check: bei Erfolg +1 Versorgung. Loot und Herausforderung unten richten sich nach der Kartenzahl.",
+ drawCard:"Karte ziehen",shuffle:"Neu mischen",deckEmpty:"Deck leer – neu mischen",shuffled:"Deck neu gemischt",rerollFind:"Fund neu würfeln",cardOf:"Karte",
+ log:"Protokoll",notePh:"Eigene Notiz eintragen…",note:"Notiz",text:"Text",copy:"Kopieren",newSess:"Neue Sitzung",newSessT:"Protokoll leeren – Kampagnenlisten und Generatoren bleiben",
+ bkSave:"Sichern",bkSaveT:"Alles (Protokoll, Listen, Generatoren) als Datei sichern – z. B. für ein anderes Gerät",bkLoad:"Laden",bkLoadT:"Gesicherte Datei laden (auch alte Schicksal- oder Generatoren-Sicherungen)",
+ logEmpty:"Alles, was du würfelst oder mit „Ins Protokoll“ festhältst, landet hier – mit Uhrzeit und Notizfeld.",notePhE:"Deutung / was daraus wurde…",del:"Eintrag löschen",lines:"Zeilen anzeigen",
+ tagFate:"Schicksal",tagTarot:"Tarot",tagEvent:"Ereignis",tagRumor:"Gerücht",tagNote:"Notiz",furtherFx:"Weitere Folge",
+ sessDefault:"Sitzungsprotokoll",fileBase:"Enigma-Protokoll",copied:"Protokoll kopiert",copyErr:"Kopieren nicht möglich",saved:"Gespeichert",logEmptyT:"Protokoll ist leer",
+ libErr:"Export-Bibliothek konnte nicht geladen werden",expErr:"Export nicht möglich",confirmNew:"Protokoll wird geleert – zum Bestätigen nochmal klicken (vorher exportieren!)",
+ newDone:"Neue Sitzung – Kampagnenlisten und Generatoren bleiben erhalten",bkDone:"Sicherung gespeichert",bkErr:"Sichern nicht möglich",bkLoaded:"Sicherung geladen",bkWrong:"Das ist keine Sicherung der Enigma-Werkzeuge",
+ toLogDone:"Ins Protokoll übernommen",stLocal:"nur in diesem Browser gespeichert",stCloud:"gespeichert (geräteübergreifend)",stSaved:"gespeichert",stFull:"Speicher voll – alte Einträge löschen",stLoad:"lädt…",reroll:"Neu würfeln",locale:"de-DE"},
+en:{appTitle:"Enigma Tools",sessPh:"Session (e.g. Session 12 – Rustreef)",fate:"Fate",fateGroup:"Fate",chooseGen:"Choose a tool…",
+ fAsk:"Ask fate",fqPh:"Question (optional) – e.g. Is the bridge guarded?",fRoll:"Roll D100",fOrReal:"or real roll:",apply:"Apply",
+ lik:["impossible","no chance","unlikely","50/50","likely","very likely","certain"],
+ res:{xja:"Extreme yes",ja:"Yes",nein:"No",xnein:"Extreme no"},resNote:{xja:"Yes – and more than hoped. Further effect:",xnein:"No – and it gets worse. Further effect:"},
+ barX:"extr. yes",barJ:"yes",barN:"no",barXN:"extr. no",fEmpty:"Choose a likelihood, then roll.",realRoll:"real roll",real:"real",d100:"D100",
+ tGenTab:"Generate",tRealTab:"Real card",tDraw:"Draw card",tMore:"+ another card",tMoreT:"Another card for the same spread",upright:"upright",reversed:"reversed",
+ tLook:"Look up",tLookMore:"+ to spread",tRealHint:"For cards drawn at the table: enter card and orientation.",tEmpty:"For questions that need more than yes or no.",
+ target:"Target",otherFocus:"Other focus word",rerollTarget:"Reroll target",removeCard:"Remove card",
+ eTitle:"Random event",eRoll:"Roll event",rRoll:"Draw rumor",faction:"Faction",ePred:"Exotic predator",eEmpty:"No event yet.",
+ kEvent:"Event",kWho:"Who/what",kAct:"Action",kSub:"Subject",kPred:"Predator",kExp:"Grade",rumor:"Rumor",
+ newNpc:"new NPC",npcEmpty:"(NPC list empty)",thrEmpty:"(no threads entered)",pc:"player character",
+ campSum:"Campaign: threads, NPCs, rumors",campHint:"One entry per line. Events draw from these lists. Saved automatically.",threads:"Threads",rumors:"Rumors",
+ thrPh:"The vanished caravan\nThe pact with the vizier",npcPh:"Salaka\nJakar",rumPh:"A wreck was sighted in the Rustreef…",
+ rumorFirst:"First enter rumors under “Campaign”",num100:"Please enter a number from 1 to 100",
+ regen:"Regenerate",toLog:"Add to log",genHint:"Tap fields with ⟳ to reroll them one by one. Framed fields are inputs.",
+ loading:"Loading",loadErr:"Could not load the generator.",random:"🎲 random",tblErr:"Table error – the Google Sheet shows the same",
+ contentLang:"Content",workNote:"Work in progress",
+ deckBack:"Deck",deckHint:"Draw a card from the gathering deck (56 cards of the minor arcana). The deck remembers what was drawn until you shuffle. Drew a real card? Enter its number below.",
+ kCheck:"Check",kFind:"Find",kDeck:"Deck",noCheck:"no check needed",check:" check",left:"cards left",aceRes:"Ace: the check of another card succeeds automatically.",
+ deckRule:"One find check per action: on success +1 supply. Loot and challenge below depend on the card number.",
+ drawCard:"Draw card",shuffle:"Shuffle",deckEmpty:"Deck empty – shuffle",shuffled:"Deck shuffled",rerollFind:"Reroll find",cardOf:"Card",
+ log:"Log",notePh:"Add your own note…",note:"Note",text:"Text",copy:"Copy",newSess:"New session",newSessT:"Clear the log – campaign lists and generators stay",
+ bkSave:"Back up",bkSaveT:"Save everything (log, lists, generators) as a file – e.g. for another device",bkLoad:"Restore",bkLoadT:"Load a backup file (old Fate or Generator backups work too)",
+ logEmpty:"Everything you roll or keep with “Add to log” ends up here – with time and a note field.",notePhE:"Interpretation / what came of it…",del:"Delete entry",lines:"lines",
+ tagFate:"Fate",tagTarot:"Tarot",tagEvent:"Event",tagRumor:"Rumor",tagNote:"Note",furtherFx:"Further effect",
+ sessDefault:"Session log",fileBase:"Enigma log",copied:"Log copied",copyErr:"Copying not possible",saved:"Saved",logEmptyT:"The log is empty",
+ libErr:"Export library could not be loaded",expErr:"Export not possible",confirmNew:"The log will be cleared – click again to confirm (export first!)",
+ newDone:"New session – campaign lists and generators are kept",bkDone:"Backup saved",bkErr:"Backup not possible",bkLoaded:"Backup restored",bkWrong:"This is not an Enigma Tools backup",
+ toLogDone:"Added to log",stLocal:"saved in this browser only",stCloud:"saved (across devices)",stSaved:"saved",stFull:"Storage full – delete old entries",stLoad:"loading…",reroll:"Reroll",locale:"en-GB"}};
+let LANG="de";
+const t=k=>{const v=I18N[LANG][k];return v===undefined?I18N.de[k]:v};
+const gTitle=g=>LANG==="en"&&g.title_en?g.title_en:g.title;
+const gGroup=g=>LANG==="en"&&g.group_en?g.group_en:g.group;
+function applyLang(){
+  document.documentElement.lang=LANG;document.title=t("appTitle");
+  document.querySelectorAll("[data-t]").forEach(e=>e.textContent=t(e.dataset.t));
+  document.querySelectorAll("[data-tp]").forEach(e=>e.placeholder=t(e.dataset.tp));
+  document.querySelectorAll("[data-tt]").forEach(e=>e.title=t(e.dataset.tt));
+  document.querySelectorAll("[data-lang]").forEach(b=>b.classList.toggle("on",b.dataset.lang===LANG));
+  $("#cThreads").placeholder=t("thrPh");$("#cNpcs").placeholder=t("npcPh");$("#cRumors").placeholder=t("rumPh");
+  status(STAT);
+}
+
+// ================= helpers =================
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const rand=()=>{const a=new Uint32Array(1);crypto.getRandomValues(a);return a[0]/4294967296};
+const rnd=n=>Math.floor(rand()*n);
+const pick=a=>a[rnd(a.length)];
+const wpick=w=>{let s=w.reduce((x,y)=>x+y[1],0),r=rnd(s);for(const[x,n]of w){if(r<n)return x;r-=n}};
+const uid=()=>Date.now().toString(36)+rnd(1e6).toString(36);
+const lines=s=>(s||"").split("\n").map(x=>x.trim()).filter(Boolean);
+const hm=x=>new Date(x).toLocaleTimeString(t("locale"),{hour:"2-digit",minute:"2-digit"});
+function toast(m){const e=$("#toast");e.textContent=m;e.classList.add("show");clearTimeout(toast.h);toast.h=setTimeout(()=>e.classList.remove("show"),2400)}
+let STAT="stLoad";function status(k){STAT=k;$("#status").textContent=t(k)}
+
+// ================= state =================
+// S.cur: "_fate" or generator id; S.log: shared log; F: fate state; R: generator results
+let S={title:"",cur:"_fate",log:[]};
+let F={lik:3,threads:"",npcs:"",rumors:"",cur:{fate:null,tarot:null,event:null}};
+const R={},GD={};
+const find=id=>S.log.find(e=>e.id===id);
+function normEntry(x){ // old generator entries: {gen,title,lines}; old notes: gen "notiz"
+  if(!x.t){if(x.gen==="notiz")return{id:x.id,t:"note",time:x.time,d:{text:x.title},note:x.note||""};return Object.assign({t:"gen"},x)}
+  return x;
+}
+
+// ================= FATE =================
+const LIK=[[5,10,70],[5,20,80],[5,35,85],[10,50,90],[15,65,95],[20,80,95],[30,90,95]];
+const EXPR=[["Brut",5],["Normal",11],["Alpha",3],["Mutter",1]];
+const CARDS=[...new Set(DATA.cards.map(c=>c[0]))];
+function fateResult(roll,lik){const[a,b,c]=LIK[lik];return roll<=a?"xja":roll<=b?"ja":roll<=c?"nein":"xnein"}
+function card(c,o){const r=DATA.cards.filter(x=>x[0]===c&&x[1]===o)[0];return{c,o,m:r[2],f:r[3],fi:rnd(r[3].length),tg:pick(DATA.targets)}}
+function randCard(){return card(pick(CARDS),rnd(2)?"richtig herum":"umgedreht")}
+function who(focus){
+  const npcs=lines(F.npcs),th=lines(F.threads);
+  if(/^Neuer NPC/.test(focus))return t("newNpc");
+  if(/NPC/.test(focus))return npcs.length?pick(npcs):t("npcEmpty");
+  if(/Strang/.test(focus))return th.length?pick(th):t("thrEmpty");
+  if(/Nemesis/.test(focus))return"Nemesis";
+  if(/^PC/.test(focus))return t("pc");
+  return"";
+}
+function newEvent(){const focus=pick(DATA.ev);return{focus,who:who(focus),act:pick(DATA.act),sub:pick(DATA.sub),fac:pick(DATA.fac),pred:pick(DATA.pred),exp:wpick(EXPR),showFac:$("#eFac").checked,showPred:$("#ePred").checked}}
+const REROLL={focus:e=>{e.focus=pick(DATA.ev);e.who=who(e.focus)},who:e=>{e.who=who(e.focus)},act:e=>e.act=pick(DATA.act),sub:e=>e.sub=pick(DATA.sub),fac:e=>e.fac=pick(DATA.fac),pred:e=>{e.pred=pick(DATA.pred)},exp:e=>{e.exp=wpick(EXPR)}};
+const ori=o=>o==="umgedreht"?t("reversed"):t("upright");
+function evText(e){const p=[e.focus+(e.who?": "+e.who:""),"→ "+e.act+" · "+e.sub];if(e.showFac)p.push(t("faction")+": "+e.fac);if(e.showPred)p.push(t("kPred")+": "+e.pred+" ("+e.exp+")");return p}
+
+function entryText(x){
+  const d=x.d;
+  if(x.t==="fate"){
+    const title=(d.q?"„"+d.q+"“ ":"")+"– "+t("lik")[d.lik];
+    const l=[t("d100")+": "+d.roll+(d.manual?" ("+t("realRoll")+")":"")+" → "+t("res")[d.res]];
+    if(d.ev)l.push(t("furtherFx")+": "+evText(d.ev).join(" | "));
+    return{tag:t("tagFate"),title,lines:l};
+  }
+  if(x.t==="tarot")return{tag:t("tagTarot")+(d.real?" ("+t("real")+")":""),title:d.cards.map(c=>c.c+(c.o==="umgedreht"?" ("+t("reversed")+")":"")).join(", "),
+    lines:d.cards.map(c=>c.c+": "+c.f[c.fi]+" → "+t("target")+": "+c.tg+" — "+c.m)};
+  if(x.t==="event")return{tag:t("tagEvent"),title:d.focus+(d.who?": "+d.who:""),lines:evText(d).slice(1)};
+  if(x.t==="rumor")return{tag:t("tagRumor"),title:d.text,lines:[]};
+  if(x.t==="gen"){const g=GENS.find(y=>y.id===x.gen);return{tag:g?gGroup(g):x.gen,title:x.title,lines:x.lines||[]}}
+  return{tag:t("tagNote"),title:d.text,lines:[]};
+}
+function addEntry(type,d,slot){const e={id:uid(),t:type,time:Date.now(),d,note:""};S.log.unshift(e);if(S.log.length>500)S.log.length=500;if(slot)F.cur[slot]=e.id;saveLog();saveFate();renderFate();renderLog();return e}
+function rollFate(roll,manual){const res=fateResult(roll,F.lik),d={q:$("#fq").value.trim(),lik:F.lik,roll,manual:!!manual,res};if(res==="xja"||res==="xnein")d.ev=newEvent();addEntry("fate",d,"fate")}
+function drawTarot(more,real){
+  const c=real?card($("#tCard").value,$("#tOri").value):randCard();const cur=find(F.cur.tarot);
+  if(more&&cur){cur.d.cards.push(c);if(real)cur.d.real=true;saveLog();renderFate();renderLog();return}
+  addEntry("tarot",{cards:[c],real:!!real},"tarot");
+}
+function renderLik(){$("#lik").innerHTML=t("lik").map((l,i)=>`<button class="btn ${i===F.lik?"on":""}" data-lik="${i}">${l}</button>`).join("")}
+function renderBar(){
+  const[a,b,c]=LIK[F.lik],cur=find(F.cur.fate);
+  const mk=cur&&cur.d.lik===F.lik?`<i class="mk" style="left:${cur.d.roll-0.5}%"></i>`:"";
+  $("#fBar").innerHTML=`<div class="bar"><span style="width:${a}%;background:var(--xja)"></span><span style="width:${b-a}%;background:var(--ja)"></span><span style="width:${c-b}%;background:var(--nein)"></span><span style="width:${100-c}%;background:var(--xnein)"></span>${mk}</div>
+  <div class="barlab"><span>1–${a} ${t("barX")}</span><span>–${b} ${t("barJ")}</span><span>–${c} ${t("barN")}</span><span>${c+1}–100 ${t("barXN")}</span></div>`;
+}
+const rr=(slot,f)=>`<button class="icon" title="${t("reroll")}" data-rr="${slot}:${f}">⟳</button>`;
+function evKV(e,slot){
+  let h=`<div class="kv"><span class="k">${t("kEvent")}</span><span class="v">${esc(e.focus)}</span>${rr(slot,"focus")}`;
+  if(e.who)h+=`<span class="k">${t("kWho")}</span><span class="v">${esc(e.who)}</span>${/NPC|Strang/.test(e.focus)&&!/^Neuer NPC/.test(e.focus)?rr(slot,"who"):"<span></span>"}`;
+  h+=`<span class="k">${t("kAct")}</span><span class="v">${esc(e.act)}</span>${rr(slot,"act")}<span class="k">${t("kSub")}</span><span class="v">${esc(e.sub)}</span>${rr(slot,"sub")}`;
+  if(e.showFac)h+=`<span class="k">${t("faction")}</span><span class="v">${esc(e.fac)}</span>${rr(slot,"fac")}`;
+  if(e.showPred)h+=`<span class="k">${t("kPred")}</span><span class="v">${esc(e.pred)}</span>${rr(slot,"pred")}<span class="k">${t("kExp")}</span><span class="v">${esc(e.exp)}</span>${rr(slot,"exp")}`;
+  return h+`</div><div class="mask">${esc(e.focus)}${e.who?" – "+esc(e.who):""}: <b>${esc(e.act)}</b> · <b>${esc(e.sub)}</b>${e.showFac?" ("+esc(e.fac)+")":""}</div>`;
+}
+function renderFate(){
+  if(S.cur!=="_fate")return;
+  renderLik();renderBar();
+  let x=find(F.cur.fate);
+  if(!x)$("#fOut").innerHTML=`<div class="empty">${t("fEmpty")}</div>`;
+  else{const d=x.d;let h=`<div class="res ${d.res}"><div class="sub">${d.q?esc(d.q)+" · ":""}${t("lik")[d.lik]} · ${t("d100")} = <b>${d.roll}</b>${d.manual?" ("+t("real")+")":""}</div><div class="big">${t("res")[d.res]}</div>`;
+    if(d.ev)h+=`<div class="sub" style="margin-top:6px">${t("resNote")[d.res]}</div>`+evKV(d.ev,"fateev");$("#fOut").innerHTML=h+`</div>`}
+  x=find(F.cur.tarot);
+  if(!x)$("#tOut").innerHTML=`<div class="empty">${t("tEmpty")}</div>`;
+  else $("#tOut").innerHTML=x.d.cards.map((c,i)=>`<div class="tarot"><div class="tc ${c.o==="umgedreht"?"rev":""}"><span>${esc(c.c)}</span></div>
+   <div style="min-width:0;flex:1"><div><b>${esc(c.c)}</b> <span class="sub">${ori(c.o)}</span>
+   <button class="icon" title="${t("removeCard")}" data-tdel="${i}">✕</button></div>
+   <div>${c.f.map((f,j)=>`<span class="foc ${j===c.fi?"pick":""}">${esc(f)}</span>`).join("")}<button class="icon" title="${t("otherFocus")}" data-tf="${i}">⟳</button></div>
+   <div style="margin-top:4px"><span class="sub">${t("target")}:</span> <b>${esc(c.tg)}</b><button class="icon" title="${t("rerollTarget")}" data-tt2="${i}">⟳</button></div>
+   <div class="sub" style="margin-top:3px">${esc(c.m)}</div></div></div>`).join("");
+  x=find(F.cur.event);
+  if(!x)$("#eOut").innerHTML=`<div class="empty" style="margin-top:8px">${t("eEmpty")}</div>`;
+  else if(x.t==="rumor")$("#eOut").innerHTML=`<div class="res" style="border-color:var(--accent)"><div class="sub">${t("rumor")}</div><div class="mask">${esc(x.d.text)}</div></div>`;
+  else $("#eOut").innerHTML=`<div class="res" style="border-color:var(--accent)">${evKV(x.d,"event")}</div>`;
+}
+
+// ================= GENERATOR ENGINE =================
+const ERR=m=>({err:m});
+const isErr=v=>v&&typeof v==="object"&&"err" in v;
+class Engine{
+  constructor(d,res){this.d=d;this.res=res;this.cache=new Map();this.stack=[]}
+  inputVal(sh,r,c){if(sh!==this.d.sheet)return undefined;const k=r+","+c;return k in this.res.inputs?this.res.inputs[k]:undefined}
+  cell(sh,r,c){
+    const key=sh+"|"+r+","+c;let e=this.cache.get(key);
+    if(!e){
+      const iv=this.inputVal(sh,r,c);
+      if(iv!==undefined){e={v:iv,k:new Set()}}
+      else{
+        const f=this.d.formulas[key];
+        if(f===undefined){const tb=this.d.cells[sh];const v=tb?tb[r+","+c]:undefined;e={v:v===undefined?null:v,k:new Set()}}
+        else{
+          if(this.stack.some(s=>s.key===key))return ERR("#ZIRKEL");
+          const fr={key,n:0,k:new Set()};this.stack.push(fr);
+          let v;try{v=this.x(f)}catch(err){v=ERR("#FEHLER")}
+          this.stack.pop();e={v,k:fr.k}
+        }
+      }
+      this.cache.set(key,e);
+    }
+    const top=this.stack[this.stack.length-1];if(top)for(const k of e.k)top.k.add(k);
+    return e.v;
+  }
+  keys(sh,r,c){this.cell(sh,r,c);return this.cache.get(sh+"|"+r+","+c).k}
+  num(v){if(isErr(v))throw v;if(v===null||v==="")return 0;if(typeof v==="number")return v;const n=Number(v);if(String(v).trim()!==""&&!isNaN(n))return n;throw ERR("#WERT")}
+  x(a){
+    if(typeof a==="number")return a;
+    switch(a[0]){
+      case "r":return this.cell(a[1],a[2],a[3]);
+      case "s":return a[1];
+      case "n":return -this.num(this.x(a[1]));
+      case "g":return {rng:a};
+      case "o":{
+        const l=this.x(a[2]),r=this.x(a[3]);if(isErr(l))return l;if(isErr(r))return r;const op=a[1];
+        if(op==="&")return String(l??"")+String(r??"");
+        if(op==="="||op==="<>"){const eq=String(l??"").toLowerCase()===String(r??"").toLowerCase();return (op==="=")===eq?1:0}
+        try{const x=this.num(l),y=this.num(r);
+          switch(op){case"+":return x+y;case"-":return x-y;case"*":return x*y;case"/":return y===0?ERR("#DIV/0"):x/y;
+            case"<":return x<y?1:0;case">":return x>y?1:0;case"<=":return x<=y?1:0;case">=":return x>=y?1:0}
+        }catch(e){return isErr(e)?e:ERR("#WERT")}
+        return ERR("#OP");
+      }
+      case "f":return this.fn(a[1],a.slice(2));
+    }
+    return ERR("#AST");
+  }
+  vals(args){const out=[];for(const a of args){if(Array.isArray(a)&&a[0]==="g"){const[,sh,r1,c1,r2,c2]=a;for(let r=r1;r<=r2;r++)for(let c=c1;c<=c2;c++){const v=this.cell(sh,r,c);if(typeof v==="number")out.push(v)}}else{const v=this.x(a);if(isErr(v))throw v;if(v!==null&&v!=="")out.push(this.num(v))}}return out}
+  fn(name,args){
+    try{switch(name){
+      case "RANDBETWEEN":{const lo=Math.ceil(this.num(this.x(args[0]))),hi=Math.floor(this.num(this.x(args[1])));
+        const fr=this.stack[this.stack.length-1];const k=fr.key+"#"+(fr.n++);
+        let u=this.res.draws[k];if(u===undefined){u=Math.round(rand()*1e5)/1e5;if(u>=1)u=0.99999;this.res.draws[k]=u}
+        fr.k.add(k);return hi<lo?lo:lo+Math.floor(u*(hi-lo+1))}
+      case "VLOOKUP":{
+        let key=this.x(args[0]);if(isErr(key))return key;
+        const g=args[1];if(!Array.isArray(g)||g[0]!=="g")return ERR("#BEREICH");
+        const[,sh,r1,c1,r2,c2]=g;const col=Math.floor(this.num(this.x(args[2])));
+        const approx=args.length<4?true:!!this.num(this.x(args[3]));
+        if(col<1||col>c2-c1+1)return ERR("#REF");if(key===null||key==="")return ERR("#N/A");
+        let hit=-1,best;const tb=this.d.cells[sh]||{};
+        for(let r=r1;r<=r2;r++){
+          if(tb[r+","+c1]===undefined&&this.d.formulas[sh+"|"+r+","+c1]===undefined)continue;
+          const v=this.cell(sh,r,c1);if(v===null||v===""||isErr(v))continue;
+          if(approx){
+            if(typeof key==="number"&&typeof v==="number"){if(v<=key&&(best===undefined||v>=best)){best=v;hit=r}}
+            else if(typeof key==="string"&&typeof v==="string"){if(v.localeCompare(key,"de",{sensitivity:"base"})<=0&&(best===undefined||v.localeCompare(best,"de",{sensitivity:"base"})>=0)){best=v;hit=r}}
+          }else if(typeof key==="number"?v===key:String(v).toLowerCase()===String(key).toLowerCase()){hit=r;break}
+        }
+        if(hit<0)return ERR("#N/A");const v=this.cell(sh,hit,c1+col-1);return v===null?"":v}
+      case "MAX":{const v=this.vals(args);return v.length?Math.max(...v):0}
+      case "SUM":return this.vals(args).reduce((a,b)=>a+b,0);
+      case "AVERAGE":{const v=this.vals(args);return v.length?v.reduce((a,b)=>a+b,0)/v.length:ERR("#DIV/0")}
+      case "ABS":return Math.abs(this.num(this.x(args[0])));
+      case "ROUNDDOWN":case "ROUNDUP":{const x=this.num(this.x(args[0])),d=args[1]?this.num(this.x(args[1])):0,p=10**d;return name==="ROUNDUP"?Math.sign(x)*Math.ceil(Math.abs(x)*p)/p:Math.sign(x)*Math.floor(Math.abs(x)*p)/p}
+      case "ROUND":{const x=this.num(this.x(args[0])),d=args[1]?this.num(this.x(args[1])):0,p=10**d;return Math.round(x*p)/p}
+    }}catch(e){return isErr(e)?e:ERR("#FEHLER")}
+    return ERR("#"+name+"?");
+  }
+}
+function fmt(v){if(isErr(v))return v.err;if(v===null||v===undefined)return "";if(typeof v==="number")return Number.isInteger(v)?String(v):String(Math.round(v*100)/100).replace(".",LANG==="de"?",":".");return String(v)}
+
+async function loadGen(id){
+  if(GD[id])return GD[id];
+  const g=GENS.find(x=>x.id===id);const r=await fetch(g.file);if(!r.ok)throw new Error("load");
+  const d=await r.json();
+  d.inp={};for(const i of d.inputs)d.inp[i.r+","+i.c]=i;
+  d.mset={};for(const m of d.merges)d.mset[m[0]+","+m[1]]=m;
+  d.bset=new Set(d.bold.map(([r,c])=>r+","+c));
+  GD[id]=d;return d;
+}
+function res(id){if(!R[id])R[id]={inputs:{},draws:{},t:Date.now()};return R[id]}
+function panelsOf(d){
+  if(d.panels)return d.panels;
+  const cols=[...new Set(d.front.map(x=>x[1]))].sort((a,b)=>a-b);
+  const rows=d.front.map(x=>x[0]);const r1=Math.min(...rows),r2=Math.max(...rows);
+  const out=[];let s=cols[0],p=cols[0];
+  for(const c of cols.slice(1)){if(c-p>2){out.push([r1,s,r2,p]);s=c}p=c}
+  out.push([r1,s,r2,p]);return out;
+}
+function computeAll(d,eng){const out={};for(const[r,c]of d.front){const k=r+","+c;if(d.formulas[d.sheet+"|"+k]!==undefined)out[k]=eng.cell(d.sheet,r,c)}return out}
+function cellValue(d,r,c){const tb=d.cells[d.sheet];return tb?tb[r+","+c]:undefined}
+
+function renderGen(){
+  const id=S.cur;const g=GENS.find(x=>x.id===id);const d=GD[id];const card=$("#genCard");
+  if(!g)return;
+  if(!d){card.innerHTML=`<div class="loading">${t("loading")} ${esc(gTitle(g))}…</div>`;return}
+  const rs=res(id);const eng=new Engine(d,rs);const vals=computeAll(d,eng);
+  let h=`<div class="gh"><h2>${esc(gTitle(g))}</h2><span class="badge" title="${t("contentLang")}">${t("contentLang")}: ${(g.lang||"de").toUpperCase()}</span>
+   <button class="btn primary" id="regen">${t("regen")}</button><button class="btn" id="toLog">${t("toLog")}</button></div>`;
+  if(g.note)h+=`<div class="note"><b>${t("workNote")}:</b> ${esc(g.note)}</div>`;
+  h+=`<div class="note">${t("genHint")}</div>`;
+  if(g.special==="sammeln")h+=sammelnHTML(d,rs,eng);
+  h+=`<div class="panels">`;
+  for(const p of panelsOf(d)){
+    const[pr1,pc1,pr2,pc2]=p;const cols=[];for(let c=pc1;c<=pc2;c++)cols.push(c);
+    const used=d.front.filter(([r,c])=>r>=pr1&&r<=pr2&&c>=pc1&&c<=pc2);if(!used.length)continue;
+    const rows=[...new Set(used.map(x=>x[0]))].sort((a,b)=>a-b);
+    const ri={};let n=1,prev=null;for(const r of rows){if(prev!==null&&r-prev>2)n++;ri[r]=n++;prev=r}
+    const usedC=new Set(used.map(x=>x[1]));
+    const tmpl=cols.map(c=>{const w=usedC.has(c)?Math.max(d.widths[c]||13,9):1.5;return `minmax(${usedC.has(c)?54:8}px,${w}fr)`}).join(" ");
+    const minw=Math.max(520,Math.round(cols.reduce((s,c)=>s+(usedC.has(c)?Math.max(d.widths[c]||13,9):1.5),0)*6.5));
+    h+=`<div class="panel"><div class="sheet" style="grid-template-columns:${tmpl};min-width:${Math.min(minw,1200)}px">`;
+    const byRow={};for(const[r,c]of used)(byRow[r]=byRow[r]||[]).push(c);
+    for(const r of rows){
+      const cs=byRow[r].sort((a,b)=>a-b);
+      cs.forEach((c,i)=>{
+        const k=r+","+c;const m=d.mset[k];
+        let end=m?Math.min(m[3],pc2):(i+1<cs.length?cs[i+1]-1:pc2);if(!m)end=Math.max(c,end);
+        const gc=`grid-column:${c-pc1+1}/${end-pc1+2};grid-row:${ri[r]}`;
+        const isF=d.formulas[d.sheet+"|"+k]!==undefined;const b=d.bset.has(k)?" b":"";
+        if(d.inp[k]){
+          const inp=d.inp[k];const cur=k in rs.inputs?rs.inputs[k]:cellValue(d,r,c);
+          if(inp.opts&&inp.opts.length)h+=`<div class="c inp" style="${gc}"><select data-inp="${k}">${inp.opts.map(o=>`<option value="${esc(JSON.stringify(o[0]))}" ${String(o[0])===String(cur)?"selected":""}>${esc(o[1])}</option>`).join("")}<option value="__rnd">${t("random")}</option></select></div>`;
+          else h+=`<div class="c inp" style="${gc}"><input type="${typeof cur==="number"?"number":"text"}" data-inp="${k}" value="${esc(cur)}"></div>`;
+        }else if(isF){
+          const v=vals[k];const kk=eng.keys(d.sheet,r,c);
+          h+=`<div class="c val${b}${kk.size?" rnd":""}${isErr(v)?" err":""}" data-cell="${k}" style="${gc}"${isErr(v)?` title="${esc(t("tblErr"))} (${esc(v.err)})"`:""}>${isErr(v)?"–":esc(fmt(v))||"&nbsp;"}</div>`;
+        }else h+=`<div class="c lab${b}" style="${gc}">${esc(fmt(cellValue(d,r,c)))}</div>`;
+      });
+    }
+    h+=`</div></div>`;
+  }
+  card.innerHTML=h+`</div>`;
+}
+function genText(id){
+  const d=GD[id];const rs=res(id);const eng=new Engine(d,rs);const vals=computeAll(d,eng);const out=[];
+  for(const p of panelsOf(d)){
+    const[pr1,pc1,pr2,pc2]=p;const used=d.front.filter(([r,c])=>r>=pr1&&r<=pr2&&c>=pc1&&c<=pc2);
+    const byRow={};for(const[r,c]of used)(byRow[r]=byRow[r]||[]).push(c);
+    for(const r of Object.keys(byRow).map(Number).sort((a,b)=>a-b)){
+      const parts=byRow[r].sort((a,b)=>a-b).map(c=>{const k=r+","+c;
+        if(d.inp[k])return fmt(k in rs.inputs?rs.inputs[k]:cellValue(d,r,c));
+        if(d.formulas[d.sheet+"|"+k]!==undefined)return fmt(vals[k]);
+        return fmt(cellValue(d,r,c))}).filter(x=>x!==""&&x!=null);
+      if(parts.length)out.push(parts.join(" · "));
+    }
+    out.push("");
+  }
+  while(out.length&&out[out.length-1]==="")out.pop();
+  return out;
+}
+
+// ---- Sammeln (card deck)
+const SUITS=[["Stäbe","Wand","Intuition"],["Kelche","Chalice","Geschick"],["Münzen","Pentacles","Konstitution"],["Schwerter","Sword","Stärke"]];
+const RANKS=[[1,"Ass"],[2,"2"],[3,"3"],[4,"4"],[5,"5"],[6,"6"],[7,"7"],[8,"8"],[9,"9"],[10,"10"],[11,"Bube"],[12,"Ritter"],[13,"Königin"],[14,"König"]];
+const OUT={low:[[10,"nichts"],[15,"Versorgung +1"],[50,"Fokus-Objekt Potenz I"],[25,"Fokus-Objekt Potenz II"]],mid:[[50,"Fokus-Objekt Potenz I"],[50,"Fokus-Objekt Potenz II"]],
+  pk:[[25,"Fokus-Objekt Potenz I"],[75,"Fokus-Objekt Potenz II"]],q:[[25,"Versorgung +2"],[50,"Fokus-Objekt Potenz II"],[25,"Tiere oder Pflanzen finden"]],
+  k:[[25,"Fokus-Objekt Potenz I"],[25,"Fokus-Objekt Potenz II"],[50,"Fokus-Objekt Potenz III"]]};
+function outTable(n){return n===1?null:n<=5?OUT.low:n<=10?OUT.mid:n<=12?OUT.pk:n===13?OUT.q:OUT.k}
+function findRes(st){const tab=outTable(st.drawn[1]);if(!tab)return t("aceRes");let acc=0,x=st.u*100;return tab.find(([p])=>(acc+=p)>x)[1]}
+function newDeck(){const d=[];for(let s=0;s<4;s++)for(const[n]of RANKS)d.push([s,n]);for(let i=d.length-1;i>0;i--){const j=rnd(i+1);[d[i],d[j]]=[d[j],d[i]]}return d}
+function sammelnHTML(d,rs,eng){
+  const st=rs.deck||(rs.deck={cards:newDeck(),drawn:null,u:0});let h=`<div class="deck">`;
+  if(st.drawn){const[s,n]=st.drawn;const rk=RANKS.find(x=>x[0]===n)[1];const malus=eng.cell(d.sheet,8,4);
+    h+=`<div class="pc"><div class="n">${esc(rk)}</div><div class="s">${SUITS[s][0]}</div><div class="hint">${SUITS[s][1]}</div></div>
+    <div class="kv2" style="min-width:240px;flex:1"><span class="k">${t("kCheck")}</span><span class="v">${n<=7?t("noCheck"):SUITS[s][2]+t("check")+(typeof malus==="number"&&malus?" ("+malus+")":"")}</span>
+      <span class="k">${t("kFind")}</span><span class="v">${esc(findRes(st))} <button class="icon" id="sReRes" title="${t("rerollFind")}">⟳</button></span>
+      <span class="k">${t("kDeck")}</span><span class="v">${st.cards.length} ${t("left")}</span>
+      <span class="k"></span><span class="hint">${t("deckRule")}</span></div>`;
+  }else h+=`<div class="pc back">${t("deckBack")}<br>${st.cards.length}</div><div class="hint" style="flex:1;min-width:200px">${t("deckHint")}</div>`;
+  return h+`<div style="display:flex;flex-direction:column;gap:6px"><button class="btn primary" id="sDraw">${t("drawCard")}</button><button class="btn" id="sShuffle">${t("shuffle")}</button></div></div>`;
+}
+
+// ================= navigation =================
+function groups(){return [...new Set(GENS.map(g=>g.group))]}
+function renderNav(){
+  const gs=groups();
+  $("#nav").innerHTML=`<button class="fate ${S.cur==="_fate"?"on":""}" data-go="_fate">${t("fate")}</button>`+
+    gs.map(gr=>{const list=GENS.filter(g=>g.group===gr);return `<div class="g">${esc(gGroup(list[0]))}</div>`+list.map(g=>`<button data-go="${g.id}" class="${g.id===S.cur?"on":""}">${esc(gTitle(g))}</button>`).join("")}).join("");
+  $("#navSel").innerHTML=`<option value="_fate" ${S.cur==="_fate"?"selected":""}>${t("fate")}</option>`+
+    gs.map(gr=>{const list=GENS.filter(g=>g.group===gr);return `<optgroup label="${esc(gGroup(list[0]))}">`+list.map(g=>`<option value="${g.id}" ${g.id===S.cur?"selected":""}>${esc(gTitle(g))}</option>`).join("")+`</optgroup>`}).join("");
+}
+async function go(id){
+  if(id!=="_fate"&&!GENS.find(g=>g.id===id))id="_fate";
+  S.cur=id;saveMain();renderNav();
+  $("#fateView").hidden=id!=="_fate";$("#genCard").hidden=id==="_fate";
+  if(id==="_fate"){renderFate();return}
+  renderGen();
+  try{await loadGen(id);await loadRes(id);if(S.cur===id)renderGen()}catch(e){$("#genCard").innerHTML=`<div class="loading">${t("loadErr")}</div>`}
+}
+function renderAll(){applyLang();renderNav();if(S.cur==="_fate")renderFate();else renderGen();renderLog()}
+
+// ================= events =================
+document.addEventListener("click",ev=>{
+  const b=ev.target.closest("button,[data-cell]");if(!b)return;
+  const ds=b.dataset;
+  if(ds.lang){LANG=ds.lang;try{localStorage.setItem(LS+":lang",LANG)}catch{}saveMain();renderAll();return}
+  if(ds.go){go(ds.go);return}
+  // fate
+  if(ds.lik){F.lik=+ds.lik;saveFate();renderLik();renderBar();return}
+  if(ds.rr){const[slot,f]=ds.rr.split(":");const x=slot==="fateev"?find(F.cur.fate).d.ev:find(F.cur.event).d;REROLL[f](x);saveLog();renderFate();renderLog();return}
+  if(ds.tf){const c=find(F.cur.tarot).d.cards[+ds.tf];c.fi=(c.fi+1)%c.f.length;saveLog();renderFate();renderLog();return}
+  if(ds.tt2){find(F.cur.tarot).d.cards[+ds.tt2].tg=pick(DATA.targets);saveLog();renderFate();renderLog();return}
+  if(ds.tdel){const x=find(F.cur.tarot);x.d.cards.splice(+ds.tdel,1);if(!x.d.cards.length){S.log=S.log.filter(e=>e!==x);F.cur.tarot=null;saveFate()}saveLog();renderFate();renderLog();return}
+  if(ds.tm){document.querySelectorAll("[data-tm]").forEach(x=>x.classList.toggle("on",x===b));$("#tGen").hidden=ds.tm!=="gen";$("#tReal").hidden=ds.tm!=="real";return}
+  // log
+  if(ds.del){S.log=S.log.filter(e=>e.id!==ds.del);for(const k in F.cur)if(F.cur[k]===ds.del)F.cur[k]=null;saveLog();saveFate();renderFate();renderLog();return}
+  if(ds.exp){doExport(ds.exp);return}
+  // generators
+  if(ds.cell&&b.classList.contains("rnd")){const id=S.cur,d=GD[id],rs=res(id);const[r,c]=ds.cell.split(",").map(Number);
+    const eng=new Engine(d,rs);for(const k of eng.keys(d.sheet,r,c))delete rs.draws[k];saveRes(id);renderGen();
+    const n=document.querySelector(`[data-cell="${r},${c}"]`);if(n)n.classList.add("flash");return}
+  const rs=GD[S.cur]?res(S.cur):null;
+  if(b.id==="regen"){rs.draws={};rs.t=Date.now();if(rs.deck)rs.deck.u=rand();saveRes(S.cur);renderGen();return}
+  if(b.id==="toLog"){addGenLog();return}
+  if(b.id==="sDraw"){const st=rs.deck;if(!st.cards.length){toast(t("deckEmpty"));return}st.drawn=st.cards.pop();st.u=rand();rs.inputs["9,4"]=st.drawn[1];rs.draws={};saveRes(S.cur);renderGen();return}
+  if(b.id==="sShuffle"){rs.deck={cards:newDeck(),drawn:null,u:0};saveRes(S.cur);renderGen();toast(t("shuffled"));return}
+  if(b.id==="sReRes"){rs.deck.u=rand();saveRes(S.cur);renderGen();return}
+});
+document.addEventListener("change",ev=>{
+  const e=ev.target;
+  if(e.id==="navSel"){go(e.value);return}
+  if(e.dataset.inp){const rs=res(S.cur);const d=GD[S.cur];const k=e.dataset.inp;
+    if(e.tagName==="SELECT"){let v=e.value;if(v==="__rnd"){const o=d.inp[k].opts;v=JSON.stringify(o[rnd(o.length)][0])}rs.inputs[k]=JSON.parse(v)}
+    else rs.inputs[k]=e.type==="number"?(e.value===""?null:Number(e.value)):e.value;
+    saveRes(S.cur);renderGen()}
+});
+$("#fRoll").onclick=()=>rollFate(rnd(100)+1);
+$("#fManualGo").onclick=()=>{const v=+$("#fManual").value;if(!(v>=1&&v<=100)){toast(t("num100"));return}rollFate(v,true);$("#fManual").value=""};
+$("#fManual").onkeydown=e=>{if(e.key==="Enter")$("#fManualGo").click()};
+$("#tDraw").onclick=()=>drawTarot(false,false);
+$("#tMore").onclick=()=>drawTarot(true,false);
+$("#tLook").onclick=()=>drawTarot(false,true);
+$("#tLookMore").onclick=()=>drawTarot(true,true);
+$("#eRoll").onclick=()=>addEntry("event",newEvent(),"event");
+$("#rRoll").onclick=()=>{const r=lines(F.rumors);if(!r.length){toast(t("rumorFirst"));$("#camp").open=true;return}addEntry("rumor",{text:pick(r)},"event")};
+$("#eFac").onchange=$("#ePred").onchange=()=>{const x=find(F.cur.event);if(x&&x.t==="event"){x.d.showFac=$("#eFac").checked;x.d.showPred=$("#ePred").checked;saveLog();renderFate();renderLog()}};
+for(const[id,k]of[["#cThreads","threads"],["#cNpcs","npcs"],["#cRumors","rumors"]])$(id).addEventListener("input",e=>{F[k]=e.target.value;saveFate()});
+$("#sessTitle").addEventListener("input",e=>{S.title=e.target.value;saveMain()});
+$("#tCard").innerHTML=CARDS.map(c=>`<option>${esc(c)}</option>`).join("");
+
+// ================= log =================
+function addGenLog(){
+  const id=S.cur;if(!GD[id])return;const g=GENS.find(x=>x.id===id);let l=genText(id);const st=res(id).deck;
+  if(id==="sammeln"&&st&&st.drawn){const[s,n]=st.drawn;l=[t("cardOf")+": "+RANKS.find(x=>x[0]===n)[1]+" "+SUITS[s][0]+" → "+(n<=7?t("noCheck"):SUITS[s][2]+t("check"))+" · "+t("kFind")+": "+findRes(st),...l]}
+  S.log.unshift({id:uid(),t:"gen",time:Date.now(),gen:id,title:gTitle(g),lines:l,note:""});if(S.log.length>500)S.log.length=500;
+  saveLog();renderLog();toast(t("toLogDone"));
+}
+function renderLog(){
+  if(!S.log.length){$("#logList").innerHTML=`<div class="empty">${t("logEmpty")}</div>`;return}
+  $("#logList").innerHTML=S.log.map(x=>{const e=entryText(x);const ls=e.lines;
+    return `<div class="entry"><div class="tm">${hm(x.time)}</div><div style="min-width:0">
+    <div><span class="tag">${esc(e.tag)}</span><span class="tt">${esc(e.title)}</span></div>
+    ${ls.length>6?`<details><summary>${ls.length} ${t("lines")}</summary><div class="ln">${esc(ls.join("\n"))}</div></details>`:ls.length?`<div class="ln">${esc(ls.join("\n"))}</div>`:""}
+    <input type="text" data-note="${x.id}" value="${esc(x.note)}" placeholder="${esc(t("notePhE"))}"></div>
+    <div><button class="icon" data-del="${x.id}" title="${t("del")}">✕</button></div></div>`}).join("");
+}
+$("#logList").addEventListener("input",e=>{const id=e.target.dataset.note;if(id){const x=find(id);if(x){x.note=e.target.value;saveLog()}}});
+$("#noteAdd").onclick=()=>{const v=$("#noteIn").value.trim();if(!v)return;addEntry("note",{text:v});$("#noteIn").value=""};
+$("#noteIn").onkeydown=e=>{if(e.key==="Enter")$("#noteAdd").click()};
+let armed=0;
+$("#newSess").onclick=()=>{
+  if(S.log.length&&Date.now()-armed>4000){armed=Date.now();toast(t("confirmNew"));return}
+  S.log=[];F.cur={fate:null,tarot:null,event:null};S.title="";$("#sessTitle").value="";saveLog();saveFate();saveMain();renderFate();renderLog();toast(t("newDone"));
+};
+
+// ================= export =================
+function model(){return{title:S.title||t("sessDefault"),date:new Date().toLocaleDateString(t("locale")),items:[...S.log].reverse().map(x=>{const e=entryText(x);return{time:hm(x.time),tag:e.tag,title:e.title,lines:e.lines,note:x.note}})}}
+function asText(md){const m=model();let o=(md?"# ":"")+m.title+"\n"+m.date+"\n\n";
+  for(const i of m.items){o+=(md?"## ":"")+i.time+" · "+i.tag+": "+i.title+"\n";for(const l of i.lines)o+=(md&&l?"- ":"  ")+l+"\n";if(i.note)o+=(md?"> ":"  » ")+i.note+"\n";o+="\n"}return o}
+function loadScript(src){return new Promise((ok,no)=>{const s=document.createElement("script");s.src=src;s.onload=ok;s.onerror=()=>no(new Error("load"));document.head.appendChild(s)})}
+const X=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+async function makeDocx(){
+  if(!window.JSZip)await loadScript("https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js");
+  const m=model();
+  const run=(s,o={})=>`<w:r><w:rPr>${o.b?"<w:b/>":""}${o.i?"<w:i/>":""}${o.c?`<w:color w:val="${o.c}"/>`:""}${o.sz?`<w:sz w:val="${o.sz}"/>`:""}</w:rPr><w:t xml:space="preserve">${X(s)}</w:t></w:r>`;
+  const p=(runs,o={})=>`<w:p><w:pPr><w:spacing w:before="${o.before||0}" w:after="${o.after||40}"/>${o.ind?`<w:ind w:left="${o.ind}"/>`:""}</w:pPr>${runs}</w:p>`;
+  let body=p(run(m.title,{b:1,sz:40}),{after:80})+p(run(m.date,{c:"6D665A"}),{after:240});
+  for(const i of m.items){body+=p(run(i.time+"  ",{c:"6D665A"})+run(i.tag+": ",{c:"7A4A1E",b:1})+run(i.title,{b:1}),{before:180,after:60});for(const l of i.lines)body+=p(run(l,{sz:20}),{ind:360});if(i.note)body+=p(run(i.note,{i:1,c:"1F4E9A"}),{ind:360})}
+  const doc=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"><w:body>${body}<w:sectPr><w:pgSz w:w="11906" w:h="16838"/><w:pgMar w:top="1134" w:right="1134" w:bottom="1134" w:left="1134" w:header="709" w:footer="709" w:gutter="0"/></w:sectPr></w:body></w:document>`;
+  const z=new JSZip();
+  z.file("[Content_Types].xml",`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/></Types>`);
+  z.file("_rels/.rels",`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/></Relationships>`);
+  z.file("word/document.xml",doc);return z.generateAsync({type:"blob"});
+}
+async function makePdf(){
+  if(!window.jspdf)await loadScript("https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js");
+  const m=model(),d=new window.jspdf.jsPDF({unit:"mm",format:"a4"});let y=20;const W=170,L=20;
+  const put=(s,o={})=>{d.setFont("helvetica",o.b?"bold":o.i?"italic":"normal");d.setFontSize(o.sz||10);d.setTextColor(...(o.c||[34,32,27]));for(const ln of d.splitTextToSize(s||" ",W-(o.ind||0))){if(y>282){d.addPage();y=20}d.text(ln,L+(o.ind||0),y);y+=(o.sz||10)*0.43}};
+  put(m.title,{b:1,sz:18});y+=1;put(m.date,{c:[109,102,90]});y+=4;
+  for(const i of m.items){y+=3;put(i.time+"  "+i.tag+": "+i.title,{b:1,sz:11});for(const l of i.lines)put(l,{ind:5,sz:9.5});if(i.note)put(i.note,{i:1,ind:5,c:[31,78,154]})}
+  return d.output("blob");
+}
+function nativeSave(filename,data){const blob=data instanceof Blob?data:new Blob([data],{type:"text/plain;charset=utf-8"});const u=URL.createObjectURL(blob);const a=document.createElement("a");a.href=u;a.download=filename;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),4000)}
+async function saveFile(filename,data){const dl=window.claude?await claude.use("downloads"):null;if(dl)return dl.save({filename,data});nativeSave(filename,data);return {status:"saved"}}
+function pickFile(){return new Promise(ok=>{const i=document.createElement("input");i.type="file";i.accept=".json,application/json";i.onchange=()=>ok(i.files[0]||null);i.click()})}
+const fname=b=>(S.title||b).replace(/[\\/:*?"<>|]+/g," ").trim()+" "+new Date().toISOString().slice(0,10);
+async function doExport(kind){
+  if(!S.log.length){toast(t("logEmptyT"));return}
+  try{const data=kind==="docx"?await makeDocx():kind==="pdf"?await makePdf():asText(true);await saveFile(fname(t("fileBase"))+"."+kind,data);toast(t("saved"))}
+  catch(e){if(e&&e.code==="declined")return;toast(e&&e.message==="load"?t("libErr"):t("expErr")+" ("+((e&&e.code)||"error")+")")}
+}
+$("#copyAll").onclick=async()=>{const s=asText(false);try{await navigator.clipboard.writeText(s);toast(t("copied"))}catch{const a=document.createElement("textarea");a.value=s;document.body.appendChild(a);a.select();try{document.execCommand("copy");toast(t("copied"))}catch{toast(t("copyErr"))}a.remove()}};
+$("#bkSave").onclick=async()=>{
+  const items={main:mainDoc(),log:{log:S.log},fate:F};for(const id in R)items["g-"+id]=R[id];
+  try{await saveFile("Enigma-Sicherung "+new Date().toISOString().slice(0,10)+".json",JSON.stringify({app:"mot-werkzeuge",v:1,items}));toast(t("bkDone"))}catch(e){if(!(e&&e.code==="declined"))toast(t("bkErr"))}};
+$("#bkLoad").onclick=async()=>{
+  const f=await pickFile();if(!f)return;let o;try{o=JSON.parse(await f.text())}catch{toast(t("bkWrong"));return}
+  if(o.app==="mot-werkzeuge"){for(const[k,v]of Object.entries(o.items))put(k,v);restoreFrom(o.items,true)}
+  else if(o.app==="mot-generatoren"){const it=o.items;for(const[k,v]of Object.entries(it))if(k.startsWith("g-"))put(k,v);
+    mergeLog((it.log&&it.log.log)||[]);if(it.main&&it.main.title&&!S.title)S.title=it.main.title;for(const k in it)if(k.startsWith("g-")){R[k.slice(2)]=it[k];loadedRes.add(k.slice(2))}}
+  else if(o.app==="mot-schicksal"){importOldFate(o.state)}
+  else{toast(t("bkWrong"));return}
+  saveMain();saveLog();saveFate();$("#sessTitle").value=S.title;fillCamp();renderAll();toast(t("bkLoaded"));
+};
+
+// ================= persistence =================
+// Docs (private per viewer in the Claude artifact; browser storage everywhere): main, log, fate, g-<id>
+let db=null,base=null;const LS="mot-werkzeuge-v1";
+const chains={},timers={},loadedRes=new Set();
+function lsGet(k){try{return JSON.parse(localStorage.getItem(LS+":"+k)||"null")}catch{return null}}
+function lsSet(k,v){try{localStorage.setItem(LS+":"+k,JSON.stringify(v))}catch{}}
+function put(name,body){
+  lsSet(name,body);if(!db)return;
+  clearTimeout(timers[name]);timers[name]=setTimeout(()=>{
+    const ref=db.doc(base+"/"+name);const b=JSON.parse(JSON.stringify(body));
+    chains[name]=(chains[name]||Promise.resolve()).then(()=>ref.set(b)).then(()=>status("stCloud")).catch(e=>status(e&&e.code==="quota_exceeded"?"stFull":"stLocal"));
+  },800);
+}
+const mainDoc=()=>({title:S.title,cur:S.cur,lang:LANG});
+function saveMain(){put("main",mainDoc())}
+function saveLog(){put("log",{log:S.log})}
+function saveFate(){put("fate",F)}
+function saveRes(id){put("g-"+id,res(id))}
+async function getDoc(name){let v=lsGet(name);if(db){try{const s=await db.doc(base+"/"+name).get();if(s.exists)v=JSON.parse(JSON.stringify(s.data()))}catch{}}return v}
+async function loadRes(id){if(loadedRes.has(id))return;loadedRes.add(id);const v=await getDoc("g-"+id);if(v&&v.draws)R[id]=Object.assign({inputs:{},draws:{}},v)}
+function mergeLog(arr){const have=new Set(S.log.map(e=>e.id));for(const e of arr.map(normEntry))if(!have.has(e.id))S.log.push(e);S.log.sort((a,b)=>b.time-a.time)}
+function importOldFate(o){ // state of the former Schicksal page
+  if(!o)return;F.lik=o.lik??F.lik;for(const k of["threads","npcs","rumors"])if(o[k]&&!F[k])F[k]=o[k];
+  mergeLog(o.log||[]);if(o.cur)for(const k in F.cur)if(!F.cur[k]&&o.cur[k])F.cur[k]=o.cur[k];if(o.title&&!S.title)S.title=o.title;
+}
+function restoreFrom(it,replace){
+  if(it.main){S.title=it.main.title||"";if(it.main.cur)S.cur=it.main.cur;if(it.main.lang)LANG=it.main.lang}
+  if(it.log)S.log=(it.log.log||[]).map(normEntry);
+  if(it.fate)F=Object.assign({lik:3,threads:"",npcs:"",rumors:""},it.fate,{cur:Object.assign({fate:null,tarot:null,event:null},(it.fate||{}).cur||{})});
+  if(replace)for(const k in it)if(k.startsWith("g-")){R[k.slice(2)]=it[k];loadedRes.add(k.slice(2))}
+}
+function fillCamp(){$("#cThreads").value=F.threads||"";$("#cNpcs").value=F.npcs||"";$("#cRumors").value=F.rumors||"";$("#sessTitle").value=S.title||""}
+function migrateLocal(){ // former separate pages on the same site (browser storage)
+  let any=false;
+  try{const old=JSON.parse(localStorage.getItem("mot-schicksal-v1")||"null");if(old){importOldFate(old);any=true}}catch{}
+  try{const OG="mot-gen-v1:";for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(!k||!k.startsWith(OG))continue;const v=JSON.parse(localStorage.getItem(k));const n=k.slice(OG.length);
+    if(n==="log")mergeLog(v.log||[]);else if(n==="main"){if(v.title&&!S.title)S.title=v.title}else if(n.startsWith("g-"))lsSet(n,v);any=true}}catch{}
+  return any;
+}
+
+(async()=>{
+  try{const l=localStorage.getItem(LS+":lang");if(l)LANG=l;else if(!/^de/i.test(navigator.language||"de"))LANG="en"}catch{}
+  const local={main:lsGet("main"),log:lsGet("log"),fate:lsGet("fate")};
+  if(local.main||local.log||local.fate)restoreFrom(local);
+  else if(migrateLocal()){saveMain();saveLog();saveFate()}
+  fillCamp();applyLang();renderNav();renderLog();status("stLoad");
+  try{
+    if(window.claude){
+      const [d,user]=await Promise.all([claude.use("db"),claude.use("user")]);const id=user&&await user.id();
+      if(d&&id){db=d;base="data/users/"+id;
+        const it={main:await getDoc("main"),log:await getDoc("log"),fate:await getDoc("fate")};
+        const lang=LANG;restoreFrom(it);if(!(it.main&&it.main.lang))LANG=lang;
+        fillCamp();status("stCloud");
+      }else status("stLocal");
+    }else status("stLocal");
+  }catch{status("stLocal")}
+  applyLang();renderLog();go(S.cur||"_fate");
+})();
+</script>
+</body></html>
