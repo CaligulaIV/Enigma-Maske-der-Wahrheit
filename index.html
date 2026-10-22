@@ -123,6 +123,37 @@ details.camp summary{cursor:pointer;font-family:"Cormorant Garamond",serif;font-
 .kv2 .k{color:var(--muted)}
 .kv2 .v{font-weight:600}
 
+
+/* ---- Siedlung (neue Maske: Steckbrief + Karten) */
+.sbar .ef{flex:1 1 180px}
+.shero{background:var(--valbg);border-left:4px solid var(--accent);border-radius:10px;padding:10px 14px 11px;margin-bottom:12px}
+.sname{display:flex;align-items:center;gap:4px}
+.sname h3{font-size:34px;line-height:1.05;color:var(--accent)}
+.stags{display:flex;flex-wrap:wrap;gap:5px;margin:6px 0 4px}
+.stag{font-size:12px;font-weight:600;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:1px 9px;color:var(--ink)}
+.slead{font-family:"Cormorant Garamond",Georgia,serif;font-size:19.5px;line-height:1.3;margin:6px 0 2px}
+.slead .ss{font-family:Inter,sans-serif}
+.ssense{font-size:13px;color:var(--muted);margin:2px 0 0}
+.sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:10px;align-items:start}
+.scard{border:1px solid var(--line);border-radius:10px;padding:8px 11px 9px;background:var(--surface);min-width:0}
+.scard.wide{grid-column:span 2}
+@media (max-width:720px){.scard.wide{grid-column:auto}}
+.sch{display:flex;align-items:center;gap:6px;border-bottom:1px solid var(--line);padding-bottom:4px;margin-bottom:5px}
+.sch h3{font-size:19px;margin-right:auto}
+.sr{display:grid;grid-template-columns:100px minmax(0,1fr) auto;gap:6px;align-items:baseline;padding:2px 0;font-size:13.5px;line-height:1.35}
+.sr .k{color:var(--muted);font-size:12px;overflow-wrap:anywhere}
+.ss{color:var(--muted);font-size:12.5px;margin-left:5px}
+.schips{display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin:3px 0 5px}
+.schips .chip{cursor:default}
+.sitem{padding:4px 0;border-top:1px dashed var(--line);font-size:13.5px}
+.sitem:first-of-type{border-top:none}
+.sit{display:flex;align-items:baseline;flex-wrap:wrap;gap:2px}
+.sit .er{margin-left:auto}
+.sid{color:var(--muted);font-size:12.5px;line-height:1.35}
+.sh4{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--accent);margin:7px 0 2px}
+.sag{font-size:13px;line-height:1.35;padding:2px 0}
+.stavn{font-family:"Cormorant Garamond",Georgia,serif;font-size:18px;margin-bottom:2px}
+@media (max-width:520px){.sr{grid-template-columns:78px minmax(0,1fr) auto}.sname h3{font-size:28px}}
 /* ---- Encounter */
 .ebar{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:flex-end;margin-bottom:8px}
 .ef{display:flex;flex-direction:column;font-size:11.5px;color:var(--muted);min-width:118px;flex:1 1 118px}
@@ -305,7 +336,7 @@ body.efocus .wrap{max-width:none}
 <div class="toast" id="toast"></div>
 
 <script>
-const GENS=[{"id": "natur", "title": "Wildnis-Ort", "title_en": "Wilderness place", "group": "Welt", "group_en": "World", "note": "Alte Fassung: 38 Territorien und alte Biomnamen/Klimawerte (Buch 2: 47 Territorien). Territorium und Wetter oben wählen.", "lang": "de", "enc": {"ort": "Wildnis", "place": ["2,5", "5,8"], "f": ["11,4", "12,4", "18,2"], "extra": ["12,8|Minderfraktion"], "hazard": "22,3", "auf": "14,3", "tat": "14,6", "lage": "14,8"}, "file": "gens/natur.json"}, {"id": "gegner", "title": "Gegner", "title_en": "Enemies", "group": "Kampf", "group_en": "Combat", "note": "Baut auf den Stammtabellen auf: Kreaturen (Titel je Klasse, Merkmal, Geruch, Geräusch, Skillgruppen), Skills (alle Skills + Sammelnamen), Beiwörter (Namen und Stimmung) und Regeln (Klassenwerte, Würfelformeln, Freischaltung). Fehlt einer Fraktion eine Klasse, springt die passende Kreatur ein.", "special": "gegner", "lang": "en", "file": "gens/gegner.json"}, {"id": "sammeln", "title": "Sammeln (Karten)", "title_en": "Gathering (cards)", "group": "Natur", "group_en": "Nature", "note": "Digitales Sammel-Deck: Karte ziehen oder echte Kartenzahl eintragen. Fund-Wahrscheinlichkeiten aus deinem Sammeln-Blatt.", "special": "sammeln", "lang": "de", "file": "gens/sammeln.json"}, {"id": "encounter", "title": "Encounter", "title_en": "Encounter", "group": "Kampf", "group_en": "Combat", "note": "Baut auf den Stammtabellen Encounter (Budget, Ortsarten, Listen, Umweltgefahren) und Gegner auf. Aus einem Ort mit „⚔ Encounter erstellen“ übernimmt er Fraktionen, Gefahr und Lage.", "special": "encounter", "lang": "de/en", "file": "gens/encounter.json"}, {"id": "urban", "title": "Siedlung", "title_en": "Settlement", "group": "Welt", "group_en": "World", "note": "47 Territorien. Preise noch in Gold (Buch 1: Wealth-Level/Plunder).", "lang": "de", "enc": {"ort": "Stadt", "f": ["11,4", "11,8", "11,12"]}, "file": "gens/urban.json"}, {"id": "ritual", "title": "Ritual-Ort", "title_en": "Ritual site", "group": "Welt", "group_en": "World", "lang": "de", "file": "gens/ritual.json"}, {"id": "riss", "title": "Zweitweltriss", "title_en": "Otherworld rift", "group": "Welt", "group_en": "World", "lang": "de", "file": "gens/riss.json"}, {"id": "ruine", "title": "Ruine", "title_en": "Ruin", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "note": "Alte 38er-Territorienliste.", "lang": "de", "enc": {"ort": "Raum", "f": ["5,6", "6,6"], "extra": ["4,4|Untergang"], "hazard": "21,3"}, "encRows": [{"rows": [20, 30, 40, 54, 64, 74, 88, 98, 108], "anchor": [0, 2], "f": [[0, 3], [0, 6]], "hazard": [1, 3], "ort": "Raum", "label": "Raum", "n": ["1a", "2a", "3a", "4a", "5a", "6a", "7a", "8a", "9a"]}, {"rows": [20, 30, 54, 64, 88, 98], "anchor": [0, 9], "need": {"cell": [0, 9], "eq": "Gegner"}, "f": [[0, 10], [0, 13]], "hazard": [1, 10], "ort": "Raum", "label": "Raum", "n": ["1b", "2b", "4b", "5b", "7b", "8b"]}], "file": "gens/ruine.json"}, {"id": "hoehle", "title": "Höhlensystem", "title_en": "Cave system", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "lang": "de", "enc": {"ort": "Haupthöhle", "f": ["9,3", "10,3", "11,3"], "hazard": "22,3"}, "encRows": [{"rows": [20, 32, 44, 56, 68, 80], "anchor": [0, 2], "need": {"cell": [0, 3], "eq": "Encounter"}, "f": [[1, 3]], "hazard": [2, 3], "tat": [0, 6], "ziel": [0, 8], "extra": [[0, 4, "Art"]], "ort": "Nebenhöhle", "label": "Abschnitt", "name": [-8, 2], "ortFrom": {"Haupt": "Haupthöhle", "Neben": "Nebenhöhle"}}], "file": "gens/hoehle.json"}, {"id": "villa", "title": "Gebäude (Villa)", "title_en": "Building (villa)", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "lang": "de", "enc": {"ort": "Raum", "f": ["4,4"]}, "encRows": [{"rows": [20, 28, 36, 44, 52, 60, 68, 76], "anchor": [0, 2], "need": {"cell": [0, 4], "ne": "---"}, "fPlace": ["4,4"], "extra": [[0, 4, "Art"], [0, 6, "Stimmung"], [0, 8, "Thema"]], "ort": "Raum", "label": "Raum"}], "file": "gens/villa.json"}, {"id": "tempel", "title": "Tempel", "title_en": "Temple", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "lang": "de", "enc": {"ort": "Raum", "f": ["4,4"], "extra": ["4,7|Religion"]}, "encRows": [{"rows": [22, 29, 36, 42, 49, 56, 63, 69, 76], "anchor": [0, 2], "need": {"cell": [0, 4], "ne": "---"}, "fPlace": ["4,4"], "extra": [[0, 4, "Art"], [0, 6, "Stimmung"], [0, 8, "Thema"]], "extraPlace": ["4,7|Religion"], "ort": "Raum", "label": "Raum"}], "file": "gens/tempel.json"}, {"id": "npc", "title": "NPC", "title_en": "NPC", "group": "Personen", "group_en": "People", "note": "Laune als Wort (Buch 1: Mood 0–100); Fraktionsblöcke alt.", "lang": "de", "file": "gens/npc.json"}, {"id": "zirkel", "title": "Zirkel", "title_en": "Circle", "group": "Personen", "group_en": "People", "lang": "de", "file": "gens/zirkel.json"}, {"id": "charakter", "title": "Zufälliger Charakter", "title_en": "Random character", "group": "Personen", "group_en": "People", "lang": "de", "file": "gens/charakter.json"}, {"id": "mystery", "title": "Mystery / Verbrechen", "title_en": "Mystery / crime", "group": "Abenteuer", "group_en": "Adventure", "lang": "de", "file": "gens/mystery.json"}, {"id": "aufgabe", "title": "Auftrag", "title_en": "Task", "group": "Abenteuer", "group_en": "Adventure", "lang": "de", "file": "gens/aufgabe.json"}, {"id": "hetzjagd", "title": "Verfolgungsjagd", "title_en": "Chase", "group": "Abenteuer", "group_en": "Adventure", "note": "Mechanik veraltet (Buch 1: Chase mit Objective 50). Hindernisse taugen als Beschreibung für Abkürzungen.", "lang": "de", "file": "gens/hetzjagd.json"}, {"id": "spuren", "title": "Spuren & Hinweise", "title_en": "Tracks & clues", "group": "Abenteuer", "group_en": "Adventure", "lang": "de", "file": "gens/spuren.json"}, {"id": "pakt", "title": "Pakt-Aufgabe", "title_en": "Pact task", "group": "Magie", "group_en": "Magic", "lang": "de", "file": "gens/pakt.json"}, {"id": "fallen", "title": "Runenfalle", "title_en": "Rune-trap", "group": "Magie", "group_en": "Magic", "note": "Runenherzen noch lateinisch (Terram/Aquam/Ignem).", "lang": "de", "file": "gens/fallen.json"}, {"id": "wahnsinn", "title": "Trauma & Narben", "title_en": "Trauma & scars", "group": "Magie", "group_en": "Magic", "note": "Psychose ab Seelenintegrität 1 (Buch 1: 0); eigene Narbenliste.", "lang": "de", "file": "gens/wahnsinn.json"}, {"id": "loot", "title": "Loot & Dinge", "title_en": "Loot & things", "group": "Dinge", "group_en": "Things", "note": "Preise noch in Gold; deutsche Skillnamen.", "lang": "de", "file": "gens/loot.json"}, {"id": "objects", "title": "Objects (neu)", "title_en": "Objects", "group": "Dinge", "group_en": "Things", "note": "Englische, neuere Fassung (Buch-1-Begriffe).", "lang": "en", "file": "gens/objects.json"}, {"id": "trank", "title": "Trank & Öl", "title_en": "Potions & oils", "group": "Dinge", "group_en": "Things", "lang": "de", "file": "gens/trank.json"}, {"id": "gift", "title": "Gift & Krankheit", "title_en": "Poisons & diseases", "group": "Dinge", "group_en": "Things", "note": "Stufenwerte weichen von Buch 1 ab (Gift 2 Schaden am Ende der Battle-Phase).", "lang": "de", "file": "gens/gift.json"}, {"id": "box", "title": "Geheimnisvolle Box", "title_en": "Mysterious box", "group": "Dinge", "group_en": "Things", "lang": "de", "file": "gens/box.json"}, {"id": "tiere", "title": "Pflanze & Kleintier", "title_en": "Plants & small animals", "group": "Natur", "group_en": "Nature", "lang": "de", "file": "gens/tiere.json"}, {"id": "laden", "title": "Laden", "title_en": "Shop", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold (Buch 1: Wealth-Level).", "lang": "de", "file": "gens/laden.json"}, {"id": "tempeldienst", "title": "Tempeldienste", "title_en": "Temple services", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold.", "lang": "de", "file": "gens/tempeldienst.json"}, {"id": "taverne", "title": "Taverne", "title_en": "Tavern", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold, Speisenboni mit alten Begriffen.", "lang": "de", "file": "gens/taverne.json"}];
+const GENS=[{"id": "natur", "title": "Wildnis-Ort", "title_en": "Wilderness place", "group": "Welt", "group_en": "World", "note": "Alte Fassung: 38 Territorien und alte Biomnamen/Klimawerte (Buch 2: 47 Territorien). Territorium und Wetter oben wählen.", "lang": "de", "enc": {"ort": "Wildnis", "place": ["2,5", "5,8"], "f": ["11,4", "12,4", "18,2"], "extra": ["12,8|Minderfraktion"], "hazard": "22,3", "auf": "14,3", "tat": "14,6", "lage": "14,8"}, "file": "gens/natur.json"}, {"id": "gegner", "title": "Gegner", "title_en": "Enemies", "group": "Kampf", "group_en": "Combat", "note": "Baut auf den Stammtabellen auf: Kreaturen (Titel je Klasse, Merkmal, Geruch, Geräusch, Skillgruppen), Skills (alle Skills + Sammelnamen), Beiwörter (Namen und Stimmung) und Regeln (Klassenwerte, Würfelformeln, Freischaltung). Fehlt einer Fraktion eine Klasse, springt die passende Kreatur ein.", "special": "gegner", "lang": "en", "file": "gens/gegner.json"}, {"id": "sammeln", "title": "Sammeln (Karten)", "title_en": "Gathering (cards)", "group": "Natur", "group_en": "Nature", "note": "Digitales Sammel-Deck: Karte ziehen oder echte Kartenzahl eintragen. Fund-Wahrscheinlichkeiten aus deinem Sammeln-Blatt.", "special": "sammeln", "lang": "de", "file": "gens/sammeln.json"}, {"id": "encounter", "title": "Encounter", "title_en": "Encounter", "group": "Kampf", "group_en": "Combat", "note": "Baut auf den Stammtabellen Encounter (Budget, Ortsarten, Listen, Umweltgefahren) und Gegner auf. Aus einem Ort mit „⚔ Encounter erstellen“ übernimmt er Fraktionen, Gefahr und Lage.", "special": "encounter", "lang": "de/en", "file": "gens/encounter.json"}, {"id": "siedlung", "title": "Siedlung", "title_en": "Settlement", "group": "Welt", "group_en": "World", "note": "Neue Maske, baut auf der Stammtabelle Siedlung (Listen, Größen, 47 Territorien, Religionen) und den Stammtabellen Kreaturen (Fraktionen, Baustil, Handelsgut, Geruch, Namen) und Beiwörter (Laune, Charakter der NPCs) auf. Wortlisten noch deutsch. Mit „⚔ Encounter“ (ganze Siedlung oder je Aufgabe) entsteht ein Kampf mit Ortsart Stadt.", "special": "siedlung", "lang": "de", "enc": {"ort": "Stadt"}, "file": "gens/siedlung.json"}, {"id": "ritual", "title": "Ritual-Ort", "title_en": "Ritual site", "group": "Welt", "group_en": "World", "lang": "de", "file": "gens/ritual.json"}, {"id": "riss", "title": "Zweitweltriss", "title_en": "Otherworld rift", "group": "Welt", "group_en": "World", "lang": "de", "file": "gens/riss.json"}, {"id": "ruine", "title": "Ruine", "title_en": "Ruin", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "note": "Alte 38er-Territorienliste.", "lang": "de", "enc": {"ort": "Raum", "f": ["5,6", "6,6"], "extra": ["4,4|Untergang"], "hazard": "21,3"}, "encRows": [{"rows": [20, 30, 40, 54, 64, 74, 88, 98, 108], "anchor": [0, 2], "f": [[0, 3], [0, 6]], "hazard": [1, 3], "ort": "Raum", "label": "Raum", "n": ["1a", "2a", "3a", "4a", "5a", "6a", "7a", "8a", "9a"]}, {"rows": [20, 30, 54, 64, 88, 98], "anchor": [0, 9], "need": {"cell": [0, 9], "eq": "Gegner"}, "f": [[0, 10], [0, 13]], "hazard": [1, 10], "ort": "Raum", "label": "Raum", "n": ["1b", "2b", "4b", "5b", "7b", "8b"]}], "file": "gens/ruine.json"}, {"id": "hoehle", "title": "Höhlensystem", "title_en": "Cave system", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "lang": "de", "enc": {"ort": "Haupthöhle", "f": ["9,3", "10,3", "11,3"], "hazard": "22,3"}, "encRows": [{"rows": [20, 32, 44, 56, 68, 80], "anchor": [0, 2], "need": {"cell": [0, 3], "eq": "Encounter"}, "f": [[1, 3]], "hazard": [2, 3], "tat": [0, 6], "ziel": [0, 8], "extra": [[0, 4, "Art"]], "ort": "Nebenhöhle", "label": "Abschnitt", "name": [-8, 2], "ortFrom": {"Haupt": "Haupthöhle", "Neben": "Nebenhöhle"}}], "file": "gens/hoehle.json"}, {"id": "villa", "title": "Gebäude (Villa)", "title_en": "Building (villa)", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "lang": "de", "enc": {"ort": "Raum", "f": ["4,4"]}, "encRows": [{"rows": [20, 28, 36, 44, 52, 60, 68, 76], "anchor": [0, 2], "need": {"cell": [0, 4], "ne": "---"}, "fPlace": ["4,4"], "extra": [[0, 4, "Art"], [0, 6, "Stimmung"], [0, 8, "Thema"]], "ort": "Raum", "label": "Raum"}], "file": "gens/villa.json"}, {"id": "tempel", "title": "Tempel", "title_en": "Temple", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "lang": "de", "enc": {"ort": "Raum", "f": ["4,4"], "extra": ["4,7|Religion"]}, "encRows": [{"rows": [22, 29, 36, 42, 49, 56, 63, 69, 76], "anchor": [0, 2], "need": {"cell": [0, 4], "ne": "---"}, "fPlace": ["4,4"], "extra": [[0, 4, "Art"], [0, 6, "Stimmung"], [0, 8, "Thema"]], "extraPlace": ["4,7|Religion"], "ort": "Raum", "label": "Raum"}], "file": "gens/tempel.json"}, {"id": "npc", "title": "NPC", "title_en": "NPC", "group": "Personen", "group_en": "People", "note": "Laune als Wort (Buch 1: Mood 0–100); Fraktionsblöcke alt.", "lang": "de", "file": "gens/npc.json"}, {"id": "zirkel", "title": "Zirkel", "title_en": "Circle", "group": "Personen", "group_en": "People", "lang": "de", "file": "gens/zirkel.json"}, {"id": "charakter", "title": "Zufälliger Charakter", "title_en": "Random character", "group": "Personen", "group_en": "People", "lang": "de", "file": "gens/charakter.json"}, {"id": "mystery", "title": "Mystery / Verbrechen", "title_en": "Mystery / crime", "group": "Abenteuer", "group_en": "Adventure", "lang": "de", "file": "gens/mystery.json"}, {"id": "aufgabe", "title": "Auftrag", "title_en": "Task", "group": "Abenteuer", "group_en": "Adventure", "lang": "de", "file": "gens/aufgabe.json"}, {"id": "hetzjagd", "title": "Verfolgungsjagd", "title_en": "Chase", "group": "Abenteuer", "group_en": "Adventure", "note": "Mechanik veraltet (Buch 1: Chase mit Objective 50). Hindernisse taugen als Beschreibung für Abkürzungen.", "lang": "de", "file": "gens/hetzjagd.json"}, {"id": "spuren", "title": "Spuren & Hinweise", "title_en": "Tracks & clues", "group": "Abenteuer", "group_en": "Adventure", "lang": "de", "file": "gens/spuren.json"}, {"id": "pakt", "title": "Pakt-Aufgabe", "title_en": "Pact task", "group": "Magie", "group_en": "Magic", "lang": "de", "file": "gens/pakt.json"}, {"id": "fallen", "title": "Runenfalle", "title_en": "Rune-trap", "group": "Magie", "group_en": "Magic", "note": "Runenherzen noch lateinisch (Terram/Aquam/Ignem).", "lang": "de", "file": "gens/fallen.json"}, {"id": "wahnsinn", "title": "Trauma & Narben", "title_en": "Trauma & scars", "group": "Magie", "group_en": "Magic", "note": "Psychose ab Seelenintegrität 1 (Buch 1: 0); eigene Narbenliste.", "lang": "de", "file": "gens/wahnsinn.json"}, {"id": "loot", "title": "Loot & Dinge", "title_en": "Loot & things", "group": "Dinge", "group_en": "Things", "note": "Preise noch in Gold; deutsche Skillnamen.", "lang": "de", "file": "gens/loot.json"}, {"id": "objects", "title": "Objects (neu)", "title_en": "Objects", "group": "Dinge", "group_en": "Things", "note": "Englische, neuere Fassung (Buch-1-Begriffe).", "lang": "en", "file": "gens/objects.json"}, {"id": "trank", "title": "Trank & Öl", "title_en": "Potions & oils", "group": "Dinge", "group_en": "Things", "lang": "de", "file": "gens/trank.json"}, {"id": "gift", "title": "Gift & Krankheit", "title_en": "Poisons & diseases", "group": "Dinge", "group_en": "Things", "note": "Stufenwerte weichen von Buch 1 ab (Gift 2 Schaden am Ende der Battle-Phase).", "lang": "de", "file": "gens/gift.json"}, {"id": "box", "title": "Geheimnisvolle Box", "title_en": "Mysterious box", "group": "Dinge", "group_en": "Things", "lang": "de", "file": "gens/box.json"}, {"id": "tiere", "title": "Pflanze & Kleintier", "title_en": "Plants & small animals", "group": "Natur", "group_en": "Nature", "lang": "de", "file": "gens/tiere.json"}, {"id": "laden", "title": "Laden", "title_en": "Shop", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold (Buch 1: Wealth-Level).", "lang": "de", "file": "gens/laden.json"}, {"id": "tempeldienst", "title": "Tempeldienste", "title_en": "Temple services", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold.", "lang": "de", "file": "gens/tempeldienst.json"}, {"id": "taverne", "title": "Taverne", "title_en": "Tavern", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold, Speisenboni mit alten Begriffen.", "lang": "de", "file": "gens/taverne.json"}];
 const DATA={"cards":[["Narr","richtig herum","Neustart, Überraschung, Potential, Freiheit, Unschuld",["Überraschung","Potential","Freiheit"]],["Narr","umgedreht","Dummheit, Überstürzt, Chaos, Naive, Grenzen, Hürden",["Dummheit","Chaos","Hürde"]],["Magier","richtig herum","Kraft, Kommunikation, Magie, Selbstbestimmung, Aktion",["Kommunikation","Magie","Selbstbestimmung"]],["Magier","umgedreht","Lüge, Kommunikationsblock, Stagnation, Schummeln, Falschheit",["Lüge","Kommunikationsblock","Stagnation"]],["Hohepriesterin","richtig herum","Mysterium, Intuition, Erleuchtung, Weisheit, Vorahnung",["Mysterium","Erleuchtung","Vorahnung"]],["Hohepriesterin","umgedreht","Geheimnisse, Unsicherheit, Verborgenheit, Unfähigkeit zu hören, Überraschung",["Geheimnis","Unsicherheit","Verborgenheit"]],["Königin","richtig herum","Pflege, Überschuss, Fruchtbarkeit, Mutterschaft, Schönheit, Liebe",["Überschuss","Mutterschaft","Schönheit"]],["Königin","umgedreht","Faulheit, Koordinationschwäche, Verschwendung, Beziehungskrise, Depression, Verbannung",["Koordinationsschwäche","Verschwendung","Beziehung senken"]],["König","richtig herum","Autorität, Ordnung, Struktur, Hierarchie, Aufstieg, Rationalität",["Autorität","Aufstieg","Rationalität"]],["König","umgedreht","Autokratisch, Unterdrücken, Zwang, Grausamkeit, keine Unterstützung, Machtmissbrauch, Irrationalität",["Zwang","Grausamkeit","Machtmissbrauch"]],["Hierophant","richtig herum","Tradition, Gruppenidentifikation, Lehre, Gesetze, Bruderschaft, Religion",["Gruppenidentifikation","Lehre","Religion"]],["Hierophant","umgedreht","Extremismus, Kulte, Verfall Gesellschaft, Abwendung Religion, Abbruch Gespräche, rückständig",["Extremismus","Abwendung Religion","Abbruch Gespräch"]],["Liebhaber","richtig herum","Zusammenkommen, Wahl, Zuneigung, Verpflichtung, Vertrauen, Bündnis",["Zusammenkommen","Vertrauen","Verpflichtung"]],["Liebhaber","umgedreht","Auseinanderbrechen, Angst vor Bindung, Fremd gehen, Bündnis brechen, Misstrauen",["Auseinanderbrechen","Angst vor Bindung","Misstrauen"]],["Wagen","richtig herum","Antrieb, Willenskraft, Richtung, Sieg, Probleme enden, zu Hilfe kommen",["Willenskraft","Richtung","zu Hilfe kommen"]],["Wagen","umgedreht","verirren, richtungslos, antriebslos, Zweifel, abbruch Reise, Verzögerung, braucht Hilfe",["verirren","Zweifel","braucht Hilfe"]],["Stärke","richtig herum","Stärke, Sicherheit, Selbstkontrolle, Geduld, Gesundheit, Leidenschaft",["Sicherheit","Gesundheit","Stärke"]],["Stärke","umgedreht","Schwäche, Zerbrechlichkeit, Ungeduld, Unbeherrscht, Überheblich, Doppelmoral",["Schwäche","Unbeherrscht","Zerbrechlichkeit"]],["Eremit","richtig herum","Selbstbetrachtung, Besinnung, Ruhe, Diskretion, Meditation",["Besinnung","Diskretion","Ruhe"]],["Eremit","umgedreht","Aberkennen, Rückzug, im stich lassen, Isolation, einsamkeit, Exil",["Rückzug","Im Stich lassen","Isolation"]],["Rad","richtig herum","Glück, Chance, Gelegenheit, Umschlagen, Gewinnen, Zyklus, Schicksal, ja",["Glück","Gelegenheit","Zyklus"]],["Rad","umgedreht","Unglück, Fehlschlag, verlieren, Not, Härte, Enttäuschung, nein",["Unglück","Not","Enttäuschung"]],["Gericht","richtig herum","Gerechtigkeit, Karma, Balance, Wahrheit, Verantwortung, Vereinbarung",["Gerechtigkeit","Wahrheit","Vereinbarung"]],["Gericht","umgedreht","Willkür, Unfair, Unrecht, Verruf, Ungleichheit, Falsche Entscheidung",["Willkür/ Unfair","Ungleichheit","Verruf"]],["Gehängte Mann","richtig herum","loslassen, Opferung, Aufgaben, Perspektivwechsel, Musterbrechen, Verspätung, Stoppen",["Loslassen","Perspektivwechsel","Stoppen"]],["Gehängte Mann","umgedreht","in Schwebe, Engstirnig, ins Leben zurück, falsches Motiv, nicht loslassen, zurückhalten",["in schwebe","ins Leben zurück","festhalten"]],["Tod","richtig herum","Ende, Sterblichkeit, echter Wandel, Bruch einer Bindung, Ende einer Ära, Transformation, Wiedergeburt",["Ende","Bindungsbruch","Transformation"]],["Tod","umgedreht","Ende aufgehalten, nicht loslassen können, lange Krankheit, Wandel ablehnen, falscher Wandel",["Aufhalten Ende","Krankheit","Wandel ablehnen"]],["Mäßigkeit","richtig herum","Harmonie, Balance, Mäßigung, Zusammenwirken, vermischen, verbinden",["Balance","Vermischen","Verbinden"]],["Mäßigkeit","umgedreht","Disharmonie,Krankheit, nichts bekommen, Trennen, Bruch",["Unbalance","trennen","leer ausgehen"]],["Dämon","richtig herum","Knechtschaft, Abhängigkeit, Versuchung, Gewalt, Angst, Überarbeitet",["Knechtschaft","Abhängigkeit","Gewalt"]],["Dämon","umgedreht","frei brechen, widerstehen, kraftlosigkeit, keine Verbindung",["frei brechen","widerstehen","keine Bindung"]],["Turm","richtig herum","Zerstörung, unerwarteter Wandel, ruinieren, schaden, stürzen, verdrängen, Gefahr",["Zerstörung","verdrängen","Gefahr"]],["Turm","umgedreht","Anhaltende Zerstörung, langfristige Krise, schwere Gewalt, chaotische Situation, Nachbeben",["Krise","Brutalität","Nachbeben"]],["Sterne","richtig herum","Hoffnung, Freude, Optimismus, Segen, Hilfe, Frieden",["Hoffnung","Segen","Frieden"]],["Sterne","umgedreht","Hoffnungslosigkeit, Unwohlsein, Enttäuschung, hilfe verweigern, Hindernisse des Glaubens",["Enttäuschung","Hoffnungslos","Glaubenskrise"]],["Mond","richtig herum","Träume, Alpträume, Illusionen, verborgene Feinde, Verwirrung, Geheimnis",["Alptraum","Illusion","verborgene Gefahr"]],["Mond","umgedreht","Offenbarung, Vision, durchschauen von Illusionen, Schlaflosigkeit",["Vision","Offenbarung","Schlaflosigkeit"]],["Sonne","richtig herum","Leben, Energie, Wärme, Erschaffung, Reichtum, Erfolg",["Energie","Erschaffung","Reichtum"]],["Sonne","umgedreht","Halber Erfolg, Kälte, hypersensibel, rosarote Brille",["Halber Erfolg","Kälte","rosarote Brille"]],["Urteil","richtig herum","Erlösung, Erwachen, Ruf zu Taten, Berufung, vollendeter Wandel, Entscheidung",["Erwachen","Berufung","Entscheidung"]],["Urteil","umgedreht","Ignorieren, Wider besseren Wissens, Zweifel, Leiten von Angst, entscheidungslos",["Ignorieren","Entgegen Wissen","Leiten von Angst"]],["Welt","richtig herum","Vollendung, Folgen, Resultate, Möglichkeiten, Ziele, Absolutheit, Reisen",["Vollendung","Resultate","Reisen"]],["Welt","umgedreht","Verplanen, unerledigte Aufgaben, Stagnation, festhalten, feststecken",["feststecken","nicht weiterkommen","keine Resultate"]]],"targets":["Spieler","Spieler-Gruppe","Gegenwart","Anderer Spieler","Gegner","NPC","Zukunft","Positiv","Negativ"],"ev":["entferntes Event","NPC Aktion","Neuer NPC","Strang voranbringen","Strang entfernen","Strang verändern","PC negativ","PC positiv","Ambivalentes Ereignis","NPC negativ","NPC positiv","Nemesis positiv","Nemesis negativ"],"act":["Ziel erreichen","Starten","Vernachlässigen","Kämpfen","Rekrutieren","Siegen","Verletzen","Widersetzen","Arglist","Kommunizieren","Verfolgen","Steigern","Senken","Verlassen","Befriedigen","Erkundigen","Verärgern","Bewegen","verschwenden","Wahrheit","Freilassen","Befreunden","urteilen","Desertieren","Dominieren","Aufschieben","Loben","Trennen","Nehmen","Brechen","Heilen","Verzögern","Stoppen","Lügen","Wiederkommen","Nachahmen","Ringen","informieren","verschenken","verschieben","entblößen","verhandeln","einsperren","feiern","verschleiern","entwickeln","reisen","blocken","verletzen","herabsetzen","überladen","Vertagen","Widrigkeiten","töten","unterbrechen","an sich reißen","erschaffen","verraten","zustimmen","ausnutzen","unterdrücken","inspezieren","überfallen","spionieren","tragen","offen","nachlässig","ruinieren","extravagant","Täuschen","ankommen","vorschlagen","trennen","ablehnen","misstrauen","grausamkeit","Intoleranz","vertrauen","Aufregung","Aktivität","Helfen","pflegen","leidenschaft","ablassen","hart arbeiten","kontrollieren","anziehen","versagen","nachgehen","rächen","aufgeben","streiten","bestrafen","führen","transformieren","unterwerfen","verändern","steigern","umstürzen","nähern"],"sub":["Ziele","Träume","Umwelt","Draußen","Innen","Realität","Verbündete","Feinde","Böse","Gute","Gefühle","Gegenteil","Krieg","Frieden","Unschuldige","Liebe","geistlich","intellektuell","Neue Ideen","Freude","Massage","Energie","Gleichgewicht","Spannung","Freundschaft","physisches","Projekt","Freuden","Schmerz","Besitz","Pläne","Lügen","Erwartungen","Gesetz","Bürokratie","Geschäft","Pfad","Neuigkeiten","äußere Faktoren","Ratschlag","Handlung","Wettbewerb","Gefängnis","Krankheit","Nahrung","Aufmerksamkeit","Erfolg","Versagen","Reise","Neid","Streit","Heimat","Investment","Leid","Wünsche","Taktik","Pattsituation","Willkür","Unglück","Tod","Unterbrechung","Macht","Bürde","Intrige","Ängste","Gerücht","Wunden","extravaganz","Repräsentation","Gegner","Reichtum","Freiheit","Militär","Gewöhnliches","Test","Massen","Fahrzeug","Kunst","Sieg","Unklarheit","Fülle","Status Quo","Technik","Hoffnung","Magie","Illusion","Portale","Gefahr","Waffen","Tiere","Wetter","Elemente","Natur","Öffentlichkeit","Führung","Ruhm","Zorn","Information","Vergangenheit","Götter"],"fac":["[GK] Sultane","[GK] Wesire","[GK] Kalifen","[FU] Monarchisten","[FU] Republikaner","[FU] Unabhängige","[ZRO] Restauratoren","[ZRO] Reformisten","[ZRO] Vergelter","[EIS] Familien","[EIS] Lord","[EIS] Marine","[HAI] Kachol","[HAI] Schemeschya","[HAI] Han","[GER] Aisin-Geren","[GER] Süd-Geren","[GER] Nord-Geren","[PIR] Wildling","[PIR] Waldlinge","[PIR] Berglinge","[WS] Waldelfen","[WS] Hochelfen","[WS] Lichterelfen","[HIV] Südkolonie","[HIV] Nordkolonie","[HIV] Exilanten","[ECH] Troglodyten","[ECH] Sumpfechsen","[ECH] Obsidianechsen","[NAG] Manipulatoren","[NAG] Usurpatoren","[NAG] Intriganten","[KOB] Patrioten","[KOB] Anarchisten","[KOB] Hungernd","[SAT] Zentauren","[SAT] Leotauren","[SAT] Aerotauren","[YET] Wanderer","[YET] Eroberer","[YET] Flüchtlinge","[GNO] Seeräuber","[GNO] Fischer","[GNO] Eisgnome"],"pred":["Drachaten","Teufel","Würmer","Schleichen","Pirscher","Säbelaffen","Salamander","Ofanten","Netzfüssler","Weber","Flattervieh","junges Monster"]};
 
 // ================= language =================
@@ -582,7 +613,7 @@ async function loadGen(id){
   if(GD[id])return GD[id];
   const g=GENS.find(x=>x.id===id);const r=await fetch(g.file);if(!r.ok)throw new Error("load");
   const d=await r.json();
-  if(d.creatures||d.hazards){GD[id]=d;return d}
+  if(d.creatures||d.hazards||d.siedlung){GD[id]=d;return d}
   d.inp={};for(const i of d.inputs)d.inp[i.r+","+i.c]=i;
   d.mset={};for(const m of d.merges)d.mset[m[0]+","+m[1]]=m;
   d.bset=new Set(d.bold.map(([r,c])=>r+","+c));
@@ -604,13 +635,14 @@ function renderGen(){
   const id=S.cur;const g=GENS.find(x=>x.id===id);const d=GD[id];const card=$("#genCard");
   if(!g)return;
   if(!d){card.innerHTML=`<div class="loading">${t("loading")} ${esc(gTitle(g))}…</div>`;return}
-  const rs=res(id);const sp=d.creatures||d.hazards;const eng=sp?null:new Engine(d,rs);const vals=sp?{}:computeAll(d,eng);
+  const rs=res(id);const sp=d.creatures||d.hazards||d.siedlung;const eng=sp?null:new Engine(d,rs);const vals=sp?{}:computeAll(d,eng);
   const encB={};if(!sp&&g.encRows)encRowsOf(g,d,rs,vals).forEach((x,i)=>{encB[x.anchor]=` <button class="icon encb" data-encrow="${i}" title="${esc(t("toEncRow"))}">⚔</button>`});
   let h=`<div class="gh"><h2>${esc(gTitle(g))}</h2><span class="badge" title="${t("contentLang")}">${t("contentLang")}: ${(g.lang||"de").toUpperCase()}</span>
    <button class="btn primary" id="regen">${t("regen")}</button><button class="btn" id="toLog">${t("toLog")}</button>${g.enc?`<button class="btn" id="toEnc" title="${esc(t("toEncT"))}">${t("toEnc")}</button>`:""}${(()=>{const e=R.encounter&&R.encounter.enc&&R.encounter.enc.src;return e&&e.gen===id?`<button class="btn" data-go="encounter" title="${esc(t("toEncOpenT"))}">⚔ → ${esc(e.title.split(" · ").slice(1).join(" · ")||"Encounter")}</button>`:""})()}</div>`;
   if(g.note)h+=`<div class="note"><b>${t("workNote")}:</b> ${esc(g.note)}</div>`;
   h+=`<div class="note">${t("genHint")}</div>`;
   if(g.special==="gegner"){card.innerHTML=h.replace(`<div class="note">${t("genHint")}</div>`,"")+gegnerHTML(d,rs);return}
+  if(g.special==="siedlung"){card.innerHTML=h.replace(`<div class="note">${t("genHint")}</div>`,`<div class="note">${t("genHint").split(".")[0]}.</div>`)+siedlungHTML(d,rs);return}
   if(g.special!=="encounter")document.body.classList.remove("efocus");
   if(g.special==="encounter"){if(!GD.gegner){loadGen("gegner").then(()=>{if(S.cur===id)renderGen()})}card.innerHTML=h.replace(`<div class="note">${t("genHint")}</div>`,"").replace(/<div class="note"><b>[^]*?<\/div>/,"")+eHTML(d,rs);return}
   if(g.special==="sammeln")h+=sammelnHTML(d,rs,eng);
@@ -649,6 +681,7 @@ function renderGen(){
 function genText(id){
   if(GD[id].creatures)return gegnerText(GD[id],res(id));
   if(GD[id].hazards)return eText(GD[id],res(id));
+  if(GD[id].siedlung)return siedlungText(GD[id],res(id));
   const d=GD[id];const rs=res(id);const eng=new Engine(d,rs);const vals=computeAll(d,eng);const out=[];
   for(const p of panelsOf(d)){
     const[pr1,pc1,pr2,pc2]=p;const used=d.front.filter(([r,c])=>r>=pr1&&r<=pr2&&c>=pc1&&c<=pc2);
@@ -1106,6 +1139,201 @@ document.addEventListener("mouseover",ev=>{if(eTouch)return;const c=ev.target.cl
 document.addEventListener("click",ev=>{const c=ev.target.closest&&ev.target.closest("[data-tip]");eTipShow(c||null)},true);
 addEventListener("scroll",()=>eTipShow(null),true);
 
+// ================= SIEDLUNG (Stammtabelle Siedlung + Kreaturen + Beiwörter) =================
+// Neue Maske: Auswahl oben, Steckbrief, thematische Karten. Jeder Wert hat einen Schlüssel in S.draws und ist einzeln neu würfelbar (⟳),
+// jede Karte als Ganzes (⟳ im Kartenkopf). Schlüssel: "<karte>:<feld>".
+const SI18N={
+ de:{terr:"Territorium",size:"Größe",mainF:"Hauptfraktion",rand:"zufällig",facs:"Fraktionen",haupt:"Haupt",neben:"Neben",minder:"Minder",
+  look:"Stadtbild",style:"Baustil",feat:"Merkmale",smug:"Schmugglerweg",sights:"Sehenswürdigkeiten",dist:"Stadtteile",
+  npcs:"Wichtige NPCs",pol:"Politik",gov:"Regierung",law:"Gesetz",judge:"Urteil",pun:"Strafe",order:"Ordnungsmacht",
+  groups:"Gruppen & Akteure",grp:"Gruppe",act:"Akteur",agenda:"Agendas",tasks:"Aufgaben",task:"Aufgabe",prob:"Problem",goal:"Ziel",rew:"Belohnung",
+  tav:"Taverne",rep:"Ruf",rooms:"Zimmer",drink:"Getränk",dish:"Hausspeise",temples:"Tempel",trade:"Handel & Markt",goods:"Güter",
+  fasc:"gefragt",sat:"im Überfluss",market:"Markt",offer:"Angebot",guild:"Gildenladen",scroll:"Schriftrollen/Rezepte bis Stufe",ident:"Identifizieren bis",repair:"Reparieren bis",
+  smell:"Geruch",sound:"Geräusch",culture:"Kultur",mood:"Stimmung",fn:"Funktion",infl:"Einfluss",
+  roles:["Wirt","Sprecher","Gildenmeister","Hauptmann"],npc:"NPC",cardRR:"Karte neu würfeln",toEncTask:"Encounter zu dieser Aufgabe",
+  lead:(x)=>`${x.size}, ${x.settle} der ${x.fac} im Territorium ${x.terr}. Wirkt ${x.mood}.`,
+  sense:"Riecht nach %s · klingt nach %n",wants:"will",but:"aber",onlyMain:"Nur Fraktionen mit Siedlungsart können eine Siedlung führen.",
+  noFac:"– keine –",rules:"Regeln",against:"gegen"},
+ en:{terr:"Territory",size:"Size",mainF:"Main faction",rand:"random",facs:"Factions",haupt:"Main",neben:"Side",minder:"Minor",
+  look:"Townscape",style:"Style",feat:"Features",smug:"Smugglers' way",sights:"Sights",dist:"Districts",
+  npcs:"Key NPCs",pol:"Politics",gov:"Government",law:"Law",judge:"Judgement",pun:"Punishment",order:"Enforcers",
+  groups:"Groups & actors",grp:"Group",act:"Actor",agenda:"Agendas",tasks:"Tasks",task:"Task",prob:"Problem",goal:"Goal",rew:"Reward",
+  tav:"Tavern",rep:"Reputation",rooms:"Rooms",drink:"Drink",dish:"House dish",temples:"Temples",trade:"Trade & market",goods:"Goods",
+  fasc:"in demand",sat:"in surplus",market:"Market",offer:"Offer",guild:"Guild shop",scroll:"Scrolls/recipes up to level",ident:"Identify up to",repair:"Repair up to",
+  smell:"Smell",sound:"Sound",culture:"Culture",mood:"Mood",fn:"Function",infl:"Influence",
+  roles:["Innkeeper","Speaker","Guildmaster","Captain"],npc:"NPC",cardRR:"Reroll card",toEncTask:"Encounter for this task",
+  lead:(x)=>`${x.size}, ${x.settle} of the ${x.fac} in ${x.terr}. Feels ${x.mood}.`,
+  sense:"Smells of %s · sounds of %n",wants:"wants to",but:"but",onlyMain:"Only factions with a settlement type can run a settlement.",
+  noFac:"– none –",rules:"Rules",against:"against"}};
+const st=k=>{const v=SI18N[LANG][k];return v===undefined?SI18N.de[k]:v};
+const sW=x=>x?(LANG==="de"?(x.de||x.en):(x.en||x.de)):"";
+const sCap=s=>s?s[0].toUpperCase()+s.slice(1):s;
+const sLow=s=>LANG==="de"?s:(s?s[0].toLowerCase()+s.slice(1):s);
+function sState(rs){if(!rs.sd)rs.sd={inp:{terr:null,size:null,main:null},draws:{}};return rs.sd}
+function sL(D,S,list,key){const a=D.lists[list]||[];return a.length?gWPick(S,key,a):null}
+function sFacName(D,t,full){const x=D.subs[t];if(!x)return t||"";const sub=LANG==="de"?x.sub:(x.subEn||x.sub);const fac=LANG==="de"?x.fac:x.facEn;
+  return x.k&&sub!==fac?(full?`${sub} (${fac})`:sub):fac}
+// Kern: alles, was andere Karten brauchen (Territorium, Größe, Fraktionen)
+function sCore(D,S){
+  const o=S.inp;const T=o.terr!=null?D.terr.find(x=>x.nr===+o.terr):D.terr[Math.floor(gU(S,"core:terr")*D.terr.length)];
+  // Größe: erst die Größe (Summe der Gewichte), dann die Zeile innerhalb der Größe
+  const names=[...new Set(D.sizes.map(x=>x.de))];
+  const sname=o.size!=null?names[+o.size]:gWPick(S,"core:size",names.map(n=>({n,w:D.sizes.filter(x=>x.de===n).reduce((a,x)=>a+x.w,0)}))).n;
+  const Z=gWPick(S,"core:sizerow",D.sizes.filter(x=>x.de===sname));
+  const pool=T.f.filter(f=>D.subs[f.t]);
+  const mains=pool.filter(f=>D.subs[f.t].main);
+  const main=o.main&&D.subs[o.main]?o.main:(gWPick(S,"facs:haupt",mains.length?mains:pool)||{}).t;
+  const rest=pool.filter(f=>f.t!==main);const side=(gWPick(S,"facs:neben",rest.length?rest:pool)||{}).t;
+  const rest2=rest.filter(f=>f.t!==side);const minor=(gWPick(S,"facs:minder",rest2.length?rest2:rest.length?rest:pool)||{}).t;
+  return{T,Z,F:[main,side,minor],X:[main,side,minor].map(t=>D.subs[t]||{})};
+}
+function sNpcName(D,S,key,x){const N=D.names[x.names];if(!N||!N.v)return "";const v=N.v[Math.floor(gU(S,key+"v")*N.v.length)];const n=N.n&&N.n.length?N.n[Math.floor(gU(S,key+"n")*N.n.length)]:"";return [v,n].filter(Boolean).join(" ")}
+function sBuild(D,S){
+  const C=sCore(D,S),L=(l,k)=>sL(D,S,l,k),R=D.rules||{},X=C.X;
+  const r={C};
+  r.name=[L("Name: Teil 1","top:n1"),L("Name: Teil 2","top:n2")];
+  r.mood=L("Stimmung","top:mood");r.cult=L("Kultur","top:cult");
+  // Stadtbild: Baustil der Hauptfraktion mit vier Merkmalen (ohne Doppelung)
+  const sty=D.styles[X[0].k]||[];const used=new Set();r.feat=[];
+  for(let i=0;i<Math.min(4,sty.length);i++){let j=Math.floor(gU(S,"look:f"+i)*sty.length),g=0;while(used.has(j)&&g++<sty.length)j=(j+1)%sty.length;used.add(j);r.feat.push(sty[j])}
+  r.look=[L("Stadtbild","look:b1"),L("Stadtbild","look:b2")];r.smug=L("Schmugglerweg","look:smug");
+  r.sights=[];for(let i=0;i<(+R["Sehenswürdigkeiten"]||2);i++)r.sights.push([L("Sehenswürdigkeit","sight:a"+i),L("Sehenswürdigkeit: Merkmal","sight:b"+i),L("Sehenswürdigkeit: Detail","sight:c"+i)]);
+  // Gruppen und Akteure (für Platzhalter „Gruppe 1“ … in anderen Karten)
+  const gw=[["Gruppe Fraktion: Haupt",0],["Gruppe Fraktion: Neben",1],["Gruppe Fraktion: Minder",2]].map(([k,i])=>({i,w:+R[k]||1}));
+  r.groups=[0,1,2].map(i=>({f:C.F[gWPick(S,"grp:f"+i,gw).i],art:L("Gruppe: Art","grp:a"+i)}));
+  const allSubs=Object.keys(D.subs).filter(k=>D.subs[k].k);
+  r.actors=[0,1].map(i=>({f:allSubs[Math.floor(gU(S,"grp:af"+i)*allSubs.length)],ruf:L("Akteur: Ruf","grp:ar"+i),role:L("Akteur: Rolle","grp:ao"+i)}));
+  r.agendas=[];for(let i=0;i<(+R["Agendas"]||4);i++)r.agendas.push({who:L("Agenda: Wer","grp:w"+i),verb:L("Agenda: Verb","grp:v"+i),mod:L("Agenda: Modifikator","grp:m"+i),goal:L("Agenda: Ziel","grp:z"+i),con:L("Agenda: Verbindung","grp:c"+i),goal2:L("Agenda: Ziel","grp:y"+i)});
+  r.dist=[];for(let i=0;i<C.Z.n;i++)r.dist.push({n1:L("Stadtteil: Name 1","dist:n"+i),n2:L("Stadtteil: Name 2","dist:m"+i),fn:L("Stadtteil: Funktion","dist:f"+i),pw:L("Stadtteil: Problem (wer)","dist:p"+i),pa:L("Stadtteil: Problem (was)","dist:q"+i),inf:L("Stadtteil: Einfluss","dist:e"+i)});
+  // NPCs: Fraktion nach Gewicht (Haupt/Neben/Minder/fremd), Name aus der Namensliste der Fraktion, Laune + Charakter aus den Beiwörtern
+  const nw=[["NPC Fraktion: Haupt",0],["NPC Fraktion: Neben",1],["NPC Fraktion: Minder",2],["NPC Fraktion: fremd",3]].map(([k,i])=>({i,w:+R[k]||1}));
+  r.npcs=[0,1,2,3,4,5].map(i=>{const p=gWPick(S,"npc:f"+i,nw).i;const f=p<3?C.F[p]:allSubs[Math.floor(gU(S,"npc:x"+i)*allSubs.length)];const x=D.subs[f]||{};
+    return{role:i<4?st("roles")[i]:null,job:i>=4?L("NPC: Beruf","npc:j"+i):null,f,name:sNpcName(D,S,"npc:n"+i,x),
+      laune:gWPick(S,"npc:l"+i,D.person.laune||[]),char:gWPick(S,"npc:c"+i,D.person.char||[])}});
+  r.pol={gov:L("Regierung","pol:gov"),law:L("Gesetz","pol:law"),judge:L("Urteilsfindung","pol:judge"),pun:L("Bestrafung","pol:pun"),
+    ord:L("Ordnungsmacht","pol:ord"),oa:L("Ordnungsmacht: Auftrag","pol:oa"),og:L("Ordnungsmacht: gegen","pol:og"),ob:L("Ordnungsmacht: aber","pol:ob")};
+  r.tasks=[];for(let i=0;i<(+R["Aufgaben"]||2);i++)r.tasks.push({p:L("Problem","task:p"+i),pa:L("Problem: Art","task:a"+i),z:L("Ziel","task:z"+i),zb:L("Ziel: Bezug","task:b"+i),rew:L("Belohnung","task:r"+i)});
+  const rep=gWPick(S,"tav:rep",D.rooms||[]);
+  r.tav={n1:L("Taverne: Name 1","tav:n1"),n2:L("Taverne: Name 2","tav:n2"),rep,desc:L("Taverne: Beschreibung","tav:bs"),feat:L("Taverne: Merkmal","tav:mk"),
+    dk:[L("Getränk: Art","tav:da"),L("Getränk: Zutat","tav:dz"),L("Getränk: Form","tav:df")],
+    fd:[L("Speise: Würze","tav:fw"),L("Speise: Zutat","tav:fz"),L("Speise: Gericht","tav:fg"),L("Speise: Verbindung","tav:fv"),L("Speise: Beilage","tav:fb"),L("Speise: Beilage-Form","tav:ff")],
+    eff:L("Speise: Wirkung","tav:fe"),pow:1+(gU(S,"tav:fp")<3/8?1:0)};
+  const nt=C.Z.n+Math.floor(gU(S,"temp:n")*((+R["Tempel zusätzlich bis"]||3)+1));
+  r.temples=[];for(let i=0;i<nt;i++)r.temples.push({art:L("Tempel: Art","temp:a"+i),god:gWPick(S,"temp:g"+i,D.gods||[])});
+  // Handel: Güter der drei Fraktionen; gefragt/im Überfluss = Güter beliebiger Unterfraktionen
+  const gsubs=allSubs.filter(k=>D.subs[k].goods);
+  const gpick=k=>D.subs[gsubs[Math.floor(gU(S,k)*gsubs.length)]];
+  r.trade={fasc:[gpick("trade:f1"),gpick("trade:f2")],sat:[gpick("trade:s1"),gpick("trade:s2")],
+    ma:L("Markt A"+Math.min(3,C.Z.n),"trade:ma"),mb:L("Markt B"+Math.min(3,C.Z.n),"trade:mb"),g1:L("Gildenladen: Wort 1","trade:g1"),g2:L("Gildenladen: Wort 2","trade:g2")};
+  return r;
+}
+// Platzhalter „Gruppe 1“, „Akteur 2“, „Hauptfrak“ … durch die gewürfelten Werte ersetzen
+function sRef(D,r,v){const s=sW(v);if(!s)return "";let m=s.match(/^Gruppe (\d)$/);if(m){const g=r.groups[+m[1]-1];return g?`${s} (${sW(g.art)}, ${sFacName(D,g.f)})`:s}
+  m=s.match(/^Akteur (\d)$/);if(m){const a=r.actors[+m[1]-1];return a?`${s} (${sW(a.role)}, ${sFacName(D,a.f)})`:s}
+  if(/^Hauptfrak/.test(s))return sFacName(D,r.C.F[0]);if(/^Nebenfrak/.test(s))return sFacName(D,r.C.F[1]);return s}
+const sDish=t=>{const[w,z,g,v,b,f]=t.map(sW);return `${w}-${z}${(g||"").toLowerCase()} ${v} ${sCap((b||"").trim())}${(f||"").toLowerCase()}`.replace(/\s+/g," ").trim()};
+const sDrink=t=>{const[a,z,f]=t.map(sW);return `${a} ${(z||"").trim()}${(f||"").toLowerCase()}`.trim()};
+function sRR(k,cls){return `<button class="icon er${cls?" "+cls:""}" title="${t("reroll")}" data-srr="${k}">⟳</button>`}
+function sCard(id,title,body,wide,extra){return `<section class="scard${wide?" wide":""}"><div class="sch"><h3>${esc(title)}</h3>${extra||""}<button class="icon" title="${esc(st("cardRR"))}" data-srr="${id}:">⟳</button></div>${body}</section>`}
+function sRow(lab,val,k,sub){return val?`<div class="sr"><span class="k">${esc(lab)}</span><span class="v">${val}${sub?`<span class="ss">${sub}</span>`:""}</span>${k?sRR(k):"<span></span>"}</div>`:""}
+function siedlungHTML(D,rs){
+  const S=sState(rs),r=sBuild(D,S),C=r.C,o=S.inp,X=C.X;
+  const sizes=[...new Set(D.sizes.map(x=>x.de))];
+  const mainOpts=C.T.f.filter(f=>D.subs[f.t]&&D.subs[f.t].main).sort((x,y)=>sFacName(D,x.t,true).localeCompare(sFacName(D,y.t,true)));
+  // Auswahlleiste
+  let h=`<div class="ebar sbar">
+   <label class="ef"><span>${st("terr")}</span><select data-sinp="terr"><option value="">🎲 ${st("rand")}${o.terr==null?" ("+esc(LANG==="de"?C.T.de:(C.T.en||C.T.de))+")":""}</option>${D.terr.map(x=>`<option value="${x.nr}" ${+o.terr===x.nr?"selected":""}>${x.nr} – ${esc(LANG==="de"?x.de:(x.en||x.de))}</option>`).join("")}</select></label>
+   <label class="ef"><span>${st("size")}</span><select data-sinp="size"><option value="">🎲 ${st("rand")}${o.size==null?" ("+esc(sW(C.Z))+")":""}</option>${sizes.map((n,i)=>{const z=D.sizes.find(x=>x.de===n);return `<option value="${i}" ${o.size!=null&&+o.size===i?"selected":""}>${esc(sW(z))}</option>`}).join("")}</select></label>
+   <label class="ef" title="${esc(st("onlyMain"))}"><span>${st("mainF")}</span><select data-sinp="main"><option value="">🎲 ${st("rand")}${o.main==null?" ("+esc(sFacName(D,C.F[0]))+")":""}</option>${mainOpts.map(f=>`<option value="${esc(f.t)}" ${o.main===f.t?"selected":""}>${esc(sFacName(D,f.t,true))}</option>`).join("")}</select></label>
+  </div>`;
+  // Steckbrief
+  const name=(sW(r.name[0])+(sW(r.name[1])||"").toLowerCase()).replace(/^./,c=>c.toUpperCase());
+  const settle=LANG==="de"?X[0].settle:(X[0].settleEn||X[0].settle);
+  const lead=st("lead")({mood:sW(r.mood),settle:settle||"–",fac:sFacName(D,C.F[0],true),terr:LANG==="de"?C.T.de:(C.T.en||C.T.de),size:sCap(sW(C.Z)),cult:sW(r.cult)});
+  const sm=LANG==="de"?X[0].smell:X[0].smellEn,so=LANG==="de"?X[0].sound:X[0].soundEn;
+  h+=`<div class="shero"><div class="sname"><h3>${esc(name)}</h3>${sRR("top:n")}</div>
+   <div class="stags"><span class="stag">${esc(sW(C.Z))}</span>${settle?`<span class="stag">${esc(settle)}</span>`:""}<span class="stag">${esc(sFacName(D,C.F[0],true))}</span><span class="stag">${esc(LANG==="de"?C.T.de:(C.T.en||C.T.de))}</span></div>
+   <p class="slead">${esc(lead)} ${sRR("top:mood")} <span class="ss">${esc(st("culture"))}:</span> ${esc(sW(r.cult))} ${sRR("top:cult")}</p>
+   ${sm||so?`<p class="ssense">${esc(st("sense").replace("%s",sLow(sm||"–")).replace("%n",sLow(so||"–")))}</p>`:""}</div>`;
+  h+=`<div class="sgrid">`;
+  // Fraktionen
+  h+=sCard("facs",st("facs"),["haupt","neben","minder"].map((k,i)=>{const x=X[i];const goods=LANG==="de"?(x.goods||x.goodsEn):(x.goodsEn||x.goods);
+    return sRow(st(k),`<b>${esc(sFacName(D,C.F[i],true))}</b>`,i===0&&o.main?null:"facs:"+k,goods?esc(st("goods")+": "+goods):"")}).join(""));
+  // Stadtbild
+  const sty=LANG==="de"?X[0].style:(X[0].styleEn||X[0].style);
+  h+=sCard("look",st("look"),sRow(st("style"),`<b>${esc(sty||"–")}</b>`)+
+    (r.feat.length?`<div class="schips">${r.feat.map((f,i)=>`<span class="chip">${esc(sW(f))}</span>`).join("")}${sRR("look:f0|look:f1|look:f2|look:f3")}</div>`:"")+
+    sRow(st("feat"),esc(r.look.map(sW).filter(Boolean).join(", ")),"look:b")+sRow(st("smug"),esc(sW(r.smug)),"look:smug"));
+  // Sehenswürdigkeiten
+  h+=sCard("sight",st("sights"),r.sights.map((s,i)=>sRow(`${i+1}.`,`<b>${esc(sW(s[0]))}</b> – ${esc([sW(s[1]),sW(s[2])].filter(Boolean).join(", "))}`,"sight:"+["a","b","c"].map(x=>x+i).join("|sight:"))).join(""));
+  // Stadtteile
+  h+=sCard("dist",`${st("dist")} (${r.dist.length})`,r.dist.map((d,i)=>`<div class="sitem"><div class="sit"><b>${esc((sW(d.n1)+(sW(d.n2)||"").toLowerCase()))}</b><span class="ss">${esc(sW(d.fn))}</span>${sRR("dist:"+["n","m","f","p","q","e"].map(x=>x+i).join("|dist:"))}</div>
+     <div class="sid">${esc(st("prob"))}: ${esc(sRef(D,r,d.pw))} – ${esc(sW(d.pa))} · ${esc(st("infl"))}: ${esc(sRef(D,r,d.inf))}</div></div>`).join(""));
+  // NPCs
+  h+=sCard("npc",st("npcs"),`<div class="snpc">${r.npcs.map((n,i)=>`<div class="sr"><span class="k">${esc(n.role||sW(n.job)||st("npc"))}</span><span class="v"><b>${esc(n.name||"–")}</b> <span class="ss">${esc(sFacName(D,n.f))} · ${esc([sW(n.laune),sW(n.char)].filter(Boolean).join(", "))}</span></span>${sRR("npc:"+["f","x","n","l","c","j"].map(x=>x+i).join("|npc:"))}</div>`).join("")}</div>`,true);
+  // Gruppen & Akteure
+  h+=sCard("grp",st("groups"),r.groups.map((g,i)=>sRow(`${st("grp")} ${i+1}`,`<b>${esc(sW(g.art))}</b> <span class="ss">${esc(sFacName(D,g.f))}</span>`,`grp:a${i}|grp:f${i}`)).join("")+
+    r.actors.map((a,i)=>sRow(`${st("act")} ${i+1}`,`<b>${esc(sW(a.role))}</b> <span class="ss">${esc(sW(a.ruf))} · ${esc(sFacName(D,a.f))}</span>`,`grp:ao${i}|grp:ar${i}|grp:af${i}`)).join("")+
+    `<div class="sh4">${st("agenda")}</div>`+r.agendas.map((a,i)=>`<div class="sag">${esc(sRef(D,r,a.who))} → <b>${esc(sW(a.verb))}</b> ${esc(sRef(D,r,a.goal))} <span class="ss">(${esc(sW(a.mod))})</span> ${esc(sW(a.con))} ${esc(sRef(D,r,a.goal2))} ${sRR(["w","v","m","z","c","y"].map(x=>"grp:"+x+i).join("|"))}</div>`).join(""),true);
+  // Politik
+  const P=r.pol;
+  h+=sCard("pol",st("pol"),sRow(st("gov"),esc(sW(P.gov)),"pol:gov")+sRow(st("law"),esc(sW(P.law)),"pol:law")+sRow(st("judge"),esc(sW(P.judge)),"pol:judge")+sRow(st("pun"),esc(sW(P.pun)),"pol:pun")+
+    sRow(st("order"),`<b>${esc(sW(P.ord))}</b> <span class="ss">${esc(sW(P.oa))} ${esc(st("against"))} ${esc(sRef(D,r,P.og))}, ${esc(st("but"))} ${esc(sW(P.ob))}</span>`,"pol:ord|pol:oa|pol:og|pol:ob"));
+  // Aufgaben (mit Encounter-Knopf)
+  h+=sCard("task",st("tasks"),r.tasks.map((x,i)=>`<div class="sitem"><div class="sit"><b>${esc(sRef(D,r,x.p))}</b><span class="ss">${esc(sW(x.pa))}</span>${sRR(`task:p${i}|task:a${i}`)}<button class="icon encb" data-stask="${i}" title="${esc(st("toEncTask"))}">⚔</button></div>
+    <div class="sid">${esc(st("goal"))}: ${esc(sW(x.z))} – ${esc(sRef(D,r,x.zb))} ${sRR(`task:z${i}|task:b${i}`)} · ${esc(st("rew"))}: ${esc(sW(x.rew))} ${sRR("task:r"+i)}</div></div>`).join(""));
+  // Taverne
+  const V=r.tav;
+  h+=sCard("tav",st("tav"),`<div class="sit stavn"><b>„${esc(sCap(sW(V.n1)))} ${esc(sW(V.n2))}“</b>${sRR("tav:n1|tav:n2")}</div>`+
+    sRow(st("rep"),`<b>${esc(sW(V.rep))}</b> <span class="ss">${esc([sW(V.desc),sW(V.feat)].filter(Boolean).join(", "))}</span>`,"tav:rep|tav:bs|tav:mk")+
+    sRow(st("rooms"),esc(V.rep?V.rep.rooms:""))+sRow(st("drink"),esc(sDrink(V.dk)),"tav:da|tav:dz|tav:df")+
+    sRow(st("dish"),`${esc(sDish(V.fd))} <span class="ss">${esc(sW(V.eff))} ${V.pow}</span>`,"tav:fw|tav:fz|tav:fg|tav:fv|tav:fb|tav:ff|tav:fe|tav:fp"));
+  // Tempel
+  h+=sCard("temp",`${st("temples")} (${r.temples.length})`,r.temples.map((x,i)=>sRow(sW(x.art),`<b>${esc(x.god?x.god.rel:"")}</b> <span class="ss">${esc(x.god?[x.god.god,x.god.role].filter(Boolean).join(" · "):"")}</span>`,`temp:a${i}|temp:g${i}`)).join(""));
+  // Handel & Markt
+  const Tr=r.trade,gd=x=>x?(LANG==="de"?(x.goods||x.goodsEn):(x.goodsEn||x.goods)):"";
+  h+=sCard("trade",st("trade"),sRow(st("fasc"),esc(Tr.fasc.map(gd).join(", ")),"trade:f1|trade:f2")+sRow(st("sat"),esc(Tr.sat.map(gd).join(", ")),"trade:s1|trade:s2")+
+    sRow(st("market"),`${esc(st("offer"))} ${C.Z.n} · ${esc([sW(Tr.ma),sW(Tr.mb)].filter(Boolean).join(", "))}`,"trade:ma|trade:mb")+
+    sRow(st("guild"),`„${esc(sCap(sW(Tr.g1)))} ${esc(sW(Tr.g2))}“`,"trade:g1|trade:g2")+
+    sRow(st("scroll"),String(C.Z.lvl))+sRow(st("ident"),esc(C.Z.ident))+sRow(st("repair"),esc(C.Z.rep)));
+  return h+`</div>`;
+}
+function siedlungText(D,rs){
+  const S=sState(rs),r=sBuild(D,S),C=r.C,X=C.X,o=[];
+  const name=(sW(r.name[0])+(sW(r.name[1])||"").toLowerCase()).replace(/^./,c=>c.toUpperCase());
+  o.push(`${name} – ${sW(C.Z)}, ${LANG==="de"?X[0].settle:(X[0].settleEn||X[0].settle)} · ${LANG==="de"?C.T.de:(C.T.en||C.T.de)}`);
+  o.push(`${st("mood")}: ${sW(r.mood)} · ${st("culture")}: ${sW(r.cult)}`);
+  o.push(`${st("facs")}: ${C.F.map(f=>sFacName(D,f,true)).join(" / ")}`);
+  o.push(`${st("look")}: ${LANG==="de"?X[0].style:X[0].styleEn} (${r.feat.map(sW).join(", ")}); ${r.look.map(sW).join(", ")} · ${st("smug")}: ${sW(r.smug)}`);
+  o.push(`${st("sights")}: ${r.sights.map(s=>`${sW(s[0])} (${sW(s[1])}, ${sW(s[2])})`).join("; ")}`);
+  o.push(`${st("dist")}: ${r.dist.map(d=>`${sW(d.n1)}${(sW(d.n2)||"").toLowerCase()} (${sW(d.fn)}; ${sRef(D,r,d.pw)} – ${sW(d.pa)})`).join("; ")}`);
+  o.push(`${st("npcs")}: ${r.npcs.map(n=>`${n.role||sW(n.job)}: ${n.name} (${sFacName(D,n.f)}, ${sW(n.laune)}, ${sW(n.char)})`).join("; ")}`);
+  o.push(`${st("groups")}: ${r.groups.map((g,i)=>`${st("grp")} ${i+1}: ${sW(g.art)} (${sFacName(D,g.f)})`).join("; ")}; ${r.actors.map((a,i)=>`${st("act")} ${i+1}: ${sW(a.role)} (${sW(a.ruf)}, ${sFacName(D,a.f)})`).join("; ")}`);
+  r.agendas.forEach(a=>o.push(`  ${st("agenda")}: ${sRef(D,r,a.who)} → ${sW(a.verb)} ${sRef(D,r,a.goal)} (${sW(a.mod)}) ${sW(a.con)} ${sRef(D,r,a.goal2)}`));
+  const P=r.pol;o.push(`${st("pol")}: ${st("gov")} ${sW(P.gov)}, ${st("law")} ${sW(P.law)}, ${st("judge")} ${sW(P.judge)}, ${st("pun")} ${sW(P.pun)}; ${st("order")}: ${sW(P.ord)} – ${sW(P.oa)} ${st("against")} ${sRef(D,r,P.og)}, ${st("but")} ${sW(P.ob)}`);
+  r.tasks.forEach(x=>o.push(`${st("task")}: ${sRef(D,r,x.p)} (${sW(x.pa)}) · ${st("goal")}: ${sW(x.z)} – ${sRef(D,r,x.zb)} · ${st("rew")}: ${sW(x.rew)}`));
+  const V=r.tav;o.push(`${st("tav")}: „${sCap(sW(V.n1))} ${sW(V.n2)}“ (${sW(V.rep)}, ${sW(V.desc)}, ${sW(V.feat)}) · ${st("drink")}: ${sDrink(V.dk)} · ${st("dish")}: ${sDish(V.fd)} (${sW(V.eff)} ${V.pow})`);
+  o.push(`${st("temples")}: ${r.temples.map(x=>`${sW(x.art)} – ${x.god?x.god.rel+" ("+x.god.god+")":""}`).join("; ")}`);
+  const gd=x=>x?(LANG==="de"?x.goods:(x.goodsEn||x.goods)):"";
+  o.push(`${st("trade")}: ${st("fasc")} ${r.trade.fasc.map(gd).join(", ")}; ${st("sat")} ${r.trade.sat.map(gd).join(", ")}; ${st("guild")} „${sCap(sW(r.trade.g1))} ${sW(r.trade.g2)}“; ${st("scroll")} ${C.Z.lvl}, ${st("ident")} ${C.Z.ident}, ${st("repair")} ${C.Z.rep}`);
+  return o;
+}
+// Encounter aus der Siedlung: Ortsart Stadt, Fraktionen Haupt/Neben/Minder; bei einer Aufgabe zusätzlich Problem und Ziel als Hinweis
+async function siedlungToEnc(task){
+  const id=S.cur,g=GENS.find(x=>x.id===id),D=GD[id],rs=res(id),Sx=sState(rs),r=sBuild(D,Sx),C=r.C;
+  await Promise.all([loadGen("encounter"),loadGen("gegner")]);await loadRes("encounter");
+  const G=GD.gegner,f=[null,null,null],extra=[],seen=new Set();
+  C.F.forEach(t=>{const x=D.subs[t];const txt=x&&x.k?`[${x.k}] ${x.sub}`:(x?x.sub:t);const c=eFindCre(G,txt);
+    if(!c){if(t)extra.push(sFacName(D,t,true));return}const key=c.i+"|"+(c.sub||"");if(seen.has(key))return;seen.add(key);const sl=f.findIndex(v=>v==null);if(sl>=0)f[sl]=c});
+  const name=(sW(r.name[0])+(sW(r.name[1])||"").toLowerCase()).replace(/^./,c=>c.toUpperCase());
+  let lab="";if(task!=null){const x=r.tasks[+task];if(x){lab=`${st("task")} ${+task+1}`;extra.push(`${st("prob")}: ${sRef(D,r,x.p)} (${sW(x.pa)})`,`${st("goal")}: ${sW(x.z)} – ${sRef(D,r,x.zb)}`)}}
+  const er=res("encounter"),E=eState(er),ED=GD.encounter;const oi=ED.orte.findIndex(o=>o.de==="Stadt");
+  E.inp.f=f;if(oi>=0)E.inp.ort=oi;
+  E.src={gen:id,title:gTitle(g)+" "+name+(lab?" · "+lab:""),place:LANG==="de"?C.T.de:(C.T.en||C.T.de),hazard:null,pre:{},extra};
+  E.draws={};E.gd=[{},{},{}];E.ov=[{},{},{}];E.hp={};E.ph={};
+  saveRes("encounter");go("encounter");
+}
+
 // ================= navigation =================
 function groups(){return [...new Set(GENS.map(g=>g.group))]}
 function renderNav(){
@@ -1146,6 +1374,12 @@ document.addEventListener("click",ev=>{
     const eng=new Engine(d,rs);for(const k of eng.keys(d.sheet,r,c))delete rs.draws[k];saveRes(id);renderGen();
     const n=document.querySelector(`[data-cell="${r},${c}"]`);if(n)n.classList.add("flash");return}
   const rs=GD[S.cur]?res(S.cur):null;
+  if(rs&&GD[S.cur].siedlung){const Sx=sState(rs);
+    if(b.id==="toEnc"){siedlungToEnc(null);return}
+    if(ds.stask!=null){siedlungToEnc(ds.stask);return}
+    if(ds.srr!=null){const ks=ds.srr.split("|");for(const key of Object.keys(Sx.draws))if(ks.some(k=>key.startsWith(k)))delete Sx.draws[key];saveRes(S.cur);renderGen();return}
+    if(b.id==="regen"){Sx.draws={};saveRes(S.cur);renderGen();return}
+  }
   if(b.id==="toEnc"){encFromPlace();return}
   if(ds.encrow!=null){encFromPlace(ds.encrow);return}
   if(rs&&GD[S.cur].hazards){const E=eState(rs);
@@ -1179,6 +1413,11 @@ document.addEventListener("change",ev=>{
     if(e.dataset.ehpin!=null){const v=parseInt(e.value,10);if(!isNaN(v)&&v!==0)eDamage(rs,e.dataset.ehpin,v)}
     else if(e.dataset.eov!=null){const[f,gi]=e.dataset.eov.split(":");E.ov[+gi][f]=e.value===""?undefined:+e.value;if(f==="cre"||f==="cls")for(const k of Object.keys(E.hp))if(k.startsWith(gi+"#")){delete E.hp[k];delete E.ph[k]}}
     else{const k=e.dataset.einp;if(k[0]==="f"){E.inp.f[+k[1]]=e.value===""?null:(e.value[0]==="r"?e.value:+e.value);delete E.draws["f:"+k[1]]}else if(k==="boss")E.inp.boss=e.checked;else if(k==="dp")E.inp.dp=Math.max(-4,Math.min(12,parseInt(e.value,10)||0));else E.inp[k]=Math.max(0,parseInt(e.value,10)||0);if(k==="heroes")E.inp.heroes=Math.min(9,Math.max(1,E.inp.heroes))}
+    saveRes(S.cur);renderGen();return}
+  if(e.dataset.sinp!=null){const Sx=sState(res(S.cur)),k=e.dataset.sinp,v=e.value===""?null:e.value;Sx.inp[k]=v;
+    if(k==="terr"){Sx.inp.main=null;delete Sx.draws["core:terr"];for(const x of ["facs:haupt","facs:neben","facs:minder"])delete Sx.draws[x]}
+    if(k==="size"){delete Sx.draws["core:size"];delete Sx.draws["core:sizerow"]}
+    if(k==="main")delete Sx.draws["facs:haupt"];
     saveRes(S.cur);renderGen();return}
   if(e.id==="navSel"){go(e.value);return}
   if(e.dataset.gcre!=null||e.dataset.gcls!=null){const rs=res(S.cur);const i=+(e.dataset.gcre??e.dataset.gcls);const en=rs.list[i];
