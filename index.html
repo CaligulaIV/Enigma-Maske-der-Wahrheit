@@ -288,7 +288,7 @@ de:{appTitle:"Enigma-Werkzeuge",sessPh:"Sitzung (z. B. Sitzung 12 – Rostriff)"
  libErr:"Export-Bibliothek konnte nicht geladen werden",expErr:"Export nicht möglich",confirmNew:"Protokoll wird geleert – zum Bestätigen nochmal klicken (vorher exportieren!)",
  newDone:"Neue Sitzung – Kampagnenlisten und Generatoren bleiben erhalten",bkDone:"Sicherung gespeichert",bkErr:"Sichern nicht möglich",bkLoaded:"Sicherung geladen",bkWrong:"Das ist keine Sicherung der Enigma-Werkzeuge",
  toLogDone:"Ins Protokoll übernommen",stLocal:"nur in diesem Browser gespeichert",stCloud:"gespeichert (geräteübergreifend)",stSaved:"gespeichert",stFull:"Speicher voll – alte Einträge löschen",stLoad:"lädt…",reroll:"Neu würfeln",locale:"de-DE",
- gPhase2:"Phase 2",gP2Trig:"Wenn Health das erste Mal auf 0 fällt:",gP2New:"neue Health",gP2En:"Energie wieder voll",gP2Skills:"zusätzliche Skills",gRole:"Rolle", gAdd:"+ Gegner",gHint:"Kreatur und Klasse wählen oder auf „zufällig“ lassen. ⟳ würfelt einzelne Werte neu.",gRerollAll:"Diesen Gegner neu würfeln",
+ gPhase2:"Phase 2",gP2Act:"Darf sofort %n Aktionen durchführen, die nicht an eine Phase gebunden sind.",gP2Trig:"Wenn Health das erste Mal auf 0 fällt:",gP2New:"neue Health",gP2En:"Energie wieder voll",gP2Skills:"zusätzliche Skills",gRole:"Rolle", gAdd:"+ Gegner",gHint:"Kreatur und Klasse wählen oder auf „zufällig“ lassen. ⟳ würfelt einzelne Werte neu.",gRerollAll:"Diesen Gegner neu würfeln",
  gLook:"Merkmal",gSmell:"Geruch",gSound:"Geräusch",gPassive:"Fraktionspassiv",gDefense:"Verteidigung",gAttack:"Angriff",gSpecial:"Spezial",gEnergy:"Energie",
  gItem:"sichtbar als",gEPass:"Energie-Passiv",gSwapCls:"%a gibt es nur als %b – Klasse %c wird zu %b.",gSwapCre:"%a stellen in %c keine Kämpfer – hier: %b.",
  gNoCls:"%a gibt es nicht als %c – stattdessen %b.",gCat_Raubtier:"Raubtiere",gCat_Monster:"Monster",gCat_Abenteurer:"Abenteurer",gCat_Heimatfraktion:"Heimatfraktionen",gCat_Sonderfraktion:"Sonderfraktionen"},
@@ -321,7 +321,7 @@ en:{appTitle:"Enigma Tools",sessPh:"Session (e.g. Session 12 – Rustreef)",fate
  libErr:"Export library could not be loaded",expErr:"Export not possible",confirmNew:"The log will be cleared – click again to confirm (export first!)",
  newDone:"New session – campaign lists and generators are kept",bkDone:"Backup saved",bkErr:"Backup not possible",bkLoaded:"Backup restored",bkWrong:"This is not an Enigma Tools backup",
  toLogDone:"Added to log",stLocal:"saved in this browser only",stCloud:"saved (across devices)",stSaved:"saved",stFull:"Storage full – delete old entries",stLoad:"loading…",reroll:"Reroll",locale:"en-GB",
- gPhase2:"Phase 2",gP2Trig:"When its health drops to 0 for the first time:",gP2New:"new health",gP2En:"energy refilled",gP2Skills:"additional skills",gRole:"Role",gP2HintEN:"The enemy repositions. Add an event or obstacle (reinforcements, a collapsing ceiling, a ritual …). It may also flee to deliver a better fight at the end.", gAdd:"+ Enemy",gHint:"Choose creature and class, or leave them on “random”. ⟳ rerolls single values.",gRerollAll:"Reroll this enemy",
+ gPhase2:"Phase 2",gP2Act:"May immediately take %n actions that are not bound to a phase.",gP2Trig:"When its health drops to 0 for the first time:",gP2New:"new health",gP2En:"energy refilled",gP2Skills:"additional skills",gRole:"Role",gP2HintEN:"The enemy repositions. Add an event or obstacle (reinforcements, a collapsing ceiling, a ritual …). It may also flee to deliver a better fight at the end.", gAdd:"+ Enemy",gHint:"Choose creature and class, or leave them on “random”. ⟳ rerolls single values.",gRerollAll:"Reroll this enemy",
  gLook:"Feature",gSmell:"Smell",gSound:"Sound",gPassive:"Faction passive",gDefense:"Defense",gAttack:"Attack",gSpecial:"Special",gEnergy:"Energy",
  gItem:"seen as",gEPass:"Energy passive",gSwapCls:"%a only exist as %b – class %c becomes %b.",gSwapCre:"%a have no fighters of class %c – here: %b.",
  gNoCls:"%a do not exist as %c – %b instead.",gCat_Raubtier:"Predators",gCat_Monster:"Monsters",gCat_Abenteurer:"Adventurers",gCat_Heimatfraktion:"Home factions",gCat_Sonderfraktion:"Special factions"}};
@@ -687,7 +687,7 @@ function gBuild(d,e){
   const fa=d.formulas["Attribut (je Attribut)"]||{n:2,s:6,k:1,c:0};
   const A={};for(const a of GATTR)A[a]=gDie(e,"a:"+a,fa.n,fa.s)+gNum(fa.k)*C+gNum(fa.c)+am[a];
   const st={health:gFormula(d,e,"Health",C,cr),energy:K.energy,resist:gFormula(d,e,"Resistance",C,cr,A),grounding:gFormula(d,e,"Grounding",C,cr),
-    fight:K.fight,timing:gFormula(d,e,"Timing",C,cr),move:gFormula(d,e,"Movement",C,cr),actions:K.actions,armor:gNum(cr["Rüstungswert"]),armorType:cr["Rüstung"]||""};
+    fight:K.fight,timing:gFormula(d,e,"Timing",C,cr),move:gFormula(d,e,"Movement",C,cr)+gNum(K.move),actions:K.actions,armor:gNum(cr["Rüstungswert"]),armorType:cr["Rüstung"]||""};
   const v={duck:gSV(d,"Duck",K,A),att:gSV(d,"Attack",K,A),spec:gSV(d,"Spezialskill",K,A),en:gSV(d,"Energieskill",K,A)};
   const u=d.unlock[K.name]||{},pred=cr["Kategorie"]==="Raubtier";
   const e1slot=u.e1==="1b"&&!pred?"e1b":u.e1?"e1a":null;
@@ -703,7 +703,7 @@ function gBuild(d,e){
 }
 const gRole=g=>LANG==="de"?(g.K.role_de||g.K.role_en):(g.K.role_en||g.K.role_de);
 const gP2Trig=g=>LANG==="de"?(g.p2.P.trigger||t("gP2Trig")):t("gP2Trig");
-const gP2Hint=g=>LANG==="de"?(g.p2.P.hint||""):t("gP2HintEN");
+const gP2Hint=g=>LANG==="de"?(g.p2.P.hint||""):(g.p2.P.actions?t("gP2Act").replace("%n",g.p2.P.actions)+" ":"")+t("gP2HintEN");
 const GSLOTL=sl=>({def:t("gDefense"),att:t("gAttack"),spec:t("gSpecial"),e1a:t("gEnergy"),e1b:t("gEnergy"),e2:t("gEnergy")+" 2"})[sl]||sl;
 function gName(g){const a=gW(g.words.n1),n=gW(g.words.n2);return LANG==="de"?`${n}, ${a}`:`${a} ${n}`}
 const gTxt=(cr,en,de)=>LANG==="de"&&cr[de]?cr[de]:(cr[en]||cr[de]||"");
