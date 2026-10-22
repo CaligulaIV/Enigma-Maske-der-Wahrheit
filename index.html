@@ -127,6 +127,8 @@ details.camp summary{cursor:pointer;font-family:"Cormorant Garamond",serif;font-
 .ebar{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:flex-end;margin-bottom:8px}
 .ef{display:flex;flex-direction:column;font-size:11.5px;color:var(--muted);min-width:118px;flex:1 1 118px}
 .ef.sm{min-width:64px;flex:0 0 64px}
+.ef.eboss{align-items:flex-start}.ef.eboss input{width:auto;margin:6px 0 0 4px}
+.ef.sm:has(input[data-einp=dp]){flex:0 0 120px}
 .ef select,.ef input{padding:4px 6px;font-size:13px;color:var(--ink)}
 .esrc{font-size:12.5px;color:var(--muted);margin:-2px 0 8px}
 .einfo{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-bottom:10px}
@@ -336,7 +338,7 @@ de:{appTitle:"Enigma-Werkzeuge",sessPh:"Sitzung (z. B. Sitzung 12 – Rostriff)"
  libErr:"Export-Bibliothek konnte nicht geladen werden",expErr:"Export nicht möglich",confirmNew:"Protokoll wird geleert – zum Bestätigen nochmal klicken (vorher exportieren!)",
  newDone:"Neue Sitzung – Kampagnenlisten und Generatoren bleiben erhalten",bkDone:"Sicherung gespeichert",bkErr:"Sichern nicht möglich",bkLoaded:"Sicherung geladen",bkWrong:"Das ist keine Sicherung der Enigma-Werkzeuge",
  toLogDone:"Ins Protokoll übernommen",stLocal:"nur in diesem Browser gespeichert",stCloud:"gespeichert (geräteübergreifend)",stSaved:"gespeichert",stFull:"Speicher voll – alte Einträge löschen",stLoad:"lädt…",reroll:"Neu würfeln",locale:"de-DE",
- eHeroes:"Helden",eLeft:"übrig: %n Punkte",eBig:"große Karte (wichtiger Kampf)",eTube:"Schlauchkarte",eLevel:"Heldenstufe",eDiff:"Schwierigkeit",ePlace:"Ort",eMain:"Hauptfraktion",eSide:"Nebenfraktion",eMinor:"Minderfraktion",eNone:"– keine –",eFocusT:"Vollbild: Navigation ausblenden",eFrom:"Aus",eAlso:"außerdem am Ort",eClear:"Verbindung zum Ort lösen",eSetting:"Schauplatz",eBudget:"Budget",ePts:"Punkte",eRoll:"Wurf",eZones:"Zonen",eShape:"Karte",eCover:"Deckung",eSpecial:"Besonderheit",eSplit:"Aufteilung",eWhere:"Lage",eWant:"Was die Gegner wollen",eDoing:"Tun",eForm:"Formation",eCirc:"Umstand",eProb:"Problem",eRel:"Beziehung",eHazard:"Umweltgefahr",eHz:"Gefahr",eEffect:"Wirkung",eExtent:"Ausdehnung",eOrigin:"Ursprung",eSense:"Geruch · Geräusch",eNoHz:"Keine Gefahr – nur Stimmung.",eDmg:"Sch.",eDmgT:"Schaden eintippen und Enter (negative Zahl heilt)",eP2Hint:"Fällt Health auf 0, beginnt Phase 2 (② neue Health, zusätzliche Skills, 2 Sofortaktionen).",eP2Start:"Phase 2! Neue Health, zusätzliche Skills und 2 Sofortaktionen.",toEnc:"⚔ Encounter erstellen",toEncT:"Encounter mit den Fraktionen, Raubtieren und Gefahren dieses Ortes erstellen",gPhase2:"Phase 2",gP2Act:"Darf sofort %n Aktionen durchführen, die nicht an eine Phase gebunden sind.",gP2Trig:"Wenn Health das erste Mal auf 0 fällt:",gP2New:"neue Health",gP2En:"Energie wieder voll",gP2Skills:"zusätzliche Skills",gRole:"Rolle", gAdd:"+ Gegner",gHint:"Kreatur und Klasse wählen oder auf „zufällig“ lassen. ⟳ würfelt einzelne Werte neu.",gRerollAll:"Diesen Gegner neu würfeln",
+ eHeroes:"Helden",eLeft:"übrig: %n Punkte",eBig:"große Karte (wichtiger Kampf)",eTube:"Schlauchkarte",eLevel:"Heldenstufe",eDiff:"Schwierigkeit",eDiffT:"Punkte zum Budget, −4 bis +12, frei wählbar. Die Heldenstufe fließt hier ein (siehe Enigma's Guide).",eBoss:"Bosskampf",eRandGroup:"zufällig aus Gruppe",eBossT:"Höchste bezahlbare Klasse der Hauptfraktion als Boss, der Rest des Budgets als Unterstützung bis Threat",eBossTag:"Boss",ePlace:"Ort",eMain:"Hauptfraktion",eSide:"Nebenfraktion",eMinor:"Minderfraktion",eNone:"– keine –",eFocusT:"Vollbild: Navigation ausblenden",eFrom:"Aus",eAlso:"außerdem am Ort",eClear:"Verbindung zum Ort lösen",eSetting:"Schauplatz",eBudget:"Budget",ePts:"Punkte",eRoll:"Wurf",eZones:"Zonen",eShape:"Karte",eCover:"Deckung",eSpecial:"Besonderheit",eSplit:"Aufteilung",eWhere:"Lage",eWant:"Was die Gegner wollen",eDoing:"Tun",eForm:"Formation",eCirc:"Umstand",eProb:"Problem",eRel:"Beziehung",eHazard:"Umweltgefahr",eHz:"Gefahr",eEffect:"Wirkung",eExtent:"Ausdehnung",eOrigin:"Ursprung",eSense:"Geruch · Geräusch",eNoHz:"Keine Gefahr – nur Stimmung.",eDmg:"Sch.",eDmgT:"Schaden eintippen und Enter (negative Zahl heilt)",eP2Hint:"Fällt Health auf 0, beginnt Phase 2 (② neue Health, zusätzliche Skills, 2 Sofortaktionen).",eP2Start:"Phase 2! Neue Health, zusätzliche Skills und 2 Sofortaktionen.",toEnc:"⚔ Encounter erstellen",toEncT:"Encounter mit den Fraktionen, Raubtieren und Gefahren dieses Ortes erstellen",gPhase2:"Phase 2",gP2Act:"Darf sofort %n Aktionen durchführen, die nicht an eine Phase gebunden sind.",gP2Trig:"Wenn Health das erste Mal auf 0 fällt:",gP2New:"neue Health",gP2En:"Energie wieder voll",gP2Skills:"zusätzliche Skills",gRole:"Rolle", gAdd:"+ Gegner",gHint:"Kreatur und Klasse wählen oder auf „zufällig“ lassen. ⟳ würfelt einzelne Werte neu.",gRerollAll:"Diesen Gegner neu würfeln",
  gLook:"Merkmal",gSmell:"Geruch",gSound:"Geräusch",gPassive:"Fraktionspassiv",gDefense:"Verteidigung",gAttack:"Angriff",gSpecial:"Spezial",gEnergy:"Energie",
  gItem:"sichtbar als",gEPass:"Energie-Passiv",gSwapCls:"%a gibt es nur als %b – Klasse %c wird zu %b.",gSwapCre:"%a stellen in %c keine Kämpfer – hier: %b.",
  gNoCls:"%a gibt es nicht als %c – stattdessen %b.",gCat_Raubtier:"Raubtiere",gCat_Monster:"Monster",gCat_Abenteurer:"Abenteurer",gCat_Heimatfraktion:"Heimatfraktionen",gCat_Sonderfraktion:"Sonderfraktionen"},
@@ -369,7 +371,7 @@ en:{appTitle:"Enigma Tools",sessPh:"Session (e.g. Session 12 – Rustreef)",fate
  libErr:"Export library could not be loaded",expErr:"Export not possible",confirmNew:"The log will be cleared – click again to confirm (export first!)",
  newDone:"New session – campaign lists and generators are kept",bkDone:"Backup saved",bkErr:"Backup not possible",bkLoaded:"Backup restored",bkWrong:"This is not an Enigma Tools backup",
  toLogDone:"Added to log",stLocal:"saved in this browser only",stCloud:"saved (across devices)",stSaved:"saved",stFull:"Storage full – delete old entries",stLoad:"loading…",reroll:"Reroll",locale:"en-GB",
- eHeroes:"Heroes",eLeft:"left over: %n points",eBig:"large map (important fight)",eTube:"tube map",eLevel:"Hero level",eDiff:"Difficulty",ePlace:"Place",eMain:"Main faction",eSide:"Side faction",eMinor:"Minor faction",eNone:"– none –",eFocusT:"Full screen: hide navigation",eFrom:"From",eAlso:"also here",eClear:"Unlink from the place",eSetting:"Setting",eBudget:"Budget",ePts:"points",eRoll:"roll",eZones:"zones",eShape:"Map",eCover:"Cover",eSpecial:"Special",eSplit:"Layout",eWhere:"Position",eWant:"What the enemies want",eDoing:"Doing",eForm:"Formation",eCirc:"Circumstance",eProb:"Problem",eRel:"Relation",eHazard:"Environmental hazard",eHz:"Hazard",eEffect:"Effect",eExtent:"Extent",eOrigin:"Origin",eSense:"Smell · sound",eNoHz:"No hazard – atmosphere only.",eDmg:"dmg",eDmgT:"Type damage and press Enter (a negative number heals)",eP2Hint:"When health drops to 0, phase 2 begins (② new health, extra skills, 2 immediate actions).",eP2Start:"Phase 2! New health, extra skills, and 2 immediate actions.",toEnc:"⚔ Create encounter",toEncT:"Create an encounter with the factions, predators, and hazards of this place",gPhase2:"Phase 2",gP2Act:"May immediately take %n actions that are not bound to a phase.",gP2Trig:"When its health drops to 0 for the first time:",gP2New:"new health",gP2En:"energy refilled",gP2Skills:"additional skills",gRole:"Role",gP2HintEN:"The enemy repositions. Add an event or obstacle (reinforcements, a collapsing ceiling, a ritual …). It may also flee to deliver a better fight at the end.", gAdd:"+ Enemy",gHint:"Choose creature and class, or leave them on “random”. ⟳ rerolls single values.",gRerollAll:"Reroll this enemy",
+ eHeroes:"Heroes",eLeft:"left over: %n points",eBig:"large map (important fight)",eTube:"tube map",eLevel:"Hero level",eDiff:"Difficulty",eDiffT:"Points added to the budget, −4 to +12, any value. The hero level is included here (see the Enigma's Guide).",eBoss:"Boss fight",eRandGroup:"random from group",eBossT:"Highest affordable class of the main faction as the boss, the rest of the budget as support up to Threat",eBossTag:"Boss",ePlace:"Place",eMain:"Main faction",eSide:"Side faction",eMinor:"Minor faction",eNone:"– none –",eFocusT:"Full screen: hide navigation",eFrom:"From",eAlso:"also here",eClear:"Unlink from the place",eSetting:"Setting",eBudget:"Budget",ePts:"points",eRoll:"roll",eZones:"zones",eShape:"Map",eCover:"Cover",eSpecial:"Special",eSplit:"Layout",eWhere:"Position",eWant:"What the enemies want",eDoing:"Doing",eForm:"Formation",eCirc:"Circumstance",eProb:"Problem",eRel:"Relation",eHazard:"Environmental hazard",eHz:"Hazard",eEffect:"Effect",eExtent:"Extent",eOrigin:"Origin",eSense:"Smell · sound",eNoHz:"No hazard – atmosphere only.",eDmg:"dmg",eDmgT:"Type damage and press Enter (a negative number heals)",eP2Hint:"When health drops to 0, phase 2 begins (② new health, extra skills, 2 immediate actions).",eP2Start:"Phase 2! New health, extra skills, and 2 immediate actions.",toEnc:"⚔ Create encounter",toEncT:"Create an encounter with the factions, predators, and hazards of this place",gPhase2:"Phase 2",gP2Act:"May immediately take %n actions that are not bound to a phase.",gP2Trig:"When its health drops to 0 for the first time:",gP2New:"new health",gP2En:"energy refilled",gP2Skills:"additional skills",gRole:"Role",gP2HintEN:"The enemy repositions. Add an event or obstacle (reinforcements, a collapsing ceiling, a ritual …). It may also flee to deliver a better fight at the end.", gAdd:"+ Enemy",gHint:"Choose creature and class, or leave them on “random”. ⟳ rerolls single values.",gRerollAll:"Reroll this enemy",
  gLook:"Feature",gSmell:"Smell",gSound:"Sound",gPassive:"Faction passive",gDefense:"Defense",gAttack:"Attack",gSpecial:"Special",gEnergy:"Energy",
  gItem:"seen as",gEPass:"Energy passive",gSwapCls:"%a only exist as %b – class %c becomes %b.",gSwapCre:"%a have no fighters of class %c – here: %b.",
  gNoCls:"%a do not exist as %c – %b instead.",gCat_Raubtier:"Predators",gCat_Monster:"Monsters",gCat_Abenteurer:"Adventurers",gCat_Heimatfraktion:"Home factions",gCat_Sonderfraktion:"Special factions"}};
@@ -825,8 +827,8 @@ function gegnerText(d,rs){
 // bis zu drei Gruppen (30–100 % · 0–(110−G1) % · Rest), Klasse und Fraktion nach Gewichten, Klasse sinkt bis sie bezahlbar ist.
 const ECLS=["Fledgling","Combatant","Adversary","Threat","Menace","Tyrant"];
 function eState(rs){
-  if(!rs.enc)rs.enc={inp:{heroes:4,level:0,diff:1,ort:1,f:[null,"r",null]},src:null,draws:{},gd:[{},{},{}],ov:[{},{},{}],hp:{},ph:{}};
-  const E=rs.enc;E.gd=E.gd||[{},{},{}];E.ov=E.ov||[{},{},{}];E.hp=E.hp||{};E.ph=E.ph||{};return E;
+  if(!rs.enc)rs.enc={inp:{heroes:4,dp:0,boss:false,ort:1,f:[null,"r",null]},src:null,draws:{},gd:[{},{},{}],ov:[{},{},{}],hp:{},ph:{}};
+  const E=rs.enc;if(E.inp.dp==null){const d0=(GD.encounter&&GD.encounter.diff||[])[E.inp.diff];E.inp.dp=d0?d0.p:0}E.gd=E.gd||[{},{},{}];E.ov=E.ov||[{},{},{}];E.hp=E.hp||{};E.ph=E.ph||{};return E;
 }
 const eW=(D,x)=>x?(LANG==="de"?(x.de||x.en):(x.en||x.de)):"";
 function eList(D,E,name,key){const a=D.lists[name]||[];if(!a.length)return null;return gWPick(E,key,a)}
@@ -847,55 +849,68 @@ function eFindCre(G,txt){
   return i<0?null:{i,sub};
 }
 function eBudget(D,E){
+  // Budget = Grundpunkte (1W10 × Ortsart) × Heldenfaktor + Schwierigkeit (frei, −4 … +12; die Heldenstufe fließt laut Enigma's Guide in die Schwierigkeit ein)
   const o=E.inp,roll=1+Math.floor(gU(E,"b:roll")*10),row=Math.min(roll,D.grund.length)-1;
-  const base=+D.grund[row][o.ort]||0,hf=D.heroes[o.heroes]??Math.max(.2,.2*o.heroes),lv=D.levels[o.level]||D.levels[0],df=D.diff[o.diff]||{p:0};
-  const lp=lv.p!=null?lv.p:0,lf=lv.p!=null?1:(lv.f||1);
-  return{roll,base,hf,lf,lp,dp:df.p,pts:Math.max(1,Math.round(base*hf*lf+lp+df.p)),max:ECLS.indexOf(lv.max)};
+  const base=+D.grund[row][o.ort]||0,hf=D.heroes[o.heroes]??Math.max(.2,.2*o.heroes),dp=+o.dp||0;
+  return{roll,base,hf,lf:1,lp:0,dp,pts:Math.max(1,Math.round(base*hf+dp)),max:5};
 }
 function eFactions(D,G,E){
   // Fraktionsplätze: Haupt / Neben / Minder – gewählt, vom Ort übernommen oder zufällig (Heimat- und Sonderfraktionen)
   const pool=G.creatures.map((c,i)=>i).filter(i=>["Heimatfraktion","Sonderfraktion"].includes(G.creatures[i]["Kategorie"]));
   const pred=G.creatures.map((c,i)=>i).filter(i=>G.creatures[i]["Kategorie"]==="Raubtier");
-  const out=[],used=new Set();
-  E.inp.f.forEach((v,k)=>{if(v!=null&&v!==""&&v!=="r")used.add(typeof v==="object"?v.i:+v)});
+  const out=[],used=new Set(),isR=v=>typeof v==="string"&&v[0]==="r";
+  E.inp.f.forEach((v,k)=>{if(v!=null&&v!==""&&!isR(v))used.add(typeof v==="object"?v.i:+v)});
   E.inp.f.forEach((v,k)=>{
-    if(v!=null&&v!==""&&v!=="r"){out.push(typeof v==="object"?v:{i:+v,sub:null});return}
-    if(k>0&&v!=="r"){out.push(null);return}
-    // zufällig: Hauptfraktion aus Heimat-/Sonderfraktionen, Neben/Minder zusätzlich Raubtiere; keine Doppelung
-    let p=(k===0?pool:pool.concat(pred)).filter(i=>!used.has(i));if(!p.length)p=pool;
+    if(v!=null&&v!==""&&!isR(v)){out.push(typeof v==="object"?v:{i:+v,sub:null});return}
+    if(k>0&&!isR(v)){out.push(null);return}
+    // zufällig: ohne Gruppe Haupt aus Heimat-/Sonderfraktionen, Neben/Minder zusätzlich Raubtiere; „r:Gruppe“ nur aus dieser Gruppe; keine Doppelung
+    const cat=isR(v)&&v.length>2?v.slice(2):null;
+    const base=cat?G.creatures.map((c,i)=>i).filter(i=>G.creatures[i]["Kategorie"]===cat):(k===0?pool:pool.concat(pred));
+    let p=base.filter(i=>!used.has(i));if(!p.length)p=base.length?base:pool;
     const i=p[Math.floor(gU(E,"f:"+k)*p.length)];used.add(i);out.push({i,sub:null,rnd:true});
   });
   return out;
 }
 function eGroups(D,G,E){
   const B=eBudget(D,E),F=eFactions(D,G,E),ort=D.orte[E.inp.ort]||{types:3},maxT=Math.max(1,+ort.types||3);
-  const p1=30+Math.floor(gU(E,"g:p1")*71),p2=Math.floor(gU(E,"g:p2")*Math.max(0,110-p1+1)),p3=Math.max(0,100-p1-p2);
-  let pts=[Math.ceil(p1/100*B.pts),Math.ceil(p2/100*B.pts),Math.floor(p3/100*B.pts)];
-  if(maxT<3){pts[0]+=pts.slice(maxT).reduce((a,b)=>a+b,0);for(let k=maxT;k<3;k++)pts[k]=0}
+  const H=E.inp.heroes,capT=Math.max(1,Math.round(((D.caps||{}).type||1)*H));
   const W=[];for(const c of ECLS)for(let f=0;f<3;f++){const w=(D.weights[c]||[0,0,0])[f];if(w>0)W.push({c,f,w})}
+  // Menace/Tyrant nur aus der Hauptfraktion (Gewichte), alle anderen Klassen aus jeder Fraktion
+  const okCls=(c,slot)=>c<=B.max&&(c<=3||((D.weights[ECLS[c]]||[0,0,0])[slot]>0));
+  const cost=c=>D.cost[ECLS[c]]||1;
   const out=[];
-  pts.forEach((p,gi)=>{
-    if(p<=0)return;const ov=E.ov[gi]||{};
-    const pickW=gWPick(E,"g:t"+gi,W);let ci=ECLS.indexOf(pickW.c),slot=pickW.f;
-    if(!F[slot])slot=0;
-    while(ci>0&&(D.cost[ECLS[ci]]>p||ci>B.max))ci--;
+  const make=(gi,p,ci,slot,maxCi)=>{
+    const ov=E.ov[gi]||{};if(!F[slot])slot=0;
+    while(ci>0&&(cost(ci)>p||!okCls(ci,slot)))ci--;
     let fac=F[slot]||F[0];
     if(ov.cre!=null)fac={i:ov.cre,sub:null};if(ov.cls!=null)ci=ov.cls-1;
-    // Obergrenze je Typ: zu viele Gegner -> Klasse steigt (bis Threat; Menace/Tyrant nur, wo das Gewicht es erlaubt)
-    const H=E.inp.heroes,capT=Math.max(1,Math.round((D.caps||{}).type*H||H));
-    const okCls=c=>c<=B.max&&(c<=3||((D.weights[ECLS[c]]||[0,0,0])[slot]>0));
-    const cnt=c=>Math.max(1,Math.round(p/(D.cost[ECLS[c]]||1)));
-    if(ov.cls==null&&ov.cre==null)while(cnt(ci)>capT&&ci<5&&okCls(ci+1))ci++;
-    const e={cre:fac.i,cls:ci+1,draws:E.gd[gi]};
-    const g=gBuild(G,e);
-    let n=ov.n!=null?ov.n:Math.min(capT,cnt(g.cls-1));
-    if(g.cls>=5&&ov.n==null)n=1;
-    out.push({gi,p,pct:[p1,p2,p3][gi],slot,sub:fac.sub,e,g,n,capT});
-  });
+    // Obergrenze je Typ: zu viele Gegner -> Klasse steigt (bis Threat bzw. maxCi)
+    const cnt=c=>Math.max(1,Math.round(p/cost(c)));
+    if(ov.cls==null&&ov.cre==null)while(cnt(ci)>capT&&ci<Math.min(3,maxCi)&&okCls(ci+1,slot))ci++;
+    const e={cre:fac.i,cls:ci+1,draws:E.gd[gi]};const g=gBuild(G,e);
+    let n=ov.n!=null?ov.n:Math.min(capT,cnt(g.cls-1));if(g.cls>=5&&ov.n==null)n=1;
+    out.push({gi,p,slot,sub:fac.sub,e,g,n,capT,boss:false});return out[out.length-1];
+  };
+  if(E.inp.boss){
+    // Bosskampf: höchste bezahlbare Klasse der Hauptfraktion, Rest als Unterstützung bis Threat
+    let bc=5;while(bc>0&&(cost(bc)>B.pts||!okCls(bc,0)))bc--;
+    const b=make(0,cost(bc),bc,0,bc);b.boss=true;b.n=E.ov[0].n!=null?E.ov[0].n:1;
+    const rest=B.pts-cost(b.g.cls-1),nSup=Math.min(2,maxT-1);
+    if(rest>0&&nSup>0){
+      const q=nSup===2?Math.ceil(rest*(50+Math.floor(gU(E,"g:p2")*51))/100):rest;
+      const ps=[q,rest-q];const Ws=W.filter(x=>ECLS.indexOf(x.c)<=3);
+      ps.slice(0,nSup).forEach((p,k)=>{if(p<=0)return;const w=gWPick(E,"g:t"+(k+1),Ws);make(k+1,p,ECLS.indexOf(w.c),w.f,3)});
+    }
+  }else{
+    const p1=30+Math.floor(gU(E,"g:p1")*71),p2=Math.floor(gU(E,"g:p2")*Math.max(0,110-p1+1)),p3=Math.max(0,100-p1-p2);
+    let pts=[Math.ceil(p1/100*B.pts),Math.ceil(p2/100*B.pts),Math.floor(p3/100*B.pts)];
+    if(maxT<3){pts[0]+=pts.slice(maxT).reduce((a,b)=>a+b,0);for(let k=maxT;k<3;k++)pts[k]=0}
+    pts.forEach((p,gi)=>{if(p<=0)return;const w=gWPick(E,"g:t"+gi,W);make(gi,p,ECLS.indexOf(w.c),w.f,3)});
+  }
   // gleiche Kreatur+Klasse zusammenlegen
-  const m=[];for(const x of out){const y=m.find(z=>z.g.cr===x.g.cr&&z.g.cls===x.g.cls);if(y&&E.ov[x.gi].cre==null&&E.ov[y.gi].cre==null){y.n=E.ov[y.gi].n!=null?y.n+x.n:Math.min(y.capT,y.n+x.n);y.p+=x.p}else m.push(x)}
+  const m=[];for(const x of out){const y=m.find(z=>z.g.cr===x.g.cr&&z.g.cls===x.g.cls);if(y&&!y.boss&&!x.boss&&E.ov[x.gi].cre==null&&E.ov[y.gi].cre==null){y.n=E.ov[y.gi].n!=null?y.n+x.n:Math.min(y.capT,y.n+x.n);y.p+=x.p}else m.push(x)}
   // Obergrenze insgesamt (ohne Minions)
-  const capAll=Math.max(1,Math.round(((D.caps||{}).total||3)*E.inp.heroes));
+  const capAll=Math.max(1,Math.round(((D.caps||{}).total||3)*H));
   let tot=m.reduce((a,x)=>a+x.n,0);
   for(let k=m.length-1;k>=0&&tot>capAll;k--){const x=m[k];if(E.ov[x.gi].n!=null)continue;const cut=Math.min(x.n-1,tot-capAll);x.n-=cut;tot-=cut}
   const spent=m.reduce((a,x)=>a+x.n*(D.cost[ECLS[x.g.cls-1]]||0),0);
@@ -936,14 +951,16 @@ function eHTML(D,rs){
   const G=GD.gegner;if(!G)return `<div class="loading">${t("loading")}…</div>`;
   const E=eState(rs);const{B,F,groups,left}=eGroups(D,G,E);const I=eInfo(D,G,E,F);const o=E.inp;const Z=eZones(D,E,groups);
   const creOpts=(sel,rnd)=>`<option value="">${rnd}</option>`+[...new Set(G.creatures.map(c=>c["Kategorie"]))].map(k=>`<optgroup label="${esc(t("gCat_"+k)||k)}">`+G.creatures.map((c,i)=>c["Kategorie"]===k?`<option value="${i}" ${sel===i?"selected":""}>${esc(gN(c))}</option>`:"").join("")+`</optgroup>`).join("");
-  const fsel=k=>{const v=o.f[k];const sel=v==null||v==="r"?null:(typeof v==="object"?v.i:+v);let opts=creOpts(sel,k?t("eNone"):t("random"));
-    if(k)opts=opts.replace("</option>",`</option><option value="r" ${v==="r"?"selected":""}>${t("random")}</option>`);
-    const rf=(v==null&&k===0)||v==="r"?(F[k]?` <i>(${esc(gN(G.creatures[F[k].i]))})</i>`:""):"";
+  const cats=[...new Set(G.creatures.map(c=>c["Kategorie"]))];
+  const fsel=k=>{const v=o.f[k];const isR=typeof v==="string"&&v[0]==="r";const sel=v==null||isR?null:(typeof v==="object"?v.i:+v);let opts=creOpts(sel,k?t("eNone"):t("random"));
+    const ropt=cats.map(c=>`<option value="r:${esc(c)}" ${v==="r:"+c?"selected":""}>🎲 ${esc(t("gCat_"+c)||c)}</option>`).join("");
+    opts=opts.replace("</option>",`</option>${k?`<option value="r" ${v==="r"?"selected":""}>${t("random")}</option>`:""}<optgroup label="${esc(t("eRandGroup"))}">${ropt}</optgroup>`);
+    const rf=(v==null&&k===0)||isR?(F[k]?` <i>(${esc(gN(G.creatures[F[k].i]))})</i>`:""):"";
     return `<label class="ef"><span>${t(["eMain","eSide","eMinor"][k])}${rf}</span><select data-einp="f${k}">${opts}</select></label>`};
   let h=`<div class="ebar">
    <label class="ef sm"><span>${t("eHeroes")}</span><input type="number" min="1" max="9" value="${o.heroes}" data-einp="heroes"></label>
-   <label class="ef"><span>${t("eLevel")}</span><select data-einp="level">${D.levels.map((l,i)=>`<option value="${i}" ${i===o.level?"selected":""}>${esc(eW(D,l))}</option>`).join("")}</select></label>
-   <label class="ef"><span>${t("eDiff")}</span><select data-einp="diff">${D.diff.map((l,i)=>`<option value="${i}" ${i===o.diff?"selected":""}>${esc(eW(D,l))}</option>`).join("")}</select></label>
+   <label class="ef sm" title="${esc(t("eDiffT"))}"><span>${t("eDiff")}${(()=>{const n=D.diff.find(x=>x.p===+o.dp);return n?` <i>(${esc(eW(D,n))})</i>`:""})()}</span><input type="number" min="-4" max="12" step="1" value="${+o.dp||0}" data-einp="dp"></label>
+   <label class="ef sm eboss" title="${esc(t("eBossT"))}"><span>${t("eBoss")}</span><input type="checkbox" data-einp="boss" ${o.boss?"checked":""}></label>
    <label class="ef"><span>${t("ePlace")}</span><select data-einp="ort">${D.orte.map((l,i)=>`<option value="${i}" ${i===o.ort?"selected":""}>${esc(eW(D,l))}</option>`).join("")}</select></label>
    ${fsel(0)}${fsel(1)}${fsel(2)}
    <button class="btn" id="eFocus" title="${t("eFocusT")}">⛶</button></div>`;
@@ -979,7 +996,7 @@ function eHTML(D,rs){
        <button class="icon" data-ereset="${x.gi}" title="${t("gRerollAll")}">⟳</button></div>
      <div class="ehead"><span class="en">${x.n}×</span> <span class="et">${esc(g.title||"")}</span>
        <span class="ecnt"><button class="icon" data-en="${x.gi}:-1">−</button><button class="icon" data-en="${x.gi}:1">+</button></span></div>
-     <div class="sub">${esc(ECLS[g.cls-1])} · ${esc(gN(cr))}${subTxt?" · "+esc(subTxt):""} · ${x.p} ${t("ePts")}</div>
+     <div class="sub">${x.boss?`<b>${t("eBossTag")}</b> · `:""}${esc(ECLS[g.cls-1])} · ${esc(gN(cr))}${subTxt?" · "+esc(subTxt):""} · ${x.p} ${t("ePts")}</div>
      <div class="hint">${esc(gName(g))} – ${esc(gW(g.words.desc))}${g.note.length?` · ↪ ${esc(g.note.join(" "))}`:""}</div>
      <div class="hint">👃 ${esc(gTxt(cr,"Geruch EN","Geruch DE")||"–")} · 👂 ${esc(gTxt(cr,"Geräusch EN","Geräusch DE")||"–")}</div>
      <div class="estat"><span>Res <b>${g.st.resist}</b></span><span>Gr <b>${g.st.grounding}</b></span><span>Fight <b>${g.st.fight}</b></span><span>Tim <b>${g.st.timing}</b></span><span>Mov <b>${g.st.move}</b></span><span>Act <b>${esc(g.st.actions)}</b></span><span>Arm <b>${g.st.armor}</b></span><span>En <b>${g.st.energy}</b></span></div>
@@ -1007,7 +1024,7 @@ function eText(D,rs){
   const G=GD.gegner;if(!G)return[];const E=eState(rs);const{B,F,groups,left}=eGroups(D,G,E);const I=eInfo(D,G,E,F);const o=E.inp,L=[];const Z=eZones(D,E,groups);
   const ort=D.orte[o.ort]||{};
   if(E.src)L.push(`${t("eFrom")}: ${E.src.title||""}${E.src.place?" · "+E.src.place:""}`);
-  L.push(`${t("eBudget")}: ${B.pts} ${t("ePts")} · ${o.heroes} ${t("eHeroes")} · ${eW(D,D.levels[o.level])} · ${eW(D,D.diff[o.diff])} · ${eW(D,ort)} (${Z.z} ${t("eZones")}${Z.big?", "+t("eBig"):""})${left?" · "+t("eLeft").replace("%n",left):""}`);
+  L.push(`${t("eBudget")}: ${B.pts} ${t("ePts")} · ${o.heroes} ${t("eHeroes")} · ${t("eDiff")} ${o.dp>0?"+":""}${+o.dp||0}${o.boss?" · "+t("eBoss"):""} · ${eW(D,ort)} (${Z.z} ${t("eZones")}${Z.big?", "+t("eBig"):""})${left?" · "+t("eLeft").replace("%n",left):""}`);
   L.push(`${t("eShape")}: ${eW(D,I.grund)}${I.tube?" ("+t("eTube")+")":""} · ${t("eCover")}: ${eW(D,I.deck)} · ${t("eSpecial")}: ${eW(D,I.bes)}`);
   L.push(`${t("eSplit")}: ${eW(D,I.auf)} · ${t("eWhere")}: ${eW(D,I.lage)}`);
   L.push(`${t("eWant")}: ${[eW(D,I.tat),eW(D,I.ziel)].filter(Boolean).join(" → ")} · ${t("eForm")}: ${eW(D,I.form)} · ${t("eCirc")}: ${eW(D,I.um)} · ${t("eProb")}: ${eW(D,I.prob)}${I.bez?" · "+t("eRel")+": "+eW(D,I.bez):""}`);
@@ -1100,9 +1117,7 @@ document.addEventListener("click",ev=>{
   if(b.id==="toEnc"){encFromPlace();return}
   if(rs&&GD[S.cur].hazards){const E=eState(rs);
     if(ds.err){const k=ds.err;for(const key of Object.keys(E.draws))if(key===k||key.startsWith(k+"#"))delete E.draws[key];if(k==="i:tat")delete E.draws["i:ziel"];if(k==="i:hzA")delete E.draws["i:hzF"];if(k==="i:hzU")delete E.draws["i:hzD"];saveRes(S.cur);renderGen();return}
-    if(ds.ereset!=null){const gi=+ds.ereset;const{groups}=eGroups(GD[S.cur],GD.gegner,E);const x=groups.find(z=>z.gi===gi);
-      if(x){const v=E.inp.f[x.slot];if((x.slot===0&&v==null)||v==="r")delete E.draws["f:"+x.slot]}
-      E.gd[gi]={};E.ov[gi]={};delete E.draws["g:t"+gi];for(const k of Object.keys(E.hp))if(k.startsWith(gi+"#")){delete E.hp[k];delete E.ph[k]}saveRes(S.cur);renderGen();return}
+    if(ds.ereset!=null){const gi=+ds.ereset;E.gd[gi]={};E.ov[gi]={};delete E.draws["g:t"+gi];for(const k of Object.keys(E.hp))if(k.startsWith(gi+"#")){delete E.hp[k];delete E.ph[k]}saveRes(S.cur);renderGen();return}
     if(ds.en){const[gi,d]=ds.en.split(":").map(Number);const{groups}=eGroups(GD[S.cur],GD.gegner,E);const x=groups.find(z=>z.gi===gi);E.ov[gi].n=Math.max(1,(x?x.n:1)+d);saveRes(S.cur);renderGen();return}
     if(ds.ehp){const i=ds.ehp.lastIndexOf(":");eDamage(rs,ds.ehp.slice(0,i),+ds.ehp.slice(i+1));saveRes(S.cur);renderGen();return}
     if(ds.eclr){E.src=null;saveRes(S.cur);renderGen();return}
@@ -1130,7 +1145,7 @@ document.addEventListener("change",ev=>{
   if(e.dataset.einp!=null||e.dataset.eov!=null||e.dataset.ehpin!=null){const rs=res(S.cur),E=eState(rs);
     if(e.dataset.ehpin!=null){const v=parseInt(e.value,10);if(!isNaN(v)&&v!==0)eDamage(rs,e.dataset.ehpin,v)}
     else if(e.dataset.eov!=null){const[f,gi]=e.dataset.eov.split(":");E.ov[+gi][f]=e.value===""?undefined:+e.value;if(f==="cre"||f==="cls")for(const k of Object.keys(E.hp))if(k.startsWith(gi+"#")){delete E.hp[k];delete E.ph[k]}}
-    else{const k=e.dataset.einp;if(k[0]==="f"){E.inp.f[+k[1]]=e.value===""?null:(e.value==="r"?"r":+e.value);delete E.draws["f:"+k[1]]}else E.inp[k]=Math.max(0,parseInt(e.value,10)||0);if(k==="heroes")E.inp.heroes=Math.min(9,Math.max(1,E.inp.heroes))}
+    else{const k=e.dataset.einp;if(k[0]==="f"){E.inp.f[+k[1]]=e.value===""?null:(e.value[0]==="r"?e.value:+e.value);delete E.draws["f:"+k[1]]}else if(k==="boss")E.inp.boss=e.checked;else if(k==="dp")E.inp.dp=Math.max(-4,Math.min(12,parseInt(e.value,10)||0));else E.inp[k]=Math.max(0,parseInt(e.value,10)||0);if(k==="heroes")E.inp.heroes=Math.min(9,Math.max(1,E.inp.heroes))}
     saveRes(S.cur);renderGen();return}
   if(e.id==="navSel"){go(e.value);return}
   if(e.dataset.gcre!=null||e.dataset.gcls!=null){const rs=res(S.cur);const i=+(e.dataset.gcre??e.dataset.gcls);const en=rs.list[i];
