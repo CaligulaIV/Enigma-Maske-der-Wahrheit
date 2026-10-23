@@ -180,6 +180,7 @@ details.camp summary{cursor:pointer;font-family:"Cormorant Garamond",serif;font-
 details.soff{margin-top:4px;font-size:13px}details.soff summary{cursor:pointer;color:var(--muted);font-size:12.5px}
 .sspur{font-size:12.5px;color:var(--muted);margin-top:2px}.sspur .k{font-size:12px}
 .btn.sgo{padding:0 7px;font-size:12px;margin-left:2px}
+.mnick{font-weight:600;color:var(--headink)}
 .sag{font-size:13px;line-height:1.35;padding:4px 8px;margin:5px 0;border:1px solid var(--agline);border-left-width:3px;background:var(--agbg);border-radius:7px}
 .stavn{font-family:"Cormorant Garamond",Georgia,serif;font-size:18px;margin-bottom:2px}
 @media (max-width:520px){.sr{grid-template-columns:78px minmax(0,1fr) auto}.sname h3{font-size:28px}}
@@ -1658,28 +1659,31 @@ function mBuild(D,M){const S=M,L=(n,k)=>gWPick(S,k,D.lists[n]||[]);
   const artW=M.inp.art?(D.lists.Art||[]).find(x=>x.de===M.inp.art):L("Art","m:art");const art=(artW&&artW.de)||"Person";
   const deed=L(art==="Objekt"?"Tat: Objekt":"Tat: Person","m:deed");
   const pos=[0,1,2,3].map(i=>L("Position","m:pos"+i));
+  const nl=(D.lists.Spitzname||[]).slice(),nick=[0,1,2,3].map(i=>{const x=gWPick(S,"m:nick"+i,nl);if(x)nl.splice(nl.indexOf(x),1);return x});
   const culprit=M.src&&M.src.culprit!=null?M.src.culprit:1+Math.floor(gU(S,"m:cul")*3);
   const nS=+(D.rules||{})["Spuren je Beteiligtem"]||2;
-  return{art:artW,deed,pos,culprit,motive:[L("Motiv: Antrieb","m:mo1"),L("Motiv: Hintergrund","m:mo2"),L("Motiv: Gefühl","m:mo3")],
+  return{art:artW,deed,pos,nick,culprit,motive:[L("Motiv: Antrieb","m:mo1"),L("Motiv: Hintergrund","m:mo2"),L("Motiv: Gefühl","m:mo3")],
     plan:{means:L("Plan: Tatobjekt","m:p1"),place:L("Plan: Tatort","m:p2"),how:L("Plan: Art","m:p3"),cover:L("Plan: Verschleierung","m:p4")},
     ppl:[1,2,3].map(i=>({i,act:[L("Handlung: Verb","m:a"+i),L("Handlung: Zentral","m:b"+i),L("Handlung: Neben","m:c"+i)],comp:[L("Komplikation: Verb","m:k"+i),L("Komplikation: Zentral","m:l"+i)],
       clues:Array.from({length:nS},(_,j)=>[L("Spur: Art","m:s"+i+"_"+j),L("Spur: Form","m:t"+i+"_"+j)])})),
     alibi:[L("Handlung: Verb","m:al1"),L("Handlung: Zentral","m:al2"),L("Handlung: Neben","m:al3")]}}
-function mW(x,P){const w=sW(x);const m=((x&&x.de)||"").match(/^Person (\d)$/);if(!m)return w;const n=+m[1];return n===4?P[0].name:(P[n]?P[n].name:w)}
-function mBtn(p){return `<button class="npcn has" data-mpc="${esc(p.key)}" data-pc="${esc(p.key)}">${esc(p.name)}</button>`}
+function mNicks(P,m){P.forEach((p,i)=>{p.nick=p.role?p.role.split(" · ")[0]:sW(m.nick[i])})}
+function mNick(p){return p.nick?`${p.name} (${p.nick})`:p.name}
+function mW(x,P,self){const w=sW(x);const m=((x&&x.de)||"").match(/^Person (\d)$/);if(!m)return w;const n=+m[1];return n===4||n===self?mNick(P[0]):(P[n]?mNick(P[n]):w)}
+function mBtn(p){return `<button class="npcn has" data-mpc="${esc(p.key)}" data-pc="${esc(p.key)}">${esc(p.name)}</button>${p.nick?` <span class="mnick">(${esc(p.nick)})</span>`:""}`}
 function mysteryHTML(D,rs){
   const M=mState(rs);if(!GD.npc||!loadedRes.has("npc")){loadGen("npc").then(()=>loadRes("npc")).then(()=>{if(S.cur==="mystery")renderGen()});return `<div class="loading">${t("loading")}…</div>`}
-  const P=mPeople(M),m=mBuild(D,M);SCOL=M.col;
+  const P=mPeople(M),m=mBuild(D,M);mNicks(P,m);SCOL=M.col;
   try{
   let h=`<div class="ebar sbar"><label class="ef"><span>${mt("art")}</span><select data-minp="art"><option value="">🎲 ${st("rand")}${M.inp.art?"":" ("+esc(sW(m.art))+")"}</option>${(D.lists.Art||[]).map(a=>`<option value="${esc(a.de)}" ${M.inp.art===a.de?"selected":""}>${esc(sW(a))}</option>`).join("")}</select></label></div>`;
   if(M.src)h+=`<div class="esrc">${M.src.gen&&GENS.find(x=>x.id===M.src.gen)?`<button class="btn sm" data-go="${esc(M.src.gen)}">← ${esc(gTitle(GENS.find(x=>x.id===M.src.gen)))}</button> `:""}↪ ${esc(mt("from"))}: <b>${esc(M.src.title||"")}</b> <button class="icon" data-mclr="1" title="${esc(mt("clr"))}">✕</button></div>`;
   h+=`<div class="shero"><div class="sname"><h3>${esc(sCap(sW(m.deed)))}</h3>${sRR("m:deed")}</div>
    <div class="stags"><span class="stag">${esc(sW(m.art))}</span><span class="stag">${esc(mt("victim"))}: ${esc(P[0].name)}</span></div>
-   <p class="slead">${esc(mt("victim"))}: ${mBtn(P[0])} <span class="ss">(${esc(P[0].role||sW(m.pos[0]))})</span> · ${esc(mt("place"))}: ${esc(sW(m.plan.place))}${M.src&&M.src.place?" – "+esc(M.src.place):""}</p></div>`;
+   <p class="slead">${esc(mt("victim"))}: ${mBtn(P[0])} <span class="ss">${esc(P[0].role&&P[0].role.includes(" · ")?P[0].role.split(" · ").slice(1).join(" · "):"")}</span> · ${esc(mt("place"))}: ${esc(sW(m.plan.place))}${M.src&&M.src.place?" – "+esc(M.src.place):""}</p></div>`;
   h+=`<div class="sgrid">`;
-  h+=sCard("people",`${mt("people")} (3)`,m.ppl.map(x=>{const p=P[x.i];return `<div class="sitem"><div class="sit">${mBtn(p)}<span class="ss">${esc(p.role||sW(m.pos[x.i]))}</span>${sRR(`m:pos${x.i}`)}</div>
-     <div class="sid"><span class="k">${esc(mt("act"))}:</span> <b>${esc(mW(x.act[0],P))}</b> ${esc(mW(x.act[1],P))} · ${esc(mW(x.act[2],P))} ${sRR(`m:a${x.i}|m:b${x.i}|m:c${x.i}`)}</div>
-     <div class="sid"><span class="k">${esc(mt("susp"))}:</span> ${esc(mW(x.comp[0],P))} – ${esc(mW(x.comp[1],P))} ${sRR(`m:k${x.i}|m:l${x.i}`)}</div>
+  h+=sCard("people",`${mt("people")} (3)`,m.ppl.map(x=>{const p=P[x.i];return `<div class="sitem"><div class="sit">${mBtn(p)}<span class="ss">${esc(p.role&&p.role.includes(" · ")?p.role.split(" · ").slice(1).join(" · "):"")}</span>${sRR(`m:pos${x.i}`)}</div>
+     <div class="sid"><span class="k">${esc(mt("act"))}:</span> <b>${esc(mW(x.act[0],P,x.i))}</b> ${esc(mW(x.act[1],P,x.i))} · ${esc(mW(x.act[2],P,x.i))} ${sRR(`m:a${x.i}|m:b${x.i}|m:c${x.i}`)}</div>
+     <div class="sid"><span class="k">${esc(mt("susp"))}:</span> ${esc(mW(x.comp[0],P,x.i))} – ${esc(mW(x.comp[1],P,x.i))} ${sRR(`m:k${x.i}|m:l${x.i}`)}</div>
      <div class="sid"><span class="k">${esc(mt("clues"))}:</span> ${x.clues.map(c=>`${esc(sW(c[0]))} · ${esc(sW(c[1]))}`).join("; ")} ${sRR(`m:s${x.i}_|m:t${x.i}_`)}</div></div>`}).join("")+`<div class="hint">${esc(nt("pcHint"))}</div>`,true);
   h+=sCard("plan",mt("plan"),sRow(mt("means"),`<b>${esc(sW(m.plan.means))}</b>`,"m:p1")+sRow(mt("place"),esc(sW(m.plan.place))+(M.src&&M.src.place?` <span class="ss">${esc(M.src.place)}</span>`:""),"m:p2")+
     sRow(mt("how"),esc([sW(m.plan.how),sW(m.plan.cover)].filter(Boolean).join(" ")),"m:p3|m:p4"));
@@ -1687,11 +1691,11 @@ function mysteryHTML(D,rs){
   h+=sCard("truth",mt("truth"),sRow(mt("culprit"),mBtn(cu),M.src&&M.src.culprit!=null?null:"m:cul")+sRow(mt("motive"),esc(m.motive.map(sW).filter(Boolean).join(" · ")),"m:mo")+
     (M.src&&M.src.agenda?sRow(mt("agenda"),esc(M.src.agenda)):"")+sRow(mt("alibi"),esc(m.alibi.map(x=>mW(x,P)).filter(Boolean).join(" · ")),"m:al")+sRow(mt("cover"),esc(sW(m.plan.cover)),"m:p4"));
   return h+`</div><div class="hint">${esc(mt("hint"))}</div>`}finally{SCOL=null}}
-function mysteryText(D,rs){const M=mState(rs),P=mPeople(M),m=mBuild(D,M),o=[];
-  o.push(`${mt("title")}: ${sCap(sW(m.deed))} (${sW(m.art)}) – ${mt("victim")}: ${P[0].name} (${P[0].role||sW(m.pos[0])}) · ${mt("place")}: ${sW(m.plan.place)}${M.src&&M.src.place?" – "+M.src.place:""}`);
-  m.ppl.forEach(x=>o.push(`${P[x.i].name} (${P[x.i].role||sW(m.pos[x.i])}): ${mt("act")} ${x.act.map(y=>mW(y,P)).join(" ")} · ${mt("susp")} ${x.comp.map(y=>mW(y,P)).join(" – ")} · ${mt("clues")}: ${x.clues.map(c=>sW(c[0])+" "+sW(c[1])).join("; ")}`));
+function mysteryText(D,rs){const M=mState(rs),P=mPeople(M),m=mBuild(D,M),o=[];mNicks(P,m);
+  o.push(`${mt("title")}: ${sCap(sW(m.deed))} (${sW(m.art)}) – ${mt("victim")}: ${mNick(P[0])} · ${mt("place")}: ${sW(m.plan.place)}${M.src&&M.src.place?" – "+M.src.place:""}`);
+  m.ppl.forEach(x=>o.push(`${mNick(P[x.i])}: ${mt("act")} ${x.act.map(y=>mW(y,P,x.i)).join(" ")} · ${mt("susp")} ${x.comp.map(y=>mW(y,P,x.i)).join(" – ")} · ${mt("clues")}: ${x.clues.map(c=>sW(c[0])+" "+sW(c[1])).join("; ")}`));
   o.push(`${mt("plan")}: ${sW(m.plan.means)}, ${sW(m.plan.how)} ${sW(m.plan.cover)}`);
-  o.push(`${mt("truth")}: ${mt("culprit")} ${(P[m.culprit]||P[1]).name} · ${mt("motive")} ${m.motive.map(sW).join(", ")}${M.src&&M.src.agenda?" · "+M.src.agenda:""} · ${mt("alibi")} ${m.alibi.map(x=>mW(x,P)).join(" ")}`);
+  o.push(`${mt("truth")}: ${mt("culprit")} ${mNick(P[m.culprit]||P[1])} · ${mt("motive")} ${m.motive.map(sW).join(", ")}${M.src&&M.src.agenda?" · "+M.src.agenda:""} · ${mt("alibi")} ${m.alibi.map(x=>mW(x,P)).join(" ")}`);
   return o}
 async function siedlungToMystery(ti){
   const id=S.cur,g=GENS.find(x=>x.id===id),D=GD[id],Sx=sState(res(id)),r=sBuild(D,Sx);
