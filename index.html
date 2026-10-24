@@ -1480,7 +1480,8 @@ const WI18N={
   toEnc:"Encounter for this encounter",toNpc:"Create an NPC",toChase:"Chase",toSied:"Create the settlement",terrain:"Terrain",sight:"Sight",reveal:"gives itself away by",smellP:"smells of",smellA:"smells",both:"Encounter and hazard together: whoever knows the zone can use the hazard as a weapon (Rules and Heroes, Chapter 4.3).",wayThere:"The way there (wilderness)",hint:"The heroes can leave any area they do not like. Whoever spots the signs early (survival, alertness) can avoid an encounter."}};
 const wt=k=>{const v=WI18N[LANG][k];return v===undefined?WI18N.de[k]:v};
 const WZIEL=["wander","reach","hunt","clear"];
-function wState(rs){if(!rs.wd)rs.wd={inp:{terr:null,ziel:null,zort:null,n:null},draws:{},src:null,col:{}};const W=rs.wd;W.col=W.col||{};return W}
+const WCOL_DEF={a1:1,a2:1,a3:1,a4:1};
+function wState(rs){if(!rs.wd)rs.wd={inp:{terr:null,ziel:null,zort:null,n:null},draws:{},src:null,col:{}};const W=rs.wd;if(!W.col||W.colv!==1){W.col={...WCOL_DEF};W.colv=1}return W}
 const wR=(D,k,d)=>{const v=D.rules&&D.rules[k];return v==null||v===""?d:v};
 const wNum=(D,k,d)=>{const v=parseFloat(String(wR(D,k,d)).replace(",","."));return isNaN(v)?d:v};
 function wL(D,W,list,key){const a=D.lists[list]||[];return a.length?gWPick(W,key,a):null}
@@ -1678,7 +1679,7 @@ async function siedlungToWild(task){
   W.inp.terr=C.T.nr;W.inp.n=null;
   if(map[ort]){W.inp.ziel="reach";W.inp.zort=map[ort]}else if(/jagen|vertreiben/.test(verb)){W.inp.ziel="hunt";W.inp.zort=null}else{W.inp.ziel="reach";W.inp.zort=null}
   const name=(sW(r.name[0])+(sW(r.name[1])||"").toLowerCase()).replace(/^./,c=>c.toUpperCase());
-  W.src={gen:id,title:`${gTitle(g)} ${name} · ${st("task")} ${+task+1}`,extra:[`${sW(x.verb)}: ${sRef(D,r,x.p)}`,sW(x.wild)].filter(Boolean)};W.draws={};
+  W.src={gen:id,title:`${gTitle(g)} ${name} · ${st("task")} ${+task+1}`,extra:[`${sW(x.verb)}: ${sRef(D,r,x.p)}`,sW(x.wild)].filter(Boolean)};W.draws={};W.col={...WCOL_DEF};
   saveRes("natur");go("natur");
 }
 
@@ -2023,7 +2024,7 @@ document.addEventListener("click",ev=>{
     if(ds.wclr){W.src=null;saveRes(S.cur);renderGen();return}
     if(ds.scol!=null){W.col[ds.scol]=W.col[ds.scol]?0:1;saveRes(S.cur);renderGen();return}
     if(ds.srr!=null){const ks=ds.srr.split("|");for(const key of Object.keys(W.draws))if(ks.some(k=>key.startsWith(k)))delete W.draws[key];saveRes(S.cur);renderGen();return}
-    if(b.id==="regen"){W.draws={};saveRes(S.cur);renderGen();return}
+    if(b.id==="regen"){W.draws={};W.col={...WCOL_DEF};saveRes(S.cur);renderGen();return}
   }
   if(rs&&GD[S.cur].siedlung){const Sx=sState(rs);
     if(b.id==="toEnc"){siedlungToEnc(null);return}
