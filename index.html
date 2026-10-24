@@ -138,6 +138,7 @@ details.camp summary{cursor:pointer;font-family:"Cormorant Garamond",serif;font-
 .stag{font-size:12px;font-weight:600;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:1px 9px;color:var(--ink)}
 .slead{font-family:"Cormorant Garamond",Georgia,serif;font-size:19.5px;line-height:1.3;margin:6px 0 2px}
 .slead .ss{font-family:Inter,sans-serif}
+.wsense{background:var(--surface2);border-left:3px solid var(--info);border-radius:7px;padding:5px 9px;margin:2px 0 6px;font-size:14px;line-height:1.45}.wsense .wsi{display:inline-block;width:20px}.wsense .er{font-size:11px}
 .ssense{font-size:13px;color:var(--muted);margin:2px 0 0}
 .sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:10px;align-items:start}
 .scard{border:1px solid var(--line);border-radius:10px;padding:8px 11px 9px;background:var(--surface);min-width:0}
@@ -1466,7 +1467,7 @@ const WI18N={
   stage:["Peace – dulden sich","Caution – halten Abstand","Alertness – feindselig, meiden den Kampf","Combat – Kampf"],grp:{Mensch:"menschengemacht",Natur:"Natur",Geschichte:"Geschichte"},
   rest:"tiefe Rast möglich",mini:"kleine Ruine",fromT:"Aus",gefahr:"Gefahr",gef:{niedrig:"niedrig",mittel:"mittel",hoch:"hoch"},
   A:["urban","eher urban","gemischt","eher wild","Wildnis"],B:["sicher","eher sicher","angespannt","unsicher","Krieg"],C:["unberührt","wenig Geschichte","etwas Geschichte","alte Geschichte","uralte Geschichte"],
-  toEnc:"Encounter zu dieser Begegnung",toNpc:"NPC dazu erzeugen",toChase:"Verfolgungsjagd",toSied:"Siedlung hier erzeugen",wayThere:"Weg dorthin (Wildnis-Ort)",hint:"Die Helden können jedes Gebiet verlassen, wenn es ihnen nicht gefällt. Wer Anzeichen früh erkennt (Survival, Alertness), kann einer Begegnung ausweichen."},
+  toEnc:"Encounter zu dieser Begegnung",toNpc:"NPC dazu erzeugen",toChase:"Verfolgungsjagd",toSied:"Siedlung hier erzeugen",terrain:"Gelände",sight:"Sicht",reveal:"verrät sich durch",smellP:"riecht nach",smellA:"riecht",both:"Begegnung und Gefahr zusammen: Wer die Zone kennt, kann die Gefahr als Waffe nutzen (Regeln und Helden, Kap. 4.3).",wayThere:"Weg dorthin (Wildnis-Ort)",hint:"Die Helden können jedes Gebiet verlassen, wenn es ihnen nicht gefällt. Wer Anzeichen früh erkennt (Survival, Alertness), kann einer Begegnung ausweichen."},
  en:{terr:"Territory",ziel:"Heroes' goal",zort:"Destination",areas:"Areas",rand:"random",
   Z:{wander:"wander",reach:"reach a place",hunt:"hunt",clear:"clear the way"},
   title:{wander:"Through %t",reach:"The way to: %o",hunt:"Hunt in %t",clear:"Clearing the way in %t"},
@@ -1476,7 +1477,7 @@ const WI18N={
   stage:["Peace – tolerate each other","Caution – keep their distance","Alertness – hostile, avoid a fight","Combat – fight"],grp:{Mensch:"man-made",Natur:"nature",Geschichte:"history"},
   rest:"deep rest possible",mini:"small ruin",fromT:"From",gefahr:"Danger",gef:{niedrig:"low",mittel:"medium",hoch:"high"},
   A:["urban","mostly urban","mixed","mostly wild","wilderness"],B:["safe","mostly safe","tense","unsafe","war"],C:["untouched","little history","some history","old history","ancient history"],
-  toEnc:"Encounter for this encounter",toNpc:"Create an NPC",toChase:"Chase",toSied:"Create the settlement",wayThere:"The way there (wilderness)",hint:"The heroes can leave any area they do not like. Whoever spots the signs early (survival, alertness) can avoid an encounter."}};
+  toEnc:"Encounter for this encounter",toNpc:"Create an NPC",toChase:"Chase",toSied:"Create the settlement",terrain:"Terrain",sight:"Sight",reveal:"gives itself away by",smellP:"smells of",smellA:"smells",both:"Encounter and hazard together: whoever knows the zone can use the hazard as a weapon (Rules and Heroes, Chapter 4.3).",wayThere:"The way there (wilderness)",hint:"The heroes can leave any area they do not like. Whoever spots the signs early (survival, alertness) can avoid an encounter."}};
 const wt=k=>{const v=WI18N[LANG][k];return v===undefined?WI18N.de[k]:v};
 const WZIEL=["wander","reach","hunt","clear"];
 function wState(rs){if(!rs.wd)rs.wd={inp:{terr:null,ziel:null,zort:null,n:null},draws:{},src:null,col:{}};const W=rs.wd;W.col=W.col||{};return W}
@@ -1517,7 +1518,7 @@ function wWeather(D,W,C){
   return{wk,dy,v,tm};
 }
 function wStrength(D,a,v,tm){const r=(D.wstark||[]).filter(x=>x.a===a);if(!r.length)return "";const x=r.find(z=>z.v===Math.min(v,7))||r[r.length-1];
-  const cold=tm==="Kälte";return (LANG==="de"?(cold?x.kde:x.hde):(cold?x.ken:x.hen))+(x.x&&a!=="Wet"?` (${a==="Temp"?(x.x.split(" / ")[cold?0:1]||x.x):x.x})`:"")}
+  const cold=tm==="Kälte";return (LANG==="de"?(cold?x.kde:x.hde):(cold?x.ken:x.hen))+(x.x&&a!=="Wet"?` (${a==="Temp"?((v=>/°/.test(v)?v:v+" °C")((x.x.split(" / ")[cold?0:1]||x.x).trim())):x.x})`:"")}
 function wArea(D,W,C,i,last){
   const k="a"+i+":",a={i};const R=D.rules||{};
   // Landschaft und Name
@@ -1526,6 +1527,15 @@ function wArea(D,W,C,i,last){
   a.l1=L1[wD12(W,k+"l1")-1]||{};a.l2=L2[wD12(W,k+"l2")-1]||{};
   const n1=LANG==="de"?(a.l1.nde||a.l1.nen):(a.l1.nen||a.l1.nde),n2=LANG==="de"?(a.l2.nde||a.l2.nen):(a.l2.nen||a.l2.nde);
   a.name=sCap(((n1||"")+(n2||"").toLowerCase()).trim())||`${wt("area")} ${i+1}`;
+  // Gelände: Form (mit Lage) + Umgebung + Boden je Biom
+  const fl=(D.form||[]).filter(f=>f.b===C.B.en),bl=(D.boden||[]).filter(f=>f.b===C.B.en);
+  a.form=fl.length?gWPick(W,k+"gf",fl):null;a.umg=a.form?wL(D,W,"Umgebung: "+a.form.lage,k+"gu"):null;a.boden=bl.length?gWPick(W,k+"gb",bl):null;
+  // Sinne: ein Geruch und ein Geräusch je Gebiet (neutral, Skala, Biom, abstrakt)
+  const SP=[["Urban","Wildnis"],["Sicher","Krieg"],["Unberührt","Geschichte"]],SN=D.sinne||{};
+  const sense=(art,kk)=>{const src=gWPick(W,kk+"q",[["neutral",wNum(D,"Sinne: neutral",3)],["skala",wNum(D,"Sinne: Skala",2)],["biom",wNum(D,"Sinne: Biom",2)],["abstrakt",wNum(D,"Sinne: abstrakt",1)]].map(([q,w])=>({q,w}))).q;
+    let key="neutral";if(src==="skala"){const j=Math.floor(gU(W,kk+"j")*3);key="Skala: "+SP[j][gU(W,kk+"s")<(C.sk[j]-1)/4?1:0]}else if(src==="biom")key="Biom: "+C.B.en;else if(src==="abstrakt")key="Abstrakt";
+    const l=SN[key+"|"+art]&&SN[key+"|"+art].length?SN[key+"|"+art]:(SN["neutral|"+art]||[]);return l.length?gWPick(W,kk,l):null};
+  a.smell=sense("Geruch",k+"sm");a.sound=sense("Geräusch",k+"so");
   // Weg: je Skala ein Baustein, Seite nach der Stufe (1 → links sicher, 5 → rechts sicher)
   const WL=[["Weg: Urban","Weg: Wildnis"],["Weg: Sicher","Weg: Krieg"],["Weg: Unberührt","Weg: Geschichte"]];
   a.way=WL.map((p,j)=>{const right=gU(W,k+"ws"+j)<(C.sk[j]-1)/4;return wL(D,W,p[right?1:0],k+"w"+j)}).filter(Boolean);
@@ -1536,6 +1546,11 @@ function wArea(D,W,C,i,last){
   else if(last&&C.ziel==="hunt"){ort=D.orte.find(o=>o.de==="Gegner");tag="goal"}
   if(!ort){const g=gWPick(W,k+"og",Object.keys(gw).map(x=>({g:x,w:gw[x]}))).g;ort=gWPick(W,k+"o",D.orte.filter(o=>o.g===g))}
   a.ort=ort;a.tag=tag;a.det=wL(D,W,"Ort: "+ort.de,k+"od");a.gen=(a.det&&a.det.gen)||ort.gen;
+  // Sichtbarkeit: Gewicht je Gruppe, Lage hoch eine Stufe leichter, tief eine schwerer
+  const gi=["Mensch","Natur","Geschichte"].indexOf(ort.g),SV=D.sicht||[];
+  if(SV.length){let st=gWPick(W,k+"vs",SV.map(x=>({x,w:x.w[gi<0?1:gi]||0}))).x.n;const lg=a.form&&a.form.lage;
+    if(lg==="hoch")st+=wNum(D,"Sichtbarkeit: Lage hoch",-1);else if(lg==="tief")st-=wNum(D,"Sichtbarkeit: Lage hoch",-1);
+    st=Math.max(1,Math.min(SV.length,st));a.sicht=SV.find(x=>x.n===st)||SV[0];a.reveal=st>=2?wL(D,W,"Verrät sich durch",k+"vr"):null}
   a.war=!!(ort.kde&&gU(W,k+"ok")<C.sk[1]*wNum(D,"Krieg: Zustand je Stufe",10)/100);
   if(ort.de==="Gegner")a.foe=wFoe(D,W,C,k+"of",last&&C.ziel==="hunt"?["Raubtier","Monster"]:["Raubtier","Fraktion","Monster"]);
   // Ziel: Spuren auf dem Weg, Hindernis am Ende
@@ -1549,6 +1564,7 @@ function wArea(D,W,C,i,last){
   return a;
 }
 function wBuild(D,W){const C=wCore(D,W);C.wx=wWeather(D,W,C);C.A=[];for(let i=0;i<C.n;i++)C.A.push(wArea(D,W,C,i,i===C.n-1));return C}
+function wSmell(x){const v=sW(x);const adj=LANG==="de"?/^(\S+ig|sauer, süß)$/.test(v):/^(\S+y|sour, sweet)$/.test(v);return (adj?wt("smellA"):wt("smellP"))+" "+v}
 function wGo(gen,extra){const g=GENS.find(x=>x.id===gen);return g?`<button class="btn sm sgo" data-wgo="${gen}"${extra||""}>→ ${esc(gTitle(g))}</button>`:""}
 function wFoeHTML(D,f,i,kind){if(!f)return "";
   const what=f.art.de==="Reisende"?`<b>${esc(sCap(f.who||""))}</b> <span class="ss">${esc(wFacN(D,f.fac))}</span>`:`<b>${esc(f.who||"")}</b>`;
@@ -1591,12 +1607,17 @@ function wildnisHTML0(D,rs){
     if(a.ort.de==="Gegner")ort+=` <span class="ss">${esc(sW(a.det))}</span><div class="sid">${wFoeHTML(D,a.foe,i,"o")}</div>`;
     else if(a.gen==="siedlung")ort+=` <button class="btn sm sgo" data-wsied="${i}">→ ${esc(gTitle(GENS.find(x=>x.id==="siedlung")||{title:"Siedlung"}))}</button>`;
     else if(a.gen)ort+=" "+wGo(a.gen);
-    let body=sRow(wt("land"),esc(ld.join(" · ")),k+"k1|"+k+"k2|"+k+"l1|"+k+"l2")+sRow(wt("way"),esc(a.way.map(sW).join(" · ")),k+"ws|"+k+"w0|"+k+"w1|"+k+"w2")+
+    if(a.sicht)ort+=`<div class="sid"><span class="k">${esc(wt("sight"))}:</span> <b>${esc(sE({x:a.sicht.de,xEn:a.sicht.en},"x"))}</b> – ${esc(sE({x:a.sicht.hde,xEn:a.sicht.hen},"x"))}${a.reveal?" · "+esc(wt("reveal"))+" "+esc(sW(a.reveal)):""} ${sRR(k+"vs|"+k+"vr")}</div>`;
+    const smell=a.smell?wSmell(a.smell):"",sound=a.sound?sCap(sW(a.sound)):"";
+    let body=`<div class="wsense"><div><span class="wsi">👃</span> ${esc(smell||"–")} ${sRR(k+"sm")}</div><div><span class="wsi">👂</span> ${esc(sound||"–")} ${sRR(k+"so")}</div></div>`;
+    body+=sRow(wt("terrain"),a.form?`<b>${esc(sW(a.form))}</b> <span class="ss">${esc([sW(a.umg),sW(a.boden)].filter(Boolean).join(" · "))}</span>`:"",k+"gf|"+k+"gu|"+k+"gb");
+    body+=sRow(wt("land"),esc(ld.join(" · ")),k+"k1|"+k+"k2|"+k+"l1|"+k+"l2")+sRow(wt("way"),esc(a.way.map(sW).join(" · ")),k+"ws|"+k+"w0|"+k+"w1|"+k+"w2")+
       sRow(a.tag?wt("goal"):wt("place"),ort,k+"og|"+k+"o|"+k+"od|"+k+"ok|"+k+"of");
     if(a.spur)body+=sRow(wt("spur"),esc(sW(a.spur)),k+"sp");
     if(a.obst)body+=sRow(wt("goal"),`<span class="shead">${esc(wt("obst"))}</span> <b>${esc(sW(a.obst))}</b>${a.obstFoe?`<div class="sid">${wFoeHTML(D,a.obstFoe,i,"h")}</div>`:""}`,k+"hi|"+k+"hf");
     if(!a.foe&&!a.obstFoe)body+=a.enc?sRow(wt("enc"),wFoeHTML(D,a.enc,i,"e"),k+"e"):`<div class="sr"><span class="k">${esc(wt("enc"))}</span><span class="v"><span class="ss">${esc(wt("none"))}</span></span>${sRR(k+"e")}</div>`;
     if(a.hz)body+=sRow(wt("hz"),`<b>${esc(sW(a.hz))}</b> <span class="ss">${esc([sE(a.hz,"eff"),sE(a.hz,"el")].filter(Boolean).join(" · "))}</span><div class="sid">${esc(wt("signs"))}: ${esc([sE(a.hz,"sm"),sE(a.hz,"so")].filter(Boolean).join(" · "))}</div>`,k+"h");
+    if(a.hz&&(a.enc||a.foe||a.obstFoe))body+=`<div class="hint">${esc(wt("both"))}</div>`;
     h+=sCard("a"+i,`${wt("area")} ${i+1}: ${a.name}`,body);
   });
   return h+`</div><div class="hint">${esc(wt("hint"))}</div>`;
@@ -1608,7 +1629,7 @@ function wildnisText(D,rs){
   o.push(`${wt("weather")}: ${sW(X.wk)} + ${sW(X.dy)} → Temp ${X.v[0]} (${X.tm==="Kälte"?wt("cold"):wt("heat")}), Wind ${X.v[1]}, Wet ${X.v[2]}`);
   o.push(`${wt("facs")}: ${C.F.map(f=>wFacN(D,f)).join(", ")}`);
   const fo=f=>f?`${sW(f.art)}: ${f.who||""}${f.do?" ("+sW(f.do)+")":""} – ${(wt("stage")[f.stage]||"").split(" – ")[0]}`:"";
-  C.A.forEach((a,i)=>{const p=[`${wt("area")} ${i+1} – ${a.name}: ${[sW(a.l1),sW(a.l2)].filter(Boolean).join(", ")}`,`${wt("way")}: ${a.way.map(sW).join(", ")}`,
+  C.A.forEach((a,i)=>{const p=[`${wt("area")} ${i+1} – ${a.name}: ${[sW(a.l1),sW(a.l2)].filter(Boolean).join(", ")}`,`${a.smell?wSmell(a.smell):""}; ${a.sound?sW(a.sound):""}`,`${wt("terrain")}: ${[a.form&&sW(a.form),a.umg&&sW(a.umg),a.boden&&sW(a.boden)].filter(Boolean).join(", ")}`,`${wt("way")}: ${a.way.map(sW).join(", ")}`,
     `${a.tag?wt("goal"):wt("place")}: ${sW(a.ort)}${a.det&&a.ort.de!=="Gegner"?" ("+sW(a.det)+")":""}${a.war?" – "+sE({k:a.ort.kde,kEn:a.ort.ken},"k"):""}${a.foe?" – "+fo(a.foe):""}`];
     if(a.spur)p.push(`${wt("spur")}: ${sW(a.spur)}`);if(a.obst)p.push(`${wt("obst")}: ${sW(a.obst)}${a.obstFoe?" – "+fo(a.obstFoe):""}`);
     if(a.enc)p.push(`${wt("enc")}: ${fo(a.enc)}`);if(a.hz)p.push(`${wt("hz")}: ${sW(a.hz)} (${sE(a.hz,"eff")})`);
