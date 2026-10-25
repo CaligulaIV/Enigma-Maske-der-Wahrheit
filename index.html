@@ -1365,7 +1365,7 @@ function siedlungHTML0(D,rs){
     return sRow(st(k),`<b>${esc(sFacName(D,C.F[i],true))}</b>`,i===0&&o.main?null:"facs:"+k,goods?esc(st("goods")+": "+goods):"")}).join(""));
   // Stadtbild
   const sty=LANG==="de"?X[0].style:(X[0].styleEn||X[0].style);
-  h+=sCard("look",st("look"),sRow(st("style"),`<b>${esc(sty||"–")}</b>`)+
+  h+=sCard("look",st("look"),sRow(st("style"),`<b>${esc((LANG==="de"?X[0].fac:(X[0].facEn||X[0].fac))||"–")}</b>${sty?` <span class="ss">Inspiration: ${esc(sty)}</span>`:""}`)+
     (r.feat.length?`<div class="schips">${r.feat.map((f,i)=>`<span class="chip">${esc(sW(f))}</span>`).join("")}${sRR("look:f0|look:f1|look:f2|look:f3")}</div>`:"")+
     sRow(st("feat"),esc(r.look.map(sW).filter(Boolean).join(", ")),"look:b")+sRow(st("smug"),esc(sW(r.smug)),"look:smug"));
   // Sehenswürdigkeiten
@@ -1426,7 +1426,7 @@ function siedlungText(D,rs){
   o.push(`${name} – ${sW(C.Z)}, ${LANG==="de"?X[0].settle:(X[0].settleEn||X[0].settle)} · ${LANG==="de"?C.T.de:(C.T.en||C.T.de)}`);
   o.push(`${st("mood")}: ${sW(r.mood)} · ${st("culture")}: ${sW(r.cult)}`);
   o.push(`${st("facs")}: ${C.F.map(f=>sFacName(D,f,true)).join(" / ")}`);
-  o.push(`${st("look")}: ${LANG==="de"?X[0].style:X[0].styleEn} (${r.feat.map(sW).join(", ")}); ${r.look.map(sW).join(", ")} · ${st("smug")}: ${sW(r.smug)}`);
+  o.push(`${st("look")}: ${LANG==="de"?X[0].fac:(X[0].facEn||X[0].fac)} (Inspiration ${LANG==="de"?X[0].style:X[0].styleEn}; ${r.feat.map(sW).join(", ")}); ${r.look.map(sW).join(", ")} · ${st("smug")}: ${sW(r.smug)}`);
   o.push(`${st("sights")}: ${r.sights.map((s,i)=>`${sW(s[0])} (${sW(s[1])}, ${sW(s[2])})${sW(r.spurs[i])?" – "+st("spur")+": "+sW(r.spurs[i]):""}`).join("; ")}`);
   o.push(`${st("dist")}: ${r.dist.map(d=>`${sW(d.n1)}${(sW(d.n2)||"").toLowerCase()} (${sW(d.fn)}; ${sRef(D,r,d.pw)} – ${sW(d.pa)})`).join("; ")}`);
   o.push(`${st("groupsH")}: ${r.groups.map(g=>`${sW(g.t)} (${g.t?sE({o:g.t.og,oEn:g.t.ogEn},"o"):""}, ${sFacName(D,g.f)}) – ${g.t?sE({h:g.t.head,hEn:g.t.headEn},"h"):""}: ${g.head.name} (${sW(g.head.laune)}, ${sW(g.head.char)})`).join("; ")}`);
@@ -1886,14 +1886,14 @@ function gebaeudeHTML0(D,rs){
   if(C.zweck)lead+=" "+gbt("lead2").replace("%z",sW(C.zweck));
   if(C.grund&&C.Z.k!=="fraktion")lead+=" "+gbt("leadAb").replace("%g",sW(C.grund));
   h+=`<div class="shero"><div class="sname"><h3>${esc(C.name)}</h3>${sRR("core:n1|core:n2")}</div>
-   <div class="stags"><span class="stag">${esc(sW(C.art))} · ${esc(sW(TY))}</span><span class="stag">${esc(zk)}</span>${who!==zk?`<span class="stag">${esc(who)}</span>`:""}<span class="stag">${esc(tn)}</span>${C.sub&&C.sub.style?`<span class="stag">${esc(sE(D.subs[C.builder]||{},"style"))}</span>`:""}</div>
+   <div class="stags"><span class="stag">${esc(sW(C.art))} · ${esc(sW(TY))}</span><span class="stag">${esc(zk)}</span>${who!==zk?`<span class="stag">${esc(who)}</span>`:""}<span class="stag">${esc(tn)}</span>${(D.subs[C.builder]||{}).fac?`<span class="stag">${esc(gbt("style"))}: ${esc(sE(D.subs[C.builder],"fac"))}</span>`:""}</div>
    <p class="slead">${esc(lead)} ${sRR("out:a|out:f|out:o1|out:o2|core:zw|core:gr")}</p>
    <p class="ssense">${esc(gbt("smell"))}: ${esc(C.sm||"–")} · ${esc(gbt("sound"))}: ${esc(C.so||"–")} ${sRR("core:sm|core:so")}</p></div>`;
   h+=`<div class="sgrid">`;
   // Außen & Zugang
   const bs=D.subs[C.builder]||{};
   let ob=sRow(gbt("look"),`<b>${esc(sCap(sW(C.aus)))}</b> <span class="ss">${esc(sW(C.form))}</span>`,"out:a|out:f")+sRow(gbt("outer"),esc([sW(C.o1),sW(C.o2)].filter(Boolean).join(" · ")),"out:o1|out:o2")+
-    sRow(gbt("style"),`<b>${esc(sE(bs,"style")||"–")}</b> <span class="ss">${esc([sW(C.s1),sW(C.s2)].filter(Boolean).join(" · "))}</span>`,"out:s1|out:s2")+
+    sRow(gbt("style"),`<b>${esc(sE(bs,"fac")||"–")}</b> <span class="ss">${esc([sE(bs,"style")?"Inspiration: "+sE(bs,"style"):"",sW(C.s1),sW(C.s2)].filter(Boolean).join(" · "))}</span>`,"out:s1|out:s2")+
     (C.Z.k!=="fraktion"?sRow(gbt("builder"),esc(wFacN(D,C.builder)),"core:bau"):"");
   if(C.typ==="villa"){const ex=L.R.flatMap(x=>x.ex.map(e=>`${sW(e)} (${sW(x.r)})`));ob+=sRow(gbt("exits"),`<b>${ex.length}</b> <span class="ss">${esc(ex.join(" · "))}</span>`,"lay:nx|lay:x")}
   if(C.typ==="tempel"&&L.out.ent)ob+=sRow(gbt("cent"),esc(sW(L.out.ent)),"lay:ent");
@@ -1925,7 +1925,7 @@ function gebaeudeText(D,rs){
   const B=gbState(rs),C=gbBuild(D,B),L=C.L,o=[];const tn=LANG==="de"?C.T.de:(C.T.en||C.T.de),TY=D.types[C.typ]||{};
   if(B.src)o.push(`${gbt("fromT")}: ${B.src.title||""}`);
   o.push(`${C.name} · ${sW(C.art)} (${sW(TY)}) · ${sW(C.Z)} · ${tn}`);
-  o.push(`${gbt("look")}: ${[sW(C.aus),sW(C.form),sW(C.o1),sW(C.o2)].filter(Boolean).join(", ")} · ${gbt("style")}: ${sE(D.subs[C.builder]||{},"style")} (${[sW(C.s1),sW(C.s2)].filter(Boolean).join(", ")}) · ${gbt("smell")}: ${C.sm} · ${gbt("sound")}: ${C.so}`);
+  o.push(`${gbt("look")}: ${[sW(C.aus),sW(C.form),sW(C.o1),sW(C.o2)].filter(Boolean).join(", ")} · ${gbt("style")}: ${sE(D.subs[C.builder]||{},"fac")} (${[sE(D.subs[C.builder]||{},"style")?"Inspiration "+sE(D.subs[C.builder]||{},"style"):"",sW(C.s1),sW(C.s2)].filter(Boolean).join(", ")}) · ${gbt("smell")}: ${C.sm} · ${gbt("sound")}: ${C.so}`);
   const w=[];if(C.Z.k==="fraktion")w.push(`${wFacN(D,C.fac)} (${sW(C.halt)})`);if(C.zweck)w.push(`${gbt("purpose")}: ${sW(C.zweck)}`);if(C.grund)w.push(`${gbt("why")}: ${sW(C.grund)}`);
   if(C.foe)w.push(`${gbt("enemy")}: ${C.foe.who} – ${(gbt("stage")[C.foe.stage]||"").split(" – ")[0]} (${L.foeR.map(i=>sW(L.R[i].r)).join(" + ")})`);
   o.push(`${gbt("who")}: ${w.join(" · ")}`);
