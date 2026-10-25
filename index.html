@@ -1499,7 +1499,8 @@ function wFoe(D,W,C,k,forceArt){
   f.stage=gWPick(W,k+"st",st.map((w,i)=>({i,w}))).i;
   if(art.de==="Raubtier"){const n=gPick(W,k+"r",C.B.raub);f.cre=wCre(D,n);f.who=sW(f.cre);f.enc=f.cre.de;f.do=wL(D,W,"Raubtier: Verhalten",k+"v");f.mood=wL(D,W,"Raubtier: Stimmung",k+"m");f.sm=sE({s:f.cre.sm,sEn:f.cre.smEn},"s");f.so=sE({s:f.cre.so,sEn:f.cre.soEn},"s")}
   else if(art.de==="Monster"){const ms=(D.cre||[]).filter(c=>c.kat==="Monster");f.cre=gWPick(W,k+"r",ms.map((c,i)=>Object.assign({w:[3,2,1][i]||1},c)))||{de:"Monster",en:"monster"};f.who=sW(f.cre);f.enc=f.cre.de;f.do=wL(D,W,"Raubtier: Verhalten",k+"v");f.sm=sE({s:f.cre.sm,sEn:f.cre.smEn},"s");f.so=sE({s:f.cre.so,sEn:f.cre.soEn},"s")}
-  else if(art.de==="Reisende"){f.trav=wL(D,W,"Reisende",k+"r");f.who=sW(f.trav);f.do=wL(D,W,"Gegner: Tätigkeit",k+"v");f.fac=(gWPick(W,k+"f",C.T.f)||{}).t;f.npc=1}
+  else if(art.de==="Reisende"){f.trav=wL(D,W,"Reisende",k+"r");f.who=sW(f.trav);f.do=wL(D,W,D.lists["Reisende: Tätigkeit"]?"Reisende: Tätigkeit":"Gegner: Tätigkeit",k+"v");f.fac=(gWPick(W,k+"f",C.T.f)||{}).t;f.npc=1;
+    f.stage=Math.min(f.stage,wNum(D,"Reisende: höchste Stufe",1))}
   else{f.fac=(gWPick(W,k+"r",C.T.f)||{}).t;f.who=wFacN(D,f.fac);f.enc=f.fac;f.do=wL(D,W,"Gegner: Tätigkeit",k+"v");f.goal=wL(D,W,"Gegner: Ziel",k+"g");f.npc=1;
     const x=D.subs[f.fac]||{};f.sm=sE({s:x.smell,sEn:x.smellEn},"s");f.so=sE({s:x.sound,sEn:x.soundEn},"s")}
   return f}
@@ -1564,11 +1565,12 @@ function wArea(D,W,C,i,last){
   const ch=(wNum(D,"Begegnung: Grundchance",10)+C.sk[1]*wNum(D,"Begegnung: je Stufe",10))/100;
   if(!a.foe&&!a.obstFoe&&gU(W,k+"e")<ch)a.enc=wFoe(D,W,C,k+"e");
   // Umweltgefahr
-  const hc=wNum(D,"Umweltgefahr: "+C.B.gef,15)/100;if(gU(W,k+"h")<hc)a.hz=gWPick(W,k+"hz",D.whz);
+  const hc=wNum(D,"Umweltgefahr: "+C.B.gef,15)/100;
+  if(gU(W,k+"h")<hc){const hl=D.whz.map(x=>x.bw&&x.bw[C.B.en]!=null?Object.assign({},x,{w:(x.w||1)*x.bw[C.B.en]}):x).filter(x=>x.w>0);a.hz=gWPick(W,k+"hz",hl.length?hl:D.whz)}
   return a;
 }
 function wBuild(D,W){const C=wCore(D,W);C.wx=wWeather(D,W,C);C.A=[];for(let i=0;i<C.n;i++)C.A.push(wArea(D,W,C,i,i===C.n-1));return C}
-function wSmell(x){const v=sW(x);const adj=LANG==="de"?/^(\S+ig|sauer, süß)$/.test(v):/^(\S+y|sour, sweet)$/.test(v);return (adj?wt("smellA"):wt("smellP"))+" "+v}
+function wSmell(x){const v=sW(x);if(LANG==="de"?/Geruch$/.test(v):/(smell|scent)$/.test(v))return sCap(v);const adj=LANG==="de"?/^(\S+ig|sauer, süß)$/.test(v):/^(\S+y|sour, sweet)$/.test(v);return (adj?wt("smellA"):wt("smellP"))+" "+v}
 function wGo(gen,extra){const g=GENS.find(x=>x.id===gen);return g?`<button class="btn sm sgo" data-wgo="${gen}"${extra||""}>→ ${esc(gTitle(g))}</button>`:""}
 function wFoeHTML(D,f,i,kind){if(!f)return "";
   const what=f.art.de==="Reisende"?`<b>${esc(sCap(f.who||""))}</b> <span class="ss">${esc(wFacN(D,f.fac))}</span>`:`<b>${esc(f.who||"")}</b>`;
@@ -1577,7 +1579,7 @@ function wFoeHTML(D,f,i,kind){if(!f)return "";
   return `<span class="shead">${esc(sW(f.art))}</span> ${what}${det?`<span class="ss">${esc(det)}</span>`:""} ${btn}`+
     `<div class="sid">${esc(wt("stage")[f.stage]||"")}${f.sm||f.so?` · ${esc(wt("signs"))}: ${esc([f.sm,f.so].filter(Boolean).join(" · "))}`:""}</div>`}
 function wTitle(D,C){const tn=LANG==="de"?C.T.de:(C.T.en||C.T.de);const last=C.A[C.n-1];
-  return wt("title")[C.ziel].replace("%t",tn).replace("%o",last&&last.ort?sW(last.det)||sW(last.ort):"")}
+  return wt("title")[C.ziel].replace("%t",tn).replace("%o",last&&last.ort?(last.det?`${sW(last.ort)} (${sW(last.det)})`:sW(last.ort)):"")}
 function wildnisHTML(D,rs){SCOL=wState(rs).col;try{return wildnisHTML0(D,rs)}finally{SCOL=null}}
 function wildnisHTML0(D,rs){
   const W=wState(rs),o=W.inp,C=wBuild(D,W),X=C.wx;const tn=LANG==="de"?C.T.de:(C.T.en||C.T.de);
