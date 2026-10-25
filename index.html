@@ -1721,7 +1721,7 @@ const GBT=["villa","tempel","turm","hof"];
 function gbState(rs){if(!rs.gb)rs.gb={inp:{typ:null,art:null,zust:null,terr:null},draws:{},src:null,ctx:null,col:{}};const B=rs.gb;if(!B.col)B.col={};return B}
 const gbN=(D,k,d)=>{const v=D.rules&&D.rules[k];const x=parseFloat(String(v==null?"":v).replace(",","."));return isNaN(x)?d:x};
 function gbPick(B,k,arr,wf){const a=(arr||[]).map(x=>({x,w:wf?wf(x):(x.w||1)})).filter(y=>y.w>0);if(!a.length)return (arr||[])[0]||null;return gWPick(B,k,a).x}
-function gbL(D,B,list,key,typ,not){let a=D.lists[list]||[];if(typ)a=a.filter(x=>!x.t||x.t===typ);if(not)a=a.filter(x=>!not.includes(x.de));return a.length?gWPick(B,key,a):null}
+function gbL(D,B,list,key,typ,not){let a=D.lists[list]||[];if(typ)a=a.filter(x=>!x.t||x.t.split(",").map(y=>y.trim()).includes(typ));if(not)a=a.filter(x=>!not.includes(x.de));return a.length?gWPick(B,key,a):null}
 const gbInt=(B,k,a,b)=>a+Math.floor(gU(B,k)*(b-a+1));
 function gbStyle(D,sub){const k=(sub&&sub.k)||"";return D.styles[k]||D.styles[k+"N"]||D.styles[k.replace(/N$/,"")]||[]}
 function gbCore(D,B){
@@ -1769,7 +1769,7 @@ function gbCore(D,B){
   // Personen
   const P=[];
   if(Z.k==="fraktion"){const n=Math.max(1,gbN(D,"Personen (bewohnt)",3));
-    for(let i=0;i<n;i++){const k="p"+i+":";const role=i===0?gbL(D,B,"Kopf",k+"r",typ):gbL(D,B,"Person: Rolle",k+"r",typ);
+    for(let i=0;i<n;i++){const k="p"+i+":";const role=i===0?gbL(D,B,"Kopf",k+"r",typ):gbL(D,B,"Person: Rolle",k+"r",typ,P.slice(1).map(q=>q.role&&q.role.de));
       P.push({role,name:sNpcName(D,B,k+"n",sub),laune:D.laune.length?gWPick(B,k+"l",D.laune):null,f:fac,head:i===0})}}
   else if(foe&&foe.kind==="band"){const bs=D.subs[foe.fac]||{};P.push({role:{de:"Anführer",en:"leader"},name:sNpcName(D,B,"p0:n",bs),laune:D.laune.length?gWPick(B,"p0:l",D.laune):null,f:foe.fac,head:true})}
   // Glaube
@@ -1786,6 +1786,7 @@ function gbRooms(D,B,C){
   const pick=(part,n,key)=>{const pool=D.rooms[part]||[];const out=[];const fix=pool.find(x=>x.fix==="erster");if(fix)out.push(fix);
     for(let i=out.length;i<n;i++){const x=gbPick(B,key+i,pool.filter(y=>!y.fix&&!out.includes(y)),y=>y.w);if(!x||out.includes(x))break;out.push(x)}return out};
   const conn=(list,k)=>gbL(D,B,list,k)||{de:"Tür",en:"door"};
+  const connF=k=>gbL(D,B,"Verbindung: Villa",k,null,["Treppe"])||{de:"Tür",en:"door"};  // auf derselben Etage keine Treppe
   const out={};
   if(typ==="villa"){
     const n=gbInt(B,"lay:n",gbN(D,"Villa: Räume min",6),gbN(D,"Villa: Räume max",8));
@@ -1793,11 +1794,11 @@ function gbRooms(D,B,C){
     rs.sort((a,b)=>(ord.indexOf(a.r.et||"EG")-ord.indexOf(b.r.et||"EG"))||(a.i-b.i));
     rs.forEach(x=>add("Villa",x.r,x.r.et||"EG"));
     const by=s=>R.map((x,i)=>x.sec===s?i:-1).filter(i=>i>=0);let ei=0;
-    ord.forEach(s=>{const g=by(s);for(let j=1;j<g.length;j++)link(g[j-1],g[j],conn("Verbindung: Villa","lay:e"+(ei++)))});
+    ord.forEach(s=>{const g=by(s);for(let j=1;j<g.length;j++)link(g[j-1],g[j],connF("lay:e"+(ei++)))});
     // Querverbindungen im Erdgeschoss und Obergeschoss (Netz statt Kette)
     let q=gbN(D,"Villa: Querverbindungen",2);["EG","OG"].forEach(s=>{const g=by(s);let t=0;
       while(q>0&&g.length>=3&&t<12){const a=g[Math.floor(gU(B,"lay:qa"+ei)*g.length)],b=g[Math.floor(gU(B,"lay:qb"+ei)*g.length)];t++;
-        if(a!==b&&!R[a].nb.some(x=>x[0]===b)){link(a,b,conn("Verbindung: Villa","lay:e"+ei));q--}ei++}});
+        if(a!==b&&!R[a].nb.some(x=>x[0]===b)){link(a,b,connF("lay:e"+ei));q--}ei++}});
     const stairs={de:"Treppe",en:"stairs"},eg=by("EG"),og=by("OG"),ke=by("Keller"),da=by("Dach");
     if(og.length)link(eg[0],og[0],stairs);
     if(ke.length){const k=eg.find(i=>R[i].r.de==="Küche");link(k!=null?k:eg[eg.length-1],ke[0],stairs)}
@@ -1836,14 +1837,14 @@ function gbRooms(D,B,C){
     foeR.push(fi);if(C.typ!=="hof"&&R[fi].nb.length&&gU(B,"foe:2")<gbN(D,"Gegner: zwei Räume %",30)/100){const nb=R[fi].nb.map(x=>x[0]);foeR.push(nb[Math.floor(gU(B,"foe:2r")*nb.length)])}}
   // Rollen und Inhalte
   R.forEach((x,i)=>{const k="r"+i+":";
-    x.obj=gbL(D,B,"Objekt",k+"o");x.des=gbL(D,B,"Objekt: Beschreiber",k+"d");
+    const rt=x.sec==="kat"?"kat":C.typ;x.obj=gbL(D,B,"Objekt",k+"o",rt);x.des=gbL(D,B,"Objekt: Beschreiber",k+"d",rt);
     if(foeR.includes(i)){x.role="foe";x.first=foeR[0]===i;return}
     if(x.herz){x.role="herz";x.c=gbL(D,B,"Herz: Inhalt",k+"h",C.typ,["ein Gegner wartet"]);return}
     const zk=C.Z.k==="fraktion"&&C.halt&&C.halt.foe?"banditen":C.Z.k;let role=gbPick(B,k+"role",D.roles,r=>r.w[zk]);let rk=role?role.k:"nichts";
     if(C.Z.k==="fraktion"&&rk!=="gefahr"&&gU(B,k+"gz")<gbN(D,"Gefahr: auch bewohnt %",10)/100)rk="gefahr";
     x.role=rk;
     if(rk==="gefahr")x.c=gbL(D,B,"Gefahr",k+"c");else if(rk==="hinweis")x.c=gbL(D,B,"Hinweis",k+"c");else if(rk==="loot")x.c=gbL(D,B,"Loot",k+"c");
-    else if(rk==="taktik"){x.ta=gbL(D,B,"Taktik: Art",k+"ta");x.c=x.ta?gbL(D,B,"Taktik: "+x.ta.de,k+"c"):null}
+    else if(rk==="taktik"){x.ta=gbL(D,B,"Taktik: Art",k+"ta");x.c=x.ta?gbL(D,B,"Taktik: "+x.ta.de,k+"c",rt):null}
     else if(rk==="begegnung"){x.ba=gbL(D,B,"Begegnung: Art",k+"ba");x.bw=gbL(D,B,"Begegnung: Wer",k+"bw");x.bl=gbL(D,B,"Begegnung: Laune",k+"bl");x.bt=gbL(D,B,"Begegnung: Thema",k+"bt")}
   });
   return{R,E,out,foeR};
