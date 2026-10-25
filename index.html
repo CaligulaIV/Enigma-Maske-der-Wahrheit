@@ -161,6 +161,21 @@ details.camp summary{cursor:pointer;font-family:"Cormorant Garamond",serif;font-
 .sit{display:flex;align-items:baseline;flex-wrap:wrap;gap:2px}
 .sit .er{margin-left:auto}
 .sid{color:var(--muted);font-size:12.5px;line-height:1.35}
+.rulv{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:flex-start;margin:2px 0 6px}
+.rumapw{flex:0 1 auto;max-width:100%}.ruinfo{flex:1 1 260px;min-width:0}
+.rumap{display:block;width:100%;height:auto;color:var(--muted)}
+.rumap .rue{stroke:var(--muted);stroke-width:2}.rumap .rue.quer,.rumap .rue.senk{stroke-dasharray:6 3}.rumap .rue.geheim,.rumap .rue.versteckt{stroke-dasharray:2 4}
+.rumap .rue.zu{stroke:var(--line);stroke-dasharray:3 3}.rumap .rue.flut,.rumap .rue.fluss{stroke:var(--info);stroke-dasharray:7 3}
+.rumap .rue.kletter{stroke-dasharray:1 3;stroke-width:3}.rumap .rue.sprung,.rumap .rue.abk,.rumap .rue.einbahn{stroke:var(--gen);stroke-dasharray:5 3}.rumap .rue.gang{stroke-width:4}
+.rumap .rux{fill:var(--err);font-size:12px;text-anchor:middle;font-weight:700}
+.rumap .run circle{fill:var(--surface);stroke:var(--ink);stroke-width:1.5}.rumap .run text{fill:var(--ink);font-size:12px;font-weight:700;text-anchor:middle}
+.rumap .run.ent circle{fill:var(--surface2)}.rumap .run.stg circle,.rumap .run.tre circle{fill:var(--headline);stroke:var(--headline)}.rumap .run.stg text,.rumap .run.tre text{fill:#fff}
+.rumap .run.fgt circle{stroke:var(--err);stroke-width:3}.rumap .run.itm circle{fill:var(--agbg,#f9ece1);fill:#F7D9A8}.rumap .run.itm text{fill:#22201b}
+.rumap .run.lck circle{stroke-dasharray:3 2}.rumap .run.sec circle{stroke-dasharray:2 3}
+.rumap .rushaft{fill:none;stroke:var(--line);stroke-width:10;opacity:.6}.rumap .rugap{stroke:var(--info);stroke-width:8;opacity:.25}
+.runo{display:inline-block;min-width:20px;height:20px;line-height:20px;text-align:center;border-radius:999px;background:var(--surface2);border:1px solid var(--line);font-size:11.5px;font-weight:700;margin-right:6px}
+.rustg{background:var(--valbg);border-radius:8px;padding:5px 8px;margin-top:4px}
+
 .sh4{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--accent);margin:7px 0 2px}
 .shead{display:inline-block;margin-left:6px;font-size:11.5px;font-weight:600;color:var(--headink);border:1px solid var(--headline);border-radius:999px;padding:0 7px;line-height:1.5}
 .npcc{font-size:13.5px;line-height:1.42}
@@ -381,7 +396,7 @@ body.efocus .wrap{max-width:none}
 <div class="toast" id="toast"></div>
 
 <script>
-const GENS=[{"id": "natur", "title": "Wildnis-Ort", "title_en": "Wilderness", "group": "Welt", "group_en": "World", "note": "Neue Maske, baut auf den Stammtabellen Territorien (47 Territorien mit drei Skalen, Fraktionen, Biome, Wetter, Landschaft) und Wildnis (Orte, Weg, Spuren, Hindernisse, Regeln) auf, dazu Kreaturen und Encounter (Tätigkeit, Verhalten, Umweltgefahren). Listen und Gewichte sind Vorschläge (orange).", "special": "wildnis", "lang": "de/en", "chase": true, "file": "gens/natur.json"}, {"id": "gegner", "title": "Gegner", "title_en": "Enemies", "group": "Kampf", "group_en": "Combat", "note": "Baut auf den Stammtabellen auf: Kreaturen (Titel je Klasse, Merkmal, Geruch, Geräusch, Skillgruppen), Skills (alle Skills + Sammelnamen), Beiwörter (Namen und Stimmung) und Regeln (Klassenwerte, Würfelformeln, Freischaltung). Fehlt einer Fraktion eine Klasse, springt die passende Kreatur ein.", "special": "gegner", "lang": "en", "file": "gens/gegner.json"}, {"id": "sammeln", "title": "Sammeln (Karten)", "title_en": "Gathering (cards)", "group": "Natur", "group_en": "Nature", "note": "Digitales Sammel-Deck: Karte ziehen oder echte Kartenzahl eintragen. Fund-Wahrscheinlichkeiten aus deinem Sammeln-Blatt.", "special": "sammeln", "lang": "de", "file": "gens/sammeln.json"}, {"id": "encounter", "title": "Encounter", "title_en": "Encounter", "group": "Kampf", "group_en": "Combat", "note": "Baut auf den Stammtabellen Encounter (Budget, Ortsarten, Listen, Umweltgefahren) und Gegner auf. Aus einem Ort mit „⚔ Encounter erstellen“ übernimmt er Fraktionen, Gefahr und Lage.", "special": "encounter", "lang": "de/en", "file": "gens/encounter.json"}, {"id": "siedlung", "title": "Siedlung", "title_en": "Settlement", "group": "Welt", "group_en": "World", "note": "Neue Maske, baut auf der Stammtabelle Siedlung (Listen, Größen, 47 Territorien, Religionen) und den Stammtabellen Kreaturen (Fraktionen, Baustil, Handelsgut, Geruch, Namen) und Beiwörter (Laune, Charakter der NPCs) auf. Wortlisten noch deutsch. Mit „⚔ Encounter“ (ganze Siedlung oder je Aufgabe) entsteht ein Kampf mit Ortsart Stadt.", "special": "siedlung", "lang": "de", "enc": {"ort": "Stadt"}, "chase": true, "file": "gens/siedlung.json"}, {"id": "ritual", "title": "Ritual-Ort", "title_en": "Ritual site", "group": "Welt", "group_en": "World", "lang": "de", "file": "gens/ritual.json"}, {"id": "riss", "title": "Zweitweltriss", "title_en": "Otherworld rift", "group": "Welt", "group_en": "World", "lang": "de", "file": "gens/riss.json"}, {"id": "ruine", "title": "Ruine", "title_en": "Ruin", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "note": "Alte 38er-Territorienliste.", "lang": "de", "enc": {"ort": "Raum", "f": ["5,6", "6,6"], "extra": ["4,4|Untergang"], "hazard": "21,3"}, "encRows": [{"rows": [20, 30, 40, 54, 64, 74, 88, 98, 108], "anchor": [0, 2], "f": [[0, 3], [0, 6]], "hazard": [1, 3], "ort": "Raum", "label": "Raum", "n": ["1a", "2a", "3a", "4a", "5a", "6a", "7a", "8a", "9a"]}, {"rows": [20, 30, 54, 64, 88, 98], "anchor": [0, 9], "need": {"cell": [0, 9], "eq": "Gegner"}, "f": [[0, 10], [0, 13]], "hazard": [1, 10], "ort": "Raum", "label": "Raum", "n": ["1b", "2b", "4b", "5b", "7b", "8b"]}], "file": "gens/ruine.json"}, {"id": "hoehle", "title": "Höhlensystem", "title_en": "Cave system", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "lang": "de", "enc": {"ort": "Haupthöhle", "f": ["9,3", "10,3", "11,3"], "hazard": "22,3"}, "encRows": [{"rows": [20, 32, 44, 56, 68, 80], "anchor": [0, 2], "need": {"cell": [0, 3], "eq": "Encounter"}, "f": [[1, 3]], "hazard": [2, 3], "tat": [0, 6], "ziel": [0, 8], "extra": [[0, 4, "Art"]], "ort": "Nebenhöhle", "label": "Abschnitt", "name": [-8, 2], "ortFrom": {"Haupt": "Haupthöhle", "Neben": "Nebenhöhle"}}], "file": "gens/hoehle.json"}, {"id": "gebaeude", "title": "Gebäude", "title_en": "Building", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "note": "Neue Maske, baut auf der Stammtabelle Gebäude (vier Typen Villa, Tempel, Turm, Hof; Zustand, Haltung, Räume, Raumrollen, Listen) auf, dazu Territorien, Kreaturen (Raubtiere, Monster, Geruch), Siedlung (Baustil, Namen) und Religionen. Ersetzt die alten Generatoren Villa und Tempel. Listen und Gewichte sind Vorschläge (orange).", "special": "gebaeude", "lang": "de/en", "chase": true, "file": "gens/gebaeude.json"}, {"id": "npc", "title": "NPC", "title_en": "NPC", "group": "Personen", "group_en": "People", "note": "Neue Maske mit Postkarte. Baut auf den Stammtabellen NPC (Professionen nach Kap. 5.1, Lebensweg, Spezies, Aussehen, Laune-Skala, Sprüche), Religionen, Kreaturen (Fraktionen, Namen) und Beiwörter (Charakter, Ruf) auf. Level = Level der Profession; wichtige NPCs haben Level 6–9. Aus der Siedlung mit 👤 je wichtigem NPC.", "special": "npc", "lang": "de/en", "file": "gens/npc.json"}, {"id": "zirkel", "title": "Zirkel", "title_en": "Circle", "group": "Personen", "group_en": "People", "lang": "de", "file": "gens/zirkel.json"}, {"id": "charakter", "title": "Zufälliger Charakter", "title_en": "Random character", "group": "Personen", "group_en": "People", "lang": "de", "file": "gens/charakter.json"}, {"id": "mystery", "title": "Mysterium", "title_en": "Mystery", "group": "Abenteuer", "group_en": "Adventure", "note": "Neue Maske: ein Rätsel für etwa eine Sitzung – Opfer und drei Beteiligte (einer ist der Täter), je zwei Spuren; die Wahrheit ist zugeklappt. Stammtabelle Mysterium (aus dem alten Mystery-Blatt). Aus der Siedlung (🔍 an einer Stadt-Aufgabe) sind Opfer, Täter und Verdächtige Personen der Stadt; das Motiv ist eine Agenda.", "special": "mystery", "lang": "de/en", "file": "gens/mystery.json"}, {"id": "aufgabe", "title": "Auftrag", "title_en": "Task", "group": "Abenteuer", "group_en": "Adventure", "lang": "de", "file": "gens/aufgabe.json"}, {"id": "verfolgung", "title": "Verfolgungsjagd", "title_en": "Chase", "group": "Abenteuer", "group_en": "Adventure", "note": "Neue Maske nach Buch 1 (Kap. 4.4 Chase): Objective 50, Runden nach Dexterity der NPC-Gruppe, je Runde Szene und Abkürzung aus der Stammtabelle Verfolgung (Stadt und Natur). Stärken je Runde eintragen – der Status rechnet mit. Aus der Siedlung mit „🏃 Verfolgungsjagd“.", "special": "verfolgung", "lang": "de", "file": "gens/verfolgung.json"}, {"id": "spuren", "title": "Spuren & Hinweise", "title_en": "Tracks & clues", "group": "Abenteuer", "group_en": "Adventure", "lang": "de", "file": "gens/spuren.json"}, {"id": "pakt", "title": "Pakt-Aufgabe", "title_en": "Pact task", "group": "Magie", "group_en": "Magic", "lang": "de", "file": "gens/pakt.json"}, {"id": "fallen", "title": "Runenfalle", "title_en": "Rune-trap", "group": "Magie", "group_en": "Magic", "note": "Runenherzen noch lateinisch (Terram/Aquam/Ignem).", "lang": "de", "file": "gens/fallen.json"}, {"id": "wahnsinn", "title": "Trauma & Narben", "title_en": "Trauma & scars", "group": "Magie", "group_en": "Magic", "note": "Psychose ab Seelenintegrität 1 (Buch 1: 0); eigene Narbenliste.", "lang": "de", "file": "gens/wahnsinn.json"}, {"id": "loot", "title": "Loot & Dinge", "title_en": "Loot & things", "group": "Dinge", "group_en": "Things", "note": "Preise noch in Gold; deutsche Skillnamen.", "lang": "de", "file": "gens/loot.json"}, {"id": "objects", "title": "Objects (neu)", "title_en": "Objects", "group": "Dinge", "group_en": "Things", "note": "Englische, neuere Fassung (Buch-1-Begriffe).", "lang": "en", "file": "gens/objects.json"}, {"id": "trank", "title": "Trank & Öl", "title_en": "Potions & oils", "group": "Dinge", "group_en": "Things", "lang": "de", "file": "gens/trank.json"}, {"id": "gift", "title": "Gift & Krankheit", "title_en": "Poisons & diseases", "group": "Dinge", "group_en": "Things", "note": "Stufenwerte weichen von Buch 1 ab (Gift 2 Schaden am Ende der Battle-Phase).", "lang": "de", "file": "gens/gift.json"}, {"id": "box", "title": "Geheimnisvolle Box", "title_en": "Mysterious box", "group": "Dinge", "group_en": "Things", "lang": "de", "file": "gens/box.json"}, {"id": "tiere", "title": "Pflanze & Kleintier", "title_en": "Plants & small animals", "group": "Natur", "group_en": "Nature", "lang": "de", "file": "gens/tiere.json"}, {"id": "laden", "title": "Laden", "title_en": "Shop", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold (Buch 1: Wealth-Level).", "lang": "de", "file": "gens/laden.json"}, {"id": "tempeldienst", "title": "Tempeldienste", "title_en": "Temple services", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold.", "lang": "de", "file": "gens/tempeldienst.json"}, {"id": "taverne", "title": "Taverne", "title_en": "Tavern", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold, Speisenboni mit alten Begriffen.", "lang": "de", "file": "gens/taverne.json"}];
+const GENS=[{"id": "natur", "title": "Wildnis-Ort", "title_en": "Wilderness", "group": "Welt", "group_en": "World", "note": "Neue Maske, baut auf den Stammtabellen Territorien (47 Territorien mit drei Skalen, Fraktionen, Biome, Wetter, Landschaft) und Wildnis (Orte, Weg, Spuren, Hindernisse, Regeln) auf, dazu Kreaturen und Encounter (Tätigkeit, Verhalten, Umweltgefahren). Listen und Gewichte sind Vorschläge (orange).", "special": "wildnis", "lang": "de/en", "chase": true, "file": "gens/natur.json"}, {"id": "gegner", "title": "Gegner", "title_en": "Enemies", "group": "Kampf", "group_en": "Combat", "note": "Baut auf den Stammtabellen auf: Kreaturen (Titel je Klasse, Merkmal, Geruch, Geräusch, Skillgruppen), Skills (alle Skills + Sammelnamen), Beiwörter (Namen und Stimmung) und Regeln (Klassenwerte, Würfelformeln, Freischaltung). Fehlt einer Fraktion eine Klasse, springt die passende Kreatur ein.", "special": "gegner", "lang": "en", "file": "gens/gegner.json"}, {"id": "sammeln", "title": "Sammeln (Karten)", "title_en": "Gathering (cards)", "group": "Natur", "group_en": "Nature", "note": "Digitales Sammel-Deck: Karte ziehen oder echte Kartenzahl eintragen. Fund-Wahrscheinlichkeiten aus deinem Sammeln-Blatt.", "special": "sammeln", "lang": "de", "file": "gens/sammeln.json"}, {"id": "encounter", "title": "Encounter", "title_en": "Encounter", "group": "Kampf", "group_en": "Combat", "note": "Baut auf den Stammtabellen Encounter (Budget, Ortsarten, Listen, Umweltgefahren) und Gegner auf. Aus einem Ort mit „⚔ Encounter erstellen“ übernimmt er Fraktionen, Gefahr und Lage.", "special": "encounter", "lang": "de/en", "file": "gens/encounter.json"}, {"id": "siedlung", "title": "Siedlung", "title_en": "Settlement", "group": "Welt", "group_en": "World", "note": "Neue Maske, baut auf der Stammtabelle Siedlung (Listen, Größen, 47 Territorien, Religionen) und den Stammtabellen Kreaturen (Fraktionen, Baustil, Handelsgut, Geruch, Namen) und Beiwörter (Laune, Charakter der NPCs) auf. Wortlisten noch deutsch. Mit „⚔ Encounter“ (ganze Siedlung oder je Aufgabe) entsteht ein Kampf mit Ortsart Stadt.", "special": "siedlung", "lang": "de", "enc": {"ort": "Stadt"}, "chase": true, "file": "gens/siedlung.json"}, {"id": "ritual", "title": "Ritual-Ort", "title_en": "Ritual site", "group": "Welt", "group_en": "World", "lang": "de", "file": "gens/ritual.json"}, {"id": "riss", "title": "Zweitweltriss", "title_en": "Otherworld rift", "group": "Welt", "group_en": "World", "lang": "de", "file": "gens/riss.json"}, {"id": "ruine", "title": "Ruine", "title_en": "Ruin", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "note": "Neue Maske, baut auf den Stammtabellen Ruine (Wegeformen, Zusätze, Abschluss, Zwecke, Räume, Listen, Regeln) und Altvölker (Erbauer, Baustile) auf, dazu Territorien, Kreaturen, Siedlung (Baustil, Namen) und Encounter (Umweltgefahren). Ersetzt den alten Generator Ruine. Listen und Gewichte sind Vorschläge (orange).", "special": "ruine", "lang": "de/en", "file": "gens/ruine.json"}, {"id": "hoehle", "title": "Höhlensystem", "title_en": "Cave system", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "lang": "de", "enc": {"ort": "Haupthöhle", "f": ["9,3", "10,3", "11,3"], "hazard": "22,3"}, "encRows": [{"rows": [20, 32, 44, 56, 68, 80], "anchor": [0, 2], "need": {"cell": [0, 3], "eq": "Encounter"}, "f": [[1, 3]], "hazard": [2, 3], "tat": [0, 6], "ziel": [0, 8], "extra": [[0, 4, "Art"]], "ort": "Nebenhöhle", "label": "Abschnitt", "name": [-8, 2], "ortFrom": {"Haupt": "Haupthöhle", "Neben": "Nebenhöhle"}}], "file": "gens/hoehle.json"}, {"id": "gebaeude", "title": "Gebäude", "title_en": "Building", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "note": "Neue Maske, baut auf der Stammtabelle Gebäude (vier Typen Villa, Tempel, Turm, Hof; Zustand, Haltung, Räume, Raumrollen, Listen) auf, dazu Territorien, Kreaturen (Raubtiere, Monster, Geruch), Siedlung (Baustil, Namen) und Religionen. Ersetzt die alten Generatoren Villa und Tempel. Listen und Gewichte sind Vorschläge (orange).", "special": "gebaeude", "lang": "de/en", "chase": true, "file": "gens/gebaeude.json"}, {"id": "npc", "title": "NPC", "title_en": "NPC", "group": "Personen", "group_en": "People", "note": "Neue Maske mit Postkarte. Baut auf den Stammtabellen NPC (Professionen nach Kap. 5.1, Lebensweg, Spezies, Aussehen, Laune-Skala, Sprüche), Religionen, Kreaturen (Fraktionen, Namen) und Beiwörter (Charakter, Ruf) auf. Level = Level der Profession; wichtige NPCs haben Level 6–9. Aus der Siedlung mit 👤 je wichtigem NPC.", "special": "npc", "lang": "de/en", "file": "gens/npc.json"}, {"id": "zirkel", "title": "Zirkel", "title_en": "Circle", "group": "Personen", "group_en": "People", "lang": "de", "file": "gens/zirkel.json"}, {"id": "charakter", "title": "Zufälliger Charakter", "title_en": "Random character", "group": "Personen", "group_en": "People", "lang": "de", "file": "gens/charakter.json"}, {"id": "mystery", "title": "Mysterium", "title_en": "Mystery", "group": "Abenteuer", "group_en": "Adventure", "note": "Neue Maske: ein Rätsel für etwa eine Sitzung – Opfer und drei Beteiligte (einer ist der Täter), je zwei Spuren; die Wahrheit ist zugeklappt. Stammtabelle Mysterium (aus dem alten Mystery-Blatt). Aus der Siedlung (🔍 an einer Stadt-Aufgabe) sind Opfer, Täter und Verdächtige Personen der Stadt; das Motiv ist eine Agenda.", "special": "mystery", "lang": "de/en", "file": "gens/mystery.json"}, {"id": "aufgabe", "title": "Auftrag", "title_en": "Task", "group": "Abenteuer", "group_en": "Adventure", "lang": "de", "file": "gens/aufgabe.json"}, {"id": "verfolgung", "title": "Verfolgungsjagd", "title_en": "Chase", "group": "Abenteuer", "group_en": "Adventure", "note": "Neue Maske nach Buch 1 (Kap. 4.4 Chase): Objective 50, Runden nach Dexterity der NPC-Gruppe, je Runde Szene und Abkürzung aus der Stammtabelle Verfolgung (Stadt und Natur). Stärken je Runde eintragen – der Status rechnet mit. Aus der Siedlung mit „🏃 Verfolgungsjagd“.", "special": "verfolgung", "lang": "de", "file": "gens/verfolgung.json"}, {"id": "spuren", "title": "Spuren & Hinweise", "title_en": "Tracks & clues", "group": "Abenteuer", "group_en": "Adventure", "lang": "de", "file": "gens/spuren.json"}, {"id": "pakt", "title": "Pakt-Aufgabe", "title_en": "Pact task", "group": "Magie", "group_en": "Magic", "lang": "de", "file": "gens/pakt.json"}, {"id": "fallen", "title": "Runenfalle", "title_en": "Rune-trap", "group": "Magie", "group_en": "Magic", "note": "Runenherzen noch lateinisch (Terram/Aquam/Ignem).", "lang": "de", "file": "gens/fallen.json"}, {"id": "wahnsinn", "title": "Trauma & Narben", "title_en": "Trauma & scars", "group": "Magie", "group_en": "Magic", "note": "Psychose ab Seelenintegrität 1 (Buch 1: 0); eigene Narbenliste.", "lang": "de", "file": "gens/wahnsinn.json"}, {"id": "loot", "title": "Loot & Dinge", "title_en": "Loot & things", "group": "Dinge", "group_en": "Things", "note": "Preise noch in Gold; deutsche Skillnamen.", "lang": "de", "file": "gens/loot.json"}, {"id": "objects", "title": "Objects (neu)", "title_en": "Objects", "group": "Dinge", "group_en": "Things", "note": "Englische, neuere Fassung (Buch-1-Begriffe).", "lang": "en", "file": "gens/objects.json"}, {"id": "trank", "title": "Trank & Öl", "title_en": "Potions & oils", "group": "Dinge", "group_en": "Things", "lang": "de", "file": "gens/trank.json"}, {"id": "gift", "title": "Gift & Krankheit", "title_en": "Poisons & diseases", "group": "Dinge", "group_en": "Things", "note": "Stufenwerte weichen von Buch 1 ab (Gift 2 Schaden am Ende der Battle-Phase).", "lang": "de", "file": "gens/gift.json"}, {"id": "box", "title": "Geheimnisvolle Box", "title_en": "Mysterious box", "group": "Dinge", "group_en": "Things", "lang": "de", "file": "gens/box.json"}, {"id": "tiere", "title": "Pflanze & Kleintier", "title_en": "Plants & small animals", "group": "Natur", "group_en": "Nature", "lang": "de", "file": "gens/tiere.json"}, {"id": "laden", "title": "Laden", "title_en": "Shop", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold (Buch 1: Wealth-Level).", "lang": "de", "file": "gens/laden.json"}, {"id": "tempeldienst", "title": "Tempeldienste", "title_en": "Temple services", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold.", "lang": "de", "file": "gens/tempeldienst.json"}, {"id": "taverne", "title": "Taverne", "title_en": "Tavern", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold, Speisenboni mit alten Begriffen.", "lang": "de", "file": "gens/taverne.json"}];
 const DATA={"cards":[["Narr","richtig herum","Neustart, Überraschung, Potential, Freiheit, Unschuld",["Überraschung","Potential","Freiheit"]],["Narr","umgedreht","Dummheit, Überstürzt, Chaos, Naive, Grenzen, Hürden",["Dummheit","Chaos","Hürde"]],["Magier","richtig herum","Kraft, Kommunikation, Magie, Selbstbestimmung, Aktion",["Kommunikation","Magie","Selbstbestimmung"]],["Magier","umgedreht","Lüge, Kommunikationsblock, Stagnation, Schummeln, Falschheit",["Lüge","Kommunikationsblock","Stagnation"]],["Hohepriesterin","richtig herum","Mysterium, Intuition, Erleuchtung, Weisheit, Vorahnung",["Mysterium","Erleuchtung","Vorahnung"]],["Hohepriesterin","umgedreht","Geheimnisse, Unsicherheit, Verborgenheit, Unfähigkeit zu hören, Überraschung",["Geheimnis","Unsicherheit","Verborgenheit"]],["Königin","richtig herum","Pflege, Überschuss, Fruchtbarkeit, Mutterschaft, Schönheit, Liebe",["Überschuss","Mutterschaft","Schönheit"]],["Königin","umgedreht","Faulheit, Koordinationschwäche, Verschwendung, Beziehungskrise, Depression, Verbannung",["Koordinationsschwäche","Verschwendung","Beziehung senken"]],["König","richtig herum","Autorität, Ordnung, Struktur, Hierarchie, Aufstieg, Rationalität",["Autorität","Aufstieg","Rationalität"]],["König","umgedreht","Autokratisch, Unterdrücken, Zwang, Grausamkeit, keine Unterstützung, Machtmissbrauch, Irrationalität",["Zwang","Grausamkeit","Machtmissbrauch"]],["Hierophant","richtig herum","Tradition, Gruppenidentifikation, Lehre, Gesetze, Bruderschaft, Religion",["Gruppenidentifikation","Lehre","Religion"]],["Hierophant","umgedreht","Extremismus, Kulte, Verfall Gesellschaft, Abwendung Religion, Abbruch Gespräche, rückständig",["Extremismus","Abwendung Religion","Abbruch Gespräch"]],["Liebhaber","richtig herum","Zusammenkommen, Wahl, Zuneigung, Verpflichtung, Vertrauen, Bündnis",["Zusammenkommen","Vertrauen","Verpflichtung"]],["Liebhaber","umgedreht","Auseinanderbrechen, Angst vor Bindung, Fremd gehen, Bündnis brechen, Misstrauen",["Auseinanderbrechen","Angst vor Bindung","Misstrauen"]],["Wagen","richtig herum","Antrieb, Willenskraft, Richtung, Sieg, Probleme enden, zu Hilfe kommen",["Willenskraft","Richtung","zu Hilfe kommen"]],["Wagen","umgedreht","verirren, richtungslos, antriebslos, Zweifel, abbruch Reise, Verzögerung, braucht Hilfe",["verirren","Zweifel","braucht Hilfe"]],["Stärke","richtig herum","Stärke, Sicherheit, Selbstkontrolle, Geduld, Gesundheit, Leidenschaft",["Sicherheit","Gesundheit","Stärke"]],["Stärke","umgedreht","Schwäche, Zerbrechlichkeit, Ungeduld, Unbeherrscht, Überheblich, Doppelmoral",["Schwäche","Unbeherrscht","Zerbrechlichkeit"]],["Eremit","richtig herum","Selbstbetrachtung, Besinnung, Ruhe, Diskretion, Meditation",["Besinnung","Diskretion","Ruhe"]],["Eremit","umgedreht","Aberkennen, Rückzug, im stich lassen, Isolation, einsamkeit, Exil",["Rückzug","Im Stich lassen","Isolation"]],["Rad","richtig herum","Glück, Chance, Gelegenheit, Umschlagen, Gewinnen, Zyklus, Schicksal, ja",["Glück","Gelegenheit","Zyklus"]],["Rad","umgedreht","Unglück, Fehlschlag, verlieren, Not, Härte, Enttäuschung, nein",["Unglück","Not","Enttäuschung"]],["Gericht","richtig herum","Gerechtigkeit, Karma, Balance, Wahrheit, Verantwortung, Vereinbarung",["Gerechtigkeit","Wahrheit","Vereinbarung"]],["Gericht","umgedreht","Willkür, Unfair, Unrecht, Verruf, Ungleichheit, Falsche Entscheidung",["Willkür/ Unfair","Ungleichheit","Verruf"]],["Gehängte Mann","richtig herum","loslassen, Opferung, Aufgaben, Perspektivwechsel, Musterbrechen, Verspätung, Stoppen",["Loslassen","Perspektivwechsel","Stoppen"]],["Gehängte Mann","umgedreht","in Schwebe, Engstirnig, ins Leben zurück, falsches Motiv, nicht loslassen, zurückhalten",["in schwebe","ins Leben zurück","festhalten"]],["Tod","richtig herum","Ende, Sterblichkeit, echter Wandel, Bruch einer Bindung, Ende einer Ära, Transformation, Wiedergeburt",["Ende","Bindungsbruch","Transformation"]],["Tod","umgedreht","Ende aufgehalten, nicht loslassen können, lange Krankheit, Wandel ablehnen, falscher Wandel",["Aufhalten Ende","Krankheit","Wandel ablehnen"]],["Mäßigkeit","richtig herum","Harmonie, Balance, Mäßigung, Zusammenwirken, vermischen, verbinden",["Balance","Vermischen","Verbinden"]],["Mäßigkeit","umgedreht","Disharmonie,Krankheit, nichts bekommen, Trennen, Bruch",["Unbalance","trennen","leer ausgehen"]],["Dämon","richtig herum","Knechtschaft, Abhängigkeit, Versuchung, Gewalt, Angst, Überarbeitet",["Knechtschaft","Abhängigkeit","Gewalt"]],["Dämon","umgedreht","frei brechen, widerstehen, kraftlosigkeit, keine Verbindung",["frei brechen","widerstehen","keine Bindung"]],["Turm","richtig herum","Zerstörung, unerwarteter Wandel, ruinieren, schaden, stürzen, verdrängen, Gefahr",["Zerstörung","verdrängen","Gefahr"]],["Turm","umgedreht","Anhaltende Zerstörung, langfristige Krise, schwere Gewalt, chaotische Situation, Nachbeben",["Krise","Brutalität","Nachbeben"]],["Sterne","richtig herum","Hoffnung, Freude, Optimismus, Segen, Hilfe, Frieden",["Hoffnung","Segen","Frieden"]],["Sterne","umgedreht","Hoffnungslosigkeit, Unwohlsein, Enttäuschung, hilfe verweigern, Hindernisse des Glaubens",["Enttäuschung","Hoffnungslos","Glaubenskrise"]],["Mond","richtig herum","Träume, Alpträume, Illusionen, verborgene Feinde, Verwirrung, Geheimnis",["Alptraum","Illusion","verborgene Gefahr"]],["Mond","umgedreht","Offenbarung, Vision, durchschauen von Illusionen, Schlaflosigkeit",["Vision","Offenbarung","Schlaflosigkeit"]],["Sonne","richtig herum","Leben, Energie, Wärme, Erschaffung, Reichtum, Erfolg",["Energie","Erschaffung","Reichtum"]],["Sonne","umgedreht","Halber Erfolg, Kälte, hypersensibel, rosarote Brille",["Halber Erfolg","Kälte","rosarote Brille"]],["Urteil","richtig herum","Erlösung, Erwachen, Ruf zu Taten, Berufung, vollendeter Wandel, Entscheidung",["Erwachen","Berufung","Entscheidung"]],["Urteil","umgedreht","Ignorieren, Wider besseren Wissens, Zweifel, Leiten von Angst, entscheidungslos",["Ignorieren","Entgegen Wissen","Leiten von Angst"]],["Welt","richtig herum","Vollendung, Folgen, Resultate, Möglichkeiten, Ziele, Absolutheit, Reisen",["Vollendung","Resultate","Reisen"]],["Welt","umgedreht","Verplanen, unerledigte Aufgaben, Stagnation, festhalten, feststecken",["feststecken","nicht weiterkommen","keine Resultate"]]],"targets":["Spieler","Spieler-Gruppe","Gegenwart","Anderer Spieler","Gegner","NPC","Zukunft","Positiv","Negativ"],"ev":["entferntes Event","NPC Aktion","Neuer NPC","Strang voranbringen","Strang entfernen","Strang verändern","PC negativ","PC positiv","Ambivalentes Ereignis","NPC negativ","NPC positiv","Nemesis positiv","Nemesis negativ"],"act":["Ziel erreichen","Starten","Vernachlässigen","Kämpfen","Rekrutieren","Siegen","Verletzen","Widersetzen","Arglist","Kommunizieren","Verfolgen","Steigern","Senken","Verlassen","Befriedigen","Erkundigen","Verärgern","Bewegen","verschwenden","Wahrheit","Freilassen","Befreunden","urteilen","Desertieren","Dominieren","Aufschieben","Loben","Trennen","Nehmen","Brechen","Heilen","Verzögern","Stoppen","Lügen","Wiederkommen","Nachahmen","Ringen","informieren","verschenken","verschieben","entblößen","verhandeln","einsperren","feiern","verschleiern","entwickeln","reisen","blocken","verletzen","herabsetzen","überladen","Vertagen","Widrigkeiten","töten","unterbrechen","an sich reißen","erschaffen","verraten","zustimmen","ausnutzen","unterdrücken","inspezieren","überfallen","spionieren","tragen","offen","nachlässig","ruinieren","extravagant","Täuschen","ankommen","vorschlagen","trennen","ablehnen","misstrauen","grausamkeit","Intoleranz","vertrauen","Aufregung","Aktivität","Helfen","pflegen","leidenschaft","ablassen","hart arbeiten","kontrollieren","anziehen","versagen","nachgehen","rächen","aufgeben","streiten","bestrafen","führen","transformieren","unterwerfen","verändern","steigern","umstürzen","nähern"],"sub":["Ziele","Träume","Umwelt","Draußen","Innen","Realität","Verbündete","Feinde","Böse","Gute","Gefühle","Gegenteil","Krieg","Frieden","Unschuldige","Liebe","geistlich","intellektuell","Neue Ideen","Freude","Massage","Energie","Gleichgewicht","Spannung","Freundschaft","physisches","Projekt","Freuden","Schmerz","Besitz","Pläne","Lügen","Erwartungen","Gesetz","Bürokratie","Geschäft","Pfad","Neuigkeiten","äußere Faktoren","Ratschlag","Handlung","Wettbewerb","Gefängnis","Krankheit","Nahrung","Aufmerksamkeit","Erfolg","Versagen","Reise","Neid","Streit","Heimat","Investment","Leid","Wünsche","Taktik","Pattsituation","Willkür","Unglück","Tod","Unterbrechung","Macht","Bürde","Intrige","Ängste","Gerücht","Wunden","extravaganz","Repräsentation","Gegner","Reichtum","Freiheit","Militär","Gewöhnliches","Test","Massen","Fahrzeug","Kunst","Sieg","Unklarheit","Fülle","Status Quo","Technik","Hoffnung","Magie","Illusion","Portale","Gefahr","Waffen","Tiere","Wetter","Elemente","Natur","Öffentlichkeit","Führung","Ruhm","Zorn","Information","Vergangenheit","Götter"],"fac":["[GK] Sultane","[GK] Wesire","[GK] Kalifen","[FU] Monarchisten","[FU] Republikaner","[FU] Unabhängige","[ZRO] Restauratoren","[ZRO] Reformisten","[ZRO] Vergelter","[EIS] Familien","[EIS] Lord","[EIS] Marine","[HAI] Kachol","[HAI] Schemeschya","[HAI] Han","[GER] Aisin-Geren","[GER] Süd-Geren","[GER] Nord-Geren","[PIR] Wildling","[PIR] Waldlinge","[PIR] Berglinge","[WS] Waldelfen","[WS] Hochelfen","[WS] Lichterelfen","[HIV] Südkolonie","[HIV] Nordkolonie","[HIV] Exilanten","[ECH] Troglodyten","[ECH] Sumpfechsen","[ECH] Obsidianechsen","[NAG] Manipulatoren","[NAG] Usurpatoren","[NAG] Intriganten","[KOB] Patrioten","[KOB] Anarchisten","[KOB] Hungernd","[SAT] Zentauren","[SAT] Leotauren","[SAT] Aerotauren","[YET] Wanderer","[YET] Eroberer","[YET] Flüchtlinge","[GNO] Seeräuber","[GNO] Fischer","[GNO] Eisgnome"],"pred":["Drachaten","Teufel","Würmer","Schleichen","Pirscher","Säbelaffen","Salamander","Ofanten","Netzfüssler","Weber","Flattervieh","junges Monster"]};
 
 // ================= language =================
@@ -658,7 +673,7 @@ async function loadGen(id){
   if(GD[id])return GD[id];
   const g=GENS.find(x=>x.id===id);const r=await fetch(g.file);if(!r.ok)throw new Error("load");
   const d=await r.json();
-  if(d.creatures||d.hazards||d.siedlung||d.chase||d.npcgen||d.mystery||d.wild||d.geb){GD[id]=d;return d}
+  if(d.creatures||d.hazards||d.siedlung||d.chase||d.npcgen||d.mystery||d.wild||d.geb||d.ruin){GD[id]=d;return d}
   d.inp={};for(const i of d.inputs)d.inp[i.r+","+i.c]=i;
   d.mset={};for(const m of d.merges)d.mset[m[0]+","+m[1]]=m;
   d.bset=new Set(d.bold.map(([r,c])=>r+","+c));
@@ -680,7 +695,7 @@ function renderGen(){
   const id=S.cur;const g=GENS.find(x=>x.id===id);const d=GD[id];const card=$("#genCard");
   if(!g)return;
   if(!d){card.innerHTML=`<div class="loading">${t("loading")} ${esc(gTitle(g))}…</div>`;return}
-  const rs=res(id);const sp=d.creatures||d.hazards||d.siedlung||d.chase||d.npcgen||d.mystery||d.wild||d.geb;const eng=sp?null:new Engine(d,rs);const vals=sp?{}:computeAll(d,eng);
+  const rs=res(id);const sp=d.creatures||d.hazards||d.siedlung||d.chase||d.npcgen||d.mystery||d.wild||d.geb||d.ruin;const eng=sp?null:new Engine(d,rs);const vals=sp?{}:computeAll(d,eng);
   const encB={};if(!sp&&g.encRows)encRowsOf(g,d,rs,vals).forEach((x,i)=>{encB[x.anchor]=` <button class="icon encb" data-encrow="${i}" title="${esc(t("toEncRow"))}">⚔</button>`});
   let h=`<div class="gh"><h2>${esc(gTitle(g))}</h2><span class="badge" title="${t("contentLang")}">${t("contentLang")}: ${(g.lang||"de").toUpperCase()}</span>
    <button class="btn primary" id="regen">${t("regen")}</button><button class="btn" id="toLog">${t("toLog")}</button>${g.enc?`<button class="btn" id="toEnc" title="${esc(t("toEncT"))}">${t("toEnc")}</button>`:""}${g.chase?`<button class="btn" id="toChase" title="${esc(vt("toChaseT"))}">${vt("toChase")}</button>`:""}${(()=>{const v=R.verfolgung&&R.verfolgung.vf&&R.verfolgung.vf.src;return g.chase&&v&&v.gen===id?`<button class="btn" data-go="verfolgung">🏃 → ${esc(v.title.split(" · ").slice(1).join(" · ")||vt("titleCatch"))}</button>`:""})()}${(()=>{const e=R.encounter&&R.encounter.enc&&R.encounter.enc.src;return e&&e.gen===id?`<button class="btn" data-go="encounter" title="${esc(t("toEncOpenT"))}">⚔ → ${esc(e.title.split(" · ").slice(1).join(" · ")||"Encounter")}</button>`:""})()}</div>`;
@@ -689,6 +704,7 @@ function renderGen(){
   if(g.special==="gegner"){card.innerHTML=h.replace(`<div class="note">${t("genHint")}</div>`,"")+gegnerHTML(d,rs);return}
   if(g.special==="verfolgung"){card.innerHTML=h.replace(`<div class="note">${t("genHint")}</div>`,"")+verfolgungHTML(d,rs);return}
   if(g.special==="mystery"){card.innerHTML=h.replace(`<div class="note">${t("genHint")}</div>`,"")+mysteryHTML(d,rs);if(NPCDIRTY){NPCDIRTY=false;saveRes("npc")}return}
+  if(g.special==="ruine"){card.innerHTML=h.replace(`<div class="note">${t("genHint")}</div>`,"")+ruineHTML(d,rs);return}
   if(g.special==="gebaeude"){card.innerHTML=h.replace(`<div class="note">${t("genHint")}</div>`,"")+gebaeudeHTML(d,rs);return}
   if(g.special==="wildnis"){card.innerHTML=h.replace(`<div class="note">${t("genHint")}</div>`,"")+wildnisHTML(d,rs);return}
   if(g.special==="npc"){card.innerHTML=h.replace(`<div class="note">${t("genHint")}</div>`,"")+npcHTML(d,rs);return}
@@ -734,6 +750,7 @@ function genText(id){
   if(GD[id].siedlung)return siedlungText(GD[id],res(id));
   if(GD[id].wild)return wildnisText(GD[id],res(id));
   if(GD[id].geb)return gebaeudeText(GD[id],res(id));
+  if(GD[id].ruin)return ruineText(GD[id],res(id));
   if(GD[id].npcgen)return npcText(GD[id],res(id));
   if(GD[id].mystery)return mysteryText(GD[id],res(id));
   if(GD[id].chase)return verfolgungText(GD[id],res(id));
@@ -1320,7 +1337,8 @@ function sBuild(D,S){
   return r;
 }
 // Platzhalter „Gruppe 1“, „Akteur 2“, „Hauptfrak“ … durch die gewürfelten Werte ersetzen
-function sGo(gen,ic,lab){if(gen==="villa"||gen==="tempel"){const g=GENS.find(x=>x.id==="gebaeude");return g?`<button class="btn sm sgo" data-sgeb="${gen}" data-sgl="${esc(lab||"")}">${ic||"→"} ${esc(gTitle(g))}</button>`:""}
+function sGo(gen,ic,lab){if(gen==="ruine"){const g=GENS.find(x=>x.id==="ruine");return g?`<button class="btn sm sgo" data-sru="1" data-sgl="${esc(lab||"")}">${ic||"→"} ${esc(gTitle(g))}</button>`:""}
+  if(gen==="villa"||gen==="tempel"){const g=GENS.find(x=>x.id==="gebaeude");return g?`<button class="btn sm sgo" data-sgeb="${gen}" data-sgl="${esc(lab||"")}">${ic||"→"} ${esc(gTitle(g))}</button>`:""}
   const g=GENS.find(x=>x.id===gen);return g?`<button class="btn sm sgo" data-sgo="${gen}">${ic||"→"} ${esc(gTitle(g))}</button>`:""}
 function sOg(D,de){const g=(D.grpT||[]).find(x=>x.og===de);return g?sE({o:g.og,oEn:g.ogEn},"o"):de}
 const sOff=(D,lo,hi,art)=>(D.offer||[]).filter(o=>o.wl>=lo&&o.wl<=hi&&(!art||art.includes(o.art)));
@@ -1613,6 +1631,7 @@ function wildnisHTML0(D,rs){
     if(a.ort.de==="Gegner")ort+=` <span class="ss">${esc(sW(a.det))}</span><div class="sid">${wFoeHTML(D,a.foe,i,"o")}</div>`;
     else if(a.gen==="siedlung")ort+=` <button class="btn sm sgo" data-wsied="${i}">→ ${esc(gTitle(GENS.find(x=>x.id==="siedlung")||{title:"Siedlung"}))}</button>`;
     else if(["villa","tempel","gebaeude"].includes(a.gen))ort+=` <button class="btn sm sgo" data-wgeb="${i}">→ ${esc(gTitle(GENS.find(x=>x.id==="gebaeude")||{title:"Gebäude"}))}</button>`;
+    else if(a.gen==="ruine")ort+=` <button class="btn sm sgo" data-wru="${i}">→ ${esc(gTitle(GENS.find(x=>x.id==="ruine")||{title:"Ruine"}))}</button>`;
     else if(a.gen)ort+=" "+wGo(a.gen);
     if(a.sicht)ort+=`<div class="sid"><span class="k">${esc(wt("sight"))}:</span> <b>${esc(sE({x:a.sicht.de,xEn:a.sicht.en},"x"))}</b> – ${esc(sE({x:a.sicht.hde,xEn:a.sicht.hen},"x"))}${a.reveal?" · "+esc(wt("reveal"))+" "+esc(sW(a.reveal)):""} ${sRR(k+"vs|"+k+"vr")}</div>`;
     const smell=a.smell?wSmell(a.smell):"",sound=a.sound?sCap(sW(a.sound)):"";
@@ -1985,6 +2004,380 @@ async function siedlungToGeb(gen,label){
   gebFrom({from:"siedlung",terr:C.T.nr,F,ab},inp,{gen:id,title:`${gTitle(g)} ${name}`,extra:label?[label]:[]});
 }
 
+// ================= RUINE (Stammtabellen Ruine + Altvoelker, dazu Territorien, Kreaturen, Siedlung, Encounter) =================
+// 2–3 Ebenen. Jede Ebene: Wegeform (10, als Graph mit kleiner Karte) + Zusatz, Räume nach Ebenen-Thema, Abschluss im Etappenraum (Kampf · Tor · Rätsel).
+// Schlüssel/Hinweise: benötigt + 1 liegen auf der Ebene. Kämpfe 1–3 je Ebene. Letzte Ebene endet im Schatzraum mit Bosskampf (Tyrant oder 2 Menace).
+// Zufallsschlüssel: core:*, boss:*, l<i>:* (Ebene), l<i>r<j>:* (Raum j der Ebene i).
+const RI18N={
+ de:{terr:"Territorium",eb:"Ebenen",bau:"Erbauer",zw:"Zweck",rand:"zufällig",modern:"Fraktion des Territoriums",fromT:"Aus",
+  hist:"Geschichte",builder:"Erbaut von",age:"Zeitalter",lang:"Schrift",style:"Baustil",purpose:"Zweck",fall:"Untergang",cause:"Verursacher",why:"Grund",
+  task:"Ober-Aufgabe",inh:"Bewohner",rel:"Beziehung",holds:"Haltung",wants:"Ziel",treasure:"Schatz und Ober-Boss",boss:"Ober-Boss",rule:"Herrschaft",mood:"Gemüt",
+  foeT:"Gegner",mod:"Modifikator",gives:"Der Bosskampf liefert",final:"Abschluss",tyrMon:"Uraltes Monster",
+  level:"Ebene",theme:"Thema",form:"Wegeform",add:"Zusatz",entry:"Eingang",down:"Abstieg",close:"Abschluss",fights:"Kämpfe",
+  stage:"Etappenraum",troom:"Schatzraum",need:"braucht",lies:"auf der Ebene",keys:"Schlüssel",clues:"Hinweise",key1:"Schlüssel",clue1:"Hinweis",key:"Schlüssel",clue:"Hinweis",
+  phys:"physisch",mag:"magisch",gate:"Tor",riddle:"Rätsel",fight:"Kampf",locked:"verschlossen",behind:"dahinter",forLocked:"für den verschlossenen Raum",
+  central:"zentral (trägt der Boss)",hz:"Gefahr",smell:"Geruch",sound:"Geräusch",obj:"Objekt",cont:"Behälter",trace:"Spur",once:"einst",now:"jetzt",
+  zones:"Zonen",zone:"Zone",toEnc:"Encounter für diesen Raum",toBoss:"Bosskampf als Encounter",toNpc:"NPC dazu erzeugen",alt:"Alternativroute",
+  altTxt:"Ein Höhlengang verbindet diese Ebene mit der nächsten – schwerer als der Weg über die Etappe.",mapT:"Karte",
+  legend:"E Eingang · ★ Etappe · ◆ Schatzraum · rot Kampf · gelb Schlüssel/Hinweis · ✕ versperrt · → nur eine Richtung",
+  cl:{quer:"Querverbindung",senk:"Treppe/Schacht",geheim:"geheim",kletter:"eingestürzt – nur kletternd",flut:"geflutet – schwimmend",einbahn:"nur in eine Richtung",fluss:"Fluss",abk:"Abkürzung – öffnet nur von innen",sprung:"Sprung in die Tiefe – riskant",zu:"verschüttet",versteckt:"versteckt",gang:"langer Gang"},
+  fl:{stack:"liegt über/unter einem anderen Raum",turned:"gekippt – Wände werden zu Böden",merged:"zwei Räume verschmolzen",secret:"Geheimraum",ante:"Vorraum"},
+  lead:"%z der %b. %u – %g.",withBoss:"Bosskampf",tyr:"Tyrant",men2:"2 Menace",
+  hint:"Eine Ruine ist eine geschlossene Geschichte über mehrere Sessions. Jede Ebene endet im Etappenraum; weiter geht es nur dort. Es liegt immer ein Schlüssel oder Hinweis mehr bereit als nötig.",
+  jump:"Sprung"},
+ en:{terr:"Territory",eb:"Levels",bau:"Builders",zw:"Purpose",rand:"random",modern:"faction of the territory",fromT:"From",
+  hist:"History",builder:"Built by",age:"Age",lang:"Script",style:"Building style",purpose:"Purpose",fall:"Downfall",cause:"Caused by",why:"Reason",
+  task:"Overall task",inh:"Inhabitants",rel:"Relation",holds:"Attitude",wants:"Goal",treasure:"Treasure and overall boss",boss:"Overall boss",rule:"Rules as",mood:"Temper",
+  foeT:"Enemy",mod:"Modifier",gives:"The boss fight yields",final:"Completion",tyrMon:"Ancient monster",
+  level:"Level",theme:"Theme",form:"Layout",add:"Addition",entry:"Entrance",down:"Way down",close:"Completion",fights:"Fights",
+  stage:"Stage room",troom:"Treasure room",need:"needs",lies:"on the level",keys:"keys",clues:"clues",key1:"key",clue1:"clue",key:"Key",clue:"Clue",
+  phys:"physical",mag:"magical",gate:"Gate",riddle:"Riddle",fight:"Fight",locked:"locked",behind:"behind it",forLocked:"for the locked room",
+  central:"central (carried by the boss)",hz:"Hazard",smell:"Smell",sound:"Sound",obj:"Object",cont:"Container",trace:"Trace",once:"once",now:"now",
+  zones:"zones",zone:"zone",toEnc:"Encounter for this room",toBoss:"Boss fight as an encounter",toNpc:"Create an NPC",alt:"Alternative route",
+  altTxt:"A cave passage connects this level with the next – harder than the way through the stage room.",mapT:"Map",
+  legend:"E entrance · ★ stage · ◆ treasure room · red fight · yellow key/clue · ✕ blocked · → one way only",
+  cl:{quer:"cross-connection",senk:"stairs/shaft",geheim:"secret",kletter:"collapsed – climb only",flut:"flooded – swim",einbahn:"one way only",fluss:"river",abk:"shortcut – opens only from inside",sprung:"drop into the depths – risky",zu:"blocked",versteckt:"hidden",gang:"long passage"},
+  fl:{stack:"lies above/below another room",turned:"tilted – walls become floors",merged:"two rooms merged",secret:"secret room",ante:"antechamber"},
+  lead:"%z of the %b. %u – %g.",withBoss:"boss fight",tyr:"Tyrant",men2:"2 menaces",
+  hint:"A ruin is a closed story spanning several sessions. Every level ends in its stage room; the only way on leads through it. There is always one key or clue more than needed.",
+  jump:"Jump"}};
+const rut=k=>{const v=RI18N[LANG][k];return v===undefined?RI18N.de[k]:v};
+function ruState(rs){if(!rs.ru)rs.ru={inp:{terr:null,eb:null,bau:null,zw:null},draws:{},src:null,ctx:null,col:{}};const B=rs.ru;if(!B.col)B.col={};return B}
+const ruN=(D,k,d)=>{const v=D.rules&&D.rules[k];const x=parseFloat(String(v==null?"":v).replace(",","."));return isNaN(x)?d:x};
+function ruDist(D,k,def){const s=String((D.rules&&D.rules[k])||def);const a=[];s.split(/[·;]/).forEach(p=>{const m=p.match(/(\d+)\s*:\s*([\d.,]+)/);if(m)a.push({v:+m[1],w:parseFloat(m[2].replace(",","."))})});return a}
+function ruRatio(D,k,def){const m=String((D.rules&&D.rules[k])||def).match(/([\d.,]+)\s*:\s*([\d.,]+)/);if(!m)return .5;const a=parseFloat(m[1].replace(",",".")),b=parseFloat(m[2].replace(",","."));return a/(a+b)}
+function ruPick(B,k,arr,wf){const a=(arr||[]).map(x=>({x,w:wf?wf(x):(x.w||1)})).filter(y=>y.w>0);if(!a.length)return null;return gWPick(B,k,a).x}
+function ruL(D,B,list,key,t,not){let a=D.lists[list]||[];if(t!=null)a=a.filter(x=>x.t===t);if(not)a=a.filter(x=>!not.includes(x.de));return a.length?gWPick(B,key,a):null}
+const ruNK=(kind,n)=>rut(kind==="key"?(n===1?"key1":"keys"):(n===1?"clue1":"clues"));
+const ruInt=(B,k,a,b)=>a+Math.floor(gU(B,k)*(b-a+1));
+const ruArt={m:"Der",f:"Die",n:"Das"};
+function ruCre(D,n){return D.cre.find(x=>x.de===n)||{de:n,en:n}}
+// ---------- Grundgerüst der Ruine
+function ruCore(D,B){
+  const o=B.inp,ctx=B.ctx||{};
+  const tnr=o.terr!=null?+o.terr:ctx.terr;
+  const T=tnr!=null?(D.terr.find(x=>x.nr===tnr)||D.terr[0]):D.terr[Math.floor(gU(B,"core:terr")*D.terr.length)];
+  const nEb=o.eb?+o.eb:gWPick(B,"core:eb",[{v:2,w:ruN(D,"Ebenen: 2",1)},{v:3,w:ruN(D,"Ebenen: 3",1)}]).v;
+  const people=T.f.filter(f=>D.subs[f.t]&&f.t!=="Monster");
+  const fpool=ctx.F&&ctx.F.length?ctx.F.filter(f=>D.subs[f.t]):people;
+  // Erbauer: Altvolk oder moderne Fraktion
+  let alt=null,bfac=null;const altPool=D.alt.filter(a=>a.w>0&&a.st);
+  if(o.bau==="_mod")bfac=(ruPick(B,"core:bf",people)||{}).t;
+  else if(o.bau)alt=D.alt.find(a=>a.de===o.bau)||null;
+  else if(gU(B,"core:mod")<ruN(D,"Erbauer modern",.28))bfac=(ruPick(B,"core:bf",people)||{}).t;
+  if(!alt&&!bfac)alt=ruPick(B,"core:alt",altPool);
+  let style;
+  if(alt){const st=D.astyles[alt.st]||{m:[]};style={name:sE({x:alt.bde,xEn:alt.ben},"x")||alt.de,insp:sE({x:st.ide,xEn:st.ien},"x"),m:st.m}}
+  else{const sb=D.subs[bfac]||{};const k=sb.k||"";style={name:sE(sb,"fac")||bfac,insp:sE(sb,"style"),m:D.styles[k]||D.styles[k+"N"]||[]}}
+  const sm=style.m.length?[0,1,2].map(i=>style.m[Math.floor(gU(B,"core:sm"+i)*style.m.length)]).filter((x,i,a)=>a.indexOf(x)===i).slice(0,2):[];
+  // Zweck und Ebenen-Themen
+  const Z=(o.zw&&D.zwecke.find(z=>z.de===o.zw))||D.zwecke[Math.floor(gU(B,"core:zw")*D.zwecke.length)];
+  const th=[],pool=[...Z.th];for(let i=0;i<nEb;i++){const j=Math.floor(gU(B,"core:th"+i)*pool.length);th.push(pool.splice(j,1)[0]||Z.th[0]);if(!pool.length)pool.push(...Z.th)}
+  // Name
+  const n1=ruL(D,B,"Name: Teil 1","core:n1"),n2=ruL(D,B,"Name: Teil 2","core:n2");
+  const nameDe=`${ruArt[(n2&&n2.t)||"f"]||"Die"} ${n1?n1.de:""} ${n2?n2.de:""}`.replace(/\s+/g," ").trim();
+  const nameEn=`The ${n1?sCap(n1.en):""} ${n2?n2.en:""}`.replace(/\s+/g," ").trim();
+  // Untergang
+  const uArt=ruL(D,B,"Untergang: Art","core:ua"),uGr=ruL(D,B,"Untergang: Grund","core:ug");
+  let cause;if(gU(B,"core:uc")<ruN(D,"Untergang: Verursacher Altvolk",.5)){const c=ruPick(B,"core:uca",D.alt.filter(a=>a.w>0&&a!==alt));cause=c?sW(c):""}
+  else{const f=(ruPick(B,"core:ucf",people)||{}).t;cause=f?wFacN(D,f):""}
+  // Ober-Aufgabe
+  const aO=ruL(D,B,"Ober-Aufgabe: Objekt","core:ao"),aV=ruL(D,B,"Ober-Aufgabe: Verb","core:av");
+  const task=LANG==="de"?`${sW(aO)} ${sW(aV)}`:`${sW(aV)} the ${sW(aO)}`;
+  // Bewohner
+  const F1=(ruPick(B,"core:f1",fpool.length?fpool:people)||{}).t;
+  const h1=ruL(D,B,"Bewohner: Haltung","core:h1"),z1=ruL(D,B,"Bewohner: Ziel","core:z1");
+  const bi=D.biome[T.biom]||{raub:[]};let F2;
+  if(!bi.raub.length||gU(B,"core:f2m")<ruN(D,"Fraktion 2: Monster",.2)){const ms=D.cre.filter(x=>x.kat==="Monster"&&x.en!=="Ancient monster");F2=ms[Math.floor(gU(B,"core:f2")*ms.length)]||ruCre(D,"Junges Monster")}
+  else F2=ruCre(D,bi.raub[Math.floor(gU(B,"core:f2")*bi.raub.length)]);
+  const h2=ruL(D,B,"Bewohner: Haltung","core:h2"),bez=(D.elists["Beziehung der Fraktionen"]||[]).length?gWPick(B,"core:bez",D.elists["Beziehung der Fraktionen"]):null;
+  const s1=D.subs[F1]||{};
+  // Schatzraum: Gegner, Ober-Boss
+  const tclose=ruPick(B,"boss:cl",D.close,x=>x.ws)||D.close[1];
+  const sg=ruL(D,B,"Schatzraum: Gegner","boss:sg");const tyr=!sg||/tyr/i.test(sg.de);
+  const mon=tyr&&gU(B,"boss:mon")<ruN(D,"Schatzraum: Tyrant aus Monstern",.4);
+  const tb={tyr,mon,cre:mon?D.cre.find(x=>x.en==="Ancient monster")||ruCre(D,"Uraltes Monster"):null,fac:mon?null:F1,
+    name:mon?"":sNpcName(D,B,"boss:n",s1),herr:mon?null:ruL(D,B,"Ober-Boss: Herrschaft","boss:hr"),gem:ruL(D,B,"Ober-Boss: Gemüt","boss:gm"),
+    mod:ruL(D,B,"Boss-Modifikator","boss:md"),hz:gU(B,"boss:hz")<ruN(D,"Gefahr bei Bosskampf",.5)?ruPick(B,"boss:hzw",D.hz):null};
+  tb.gives=ruL(D,B,"Schatzraum: Boss liefert","boss:gv",null,tclose.k==="tor"?["den zentralen Hinweis"]:["den zentralen Schlüssel"]);
+  return{T,nEb,people,alt,bfac,style,sm,Z,th,nameDe,nameEn,uArt,uGr,cause,aO,aV,task,F1,h1,z1,F2,h2,bez,tclose,tb,ctx,
+    sm1:sE(s1,"smell"),so1:sE(s1,"sound")};
+}
+// ---------- Wegeform als Graph (Knoten mit Koordinaten, Kanten mit Art)
+function ruGraph(B,k,f,n){
+  const N=[],E=[];const nd=(t,x,y)=>{N.push({t,x,y,fl:{}});return N.length-1};const ed=(a,b,o)=>{E.push(Object.assign({a,b,cl:""},o||{}))};
+  const chain=a=>{for(let j=1;j<a.length;j++)ed(a[j-1],a[j])};
+  const e0=nd("E",0,1);let S;
+  if(f==="ellipse"||f==="straenge"){const a=Math.ceil(n/2),b=n-a,w=Math.max(a,b);const A=[],Bb=[];
+    for(let j=0;j<a;j++)A.push(nd("R",1+j*w/a,0));for(let j=0;j<b;j++)Bb.push(nd("R",1+j*w/b,2));
+    S=nd("S",w+1,1);chain([e0,...A,S]);chain([e0,...Bb,S]);
+    if(f==="straenge"){const ia=Math.min(a-1,Math.floor(a/2)),ib=Math.min(b-1,Math.floor(b/2));ed(A[ia],Bb[ib],{cl:"quer"})}}
+  else if(f==="reihe"){const c=n-2;const C=[];for(let j=0;j<c;j++)C.push(nd("R",1+j,1));S=nd("S",c+1,1);chain([e0,...C,S]);
+    const ia=Math.floor(gU(B,k+"o1")*c);let ib=Math.floor(gU(B,k+"o2")*c);if(ib===ia&&c>1)ib=(ia+1)%c;
+    ed(C[ia],nd("R",N[C[ia]].x,0));ed(C[ib],nd("R",N[C[ib]].x,2))}
+  else if(f==="gestapelt"){const a=Math.ceil(n/2),b=n-a;N[e0].y=2;const Lw=[],U=[];
+    for(let j=0;j<a;j++)Lw.push(nd("R",1+j,2));for(let j=0;j<b;j++)U.push(nd("R",1+j,0));S=nd("S",b+1,0);
+    chain([e0,...Lw]);chain([...U,S]);ed(Lw[0],U[0],{cl:"senk"});if(a>1&&b>1)ed(Lw[a-1],U[b-1],{cl:"senk"})}
+  else if(f==="zentral"){N[e0].y=1.5;const H=nd("R",1.3,1.5);ed(e0,H);let rest=n-1;
+    const m=Math.max(Math.ceil(rest/2),Math.min(rest,3+(gU(B,k+"m")<.5?1:0),4));const len=Array(Math.min(m,4)).fill(1);rest-=len.length;
+    let t=0;while(rest>0&&t<20){const i=Math.floor(gU(B,k+"ar"+t)*len.length);if(len[i]<2){len[i]++;rest--}t++}
+    const dir=[[1,0],[0,-1],[0,1],[.8,-.8]];let endR=null;
+    len.forEach((L,ai)=>{let p=H;for(let j=1;j<=L;j++){const q=nd("R",1.3+dir[ai][0]*j,1.5+dir[ai][1]*j);ed(p,q);p=q}if(ai===0)endR=p});
+    S=nd("S",N[endR].x+1,N[endR].y);ed(endR,S)}
+  else if(f==="gang"){let g=ruInt(B,k+"g",1,2);if(n-g<2)g=Math.max(1,n-2);const G=[];for(let j=0;j<g;j++)G.push(nd("R",2+j,1));S=nd("S",g+2,1);
+    ed(e0,G[0],{cl:"gang"});chain([...G,S]);let p=G[0];for(let j=0;j<n-g;j++){const q=nd("R",2+j*.9+.4,2.1+j*.25);ed(p,q);p=q}}
+  else if(f==="haelften"){const a=Math.max(2,Math.ceil((n-1)/2)),b=Math.max(1,n-1-a);const Nn=[nd("R",1,.4),nd("R",1,1.6)];for(let j=2;j<a;j++)Nn.push(nd("R",1.8,j%2?.4:1.6));
+    ed(e0,Nn[0]);ed(e0,Nn[1]);for(let j=2;j<a;j++)ed(Nn[j-2],Nn[j]);
+    const br=nd("R",2.8,1);N[br].fl.bridge=1;ed(Nn[Math.floor(gU(B,k+"bn")*Nn.length)],br);
+    const Fr=[];for(let j=0;j<b;j++){const q=nd("R",3.8+Math.floor(j/2),j%2?1.6:.4);Fr.push(q);ed(j<2?br:Fr[j-2],q)}
+    S=nd("S",Math.max(...Fr.map(i=>N[i].x))+1,1);ed(Fr[Fr.length-1],S);if(Fr.length>1&&gU(B,k+"bs")<.5)ed(Fr[Fr.length-2],S)}
+  else if(f==="schleife"){N[e0].y=2;const R=[];const h=Math.ceil(n/2);for(let j=0;j<n;j++)R.push(j<h?nd("R",1+j,2):nd("R",h-(j-h),0));
+    chain([e0,...R]);S=nd("S",N[R[n-1]].x-1,0);ed(R[n-1],S);ed(R[n-1],e0,{cl:"abk",one:true})}
+  else if(f==="spirale"){const R=[];for(let j=0;j<n;j++){const ang=-Math.PI/2+j*2*Math.PI/(n+1),r=1.25-j*.07;R.push(nd("R",2+Math.cos(ang)*r*1.3,1.3+Math.sin(ang)*r))}
+    N[e0].x=2-1.6;N[e0].y=.05;ed(e0,R[0]);chain(R);const ang=-Math.PI/2+n*2*Math.PI/(n+1);S=nd("S",2+Math.cos(ang)*.9,1.3+Math.sin(ang)*.7);ed(R[n-1],S);
+    const nj=1+(gU(B,k+"nj")<.4?1:0);for(let t=0;t<nj;t++){const j=Math.floor(gU(B,k+"sj"+t)*(n-2));if(!E.some(e=>e.a===R[j]&&e.b===R[j+2]))ed(R[j],R[j+2],{cl:"sprung",one:true})}}
+  else{// raster 2×3
+    const G=[[],[]];for(let r=0;r<2;r++)for(let c=0;c<3;c++)G[r].push(nd("R",1+c,.4+r*1.3));N[e0].y=.4;ed(e0,G[0][0]);S=nd("S",4,1.7);ed(G[1][2],S);
+    const cand=[];for(let r=0;r<2;r++)for(let c=0;c<3;c++){if(c<2)cand.push([G[r][c],G[r][c+1]]);if(r<1)cand.push([G[r][c],G[r+1][c]])}
+    cand.forEach(([a,b])=>ed(a,b));const ok=()=>{const open=E.filter(e=>e.cl!=="zu");const seen=new Set([e0]),q=[e0];while(q.length){const x=q.shift();open.forEach(e=>{const y=e.a===x?e.b:e.b===x?e.a:null;if(y!=null&&!seen.has(y)){seen.add(y);q.push(y)}})}return seen.size===N.length};
+    const nb=2+(gU(B,k+"nb")<.5?1:0);let done=0,t=0;while(done<nb&&t<30){const e=E[2+Math.floor(gU(B,k+"bl"+t)*(E.length-2))];t++;if(!e||e.cl)continue;e.cl="zu";if(ok())done++;else e.cl=""}}
+  return{N,E,S,e0};
+}
+const ruNb=(G,i,all)=>G.E.filter(e=>(all||e.cl!=="zu")&&(e.a===i||e.b===i)).map(e=>e.a===i?e.b:e.a);
+// Zusätze auf den Graphen anwenden
+function ruAddition(D,B,k,G,add){
+  const R=G.N.map((x,i)=>x.t==="R"?i:-1).filter(i=>i>=0);const rr=key=>R[Math.floor(gU(B,k+key)*R.length)];
+  const adj=(a,b)=>G.E.some(e=>(e.a===a&&e.b===b)||(e.a===b&&e.b===a));
+  const pair=key=>{for(let t=0;t<20;t++){const a=rr(key+"a"+t),b=rr(key+"b"+t);if(a!==b&&!adj(a,b))return[a,b]}return null};
+  const d=add&&add.de;if(!d||d==="—")return;
+  if(d==="mit Vorraum"){const S=G.S,v=G.N.length;G.N.push({t:"R",x:G.N[S].x,y:G.N[S].y,fl:{ante:1}});G.N[S].x+=1;G.E.forEach(e=>{if(e.a===S)e.a=v;if(e.b===S)e.b=v});G.E.push({a:v,b:S,cl:""})}
+  else if(d==="Geheimraum"){const a=rr("g");const v=G.N.length;G.N.push({t:"R",x:G.N[a].x+.45,y:G.N[a].y-.75,fl:{secret:1}});G.E.push({a,b:v,cl:"geheim"})}
+  else if(d==="eingestürzter Raum"){const es=G.E.filter(e=>!e.cl&&G.N[e.a].t==="R"&&G.N[e.b].t==="R");if(es.length)es[Math.floor(gU(B,k+"k")*es.length)].cl="kletter"}
+  else if(d==="geflutete Tunnel"||d==="verbindender Fluss"){const p=pair("f");if(p)G.E.push({a:p[0],b:p[1],cl:d==="geflutete Tunnel"?"flut":"fluss"})}
+  else if(d==="Einbahn"){const p=pair("e");if(p){const[a,b]=p[0]<p[1]?p:[p[1],p[0]];G.E.push({a,b,cl:"einbahn",one:true})}}
+  else if(d==="2 Räume übereinander"){const es=G.E.filter(e=>G.N[e.a].t==="R"&&G.N[e.b].t==="R");if(es.length){const e=es[Math.floor(gU(B,k+"st")*es.length)];G.N[e.a].fl.stack=1;G.N[e.b].fl.stack=1}}
+  else if(d==="gedrehte Räume"){G.N[rr("t1")].fl.turned=1;if(gU(B,k+"t2")<.5)G.N[rr("t2")].fl.turned=1}
+  else if(d==="2 Räume verschmolzen")G.N[rr("m")].fl.merged=1;
+  else if(d==="Etappe versteckt")G.E.forEach(e=>{if(e.a===G.S||e.b===G.S)e.cl="versteckt"});
+}
+// ---------- eine Ebene
+function ruLevel(D,B,C,i){
+  const k="l"+i+":",last=i===C.nEb-1;
+  const form=ruPick(B,k+"form",D.forms);const add=ruPick(B,k+"add",D.adds);
+  const n=ruInt(B,k+"n",form.min,form.max);const G=ruGraph(B,k+"G",form.k,n);ruAddition(D,B,k+"z",G,add);
+  const th=C.th[i];const close=last?C.tclose:ruPick(B,k+"cl",D.close,x=>x.we);
+  const R=G.N.map((x,j)=>x.t==="R"?j:-1).filter(j=>j>=0);
+  const fightStage=last||close.k==="kampf";
+  const fx=gWPick(B,k+"fx",ruDist(D,fightStage?"Kämpfe bei Kampf-Etappe":"Kämpfe ohne Kampf-Etappe",fightStage?"0:1 · 1:3 · 2:1":"1:1 · 2:3 · 3:1").map(x=>({...x}))).v;
+  const first=new Set(ruNb(G,G.e0,true));const deg=j=>ruNb(G,j).length;
+  // verschlossener Raum (nur bei Kampf-Etappe)
+  let lock=null;if(fightStage&&R.length>2&&gU(B,k+"lk")<ruN(D,"Verschlossener Raum bei Kampf-Etappe",.5)){
+    const c=R.filter(j=>!first.has(j)&&!G.N[j].fl.ante);const pool=c.length?c:R;const dead=pool.filter(j=>deg(j)===1);
+    const p=dead.length&&gU(B,k+"lkd")<.7?dead:pool;lock={r:p[Math.floor(gU(B,k+"lkr")*p.length)],typ:gU(B,k+"lkt")<.5?"tor":"raetsel"}}
+  // Kampfräume
+  const fr=[];const fc=R.filter(j=>!lock||j!==lock.r);for(let t=0;t<fx&&fc.length;t++){const j=fc.splice(Math.floor(gU(B,k+"fr"+t)*fc.length),1)[0];fr.push(j)}
+  // Inhalte je Raum
+  const rooms={};const used=[];const rp=[...(D.rooms[th.de]||[]),...(D.rooms["(alle)"]||[])];
+  R.forEach(j=>{const kk="l"+i+"r"+j+":",x=G.N[j];const o={};
+    o.name=x.fl.ante?{de:"Vorraum",en:"antechamber"}:ruPick(B,kk+"nm",rp.filter(r=>!used.includes(r.de)),r=>r.w)||rp[0];used.push(o.name.de);
+    o.size=ruL(D,B,"Raum: Größe",kk+"sz");o.z=+(String(o.size&&o.size.t||"").match(/\d+/)||[2])[0]+(x.fl.merged?1:0);
+    o.form=ruL(D,B,"Raum: Form",kk+"fo");o.door=ruL(D,B,"Raum: Eingang",kk+"do");
+    o.fight=fr.includes(j);
+    if(o.fight){o.who=gU(B,kk+"fw")<ruRatio(D,"Kampf: Fraktion 1 : Fraktion 2","2 : 1")?{fac:C.F1}:{cre:C.F2};
+      if(gU(B,kk+"hz")<ruN(D,"Gefahr im Kampfraum",.25))o.hz=ruPick(B,kk+"hzw",D.hz)}
+    else if(gU(B,kk+"hz")<ruN(D,"Gefahr je Raum",.35))o.hz=ruPick(B,kk+"hzw",D.hz);
+    if(gU(B,kk+"be")<ruN(D,"Behälter je Raum",.6)){o.beh=ruL(D,B,"Behälter",kk+"b1");o.bart=ruL(D,B,"Behälter: Art",kk+"b2");o.bz=ruL(D,B,"Behälter: Zustand",kk+"b3")}
+    o.obj=ruL(D,B,"Objekt",kk+"o1");o.des=ruL(D,B,"Objekt: Beschreiber",kk+"o2");
+    if(gU(B,kk+"sp")<ruN(D,"Spur des Untergangs je Raum",.33))o.spur=ruL(D,B,"Untergang: Spur",kk+"spw",C.uArt?C.uArt.de:null);
+    if(gU(B,kk+"zw")<ruN(D,"Zweckentfremdung je Raum",.33))o.now=ruL(D,B,"Zweckentfremdung",kk+"zww");
+    const md=D.mood.length?D.mood[Math.floor(gU(B,kk+"md")*D.mood.length)]:null;o.mood=md;
+    o.items=[];rooms[j]=o});
+  // Schlüssel / Hinweise legen: benötigt + 1, nicht im ersten Raum, mindestens einer in einem Raum mit Kampf oder Gefahr
+  const place=(n,kind,key,excl)=>{let c=R.filter(j=>!excl.includes(j)&&!first.has(j));if(c.length<n)c=R.filter(j=>!excl.includes(j));
+    const w=j=>(deg(j)===1||G.N[j].fl.secret?3:1)*(rooms[j].items.length?.3:1);const out=[];
+    for(let t=0;t<n&&c.length;t++){const tot=c.reduce((s,j)=>s+w(j),0);let r=gU(B,key+t)*tot,pick=c[c.length-1];for(const j of c){r-=w(j);if(r<0){pick=j;break}}out.push(pick);c=c.filter(j=>j!==pick)}
+    if(out.length&&!out.some(j=>rooms[j].fight||rooms[j].hz)){const dz=R.filter(j=>(rooms[j].fight||rooms[j].hz)&&!excl.includes(j)&&!out.includes(j));if(dz.length)out[out.length-1]=dz[Math.floor(gU(B,key+"dz")*dz.length)]}
+    out.forEach((j,t)=>rooms[j].items.push({kind,for:excl.length?"main":"main",o:kind==="key"?ruL(D,B,"Schlüssel: Gegenstand",key+"o"+t):ruL(D,B,"Hinweis: Träger",key+"o"+t),d:ruL(D,B,"Hinweis: Beschreiber",key+"d"+t)}));return out};
+  let need=0,kind=null,gate=null,rid=null;
+  if(close.k==="tor"||close.k==="raetsel"){kind=close.k==="tor"?"key":"clue";need=gWPick(B,k+"need",ruDist(D,kind==="key"?"Schlüssel benötigt":"Hinweise benötigt","1:1 · 2:1")).v;
+    place(need+1,kind,k+"pk",lock?[lock.r]:[]);
+    if(kind==="key")gate=gU(B,k+"gt")<ruRatio(D,"Tor physisch : magisch","1 : 1")?{ph:true,x:ruL(D,B,"Tor: physisch",k+"gx")}:{ph:false,x:ruL(D,B,"Tor: magisch",k+"gx")};
+    else rid=ruL(D,B,"Rätsel: Art",k+"rx")}
+  if(lock){const kd=lock.typ==="tor"?"key":"clue";const pl=place(2,kd,k+"lp",[lock.r]);pl.forEach(j=>{const it=rooms[j].items[rooms[j].items.length-1];it.lock=1});
+    lock.x=lock.typ==="tor"?ruL(D,B,gU(B,k+"lgt")<.5?"Tor: physisch":"Tor: magisch",k+"lgx"):ruL(D,B,"Rätsel: Art",k+"lgx");lock.behind=ruL(D,B,"Hinter dem Tor",k+"lb");rooms[lock.r].locked=lock}
+  // Etappe
+  const st={close,need,kind,gate,rid,size:ruL(D,B,"Raum: Größe",k+"ssz",null,["winzig","klein"])};
+  if(!last&&close.k==="kampf"){st.cls=ruL(D,B,"Etappe: Boss-Klasse",k+"bc");st.who=gU(B,k+"bw")<ruRatio(D,"Kampf: Fraktion 1 : Fraktion 2","2 : 1")?{fac:C.F1}:{cre:C.F2};
+    st.mod=ruL(D,B,"Boss-Modifikator",k+"bm");st.hz=gU(B,k+"bh")<ruN(D,"Gefahr bei Bosskampf",.5)?ruPick(B,k+"bhw",D.hz):null}
+  st.mood=D.mood.length?D.mood[Math.floor(gU(B,k+"smd")*D.mood.length)]:null;
+  const entry=ruL(D,B,"Korridor",k+"en");const alt=!last&&gU(B,k+"alt")<ruN(D,"Alternativroute je Ebenenübergang",.05);
+  return{i,last,form,add,n,G,th,close,fx,lock,fr,rooms,st,entry,alt};
+}
+function ruBuild(D,B){const C=ruCore(D,B);C.L=[];for(let i=0;i<C.nEb;i++)C.L.push(ruLevel(D,B,C,i));
+  // Raumnummern über alle Ebenen: 1a, 1b … je Ebene
+  C.L.forEach(L=>{let c=0;L.no={};L.G.N.forEach((x,j)=>{if(x.t==="R")L.no[j]=++c})});return C}
+// ---------- Anzeige
+function ruWho(D,w){return w.fac?wFacN(D,w.fac):sW(w.cre)}
+function ruHz(h){return h?`${eHzName(h)}${h.eff?` (${LANG==="de"?h.eff:(h.eff_en||h.eff)})`:""}`:""}
+const RUOBJ={EingangVilla:"Eingang zu einer Villa",EingangTempel:"Eingang zu einem Tempel"};
+const ruOW=o=>o?(LANG==="de"?(RUOBJ[o.de]||o.de):(o.en||o.de)):"";
+function ruBA(o){if(!o.bart||o.bart.de==="Behälter")return "";const v=sW(o.bart);return LANG==="de"?v:v.toLowerCase()}
+function ruObj(D,o){if(!o.obj)return "";const t=o.obj.t||"";let b="";
+  if(/hoehle/.test(t))b=` <button class="btn sm sgo" data-rugo="hoehle">→ ${esc(gTitle(GENS.find(x=>x.id==="hoehle")||{title:"Höhlensystem"}))}</button>`;
+  else if(/gebaeude:(villa|tempel)/.test(t))b=` <button class="btn sm sgo" data-rugeb="${t.split(":")[1]}">→ ${esc(gTitle(GENS.find(x=>x.id==="gebaeude")||{title:"Gebäude"}))}</button>`;
+  return `${esc(sCap(ruOW(o.obj)))}${o.des?` <span class="ss">(${esc(sW(o.des))})</span>`:""}${b}`}
+function ruItem(it){return `${it.kind==="key"?"🔑":"📜"} <b>${esc(sCap(sW(it.o)))}</b>${it.d?` <span class="ss">${esc(sW(it.d))}</span>`:""}${it.lock?` <span class="ss">– ${esc(rut("forLocked"))}</span>`:""}`}
+function ruMap(L){const G=L.G;const xs=G.N.map(n=>n.x),ys=G.N.map(n=>n.y);const x0=Math.min(...xs),y0=Math.min(...ys),U=54,P=22;
+  const W=(Math.max(...xs)-x0)*U+2*P,H=(Math.max(...ys)-y0)*U+2*P;const X=n=>(n.x-x0)*U+P,Y=n=>(n.y-y0)*U+P;const id="ar"+L.i;
+  let s=`<svg class="rumap" viewBox="0 0 ${Math.round(W)} ${Math.round(H)}" style="max-width:${Math.round(W*1.15)}px" role="img" aria-label="${esc(rut("mapT"))}"><defs><marker id="${id}" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0L10,5L0,10z" fill="currentColor"/></marker></defs>`;
+  if(L.form.k==="spirale"){const cx=G.N.filter(n=>n.t==="R").reduce((a,n)=>a+X(n),0)/L.n,cy=G.N.filter(n=>n.t==="R").reduce((a,n)=>a+Y(n),0)/L.n;s+=`<circle cx="${cx}" cy="${cy}" r="${U*.42}" class="rushaft"/>`}
+  if(L.form.k==="haelften"){const br=G.N.find(n=>n.fl.bridge);if(br)s+=`<line x1="${X(br)}" y1="${P-8}" x2="${X(br)}" y2="${H-P+8}" class="rugap"/>`}
+  G.E.forEach(e=>{const a=G.N[e.a],b=G.N[e.b];const dx=X(b)-X(a),dy=Y(b)-Y(a),l=Math.hypot(dx,dy)||1,r=14;
+    const x1=X(a)+dx/l*r,y1=Y(a)+dy/l*r,x2=X(b)-dx/l*r,y2=Y(b)-dy/l*r;
+    s+=`<line x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}" class="rue ${e.cl||""}"${e.one?` marker-end="url(#${id})"`:""}><title>${esc(e.cl?rut("cl")[e.cl]||e.cl:"")}</title></line>`;
+    if(e.cl==="zu")s+=`<text x="${((x1+x2)/2).toFixed(1)}" y="${((y1+y2)/2+4).toFixed(1)}" class="rux">✕</text>`});
+  G.N.forEach((n,j)=>{const o=L.rooms[j]||{};let cls="run",lab="";
+    if(n.t==="E"){cls+=" ent";lab="E"}else if(n.t==="S"){cls+=L.last?" tre":" stg";lab=L.last?"◆":"★"}else{lab=String(L.no[j]);if(o.fight)cls+=" fgt";if(o.items&&o.items.length)cls+=" itm";if(o.locked)cls+=" lck";if(n.fl.secret)cls+=" sec"}
+    if(n.t==="S"&&(L.last||L.close.k==="kampf"))cls+=" fgt";
+    s+=`<g class="${cls}"><circle cx="${X(n).toFixed(1)}" cy="${Y(n).toFixed(1)}" r="13"/><text x="${X(n).toFixed(1)}" y="${(Y(n)+4.5).toFixed(1)}">${lab}</text></g>`});
+  return s+`</svg>`}
+function ruRoomHTML(D,C,L,j){const o=L.rooms[j],x=L.G.N[j],kk="l"+L.i+"r"+j+":";
+  const chips=[];if(o.fight)chips.push(rut("fight"));if(o.hz&&!o.fight)chips.push(rut("hz"));if(o.items.some(it=>it.kind==="key"))chips.push(rut("key"));if(o.items.some(it=>it.kind==="clue"))chips.push(rut("clue"));
+  if(o.locked)chips.push(rut("locked"));Object.keys(x.fl).filter(f=>f!=="bridge").forEach(f=>{if(f!=="ante")chips.push(rut("fl")[f])});
+  const lines=[];
+  if(o.locked){const l=o.locked;lines.push(`<div>🔒 <b>${esc(l.typ==="tor"?rut("gate"):rut("riddle"))}:</b> ${esc(sCap(sW(l.x)))} <span class="ss">(${esc(rut("need"))} 1 ${esc(l.typ==="tor"?rut("key"):rut("clue"))}) · ${esc(rut("behind"))}: ${esc(sW(l.behind))}</span></div>`)}
+  if(o.fight)lines.push(`<div>⚔ <b>${esc(ruWho(D,o.who))}</b>${o.hz?` <span class="ss">· ${esc(rut("hz"))}: ${esc(ruHz(o.hz))}</span>`:""} <button class="icon encb" data-ruenc="${L.i}|${j}" title="${esc(rut("toEnc"))}">⚔</button></div>`);
+  else if(o.hz)lines.push(`<div>⚠ <b>${esc(eHzName(o.hz))}</b> <span class="ss">${esc(LANG==="de"?o.hz.eff||"":(o.hz.eff_en||o.hz.eff||""))}</span></div>`);
+  o.items.forEach(it=>lines.push(`<div>${ruItem(it)}</div>`));
+  lines.push(`<div class="sid">${esc(rut("obj"))}: ${ruObj(D,o)}</div>`);
+  if(o.beh)lines.push(`<div class="sid">${esc(rut("cont"))}: ${esc(sCap(sW(o.beh)))} <span class="ss">(${esc([ruBA(o),sW(o.bz)].filter(Boolean).join(", "))})</span>${o.bart&&/falle/i.test(o.bart.de)?" ⚠":""}</div>`);
+  if(o.spur)lines.push(`<div class="sid">${esc(rut("trace"))}: ${esc(sW(o.spur))}</div>`);
+  if(o.now)lines.push(`<div class="sid">${esc(rut("once"))}: ${esc(sW(o.name))} · ${esc(rut("now"))}: <b>${esc(sW(o.now))}</b></div>`);
+  const sm=o.fight?(o.who.fac?C.sm1:sE({s:o.who.cre.sm,sEn:o.who.cre.smEn},"s")):o.hz?eHzF(o.hz,"smell"):o.mood?eHzF(o.mood,"smell"):"";
+  const so=o.fight?(o.who.fac?C.so1:sE({s:o.who.cre.so,sEn:o.who.cre.soEn},"s")):o.hz?eHzF(o.hz,"sound"):o.mood?eHzF(o.mood,"sound"):"";
+  if(sm||so)lines.push(`<div class="sid">${esc(rut("smell"))}: ${esc(sm||"–")} · ${esc(rut("sound"))}: ${esc(so||"–")}</div>`);
+  const nb=L.G.E.filter(e=>e.a===j||e.b===j).map(e=>{const y=e.a===j?e.b:e.a;const N=L.G.N[y];const lab=N.t==="E"?rut("entry"):N.t==="S"?(L.last?rut("troom"):rut("stage")):String(L.no[y]);
+    const dir=e.one?(e.a===j?"→ ":"← "):"";return dir+lab+(e.cl?` (${rut("cl")[e.cl]||e.cl})`:"")});
+  lines.push(`<div class="sid">↔ ${esc(nb.join(" · "))}</div>`);
+  return `<div class="sitem"><div class="sit"><span class="runo">${L.no[j]}</span><b>${esc(sCap(sW(o.name)))}</b><span class="ss">${esc(sW(o.size))} · ${esc(sW(o.form))} · ${o.z} ${esc(rut(o.z===1?"zone":"zones"))} · ${esc(sW(o.door))}</span>${chips.map(c=>`<span class="shead">${esc(c)}</span>`).join("")}<span style="margin-left:auto">${sRR(kk)}</span></div>${lines.join("")}</div>`}
+function ruStageHTML(D,C,L){const s=L.st,k="l"+L.i+":";const lines=[];const tb=C.tb;
+  const nk=s.kind==="key"?rut("keys"):rut("clues");
+  if(s.kind){const ex=s.kind==="key"?`${esc(rut("gate"))} (${esc(s.gate.ph?rut("phys"):rut("mag"))}): <b>${esc(sCap(sW(s.gate.x)))}</b>`:`${esc(rut("riddle"))}: <b>${esc(sCap(sW(s.rid)))}</b>`;
+    lines.push(`<div>${s.kind==="key"?"🔑":"📜"} ${ex} <span class="ss">· ${esc(rut("need"))} ${s.need}${L.last&&/zentral/.test(sW(tb.gives)+(tb.gives&&tb.gives.de||""))?" + 1 "+esc(rut("central")):""} · ${s.need+1} ${esc(nk)} ${esc(rut("lies"))}</span></div>`)}
+  if(L.last){const who=tb.mon?sW(tb.cre):wFacN(D,tb.fac);
+    lines.push(`<div>⚔ <b>${esc(tb.tyr?rut("tyr"):rut("men2"))}: ${esc(who)}</b>${tb.name?` – ${esc(tb.name)}`:""} <button class="icon encb" data-ruboss="${L.i}" title="${esc(rut("toBoss"))}">⚔</button>${tb.name?`<button class="icon encb" data-runpc="1" title="${esc(rut("toNpc"))}">👤</button>`:""}</div>`);
+    lines.push(`<div class="sid">${esc(rut("mod"))}: <b>${esc(sW(tb.mod))}</b>${tb.hz?` · ${esc(rut("hz"))}: ${esc(ruHz(tb.hz))}`:""} · ${esc(rut("gives"))}: <b>${esc(sW(tb.gives))}</b></div>`)}
+  else if(s.close.k==="kampf"){lines.push(`<div>⚔ <b>${esc(sW(s.cls))}: ${esc(ruWho(D,s.who))}</b> <button class="icon encb" data-ruboss="${L.i}" title="${esc(rut("toBoss"))}">⚔</button></div>`);
+    lines.push(`<div class="sid">${esc(rut("mod"))}: <b>${esc(sW(s.mod))}</b>${s.hz?` · ${esc(rut("hz"))}: ${esc(ruHz(s.hz))}`:""}</div>`)}
+  if(s.mood&&!L.last)lines.push(`<div class="sid">${esc(rut("smell"))}: ${esc(eHzF(s.mood,"smell")||"–")} · ${esc(rut("sound"))}: ${esc(eHzF(s.mood,"sound")||"–")}</div>`);
+  if(L.last)lines.push(`<div class="sid">${esc(rut("treasure").split(" ")[0])}: ${esc(sCap(C.task))} ${wGo("loot")}</div>`);
+  const t=L.last?rut("troom"):rut("stage");const tag=L.last?rut("withBoss"):sW(s.close);
+  return `<div class="sitem rustg"><div class="sit"><span class="runo">${L.last?"◆":"★"}</span><b>${esc(t)}</b><span class="ss">${esc(sW(s.size))}</span><span class="shead">${esc(tag)}</span><span style="margin-left:auto">${sRR([k+"cl",k+"need",k+"gt",k+"gx",k+"rx",k+"bc",k+"bw",k+"bm",k+"bh",k+"ssz",k+"smd"].concat(L.last?["boss:"]:[]).join("|"))}</span></div>${lines.join("")}</div>`}
+function ruLevelHTML(D,C,L){const k="l"+L.i+":";
+  const fights=L.fr.length+((L.last||L.close.k==="kampf")?1:0);
+  let h=`<div class="rulv"><div class="rumapw">${ruMap(L)}<div class="hint">${esc(rut("legend"))}</div></div><div class="ruinfo">`;
+  h+=sRow(rut("theme"),`<b>${esc(sCap(sW(L.th)))}</b>`,null)+sRow(rut("form"),`<b>${esc(sW(L.form))}</b> <span class="ss">${esc(sE({x:L.form.dde,xEn:L.form.den},"x"))}</span>`,k+"form|"+k+"n|"+k+"G")+
+    (L.add&&L.add.de!=="—"?sRow(rut("add"),`<b>${esc(sCap(sW(L.add)))}</b> <span class="ss">${esc(sE({x:L.add.ede,xEn:L.add.een},"x"))}</span>`,k+"add|"+k+"z"):sRow(rut("add"),"–",k+"add|"+k+"z"))+
+    sRow(L.i?rut("down"):rut("entry"),esc(sCap(sW(L.entry))),k+"en")+
+    sRow(rut("close"),`<b>${esc(L.last?`${rut("troom")} (${sW(L.close)} + ${rut("withBoss")})`:sW(L.close))}</b>`,null)+
+    sRow(rut("fights"),`<b>${fights}</b>`,k+"fx|"+k+"fr");
+  if(L.alt)h+=`<div class="sr"><span class="k">${esc(rut("alt"))}</span><span class="v">${esc(rut("altTxt"))} <button class="btn sm sgo" data-rugo="hoehle">→ ${esc(gTitle(GENS.find(x=>x.id==="hoehle")||{title:"Höhlensystem"}))}</button></span><span></span></div>`;
+  h+=`</div></div>`;
+  L.G.N.forEach((x,j)=>{if(x.t==="R")h+=ruRoomHTML(D,C,L,j)});
+  return h+ruStageHTML(D,C,L)}
+function ruineHTML(D,rs){SCOL=ruState(rs).col;try{return ruineHTML0(D,rs)}finally{SCOL=null}}
+function ruineHTML0(D,rs){
+  const B=ruState(rs),o=B.inp,C=ruBuild(D,B);const tn=LANG==="de"?C.T.de:(C.T.en||C.T.de);const name=LANG==="de"?C.nameDe:C.nameEn;
+  const bau=C.alt?sW(C.alt):wFacN(D,C.bfac);
+  let h=`<div class="ebar sbar">
+   <label class="ef"><span>${rut("terr")}</span><select data-ruinp="terr"><option value="">🎲 ${rut("rand")}${o.terr==null?" ("+esc(tn)+")":""}</option>${D.terr.map(x=>`<option value="${x.nr}" ${+o.terr===x.nr?"selected":""}>${x.nr} – ${esc(LANG==="de"?x.de:(x.en||x.de))}</option>`).join("")}</select></label>
+   <label class="ef"><span>${rut("eb")}</span><select data-ruinp="eb"><option value="">🎲 ${rut("rand")}${o.eb==null?" ("+C.nEb+")":""}</option>${[2,3].map(v=>`<option value="${v}" ${+o.eb===v?"selected":""}>${v}</option>`).join("")}</select></label>
+   <label class="ef"><span>${rut("bau")}</span><select data-ruinp="bau"><option value="">🎲 ${rut("rand")}${o.bau==null?" ("+esc(bau)+")":""}</option><option value="_mod" ${o.bau==="_mod"?"selected":""}>${esc(rut("modern"))}</option>${D.alt.filter(a=>a.st).map(a=>`<option value="${esc(a.de)}" ${o.bau===a.de?"selected":""}>${esc(sW(a))}</option>`).join("")}</select></label>
+   <label class="ef"><span>${rut("zw")}</span><select data-ruinp="zw"><option value="">🎲 ${rut("rand")}${o.zw==null?" ("+esc(sW(C.Z))+")":""}</option>${D.zwecke.map(z=>`<option value="${esc(z.de)}" ${o.zw===z.de?"selected":""}>${esc(sW(z))}</option>`).join("")}</select></label></div>`;
+  if(B.src)h+=`<div class="esrc">${B.src.gen&&GENS.find(x=>x.id===B.src.gen)?`<button class="btn sm" data-go="${esc(B.src.gen)}">← ${esc(gTitle(GENS.find(x=>x.id===B.src.gen)))}</button> `:""}↪ ${esc(rut("fromT"))}: <b>${esc(B.src.title||"")}</b>${B.src.extra&&B.src.extra.length?" · "+esc(B.src.extra.join(" · ")):""} <button class="icon" data-ruclr="1" title="${t("eClear")}">✕</button></div>`;
+  const lead=rut("lead").replace("%z",sCap(sW(C.Z))).replace("%b",bau).replace("%u",sCap(sW(C.uArt))).replace("%g",sW(C.uGr));
+  h+=`<div class="shero"><div class="sname"><h3>${esc(name)}</h3>${sRR("core:n1|core:n2")}</div>
+   <div class="stags"><span class="stag">${C.nEb} ${esc(rut("eb"))}</span><span class="stag">${esc(tn)}</span><span class="stag">${esc(rut("style"))}: ${esc(C.style.name)}</span><span class="stag">${esc(wFacN(D,C.F1))}</span></div>
+   <p class="slead">${esc(lead)} ${esc(rut("task"))}: <b>${esc(sCap(C.task))}</b>. ${sRR("core:ua|core:ug|core:ao|core:av")}</p>
+   <p class="ssense">${esc(rut("smell"))}: ${esc(C.sm1||"–")} · ${esc(rut("sound"))}: ${esc(C.so1||"–")}</p></div>`;
+  h+=`<div class="sgrid">`;
+  // Geschichte
+  let hb=sRow(rut("builder"),`<b>${esc(bau)}</b>${C.alt?` <span class="ss">${esc([C.alt.zeit,C.alt.spr?rut("lang")+": "+C.alt.spr:""].filter(Boolean).join(" · "))}</span>`:""}`,"core:mod|core:alt|core:bf");
+  if(C.alt&&sE({x:C.alt.kde,xEn:C.alt.ken},"x"))hb+=`<div class="sid">${esc(sE({x:C.alt.kde,xEn:C.alt.ken},"x"))}</div>`;
+  hb+=sRow(rut("style"),`<b>${esc(C.style.name)}</b> <span class="ss">${esc([C.style.insp?"Inspiration: "+C.style.insp:"",...C.sm.map(sW)].filter(Boolean).join(" · "))}</span>`,"core:sm");
+  hb+=sRow(rut("purpose"),`<b>${esc(sW(C.Z))}</b> <span class="ss">${esc(C.th.map(sW).join(" · "))}</span>`,"core:zw|core:th");
+  hb+=sRow(rut("fall"),`<b>${esc(sCap(sW(C.uArt)))}</b> <span class="ss">${esc(rut("why"))}: ${esc(sW(C.uGr))}${C.cause?" · "+esc(rut("cause"))+": "+esc(C.cause):""}</span>`,"core:ua|core:ug|core:uc");
+  hb+=sRow(rut("task"),`<b>${esc(sCap(C.task))}</b>`,"core:ao|core:av");
+  h+=sCard("hist",rut("hist"),hb);
+  // Bewohner
+  let ib=sRow("1",`<b>${esc(wFacN(D,C.F1))}</b> <span class="ss">${esc(rut("holds"))}: ${esc(sW(C.h1))} · ${esc(rut("wants"))}: ${esc(sW(C.z1))}</span>`,"core:f1|core:h1|core:z1")+
+    sRow("2",`<b>${esc(sW(C.F2))}</b> <span class="ss">${esc(rut("holds"))}: ${esc(sW(C.h2))}</span>`,"core:f2|core:h2")+(C.bez?sRow(rut("rel"),esc(sW(C.bez)),"core:bez"):"");
+  h+=sCard("inh",rut("inh"),ib);
+  // Schatz und Ober-Boss
+  const tb=C.tb;let tbb=sRow(rut("foeT"),`<b>${esc(tb.tyr?rut("tyr"):rut("men2"))}: ${esc(tb.mon?sW(tb.cre):wFacN(D,tb.fac))}</b>`,"boss:sg|boss:mon");
+  if(tb.name)tbb+=sRow(rut("boss"),`<b>${esc(tb.name)}</b> <span class="ss">${esc([sW(tb.herr),sW(tb.gem)].filter(Boolean).join(" · "))}</span>`,"boss:n|boss:hr|boss:gm");
+  else tbb+=sRow(rut("mood"),esc(sW(tb.gem)),"boss:gm");
+  tbb+=sRow(rut("mod"),`<b>${esc(sW(tb.mod))}</b>`,"boss:md")+sRow(rut("final"),`${esc(sW(C.tclose))} · ${esc(rut("gives"))}: <b>${esc(sW(tb.gives))}</b>`,"boss:cl|boss:gv");
+  h+=sCard("tre",rut("treasure"),tbb);
+  // Ebenen
+  C.L.forEach(L=>{h+=sCard("lv"+L.i,`${rut("level")} ${L.i+1} – ${sCap(sW(L.th))}`,ruLevelHTML(D,C,L),true)});
+  return h+`</div><div class="hint">${esc(rut("hint"))}</div>`;
+}
+function ruineText(D,rs){
+  const B=ruState(rs),C=ruBuild(D,B),o=[];const tn=LANG==="de"?C.T.de:(C.T.en||C.T.de);const bau=C.alt?sW(C.alt):wFacN(D,C.bfac);
+  if(B.src)o.push(`${rut("fromT")}: ${B.src.title||""}`);
+  o.push(`${LANG==="de"?C.nameDe:C.nameEn} · ${C.nEb} ${rut("eb")} · ${tn}`);
+  o.push(`${rut("builder")}: ${bau} · ${rut("style")}: ${C.style.name}${C.style.insp?" (Inspiration "+C.style.insp+")":""}${C.sm.length?" – "+C.sm.map(sW).join(", "):""} · ${rut("purpose")}: ${sW(C.Z)}`);
+  o.push(`${rut("fall")}: ${sW(C.uArt)} (${sW(C.uGr)}${C.cause?", "+C.cause:""}) · ${rut("task")}: ${C.task}`);
+  o.push(`${rut("inh")}: ${wFacN(D,C.F1)} (${sW(C.h1)}, ${sW(C.z1)}) · ${sW(C.F2)} (${sW(C.h2)})${C.bez?" · "+sW(C.bez):""}`);
+  const tb=C.tb;o.push(`${rut("troom")}: ${tb.tyr?rut("tyr"):rut("men2")} ${tb.mon?sW(tb.cre):wFacN(D,tb.fac)}${tb.name?" – "+tb.name+" ("+[sW(tb.herr),sW(tb.gem)].filter(Boolean).join(", ")+")":""} · ${rut("mod")}: ${sW(tb.mod)} · ${rut("gives")}: ${sW(tb.gives)}`);
+  C.L.forEach(L=>{o.push("");o.push(`${rut("level")} ${L.i+1} – ${sW(L.th)} · ${sW(L.form)}${L.add&&L.add.de!=="—"?" + "+sW(L.add):""} · ${L.i?rut("down"):rut("entry")}: ${sW(L.entry)}`);
+    L.G.N.forEach((x,j)=>{if(x.t!=="R")return;const r=L.rooms[j];const p=[];
+      if(r.locked)p.push(`🔒 ${r.locked.typ==="tor"?rut("gate"):rut("riddle")}: ${sW(r.locked.x)} → ${sW(r.locked.behind)}`);
+      if(r.fight)p.push(`⚔ ${ruWho(D,r.who)}${r.hz?" + "+ruHz(r.hz):""}`);else if(r.hz)p.push(`⚠ ${ruHz(r.hz)}`);
+      r.items.forEach(it=>p.push(`${it.kind==="key"?"🔑":"📜"} ${sW(it.o)}${it.d?" ("+sW(it.d)+")":""}${it.lock?" – "+rut("forLocked"):""}`));
+      p.push(ruOW(r.obj)+(r.des?" ("+sW(r.des)+")":""));if(r.beh)p.push(`${sW(r.beh)} (${[ruBA(r),sW(r.bz)].filter(Boolean).join(", ")})`);
+      if(r.spur)p.push(`${rut("trace")}: ${sW(r.spur)}`);if(r.now)p.push(`${rut("now")}: ${sW(r.now)}`);
+      const nb=L.G.E.filter(e=>e.a===j||e.b===j).map(e=>{const y=e.a===j?e.b:e.a,N=L.G.N[y];return (N.t==="E"?"E":N.t==="S"?(L.last?"◆":"★"):L.no[y])+(e.cl?" ("+(rut("cl")[e.cl]||e.cl)+")":"")});
+      o.push(`${L.no[j]} ${sW(r.name)} (${r.z} ${rut("zones")}): ${p.join(" · ")} · ↔ ${nb.join(", ")}`)});
+    const s=L.st;let st=`${L.last?"◆ "+rut("troom"):"★ "+rut("stage")}: `;
+    if(s.kind)st+=s.kind==="key"?`${rut("gate")} ${s.gate.ph?rut("phys"):rut("mag")} – ${sW(s.gate.x)} (${rut("need")} ${s.need} ${ruNK("key",s.need)}${L.last&&C.tb.gives.de.includes("Schlüssel")?" + "+rut("central"):""})`:`${rut("riddle")} – ${sW(s.rid)} (${rut("need")} ${s.need} ${ruNK("clue",s.need)}${L.last&&C.tb.gives.de.includes("Hinweis")?" + "+rut("central"):""})`;
+    if(!L.last&&L.close.k==="kampf")st+=`${sW(s.cls)} ${ruWho(D,s.who)} · ${rut("mod")}: ${sW(s.mod)}${s.hz?" · "+ruHz(s.hz):""}`;
+    if(L.last)st+=` · ⚔ ${tb.tyr?rut("tyr"):rut("men2")} ${tb.mon?sW(tb.cre):wFacN(D,tb.fac)}${tb.hz?" · "+ruHz(tb.hz):""}`;
+    o.push(st);if(L.alt)o.push(`${rut("alt")}: ${rut("altTxt")}`)});
+  return o;
+}
+// ---------- Übergaben
+async function ruToEnc(arg,boss){
+  const id=S.cur,g=GENS.find(x=>x.id===id),D=GD[id],B=ruState(res(id)),C=ruBuild(D,B);
+  await Promise.all([loadGen("encounter"),loadGen("gegner")]);await loadRes("encounter");
+  const G=GD.gegner,E=eState(res("encounter")),ED=GD.encounter;let who,hz=null,ort="Raum",title,ov=[{},{},{}],extra=[];
+  if(boss){const L=C.L[+arg];ort="Etappe";
+    if(L.last){const tb=C.tb;if(tb.mon){const ci=G.creatures.findIndex(c=>c["Name EN"]==="Ancient monster");who=ci>=0?{i:ci,sub:null}:null;extra.push(sW(tb.cre))}else who=eFindCre(G,tb.fac);
+      ov[0]=tb.tyr?{cls:6}:{cls:5,n:2};hz=tb.hz;extra.push(`${rut("mod")}: ${sW(tb.mod)}`);if(tb.name)extra.push(tb.name);title=rut("troom")}
+    else{const s=L.st;who=s.who.fac?eFindCre(G,s.who.fac):eFindCre(G,s.who.cre.de);ov[0]={cls:/menace/i.test((s.cls&&s.cls.de)||"")?5:4};hz=s.hz;extra.push(`${rut("mod")}: ${sW(s.mod)}`);title=`${rut("level")} ${L.i+1} · ${rut("stage")}`}
+    E.inp.boss=true}
+  else{const[i,j]=String(arg).split("|").map(Number);const L=C.L[i],r=L.rooms[j];if(!r||!r.fight)return;
+    who=r.who.fac?eFindCre(G,r.who.fac):eFindCre(G,r.who.cre.de);if(!who)extra.push(ruWho(D,r.who));hz=r.hz;E.inp.boss=false;title=`${rut("level")} ${i+1} · ${L.no[j]} ${sW(r.name)}`}
+  const oi=ED.orte.findIndex(o=>o.de===ort);if(oi>=0)E.inp.ort=oi;E.inp.f=[who||null,null,null];
+  E.src={gen:id,title:`${gTitle(g)} ${LANG==="de"?C.nameDe:C.nameEn} · ${title}`,place:[LANG==="de"?C.T.de:(C.T.en||C.T.de),sW(C.Z)].filter(Boolean).join(" · "),hazard:hz?hz.de:"k. Gefahr",pre:{},extra};
+  E.draws={};E.gd=[{},{},{}];E.ov=ov;E.hp={};E.ph={};saveRes("encounter");go("encounter");
+}
+async function ruToNpc(){
+  const id=S.cur,g=GENS.find(x=>x.id===id),D=GD[id],B=ruState(res(id)),C=ruBuild(D,B),tb=C.tb;if(!tb.fac)return;
+  await loadGen("npc");await loadRes("npc");const rsN=nState(res("npc")),key="ruine:boss";const role=LANG==="de"?"Ober-Boss":"overall boss";
+  const L=nLinkFor(rsN,key,{name:tb.name||"",f:tb.fac,laune:null},role);L.fix.role=role;L.src={gen:id,title:`${gTitle(g)} ${LANG==="de"?C.nameDe:C.nameEn}`,label:role};rsN.cur=key;saveRes("npc");go("npc");
+}
+async function ruToGeb(typ){const id=S.cur,D=GD[id],B=ruState(res(id)),C=ruBuild(D,B),g=GENS.find(x=>x.id===id);
+  gebFrom({from:"natur",terr:C.T.nr,ab:true},{typ},{gen:id,title:`${gTitle(g)} ${LANG==="de"?C.nameDe:C.nameEn}`,extra:[]})}
+async function ruFrom(ctx,src){await loadGen("ruine");await loadRes("ruine");const B=ruState(res("ruine"));B.ctx=ctx;B.inp={terr:null,eb:null,bau:null,zw:null};B.src=src;B.draws={};saveRes("ruine");go("ruine")}
+async function wildToRuin(i){const id=S.cur,g=GENS.find(x=>x.id===id),D=GD[id],W=wState(res(id)),C=wBuild(D,W),a=C.A[+i];if(!a)return;
+  ruFrom({from:"natur",terr:C.T.nr},{gen:id,title:`${gTitle(g)} · ${wt("area")} ${+i+1}: ${a.name}`,extra:[sW(a.det)||sW(a.ort)].filter(Boolean)})}
+async function siedlungToRuin(label){const id=S.cur,g=GENS.find(x=>x.id===id),D=GD[id],Sx=sState(res(id)),r=sBuild(D,Sx),C=r.C;
+  const name=(sW(r.name[0])+(sW(r.name[1])||"").toLowerCase()).replace(/^./,c=>c.toUpperCase());
+  const F=[[C.F[0],6],[C.F[1],3],[C.F[2],1]].filter(x=>x[0]).map(([t,w])=>({t,w}));
+  ruFrom({from:"siedlung",terr:C.T.nr,F},{gen:id,title:`${gTitle(g)} ${name}`,extra:label?[label]:[]})}
+
 // ================= VERFOLGUNGSJAGD (Stammtabelle Verfolgung, Regeln Buch 1 Kap. 4.4 Chase) =================
 // Objective (Standard 50), Runden nach Dexterity der NPC-Gruppe (5/4/3). Je Runde: Szene auf dem direkten Weg (Beschreibung)
 // und eine Abkürzung (zwei Wege, ein Merkmal). Die Stärken werden je Runde eingetragen und zum Status addiert.
@@ -2265,7 +2658,7 @@ async function go(id){
   if(id==="villa"||id==="tempel")id="gebaeude";
   if(id!=="_fate"&&!GENS.find(g=>g.id===id))id="_fate";
   S.cur=id;saveMain();renderNav();
-  document.documentElement.dataset.pal=["siedlung","npc","mystery","natur","gebaeude"].includes(id)?"mot":"";
+  document.documentElement.dataset.pal=["siedlung","npc","mystery","natur","gebaeude","ruine"].includes(id)?"mot":"";
   $("#fateView").hidden=id!=="_fate";$("#genCard").hidden=id==="_fate";
   if(id==="_fate"){renderFate();return}
   renderGen();
@@ -2324,11 +2717,24 @@ document.addEventListener("click",ev=>{
     if(ds.wnpc!=null){wildToNpc(ds.wnpc,ds.wk);return}
     if(ds.wsied!=null){wildToSiedlung(ds.wsied);return}
     if(ds.wgeb!=null){wildToGeb(ds.wgeb);return}
+    if(ds.wru!=null){wildToRuin(ds.wru);return}
     if(ds.wgo){go(ds.wgo);return}
     if(ds.wclr){W.src=null;saveRes(S.cur);renderGen();return}
     if(ds.scol!=null){W.col[ds.scol]=W.col[ds.scol]?0:1;saveRes(S.cur);renderGen();return}
     if(ds.srr!=null){const ks=ds.srr.split("|");for(const key of Object.keys(W.draws))if(ks.some(k=>key.startsWith(k)))delete W.draws[key];saveRes(S.cur);renderGen();return}
     if(b.id==="regen"){W.draws={};W.col={...WCOL_DEF};saveRes(S.cur);renderGen();return}
+  }
+  if(rs&&GD[S.cur].ruin){const B=ruState(rs);
+    if(ds.ruenc!=null){ruToEnc(ds.ruenc,false);return}
+    if(ds.ruboss!=null){ruToEnc(ds.ruboss,true);return}
+    if(ds.runpc!=null){ruToNpc();return}
+    if(ds.rugo){go(ds.rugo);return}
+    if(ds.rugeb){ruToGeb(ds.rugeb);return}
+    if(ds.wgo){go(ds.wgo);return}
+    if(ds.ruclr){B.src=null;B.ctx=null;saveRes(S.cur);renderGen();return}
+    if(ds.scol!=null){B.col[ds.scol]=B.col[ds.scol]?0:1;saveRes(S.cur);renderGen();return}
+    if(ds.srr!=null){const ks=ds.srr.split("|");for(const key of Object.keys(B.draws))if(ks.some(k=>key.startsWith(k)))delete B.draws[key];saveRes(S.cur);renderGen();return}
+    if(b.id==="regen"){B.draws={};saveRes(S.cur);renderGen();return}
   }
   if(rs&&GD[S.cur].geb){const B=gbState(rs);
     if(ds.gbenc!=null){gebToEnc(ds.gbenc);return}
@@ -2347,6 +2753,7 @@ document.addEventListener("click",ev=>{
     if(b.id==="toChase"){siedlungToChase(null);return}
     if(ds.stw!=null){siedlungToWild(ds.stw);return}
     if(ds.sgeb){siedlungToGeb(ds.sgeb,ds.sgl);return}
+    if(ds.sru!=null){siedlungToRuin(ds.sgl);return}
     if(ds.sgo){go(ds.sgo);return}
     if(ds.smys!=null){siedlungToMystery(ds.smys);return}
     if(ds.stpr!=null){Sx.pr=Sx.pr||{};Sx.pr[ds.stpr]=1;saveRes(S.cur);renderGen();return}
@@ -2399,6 +2806,8 @@ document.addEventListener("change",ev=>{
     const drop={fac:["n:fac","n:name","n:spec","n:t"],spec:["n:spec","n:t"],lvl:["n:lvl","n:prof","n:leb","n:bes"]}[k]||[];
     for(const key of Object.keys(N.draws))if(drop.some(d=>key.startsWith(d)))delete N.draws[key];
     saveRes(S.cur);renderGen();return}
+  if(e.dataset.ruinp!=null){const B=ruState(res(S.cur)),k=e.dataset.ruinp,v=e.value===""?null:e.value;B.inp[k]=v;
+    for(const key of Object.keys(B.draws))if(!/^core:n[12]$/.test(key))delete B.draws[key];saveRes(S.cur);renderGen();return}
   if(e.dataset.gbinp!=null){const B=gbState(res(S.cur)),k=e.dataset.gbinp,v=e.value===""?null:e.value;B.inp[k]=v;
     if(k==="typ"&&B.inp.art){const a=GD[S.cur].arten.find(x=>x.de===B.inp.art);if(!v||!a||a.t!==v)B.inp.art=null}
     if(k==="art"&&v){const a=GD[S.cur].arten.find(x=>x.de===v);if(a&&B.inp.typ&&B.inp.typ!==a.t)B.inp.typ=null}
