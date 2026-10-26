@@ -228,7 +228,7 @@ details.soff{margin-top:4px;font-size:13px}details.soff summary{cursor:pointer;c
 /* ---- Encounter (neue Maske) */
 .ehero .sname h3{font-size:30px}
 .eprog{display:flex;align-items:center;gap:10px;margin-top:6px}
-.eprog .vbar{flex:1;margin:0;height:10px}
+.eprog .vbar{flex:1;margin:0;height:10px;display:block}
 .eprog .vstat{white-space:nowrap}
 .ecard2 .sch h3{font-size:21px}
 .ecard2 .sch .en{font-family:Inter,sans-serif;font-weight:800;font-size:17px;color:var(--accent);margin-right:2px}
@@ -1152,11 +1152,11 @@ const EI18N={
  de:{lead:"%t.",prog:"Kampffähig %a/%b · Health %c/%d",fac:"Fraktionen",budgetC:"Budget & Fraktionen",groupsT:"Gegner",pts:"Punkte",gone:"besiegt",
   cardRR:"Karte neu würfeln",open:"Karte aufklappen",close:"Karte zuklappen",bossMod:"Boss-Modifikator",noMod:"– kein Modifikator –",effect:"Wirkung",
   smellOf:"Geruch",soundOf:"Geräusch",stats:"Werte",fsel:"Fraktion",csel:"Klasse",n:"Anzahl",
-  kind:"Kampf",kNorm:"normal",kBoss:"Bosskampf",kSchatz:"Schatzraum",kindT:"Bosskampf: höchste bezahlbare Klasse der Hauptfraktion als Boss, der Rest als Unterstützung bis Threat. Schatzraum: Tyrant oder 2 Menace, unabhängig vom Budget.",modRand:"zufällig",with:"mit"},
+  kind:"Kampf",kNorm:"normal",kBoss:"Bosskampf",kSchatz:"Schatzraum",kindT:"Bosskampf: höchste bezahlbare Klasse der Hauptfraktion als Boss, der Rest als Unterstützung bis Threat. Schatzraum: Tyrant oder 2 Menace, unabhängig vom Budget.",modRand:"zufällig",with:"mit",pt1:"Punkt"},
  en:{lead:"%t.",prog:"Able to fight %a/%b · health %c/%d",fac:"Factions",budgetC:"Budget & factions",groupsT:"Enemies",pts:"points",gone:"defeated",
   cardRR:"Reroll card",open:"Expand card",close:"Collapse card",bossMod:"Boss modifier",noMod:"– no modifier –",effect:"Effect",
   smellOf:"Smell",soundOf:"Sound",stats:"Values",fsel:"Faction",csel:"Class",n:"Count",
-  kind:"Fight",kNorm:"normal",kBoss:"Boss fight",kSchatz:"Treasure room",kindT:"Boss fight: highest affordable class of the main faction as the boss, the rest as support up to threat. Treasure room: a tyrant or 2 menaces, regardless of the budget.",modRand:"random",with:"with"}};
+  kind:"Fight",kNorm:"normal",kBoss:"Boss fight",kSchatz:"Treasure room",kindT:"Boss fight: highest affordable class of the main faction as the boss, the rest as support up to threat. Treasure room: a tyrant or 2 menaces, regardless of the budget.",modRand:"random",with:"with",pt1:"point"}};
 const eit=k=>{const v=EI18N[LANG][k];return v===undefined?EI18N.de[k]:v};
 const ECOL_DEF={budget:1};
 // Karte des Encounters (einklappbar, ⟳ mit mehreren Schlüsseln „a|b“)
@@ -1199,7 +1199,7 @@ function eHTML(D,rs){
   const modBox=o.boss&&bml.length?`<div class="sag emod"><span class="k">${eit("bossMod")}</span> <select data-einp="mod"><option value="" ${!o.mod?"selected":""}>🎲 ${eit("modRand")}${!o.mod&&BM?" ("+esc(eW(D,BM))+")":""}</option><option value="-" ${o.mod==="-"?"selected":""}>${eit("noMod")}</option>${bml.map(x=>`<option value="${esc(x.de)}" ${o.mod===x.de?"selected":""}>${esc(eW(D,x))}</option>`).join("")}</select>${!o.mod?eRR("b:mod"):""}
      ${BM?`<div><b>${esc(sCap(eW(D,BM)))}</b> – ${esc(LANG==="de"?BM.eff:(BM.eff_en||BM.eff)||"")}</div>`:""}</div>`:"";
   const doing=[eW(D,I.tat),eW(D,I.ziel)].filter(Boolean).join(" → ");
-  const lead=[doing?sCap(doing)+".":"",[eW(D,I.form),eW(D,I.um)].filter(Boolean).map(sCap).join(", ")+(I.form||I.um?".":""),I.prob?`${t("eProb")}: ${eW(D,I.prob)}.`:""].filter(Boolean).join(" ");
+  const lead=[doing?sCap(doing)+".":"",sCap([eW(D,I.form),eW(D,I.um)].filter(Boolean).join(", "))+(I.form||I.um?".":""),I.prob?`${t("eProb")}: ${eW(D,I.prob)}.`:""].filter(Boolean).join(" ");
   const g0=groups[0]&&groups[0].g.cr,sm=g0?[gTxt(g0,"Geruch EN","Geruch DE")].filter(Boolean):[],so=g0?[gTxt(g0,"Geräusch EN","Geräusch DE")].filter(Boolean):[];
   if(hz&&hz.smell)sm.push(eHzF(hz,"smell"));if(hz&&hz.sound)so.push(eHzF(hz,"sound"));
   const P=eProgress(G,E,groups);const pc=P.max?Math.round(P.cur/P.max*100):0;
@@ -1218,7 +1218,7 @@ function eHTML(D,rs){
     const extra=`<span class="ecnt"><button class="icon" data-en="${x.gi}:-1" title="−1">−</button><button class="icon" data-en="${x.gi}:1" title="+1">+</button></span><button class="icon" data-ereset="${x.gi}" title="${t("gRerollAll")}">⟳</button>`;
     let b=`<div class="eselr"><select data-eov="cre:${x.gi}" title="${eit("fsel")}">${creOpts(ov.cre??null,"🎲 "+gN(cr))}</select>
        <select data-eov="cls:${x.gi}" title="${eit("csel")}"><option value="">🎲 ${ECLS[g.cls-1]}</option>${ECLS.map((c,i)=>`<option value="${i+1}" ${ov.cls===i+1?"selected":""}>${c}</option>`).join("")}</select></div>
-     <div class="stags">${x.boss?`<span class="stag eboss">${t("eBossTag")}</span>`:""}<span class="stag">${esc(ECLS[g.cls-1])}</span><span class="stag">${esc(gN(cr))}${subTxt?" · "+esc(subTxt):""}</span><span class="stag">${x.p} ${t("ePts")}</span></div>
+     <div class="stags">${x.boss?`<span class="stag eboss">${t("eBossTag")}</span>`:""}<span class="stag">${esc(ECLS[g.cls-1])}</span><span class="stag">${esc(gN(cr))}${subTxt?" · "+esc(subTxt):""}</span><span class="stag">${x.p} ${x.p===1?eit("pt1"):t("ePts")}</span></div>
      <div class="gnm"><b>${esc(gName(g))}</b> <span class="ss">${esc(gW(g.words.desc))}</span><span class="chip pas esense" data-tip="${esc(eit("smellOf")+": "+(gTxt(cr,"Geruch EN","Geruch DE")||"–")+"\n"+eit("soundOf")+": "+(gTxt(cr,"Geräusch EN","Geräusch DE")||"–"))}">👃 👂</span>${g.note.length?`<div class="sid">↪ ${esc(g.note.join(" "))}</div>`:""}</div>
      <div class="estat"><span>Res <b>${g.st.resist}</b></span><span>Gr <b>${g.st.grounding}</b></span><span>Fight <b>${g.st.fight}</b></span><span>Tim <b>${g.st.timing}</b></span><span>Mov <b>${g.st.move}</b></span><span>Act <b>${esc(g.st.actions)}</b></span><span>Arm <b>${g.st.armor}</b></span><span>En <b>${g.st.energy}</b></span></div>
      <div class="echips">
@@ -1228,7 +1228,7 @@ function eHTML(D,rs){
       ${eTipSkill(sk.def,null,t("gDefense"))}${eTipSkill(sk.att,null,t("gAttack"))}${eTipSkill(sk.spec,g.v.spec,t("gSpecial"))}${eTipSkill(sk.e1,g.v.en,t("gEnergy"),true)}${eTipSkill(sk.e2,g.v.en,t("gEnergy")+" 2",true)}
      </div><div class="ehp${x.n>4?" many":""}">`;
     for(let k=0;k<x.n;k++){
-      const key=eHPKey(x.gi,k),ph=E.ph[key]||1,mx=eMaxHP(G,x,k,ph),dmg=E.hp[key]||0,cur=mx-dmg,dead=cur<=0&&(ph===2||!g.p2);
+      const key=eHPKey(x.gi,k),ph=E.ph[key]||1,mx=eMaxHP(G,x,k,ph),dmg=E.hp[key]||0,cur=Math.max(0,mx-dmg),dead=cur<=0&&(ph===2||!g.p2);
       const w=Math.max(0,Math.min(100,cur/mx*100)),lo=w<34?" lo":"";
       if(x.n>4){b+=`<div class="hpt ${dead?"dead":""}"><span class="hn">${k+1}</span><span class="hv"><b>${cur}</b>/${mx}</span><button class="icon" data-ehp="${key}:1" title="−1">−</button><input type="number" class="hd" data-ehpin="${key}" placeholder="${t("eDmg")}" title="${t("eDmgT")}"><span class="hb${lo}"><span style="width:${w}%"></span></span></div>`;continue}
       b+=`<div class="hpi ${dead?"dead":""}"><span class="hn">${k+1}${ph===2?" ②":""}</span>
@@ -1281,7 +1281,7 @@ function eText(D,rs){
     L.push(`${x.n}× ${g.title} (${ECLS[g.cls-1]} · ${gN(g.cr)}${x.sub?" · "+x.sub:""}) – ${gName(g)}`);
     L.push(`   Res ${g.st.resist} · Gr ${g.st.grounding} · Fight ${g.st.fight} · Tim ${g.st.timing} · Mov ${g.st.move} · Act ${g.st.actions} · Arm ${g.st.armor} · Duck ${g.v.duck} · Attack ${g.v.att}`);
     L.push("   "+[g.sk.def,g.sk.att,g.sk.spec,g.sk.e1,g.sk.e2].filter(Boolean).map(s=>gS(s,"name")).join(" · "));
-    const hp=[];for(let k=0;k<x.n;k++){const key=eHPKey(x.gi,k),ph=E.ph[key]||1,mx=eMaxHP(G,x,k,ph);hp.push(`${mx-(E.hp[key]||0)}/${mx}`)}
+    const hp=[];for(let k=0;k<x.n;k++){const key=eHPKey(x.gi,k),ph=E.ph[key]||1,mx=eMaxHP(G,x,k,ph);hp.push(`${Math.max(0,mx-(E.hp[key]||0))}/${mx}`)}
     L.push("   Health: "+hp.join(", "))});
   return L;
 }
