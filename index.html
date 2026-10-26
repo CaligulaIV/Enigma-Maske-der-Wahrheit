@@ -201,6 +201,49 @@ details.soff{margin-top:4px;font-size:13px}details.soff summary{cursor:pointer;c
 .stavn{font-family:"Cormorant Garamond",Georgia,serif;font-size:18px;margin-bottom:2px}
 @media (max-width:520px){.sr{grid-template-columns:78px minmax(0,1fr) auto}.sname h3{font-size:28px}}
 
+
+/* ---- Gegner (neue Maske) */
+.growv{display:grid;grid-template-columns:repeat(var(--gn,2),minmax(0,1fr));gap:12px;align-items:start}
+@media (max-width:1100px){.growv{grid-template-columns:repeat(min(var(--gn,2),2),minmax(0,1fr))}}
+@media (max-width:700px){.growv{grid-template-columns:minmax(0,1fr)}}
+.gcolv{display:flex;flex-direction:column;gap:8px;min-width:0}
+.gcolv .shero{margin-bottom:0}
+.gselv{display:grid;grid-template-columns:minmax(0,1fr) 116px auto;gap:5px;align-items:end}
+.gselv .ef{min-width:0}.gselv select{padding:4px 6px;font-size:13px;width:100%}
+.shero.gmini .sname h3{font-size:28px}
+.gcls{font-size:12.5px;color:var(--muted);margin:1px 0 4px}.gcls b{color:var(--headink)}
+.shero.gmini .slead{font-size:20px;margin:2px 0 4px}
+.shero.gmini .sr{grid-template-columns:72px minmax(0,1fr) auto}
+.shero.gmini .stags{margin-top:6px}
+.gval{display:inline-block;margin-left:6px;font-weight:700;color:var(--accent);background:var(--valbg);border-radius:6px;padding:0 6px;font-size:12.5px}
+.gtx{font-size:13px;line-height:1.38;margin-top:2px}
+.gskb{display:flex;align-items:baseline;gap:5px;border:none;background:none;padding:0;cursor:pointer;color:var(--ink);font:inherit;text-align:left;min-width:0}
+.gskb .car{font-size:11px;color:var(--muted);width:10px}
+.gskb:hover b{color:var(--accent)}
+.gsl{font-size:11.5px;color:var(--muted);margin-right:2px}
+.gsk2{padding:3px 0}
+.gall{font-size:15px;padding:0 4px;color:var(--muted)}
+.growv.g4 .gselv{grid-template-columns:minmax(0,1fr) auto}.growv.g4 .gselv .ef:nth-child(2){grid-column:1;grid-row:2}
+.growv.g4 .sch h3{font-size:17px}.growv.g4 .shero.gmini .sname h3{font-size:24px}
+/* ---- Encounter (neue Maske) */
+.ehero .sname h3{font-size:30px}
+.eprog{display:flex;align-items:center;gap:10px;margin-top:6px}
+.eprog .vbar{flex:1;margin:0;height:10px}
+.eprog .vstat{white-space:nowrap}
+.ecard2 .sch h3{font-size:21px}
+.ecard2 .sch .en{font-family:Inter,sans-serif;font-weight:800;font-size:17px;color:var(--accent);margin-right:2px}
+.ecard2 .stags{margin:2px 0 3px}
+.ecard2.eisboss{border-color:var(--hi);border-width:1.5px}
+.stag.eboss{background:var(--agbg);border-color:var(--agline)}
+.einfo2{margin-top:10px}
+.ebsel{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.ebsel .ef{flex:1 1 130px}
+.ef.ekind{flex:0 0 130px;min-width:120px}
+.ef.sm:has(input[data-einp=dp]){flex:0 0 150px}
+.eselr{grid-template-columns:1fr 122px}
+.emod{display:block;margin:6px 0 4px}.emod .k{font-size:12px;color:var(--muted)}.emod select{font-size:12.5px;padding:1px 4px;max-width:260px}
+.esense{margin-left:6px;font-size:11px;padding:0 6px}
+.hb.lo span{background:var(--err)}
 /* ---- Verfolgungsjagd */
 .vbar{height:10px;background:var(--surface);border:1px solid var(--line);border-radius:6px;overflow:hidden;margin:8px 0 3px}
 .vbar span{display:block;height:100%;background:var(--hi)}
@@ -249,7 +292,7 @@ details.soff{margin-top:4px;font-size:13px}details.soff summary{cursor:pointer;c
 .hpi{display:grid;grid-template-columns:26px 1fr 58px auto 52px auto;gap:4px;align-items:center;font-size:12.5px}
 .hpi .hn{color:var(--muted);font-weight:700}
 .hb{height:8px;background:var(--surface2);border-radius:4px;overflow:hidden}
-.hb span{display:block;height:100%;background:#4c8a4c}
+.hb span{display:block;height:100%;background:var(--accent)}
 .hpi.dead{opacity:.45}.hpi.dead .hv{text-decoration:line-through}
 .ehp.many{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:4px 8px}
 .hpt{display:grid;grid-template-columns:20px 1fr auto 44px;gap:2px 4px;align-items:center;font-size:12.5px;background:var(--valbg);border-radius:7px;padding:3px 5px}
@@ -396,7 +439,7 @@ body.efocus .wrap{max-width:none}
 <div class="toast" id="toast"></div>
 
 <script>
-const GENS=[{"id": "natur", "title": "Wildnis-Ort", "title_en": "Wilderness", "group": "Welt", "group_en": "World", "note": "Neue Maske, baut auf den Stammtabellen Territorien (47 Territorien mit drei Skalen, Fraktionen, Biome, Wetter, Landschaft) und Wildnis (Orte, Weg, Spuren, Hindernisse, Regeln) auf, dazu Kreaturen und Encounter (Tätigkeit, Verhalten, Umweltgefahren). Listen und Gewichte sind Vorschläge (orange).", "special": "wildnis", "lang": "de/en", "chase": true, "file": "gens/natur.json"}, {"id": "gegner", "title": "Gegner", "title_en": "Enemies", "group": "Kampf", "group_en": "Combat", "note": "Baut auf den Stammtabellen auf: Kreaturen (Titel je Klasse, Merkmal, Geruch, Geräusch, Skillgruppen), Skills (alle Skills + Sammelnamen), Beiwörter (Namen und Stimmung) und Regeln (Klassenwerte, Würfelformeln, Freischaltung). Fehlt einer Fraktion eine Klasse, springt die passende Kreatur ein.", "special": "gegner", "lang": "en", "file": "gens/gegner.json"}, {"id": "sammeln", "title": "Sammeln (Karten)", "title_en": "Gathering (cards)", "group": "Natur", "group_en": "Nature", "note": "Digitales Sammel-Deck: Karte ziehen oder echte Kartenzahl eintragen. Fund-Wahrscheinlichkeiten aus deinem Sammeln-Blatt.", "special": "sammeln", "lang": "de", "file": "gens/sammeln.json"}, {"id": "encounter", "title": "Encounter", "title_en": "Encounter", "group": "Kampf", "group_en": "Combat", "note": "Baut auf den Stammtabellen Encounter (Budget, Ortsarten, Listen, Umweltgefahren) und Gegner auf. Aus einem Ort mit „⚔ Encounter erstellen“ übernimmt er Fraktionen, Gefahr und Lage.", "special": "encounter", "lang": "de/en", "file": "gens/encounter.json"}, {"id": "siedlung", "title": "Siedlung", "title_en": "Settlement", "group": "Welt", "group_en": "World", "note": "Neue Maske, baut auf der Stammtabelle Siedlung (Listen, Größen, 47 Territorien, Religionen) und den Stammtabellen Kreaturen (Fraktionen, Baustil, Handelsgut, Geruch, Namen) und Beiwörter (Laune, Charakter der NPCs) auf. Wortlisten noch deutsch. Mit „⚔ Encounter“ (ganze Siedlung oder je Aufgabe) entsteht ein Kampf mit Ortsart Stadt.", "special": "siedlung", "lang": "de", "enc": {"ort": "Stadt"}, "chase": true, "file": "gens/siedlung.json"}, {"id": "ritual", "title": "Ritual-Ort", "title_en": "Ritual site", "group": "Welt", "group_en": "World", "lang": "de", "file": "gens/ritual.json"}, {"id": "riss", "title": "Zweitweltriss", "title_en": "Otherworld rift", "group": "Welt", "group_en": "World", "lang": "de", "file": "gens/riss.json"}, {"id": "ruine", "title": "Ruine", "title_en": "Ruin", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "note": "Neue Maske, baut auf den Stammtabellen Ruine (Wegeformen, Zusätze, Abschluss, Zwecke, Räume, Listen, Regeln) und Altvölker (Erbauer, Baustile) auf, dazu Territorien, Kreaturen, Siedlung (Baustil, Namen) und Encounter (Umweltgefahren). Ersetzt den alten Generator Ruine. Listen und Gewichte sind Vorschläge (orange).", "special": "ruine", "lang": "de/en", "file": "gens/ruine.json"}, {"id": "hoehle", "title": "Höhlensystem", "title_en": "Cave system", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "lang": "de", "enc": {"ort": "Haupthöhle", "f": ["9,3", "10,3", "11,3"], "hazard": "22,3"}, "encRows": [{"rows": [20, 32, 44, 56, 68, 80], "anchor": [0, 2], "need": {"cell": [0, 3], "eq": "Encounter"}, "f": [[1, 3]], "hazard": [2, 3], "tat": [0, 6], "ziel": [0, 8], "extra": [[0, 4, "Art"]], "ort": "Nebenhöhle", "label": "Abschnitt", "name": [-8, 2], "ortFrom": {"Haupt": "Haupthöhle", "Neben": "Nebenhöhle"}}], "file": "gens/hoehle.json"}, {"id": "gebaeude", "title": "Gebäude", "title_en": "Building", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "note": "Neue Maske, baut auf der Stammtabelle Gebäude (vier Typen Villa, Tempel, Turm, Hof; Zustand, Haltung, Räume, Raumrollen, Listen) auf, dazu Territorien, Kreaturen (Raubtiere, Monster, Geruch), Siedlung (Baustil, Namen) und Religionen. Ersetzt die alten Generatoren Villa und Tempel. Listen und Gewichte sind Vorschläge (orange).", "special": "gebaeude", "lang": "de/en", "chase": true, "file": "gens/gebaeude.json"}, {"id": "npc", "title": "NPC", "title_en": "NPC", "group": "Personen", "group_en": "People", "note": "Neue Maske mit Postkarte. Baut auf den Stammtabellen NPC (Professionen nach Kap. 5.1, Lebensweg, Spezies, Aussehen, Laune-Skala, Sprüche), Religionen, Kreaturen (Fraktionen, Namen) und Beiwörter (Charakter, Ruf) auf. Level = Level der Profession; wichtige NPCs haben Level 6–9. Aus der Siedlung mit 👤 je wichtigem NPC.", "special": "npc", "lang": "de/en", "file": "gens/npc.json"}, {"id": "zirkel", "title": "Zirkel", "title_en": "Circle", "group": "Personen", "group_en": "People", "lang": "de", "file": "gens/zirkel.json"}, {"id": "charakter", "title": "Zufälliger Charakter", "title_en": "Random character", "group": "Personen", "group_en": "People", "lang": "de", "file": "gens/charakter.json"}, {"id": "mystery", "title": "Mysterium", "title_en": "Mystery", "group": "Abenteuer", "group_en": "Adventure", "note": "Neue Maske: ein Rätsel für etwa eine Sitzung – Opfer und drei Beteiligte (einer ist der Täter), je zwei Spuren; die Wahrheit ist zugeklappt. Stammtabelle Mysterium (aus dem alten Mystery-Blatt). Aus der Siedlung (🔍 an einer Stadt-Aufgabe) sind Opfer, Täter und Verdächtige Personen der Stadt; das Motiv ist eine Agenda.", "special": "mystery", "lang": "de/en", "file": "gens/mystery.json"}, {"id": "aufgabe", "title": "Auftrag", "title_en": "Task", "group": "Abenteuer", "group_en": "Adventure", "lang": "de", "file": "gens/aufgabe.json"}, {"id": "verfolgung", "title": "Verfolgungsjagd", "title_en": "Chase", "group": "Abenteuer", "group_en": "Adventure", "note": "Neue Maske nach Buch 1 (Kap. 4.4 Chase): Objective 50, Runden nach Dexterity der NPC-Gruppe, je Runde Szene und Abkürzung aus der Stammtabelle Verfolgung (Stadt und Natur). Stärken je Runde eintragen – der Status rechnet mit. Aus der Siedlung mit „🏃 Verfolgungsjagd“.", "special": "verfolgung", "lang": "de", "file": "gens/verfolgung.json"}, {"id": "spuren", "title": "Spuren & Hinweise", "title_en": "Tracks & clues", "group": "Abenteuer", "group_en": "Adventure", "lang": "de", "file": "gens/spuren.json"}, {"id": "pakt", "title": "Pakt-Aufgabe", "title_en": "Pact task", "group": "Magie", "group_en": "Magic", "lang": "de", "file": "gens/pakt.json"}, {"id": "fallen", "title": "Runenfalle", "title_en": "Rune-trap", "group": "Magie", "group_en": "Magic", "note": "Runenherzen noch lateinisch (Terram/Aquam/Ignem).", "lang": "de", "file": "gens/fallen.json"}, {"id": "wahnsinn", "title": "Trauma & Narben", "title_en": "Trauma & scars", "group": "Magie", "group_en": "Magic", "note": "Psychose ab Seelenintegrität 1 (Buch 1: 0); eigene Narbenliste.", "lang": "de", "file": "gens/wahnsinn.json"}, {"id": "loot", "title": "Loot & Dinge", "title_en": "Loot & things", "group": "Dinge", "group_en": "Things", "note": "Preise noch in Gold; deutsche Skillnamen.", "lang": "de", "file": "gens/loot.json"}, {"id": "objects", "title": "Objects (neu)", "title_en": "Objects", "group": "Dinge", "group_en": "Things", "note": "Englische, neuere Fassung (Buch-1-Begriffe).", "lang": "en", "file": "gens/objects.json"}, {"id": "trank", "title": "Trank & Öl", "title_en": "Potions & oils", "group": "Dinge", "group_en": "Things", "lang": "de", "file": "gens/trank.json"}, {"id": "gift", "title": "Gift & Krankheit", "title_en": "Poisons & diseases", "group": "Dinge", "group_en": "Things", "note": "Stufenwerte weichen von Buch 1 ab (Gift 2 Schaden am Ende der Battle-Phase).", "lang": "de", "file": "gens/gift.json"}, {"id": "box", "title": "Geheimnisvolle Box", "title_en": "Mysterious box", "group": "Dinge", "group_en": "Things", "lang": "de", "file": "gens/box.json"}, {"id": "tiere", "title": "Pflanze & Kleintier", "title_en": "Plants & small animals", "group": "Natur", "group_en": "Nature", "lang": "de", "file": "gens/tiere.json"}, {"id": "laden", "title": "Laden", "title_en": "Shop", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold (Buch 1: Wealth-Level).", "lang": "de", "file": "gens/laden.json"}, {"id": "tempeldienst", "title": "Tempeldienste", "title_en": "Temple services", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold.", "lang": "de", "file": "gens/tempeldienst.json"}, {"id": "taverne", "title": "Taverne", "title_en": "Tavern", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold, Speisenboni mit alten Begriffen.", "lang": "de", "file": "gens/taverne.json"}];
+const GENS=[{"id": "natur", "title": "Wildnis-Ort", "title_en": "Wilderness", "group": "Welt", "group_en": "World", "note": "Neue Maske, baut auf den Stammtabellen Territorien (47 Territorien mit drei Skalen, Fraktionen, Biome, Wetter, Landschaft) und Wildnis (Orte, Weg, Spuren, Hindernisse, Regeln) auf, dazu Kreaturen und Encounter (Tätigkeit, Verhalten, Umweltgefahren). Listen und Gewichte sind Vorschläge (orange).", "special": "wildnis", "lang": "de/en", "chase": true, "file": "gens/natur.json"}, {"id": "gegner", "title": "Gegner", "title_en": "Enemies", "group": "Kampf", "group_en": "Combat", "special": "gegner", "lang": "en", "file": "gens/gegner.json"}, {"id": "sammeln", "title": "Sammeln (Karten)", "title_en": "Gathering (cards)", "group": "Natur", "group_en": "Nature", "note": "Digitales Sammel-Deck: Karte ziehen oder echte Kartenzahl eintragen. Fund-Wahrscheinlichkeiten aus deinem Sammeln-Blatt.", "special": "sammeln", "lang": "de", "file": "gens/sammeln.json"}, {"id": "encounter", "title": "Encounter", "title_en": "Encounter", "group": "Kampf", "group_en": "Combat", "note": "Baut auf den Stammtabellen Encounter (Budget, Ortsarten, Listen, Umweltgefahren) und Gegner auf. Aus einem Ort mit „⚔ Encounter erstellen“ übernimmt er Fraktionen, Gefahr und Lage.", "special": "encounter", "lang": "de/en", "file": "gens/encounter.json"}, {"id": "siedlung", "title": "Siedlung", "title_en": "Settlement", "group": "Welt", "group_en": "World", "note": "Neue Maske, baut auf der Stammtabelle Siedlung (Listen, Größen, 47 Territorien, Religionen) und den Stammtabellen Kreaturen (Fraktionen, Baustil, Handelsgut, Geruch, Namen) und Beiwörter (Laune, Charakter der NPCs) auf. Wortlisten noch deutsch. Mit „⚔ Encounter“ (ganze Siedlung oder je Aufgabe) entsteht ein Kampf mit Ortsart Stadt.", "special": "siedlung", "lang": "de", "enc": {"ort": "Stadt"}, "chase": true, "file": "gens/siedlung.json"}, {"id": "ritual", "title": "Ritual-Ort", "title_en": "Ritual site", "group": "Welt", "group_en": "World", "lang": "de", "file": "gens/ritual.json"}, {"id": "riss", "title": "Zweitweltriss", "title_en": "Otherworld rift", "group": "Welt", "group_en": "World", "lang": "de", "file": "gens/riss.json"}, {"id": "ruine", "title": "Ruine", "title_en": "Ruin", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "note": "Neue Maske, baut auf den Stammtabellen Ruine (Wegeformen, Zusätze, Abschluss, Zwecke, Räume, Listen, Regeln) und Altvölker (Erbauer, Baustile) auf, dazu Territorien, Kreaturen, Siedlung (Baustil, Namen) und Encounter (Umweltgefahren). Ersetzt den alten Generator Ruine. Listen und Gewichte sind Vorschläge (orange).", "special": "ruine", "lang": "de/en", "file": "gens/ruine.json"}, {"id": "hoehle", "title": "Höhlensystem", "title_en": "Cave system", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "lang": "de", "enc": {"ort": "Haupthöhle", "f": ["9,3", "10,3", "11,3"], "hazard": "22,3"}, "encRows": [{"rows": [20, 32, 44, 56, 68, 80], "anchor": [0, 2], "need": {"cell": [0, 3], "eq": "Encounter"}, "f": [[1, 3]], "hazard": [2, 3], "tat": [0, 6], "ziel": [0, 8], "extra": [[0, 4, "Art"]], "ort": "Nebenhöhle", "label": "Abschnitt", "name": [-8, 2], "ortFrom": {"Haupt": "Haupthöhle", "Neben": "Nebenhöhle"}}], "file": "gens/hoehle.json"}, {"id": "gebaeude", "title": "Gebäude", "title_en": "Building", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "note": "Neue Maske, baut auf der Stammtabelle Gebäude (vier Typen Villa, Tempel, Turm, Hof; Zustand, Haltung, Räume, Raumrollen, Listen) auf, dazu Territorien, Kreaturen (Raubtiere, Monster, Geruch), Siedlung (Baustil, Namen) und Religionen. Ersetzt die alten Generatoren Villa und Tempel. Listen und Gewichte sind Vorschläge (orange).", "special": "gebaeude", "lang": "de/en", "chase": true, "file": "gens/gebaeude.json"}, {"id": "npc", "title": "NPC", "title_en": "NPC", "group": "Personen", "group_en": "People", "note": "Neue Maske mit Postkarte. Baut auf den Stammtabellen NPC (Professionen nach Kap. 5.1, Lebensweg, Spezies, Aussehen, Laune-Skala, Sprüche), Religionen, Kreaturen (Fraktionen, Namen) und Beiwörter (Charakter, Ruf) auf. Level = Level der Profession; wichtige NPCs haben Level 6–9. Aus der Siedlung mit 👤 je wichtigem NPC.", "special": "npc", "lang": "de/en", "file": "gens/npc.json"}, {"id": "zirkel", "title": "Zirkel", "title_en": "Circle", "group": "Personen", "group_en": "People", "lang": "de", "file": "gens/zirkel.json"}, {"id": "charakter", "title": "Zufälliger Charakter", "title_en": "Random character", "group": "Personen", "group_en": "People", "lang": "de", "file": "gens/charakter.json"}, {"id": "mystery", "title": "Mysterium", "title_en": "Mystery", "group": "Abenteuer", "group_en": "Adventure", "note": "Neue Maske: ein Rätsel für etwa eine Sitzung – Opfer und drei Beteiligte (einer ist der Täter), je zwei Spuren; die Wahrheit ist zugeklappt. Stammtabelle Mysterium (aus dem alten Mystery-Blatt). Aus der Siedlung (🔍 an einer Stadt-Aufgabe) sind Opfer, Täter und Verdächtige Personen der Stadt; das Motiv ist eine Agenda.", "special": "mystery", "lang": "de/en", "file": "gens/mystery.json"}, {"id": "aufgabe", "title": "Auftrag", "title_en": "Task", "group": "Abenteuer", "group_en": "Adventure", "lang": "de", "file": "gens/aufgabe.json"}, {"id": "verfolgung", "title": "Verfolgungsjagd", "title_en": "Chase", "group": "Abenteuer", "group_en": "Adventure", "note": "Neue Maske nach Buch 1 (Kap. 4.4 Chase): Objective 50, Runden nach Dexterity der NPC-Gruppe, je Runde Szene und Abkürzung aus der Stammtabelle Verfolgung (Stadt und Natur). Stärken je Runde eintragen – der Status rechnet mit. Aus der Siedlung mit „🏃 Verfolgungsjagd“.", "special": "verfolgung", "lang": "de", "file": "gens/verfolgung.json"}, {"id": "spuren", "title": "Spuren & Hinweise", "title_en": "Tracks & clues", "group": "Abenteuer", "group_en": "Adventure", "lang": "de", "file": "gens/spuren.json"}, {"id": "pakt", "title": "Pakt-Aufgabe", "title_en": "Pact task", "group": "Magie", "group_en": "Magic", "lang": "de", "file": "gens/pakt.json"}, {"id": "fallen", "title": "Runenfalle", "title_en": "Rune-trap", "group": "Magie", "group_en": "Magic", "note": "Runenherzen noch lateinisch (Terram/Aquam/Ignem).", "lang": "de", "file": "gens/fallen.json"}, {"id": "wahnsinn", "title": "Trauma & Narben", "title_en": "Trauma & scars", "group": "Magie", "group_en": "Magic", "note": "Psychose ab Seelenintegrität 1 (Buch 1: 0); eigene Narbenliste.", "lang": "de", "file": "gens/wahnsinn.json"}, {"id": "loot", "title": "Loot & Dinge", "title_en": "Loot & things", "group": "Dinge", "group_en": "Things", "note": "Preise noch in Gold; deutsche Skillnamen.", "lang": "de", "file": "gens/loot.json"}, {"id": "objects", "title": "Objects (neu)", "title_en": "Objects", "group": "Dinge", "group_en": "Things", "note": "Englische, neuere Fassung (Buch-1-Begriffe).", "lang": "en", "file": "gens/objects.json"}, {"id": "trank", "title": "Trank & Öl", "title_en": "Potions & oils", "group": "Dinge", "group_en": "Things", "lang": "de", "file": "gens/trank.json"}, {"id": "gift", "title": "Gift & Krankheit", "title_en": "Poisons & diseases", "group": "Dinge", "group_en": "Things", "note": "Stufenwerte weichen von Buch 1 ab (Gift 2 Schaden am Ende der Battle-Phase).", "lang": "de", "file": "gens/gift.json"}, {"id": "box", "title": "Geheimnisvolle Box", "title_en": "Mysterious box", "group": "Dinge", "group_en": "Things", "lang": "de", "file": "gens/box.json"}, {"id": "tiere", "title": "Pflanze & Kleintier", "title_en": "Plants & small animals", "group": "Natur", "group_en": "Nature", "lang": "de", "file": "gens/tiere.json"}, {"id": "laden", "title": "Laden", "title_en": "Shop", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold (Buch 1: Wealth-Level).", "lang": "de", "file": "gens/laden.json"}, {"id": "tempeldienst", "title": "Tempeldienste", "title_en": "Temple services", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold.", "lang": "de", "file": "gens/tempeldienst.json"}, {"id": "taverne", "title": "Taverne", "title_en": "Tavern", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold, Speisenboni mit alten Begriffen.", "lang": "de", "file": "gens/taverne.json"}];
 const DATA={"cards":[["Narr","richtig herum","Neustart, Überraschung, Potential, Freiheit, Unschuld",["Überraschung","Potential","Freiheit"]],["Narr","umgedreht","Dummheit, Überstürzt, Chaos, Naive, Grenzen, Hürden",["Dummheit","Chaos","Hürde"]],["Magier","richtig herum","Kraft, Kommunikation, Magie, Selbstbestimmung, Aktion",["Kommunikation","Magie","Selbstbestimmung"]],["Magier","umgedreht","Lüge, Kommunikationsblock, Stagnation, Schummeln, Falschheit",["Lüge","Kommunikationsblock","Stagnation"]],["Hohepriesterin","richtig herum","Mysterium, Intuition, Erleuchtung, Weisheit, Vorahnung",["Mysterium","Erleuchtung","Vorahnung"]],["Hohepriesterin","umgedreht","Geheimnisse, Unsicherheit, Verborgenheit, Unfähigkeit zu hören, Überraschung",["Geheimnis","Unsicherheit","Verborgenheit"]],["Königin","richtig herum","Pflege, Überschuss, Fruchtbarkeit, Mutterschaft, Schönheit, Liebe",["Überschuss","Mutterschaft","Schönheit"]],["Königin","umgedreht","Faulheit, Koordinationschwäche, Verschwendung, Beziehungskrise, Depression, Verbannung",["Koordinationsschwäche","Verschwendung","Beziehung senken"]],["König","richtig herum","Autorität, Ordnung, Struktur, Hierarchie, Aufstieg, Rationalität",["Autorität","Aufstieg","Rationalität"]],["König","umgedreht","Autokratisch, Unterdrücken, Zwang, Grausamkeit, keine Unterstützung, Machtmissbrauch, Irrationalität",["Zwang","Grausamkeit","Machtmissbrauch"]],["Hierophant","richtig herum","Tradition, Gruppenidentifikation, Lehre, Gesetze, Bruderschaft, Religion",["Gruppenidentifikation","Lehre","Religion"]],["Hierophant","umgedreht","Extremismus, Kulte, Verfall Gesellschaft, Abwendung Religion, Abbruch Gespräche, rückständig",["Extremismus","Abwendung Religion","Abbruch Gespräch"]],["Liebhaber","richtig herum","Zusammenkommen, Wahl, Zuneigung, Verpflichtung, Vertrauen, Bündnis",["Zusammenkommen","Vertrauen","Verpflichtung"]],["Liebhaber","umgedreht","Auseinanderbrechen, Angst vor Bindung, Fremd gehen, Bündnis brechen, Misstrauen",["Auseinanderbrechen","Angst vor Bindung","Misstrauen"]],["Wagen","richtig herum","Antrieb, Willenskraft, Richtung, Sieg, Probleme enden, zu Hilfe kommen",["Willenskraft","Richtung","zu Hilfe kommen"]],["Wagen","umgedreht","verirren, richtungslos, antriebslos, Zweifel, abbruch Reise, Verzögerung, braucht Hilfe",["verirren","Zweifel","braucht Hilfe"]],["Stärke","richtig herum","Stärke, Sicherheit, Selbstkontrolle, Geduld, Gesundheit, Leidenschaft",["Sicherheit","Gesundheit","Stärke"]],["Stärke","umgedreht","Schwäche, Zerbrechlichkeit, Ungeduld, Unbeherrscht, Überheblich, Doppelmoral",["Schwäche","Unbeherrscht","Zerbrechlichkeit"]],["Eremit","richtig herum","Selbstbetrachtung, Besinnung, Ruhe, Diskretion, Meditation",["Besinnung","Diskretion","Ruhe"]],["Eremit","umgedreht","Aberkennen, Rückzug, im stich lassen, Isolation, einsamkeit, Exil",["Rückzug","Im Stich lassen","Isolation"]],["Rad","richtig herum","Glück, Chance, Gelegenheit, Umschlagen, Gewinnen, Zyklus, Schicksal, ja",["Glück","Gelegenheit","Zyklus"]],["Rad","umgedreht","Unglück, Fehlschlag, verlieren, Not, Härte, Enttäuschung, nein",["Unglück","Not","Enttäuschung"]],["Gericht","richtig herum","Gerechtigkeit, Karma, Balance, Wahrheit, Verantwortung, Vereinbarung",["Gerechtigkeit","Wahrheit","Vereinbarung"]],["Gericht","umgedreht","Willkür, Unfair, Unrecht, Verruf, Ungleichheit, Falsche Entscheidung",["Willkür/ Unfair","Ungleichheit","Verruf"]],["Gehängte Mann","richtig herum","loslassen, Opferung, Aufgaben, Perspektivwechsel, Musterbrechen, Verspätung, Stoppen",["Loslassen","Perspektivwechsel","Stoppen"]],["Gehängte Mann","umgedreht","in Schwebe, Engstirnig, ins Leben zurück, falsches Motiv, nicht loslassen, zurückhalten",["in schwebe","ins Leben zurück","festhalten"]],["Tod","richtig herum","Ende, Sterblichkeit, echter Wandel, Bruch einer Bindung, Ende einer Ära, Transformation, Wiedergeburt",["Ende","Bindungsbruch","Transformation"]],["Tod","umgedreht","Ende aufgehalten, nicht loslassen können, lange Krankheit, Wandel ablehnen, falscher Wandel",["Aufhalten Ende","Krankheit","Wandel ablehnen"]],["Mäßigkeit","richtig herum","Harmonie, Balance, Mäßigung, Zusammenwirken, vermischen, verbinden",["Balance","Vermischen","Verbinden"]],["Mäßigkeit","umgedreht","Disharmonie,Krankheit, nichts bekommen, Trennen, Bruch",["Unbalance","trennen","leer ausgehen"]],["Dämon","richtig herum","Knechtschaft, Abhängigkeit, Versuchung, Gewalt, Angst, Überarbeitet",["Knechtschaft","Abhängigkeit","Gewalt"]],["Dämon","umgedreht","frei brechen, widerstehen, kraftlosigkeit, keine Verbindung",["frei brechen","widerstehen","keine Bindung"]],["Turm","richtig herum","Zerstörung, unerwarteter Wandel, ruinieren, schaden, stürzen, verdrängen, Gefahr",["Zerstörung","verdrängen","Gefahr"]],["Turm","umgedreht","Anhaltende Zerstörung, langfristige Krise, schwere Gewalt, chaotische Situation, Nachbeben",["Krise","Brutalität","Nachbeben"]],["Sterne","richtig herum","Hoffnung, Freude, Optimismus, Segen, Hilfe, Frieden",["Hoffnung","Segen","Frieden"]],["Sterne","umgedreht","Hoffnungslosigkeit, Unwohlsein, Enttäuschung, hilfe verweigern, Hindernisse des Glaubens",["Enttäuschung","Hoffnungslos","Glaubenskrise"]],["Mond","richtig herum","Träume, Alpträume, Illusionen, verborgene Feinde, Verwirrung, Geheimnis",["Alptraum","Illusion","verborgene Gefahr"]],["Mond","umgedreht","Offenbarung, Vision, durchschauen von Illusionen, Schlaflosigkeit",["Vision","Offenbarung","Schlaflosigkeit"]],["Sonne","richtig herum","Leben, Energie, Wärme, Erschaffung, Reichtum, Erfolg",["Energie","Erschaffung","Reichtum"]],["Sonne","umgedreht","Halber Erfolg, Kälte, hypersensibel, rosarote Brille",["Halber Erfolg","Kälte","rosarote Brille"]],["Urteil","richtig herum","Erlösung, Erwachen, Ruf zu Taten, Berufung, vollendeter Wandel, Entscheidung",["Erwachen","Berufung","Entscheidung"]],["Urteil","umgedreht","Ignorieren, Wider besseren Wissens, Zweifel, Leiten von Angst, entscheidungslos",["Ignorieren","Entgegen Wissen","Leiten von Angst"]],["Welt","richtig herum","Vollendung, Folgen, Resultate, Möglichkeiten, Ziele, Absolutheit, Reisen",["Vollendung","Resultate","Reisen"]],["Welt","umgedreht","Verplanen, unerledigte Aufgaben, Stagnation, festhalten, feststecken",["feststecken","nicht weiterkommen","keine Resultate"]]],"targets":["Spieler","Spieler-Gruppe","Gegenwart","Anderer Spieler","Gegner","NPC","Zukunft","Positiv","Negativ"],"ev":["entferntes Event","NPC Aktion","Neuer NPC","Strang voranbringen","Strang entfernen","Strang verändern","PC negativ","PC positiv","Ambivalentes Ereignis","NPC negativ","NPC positiv","Nemesis positiv","Nemesis negativ"],"act":["Ziel erreichen","Starten","Vernachlässigen","Kämpfen","Rekrutieren","Siegen","Verletzen","Widersetzen","Arglist","Kommunizieren","Verfolgen","Steigern","Senken","Verlassen","Befriedigen","Erkundigen","Verärgern","Bewegen","verschwenden","Wahrheit","Freilassen","Befreunden","urteilen","Desertieren","Dominieren","Aufschieben","Loben","Trennen","Nehmen","Brechen","Heilen","Verzögern","Stoppen","Lügen","Wiederkommen","Nachahmen","Ringen","informieren","verschenken","verschieben","entblößen","verhandeln","einsperren","feiern","verschleiern","entwickeln","reisen","blocken","verletzen","herabsetzen","überladen","Vertagen","Widrigkeiten","töten","unterbrechen","an sich reißen","erschaffen","verraten","zustimmen","ausnutzen","unterdrücken","inspezieren","überfallen","spionieren","tragen","offen","nachlässig","ruinieren","extravagant","Täuschen","ankommen","vorschlagen","trennen","ablehnen","misstrauen","grausamkeit","Intoleranz","vertrauen","Aufregung","Aktivität","Helfen","pflegen","leidenschaft","ablassen","hart arbeiten","kontrollieren","anziehen","versagen","nachgehen","rächen","aufgeben","streiten","bestrafen","führen","transformieren","unterwerfen","verändern","steigern","umstürzen","nähern"],"sub":["Ziele","Träume","Umwelt","Draußen","Innen","Realität","Verbündete","Feinde","Böse","Gute","Gefühle","Gegenteil","Krieg","Frieden","Unschuldige","Liebe","geistlich","intellektuell","Neue Ideen","Freude","Massage","Energie","Gleichgewicht","Spannung","Freundschaft","physisches","Projekt","Freuden","Schmerz","Besitz","Pläne","Lügen","Erwartungen","Gesetz","Bürokratie","Geschäft","Pfad","Neuigkeiten","äußere Faktoren","Ratschlag","Handlung","Wettbewerb","Gefängnis","Krankheit","Nahrung","Aufmerksamkeit","Erfolg","Versagen","Reise","Neid","Streit","Heimat","Investment","Leid","Wünsche","Taktik","Pattsituation","Willkür","Unglück","Tod","Unterbrechung","Macht","Bürde","Intrige","Ängste","Gerücht","Wunden","extravaganz","Repräsentation","Gegner","Reichtum","Freiheit","Militär","Gewöhnliches","Test","Massen","Fahrzeug","Kunst","Sieg","Unklarheit","Fülle","Status Quo","Technik","Hoffnung","Magie","Illusion","Portale","Gefahr","Waffen","Tiere","Wetter","Elemente","Natur","Öffentlichkeit","Führung","Ruhm","Zorn","Information","Vergangenheit","Götter"],"fac":["[GK] Sultane","[GK] Wesire","[GK] Kalifen","[FU] Monarchisten","[FU] Republikaner","[FU] Unabhängige","[ZRO] Restauratoren","[ZRO] Reformisten","[ZRO] Vergelter","[EIS] Familien","[EIS] Lord","[EIS] Marine","[HAI] Kachol","[HAI] Schemeschya","[HAI] Han","[GER] Aisin-Geren","[GER] Süd-Geren","[GER] Nord-Geren","[PIR] Wildling","[PIR] Waldlinge","[PIR] Berglinge","[WS] Waldelfen","[WS] Hochelfen","[WS] Lichterelfen","[HIV] Südkolonie","[HIV] Nordkolonie","[HIV] Exilanten","[ECH] Troglodyten","[ECH] Sumpfechsen","[ECH] Obsidianechsen","[NAG] Manipulatoren","[NAG] Usurpatoren","[NAG] Intriganten","[KOB] Patrioten","[KOB] Anarchisten","[KOB] Hungernd","[SAT] Zentauren","[SAT] Leotauren","[SAT] Aerotauren","[YET] Wanderer","[YET] Eroberer","[YET] Flüchtlinge","[GNO] Seeräuber","[GNO] Fischer","[GNO] Eisgnome"],"pred":["Drachaten","Teufel","Würmer","Schleichen","Pirscher","Säbelaffen","Salamander","Ofanten","Netzfüssler","Weber","Flattervieh","junges Monster"]};
 
 // ================= language =================
@@ -874,41 +917,65 @@ function gSkillHTML(i,k,label,s,val,showPassive){
   return `<div class="gsk"><div class="gskh"><span class="k">${label}</span> <b>${esc(gS(s,"name"))}</b>${val!=null?` <span class="gval">${val}</span>`:""}${gRR(i,k)}</div>
    <div class="gskt">${esc(gS(s,"text"))}</div>${s.item?`<div class="hint">${t("gItem")}: ${esc(gS(s,"item"))}</div>`:""}${showPassive&&s.passive?`<div class="hint">${t("gEPass")}: ${esc(gS(s,"passive"))}</div>`:""}</div>`}
 function gFix(d,key,label,val){const s=d.skillvals[key];return `<div class="gsk"><div class="gskh"><span class="k">${label}</span> <b>${esc(key)}</b> <span class="gval">${val}</span></div><div class="gskt">${esc(s&&s.text||"")}</div></div>`}
+// ================= GEGNER – neue Maske (Steckbrief + Karten, Gegner nebeneinander) =================
+// Oben die Anzahl der Gegnertypen (1–4); je Spalte Kreatur + Klasse, Steckbrief, Karten. Skills starten eingeklappt (rs.sko = offene Skills).
+const GG18N={
+ de:{cre:"Kreatur",cls:"Klasse",rand:"zufällig",count:"Gegnertypen",del:"Gegner entfernen",stats:"Werte",attrs:"Attribute",def:"Verteidigung & Angriff",
+  spec:"Spezial & Energie",p2:"Phase 2",look:"Merkmal",smell:"Geruch",sound:"Geräusch",health:"Health",res:"Resistance",gr:"Grounding",
+  fight:"Fight-Skill",tim:"Timing",mov:"Movement",act:"Aktionen",en:"Energie",arm:"Rüstung",seen:"sichtbar als",epass:"Energie-Passiv",passive:"Fraktionspassiv",
+  mod:"Mod.",newHP:"neue Health",skOpen:"Skill aufklappen",skClose:"Skill zuklappen",allOpen:"alle Skills auf",allClose:"alle Skills zu",cat:"Art"},
+ en:{cre:"Creature",cls:"Class",rand:"random",count:"Enemy types",del:"Remove enemy",stats:"Values",attrs:"Attributes",def:"Defense & attack",
+  spec:"Special & energy",p2:"Phase 2",look:"Feature",smell:"Smell",sound:"Sound",health:"Health",res:"Resistance",gr:"Grounding",
+  fight:"Fight skill",tim:"Timing",mov:"Movement",act:"Actions",en:"Energy",arm:"Armor",seen:"seen as",epass:"Energy passive",passive:"Faction passive",
+  mod:"mod.",newHP:"new health",skOpen:"Expand skill",skClose:"Collapse skill",allOpen:"expand all skills",allClose:"collapse all skills",cat:"Kind"}};
+const ggt=k=>{const v=GG18N[LANG][k];return v===undefined?GG18N.de[k]:v};
+function ggState(rs){if(!rs.list||!rs.list.length)rs.list=[{cre:null,cls:null,draws:{}},{cre:null,cls:null,draws:{}}];if(!rs.col)rs.col={};if(!rs.sko)rs.sko={};return rs}
+const ggRR=(i,k)=>`<button class="icon er" title="${t("reroll")}" data-grr="${i}:${k}">⟳</button>`;
+function ggRow(lab,val,i,k,sub){return `<div class="sr"><span class="k">${esc(lab)}</span><span class="v">${val}${sub?`<span class="ss">${sub}</span>`:""}</span>${k?ggRR(i,k):"<span></span>"}</div>`}
+// Karte (einklappbar, Zustand je Spalte i), ⟳ mit Schlüsseln „a|b“ oder Präfix „a:“
+function ggCard(rs,i,id,title,body,rr,extra){const key=i+":"+id,shut=rs.col[key];
+  return `<section class="scard${shut?" shut":""}"><div class="sch"><button class="scol" data-ggcol="${key}" aria-expanded="${shut?"false":"true"}"><span class="car">${shut?"▸":"▾"}</span><h3>${esc(title)}</h3></button>${extra||""}${rr?`<button class="icon" title="${esc(st("cardRR"))}" data-grr="${i}:${rr}">⟳</button>`:""}</div>${shut?"":body}</section>`}
+// Skill: Kopfzeile (Name + Wert) klappt den Text auf; eingeklappt startend
+function ggSkill(rs,i,k,s,val,showPass,lab){if(!s)return "";const id=i+":"+k,open=rs.sko[id];
+  return `<div class="sitem gsk2${open?" open":""}"><div class="sit"><button class="gskb" data-ggsk="${id}" aria-expanded="${open?"true":"false"}" title="${esc(ggt(open?"skClose":"skOpen"))}"><span class="car">${open?"▾":"▸"}</span>${lab?`<span class="gsl">${esc(lab)}</span>`:""}<b>${esc(gS(s,"name"))}</b>${val!=null?`<span class="gval">${val}</span>`:""}</button>${k&&!k.startsWith("fix:")?`<span style="margin-left:auto">${ggRR(i,k)}</span>`:""}</div>
+   ${open?`<div class="gtx">${esc(gS(s,"text"))}</div>${s.item?`<div class="sid">${ggt("seen")}: ${esc(gS(s,"item"))}</div>`:""}${showPass&&s.passive?`<div class="sid">${ggt("epass")}: ${esc(gS(s,"passive"))}</div>`:""}`:""}</div>`}
+function ggFix(rs,d,i,key,val){const s=d.skillvals[key]||{};return ggSkill(rs,i,"fix:"+key,{name:key,text:s.text||""},val,false,null)}
+const ggSign=n=>n>0?"+"+n:n<0?"−"+Math.abs(n):"±0";
+const ggShort=g=>LANG==="de"?(g.K.short_de||g.K.short_en||""):(g.K.short_en||g.K.short_de||"");
+// Skill-Schlüssel eines Gegners (für „alle auf/zu“)
+function ggSkKeys(g,i){const k=["fix:Duck","fix:Attack","s:def","s:att"];if(g.sk.spec)k.push("s:spec");if(g.sk.e1)k.push("s:e1");if(g.sk.e2)k.push("s:e2");if(g.p2)g.p2.skills.forEach(x=>k.push(x.key));return k.map(x=>i+":"+x)}
+function ggColumn(d,rs,i){
+  const e=rs.list[i],g=gBuild(d,e),cr=g.cr,CL=GCLS(),cat=cr["Kategorie"],cats=[...new Set(d.creatures.map(c=>c["Kategorie"]))];
+  const oc=`<option value="">🎲 ${ggt("rand")}${e.cre==null?" ("+esc(gN(cr))+")":""}</option>`+cats.map(k=>`<optgroup label="${esc(t("gCat_"+k)||k)}">`+d.creatures.map((c,j)=>c["Kategorie"]===k?`<option value="${j}" ${e.cre===j?"selected":""}>${esc(gN(c))}</option>`:"").join("")+`</optgroup>`).join("");
+  const ok=`<option value="">🎲 ${ggt("rand")}${e.cls==null?" ("+esc(CL[g.cls-1])+")":""}</option>`+CL.map((c,j)=>`<option value="${j+1}" ${e.cls===j+1?"selected":""}>${c}</option>`).join("");
+  const smell=gTxt(cr,"Geruch EN","Geruch DE"),sound=gTxt(cr,"Geräusch EN","Geräusch DE");
+  let h=`<div class="gcolv"><div class="gselv"><label class="ef"><span>${ggt("cre")}</span><select data-gcre="${i}">${oc}</select></label><label class="ef"><span>${ggt("cls")}</span><select data-gcls="${i}">${ok}</select></label>${rs.list.length>1?`<button class="icon" data-gdel="${i}" title="${ggt("del")}">✕</button>`:""}</div>
+   <div class="shero gmini"><div class="sname"><h3>${esc(g.title||gN(cr))}</h3></div>
+    <div class="gcls"><b>${esc(CL[g.cls-1])}</b> – ${esc(ggShort(g))}</div>
+    <p class="slead">${esc(gName(g))}, ${esc(gW(g.words.desc))}. ${ggRR(i,"w:n|w:desc")}</p>
+    ${ggRow(ggt("look"),`<b>${esc(cr["Merkmal (EN)"]||"–")}</b>`,i,null)}${ggRow(ggt("smell"),esc(smell||"–"),i,null)}${ggRow(ggt("sound"),esc(sound||"–"),i,null)}
+    <div class="stags"><span class="stag">${esc(gN(cr))}</span><span class="stag">${esc(t("gCat_"+cat)||cat)}</span>${g.st.armorType?`<span class="stag">${esc(ggt("arm"))}: ${esc(g.st.armorType)}</span>`:""}</div>
+    ${g.note.map(n=>`<div class="sid">↪ ${esc(n)}</div>`).join("")}</div>`;
+  h+=ggCard(rs,i,"stats",ggt("stats"),ggRow(ggt("health"),`<b>${g.st.health}</b>`,i,"Health")+
+    ggRow(ggt("res"),`<b>${g.st.resist}</b>`,i,"Resistance",`${ggt("arm")} ${g.st.armor}`)+ggRow(ggt("gr"),`<b>${g.st.grounding}</b>`,i,"Grounding")+
+    ggRow(ggt("fight"),`<b>${g.st.fight}</b>`,i,null)+ggRow(ggt("tim"),`<b>${g.st.timing}</b>`,i,"Timing")+ggRow(ggt("mov"),`<b>${g.st.move}</b>`,i,"Movement")+
+    ggRow(ggt("act"),`<b>${esc(g.st.actions)}</b>`,i,null)+ggRow(ggt("en"),`<b>${g.st.energy}</b>`,i,null),"Health|Resistance|Grounding|Timing|Movement");
+  h+=ggCard(rs,i,"attrs",ggt("attrs"),Object.entries(g.A).map(([k,v])=>ggRow(k,`<b>${v}</b>`,i,"a:"+k,`${ggt("mod")} ${ggSign(gMod(d,v))}`)).join(""),"a:");
+  const keys=ggSkKeys(g,i),allOpen=keys.every(k=>rs.sko[k]);
+  const tog=`<button class="icon gall" data-ggall="${i}" title="${esc(ggt(allOpen?"allClose":"allOpen"))}">${allOpen?"⊟":"⊞"}</button>`;
+  h+=ggCard(rs,i,"def",ggt("def"),(g.passive?`<div class="sitem"><div class="sit"><span class="gsl">${ggt("passive")}</span></div><div class="gtx">${esc(g.passive)}</div></div>`:"")+
+    ggFix(rs,d,i,"Duck",g.v.duck)+ggSkill(rs,i,"s:def",g.sk.def,null,false,t("gDefense"))+ggFix(rs,d,i,"Attack",g.v.att)+ggSkill(rs,i,"s:att",g.sk.att,null,false,t("gAttack")),"s:def|s:att",tog);
+  if(g.sk.spec||g.sk.e1||g.sk.e2)h+=ggCard(rs,i,"spec",ggt("spec"),ggSkill(rs,i,"s:spec",g.sk.spec,g.v.spec,false,t("gSpecial"))+ggSkill(rs,i,"s:e1",g.sk.e1,g.v.en,true,t("gEnergy"))+ggSkill(rs,i,"s:e2",g.sk.e2,g.v.en,true,t("gEnergy")+" 2"),"s:spec|s:e1|s:e2");
+  if(g.p2)h+=ggCard(rs,i,"p2",ggt("p2"),`<div class="sag"><b>${esc(String(gP2Trig(g)).replace(/[:.]?\s*$/,":"))}</b> ${esc(gP2Hint(g))}</div>`+
+    (g.p2.health!=null?ggRow(ggt("newHP"),`<b>${g.p2.health}</b>`,i,"p2:Health"):"")+(g.p2.P.energy?ggRow(ggt("en"),`<b>${g.st.energy}</b>`,i,null,t("gP2En")):"")+
+    g.p2.skills.map(x=>ggSkill(rs,i,x.key,x.s,x.slot==="spec"?g.v.spec:(x.slot[0]==="e"?g.v.en:null),x.slot[0]==="e",GSLOTL(x.slot))).join(""),"p2:");
+  return h+`</div>`;
+}
 function gegnerHTML(d,rs){
-  if(!rs.list)rs.list=[{cre:null,cls:null,draws:{}},{cre:null,cls:null,draws:{}},{cre:null,cls:null,draws:{}}];
-  const CL=GCLS(),cats=[...new Set(d.creatures.map(c=>c["Kategorie"]))];
-  const optsCre=(sel)=>`<option value="">${t("random")}</option>`+cats.map(k=>`<optgroup label="${esc(t("gCat_"+k)||k)}">`+d.creatures.map((c,i)=>c["Kategorie"]===k?`<option value="${i}" ${sel===i?"selected":""}>${esc(gN(c))}</option>`:"").join("")+`</optgroup>`).join("");
-  const optsCls=(sel)=>`<option value="">${t("random")}</option>`+CL.map((c,i)=>`<option value="${i+1}" ${sel===i+1?"selected":""}>${c}</option>`).join("");
-  let h=`<div class="row" style="margin-bottom:10px"><button class="btn" id="gAdd">${t("gAdd")}</button><span class="hint">${t("gHint")}</span></div><div class="ggrid">`;
-  rs.list.forEach((e,i)=>{
-    const g=gBuild(d,e),cr=g.cr;
-    h+=`<section class="gcard"><div class="gsel"><select data-gcre="${i}">${optsCre(e.cre)}</select><select data-gcls="${i}">${optsCls(e.cls)}</select>
-      <button class="icon" title="${t("gRerollAll")}" data-greset="${i}">⟳</button><button class="icon" title="${t("del")}" data-gdel="${i}">✕</button></div>
-      <div class="gtitle">${esc(g.title||"")}</div>
-      <div class="sub">${esc(CL[g.cls-1])} · ${esc(gN(cr))}</div>
-      ${gRole(g)?`<div class="hint" style="font-style:italic">${esc(gRole(g))}</div>`:""}
-      ${g.note.map(n=>`<div class="hint">↪ ${esc(n)}</div>`).join("")}
-      <div class="gname">${esc(gName(g))}${gRR(i,"w:n")} <span class="sub">– ${esc(gW(g.words.desc))}</span>${gRR(i,"w:desc")}</div>
-      <div class="kv2 gkv"><span class="k">${t("gLook")}</span><span class="v">${esc(cr["Merkmal (EN)"]||"–")}</span>
-       <span class="k">${t("gSmell")}</span><span class="v">${esc(gTxt(cr,"Geruch EN","Geruch DE")||"–")}</span>
-       <span class="k">${t("gSound")}</span><span class="v">${esc(gTxt(cr,"Geräusch EN","Geräusch DE")||"–")}</span></div>
-      <div class="gstats">${[["Health",g.st.health,"Health"],["Energy",g.st.energy],["Resistance",g.st.resist,"Resistance"],["Grounding",g.st.grounding,"Grounding"],
-        ["Fight-skill",g.st.fight],["Timing",g.st.timing,"Timing"],["Movement",g.st.move,"Movement"],["Actions",g.st.actions],["Armor",g.st.armor+(g.st.armorType?" · "+g.st.armorType:"")]]
-        .map(([k,v,rk])=>`<div><span class="k">${k}</span><b>${esc(v)}</b>${rk?gRR(i,rk):""}</div>`).join("")}</div>
-      <div class="gstats">${Object.entries(g.A).map(([k,v])=>`<div><span class="k">${k}</span><b>${v}</b>${gRR(i,"a:"+k)}</div>`).join("")}</div>
-      ${g.passive?`<div class="gsk"><div class="gskh"><span class="k">${t("gPassive")}</span></div><div class="gskt">${esc(g.passive)}</div></div>`:""}
-      ${gFix(d,"Duck",t("gDefense"),g.v.duck)}
-      ${gSkillHTML(i,"s:def",t("gDefense"),g.sk.def,null)}
-      ${gFix(d,"Attack",t("gAttack"),g.v.att)}
-      ${gSkillHTML(i,"s:att",t("gAttack"),g.sk.att,null)}
-      ${gSkillHTML(i,"s:spec",t("gSpecial"),g.sk.spec,g.v.spec)}
-      ${gSkillHTML(i,"s:e1",t("gEnergy"),g.sk.e1,g.v.en,true)}
-      ${gSkillHTML(i,"s:e2",t("gEnergy")+" 2",g.sk.e2,g.v.en,true)}
-      ${g.p2?`<div class="gp2"><div class="gtitle" style="font-size:1.15em">${t("gPhase2")}</div><div class="hint">${esc(gP2Trig(g))}</div>
-        <div class="gstats">${g.p2.health!=null?`<div><span class="k">Health</span><b>${g.p2.health}</b>${gRR(i,"p2:Health")}</div>`:""}${g.p2.P.energy?`<div><span class="k">Energy</span><b>${g.st.energy}</b></div>`:""}</div>
-        <div class="gskt">${esc(gP2Hint(g))}</div>
-        ${g.p2.skills.map(x=>gSkillHTML(i,x.key,GSLOTL(x.slot),x.s,x.slot==="spec"?g.v.spec:(x.slot[0]==="e"?g.v.en:null),x.slot[0]==="e")).join("")}</div>`:""}
-    </section>`});
+  ggState(rs);const n=rs.list.length;
+  let h=`<div class="ebar sbar"><label class="ef sm"><span>${ggt("count")}</span><select data-gcount="1">${[1,2,3,4].map(k=>`<option value="${k}" ${k===n?"selected":""}>${k}</option>`).join("")}</select></label></div>`;
+  h+=`<div class="growv${n>=4?" g4":""}" style="--gn:${Math.min(n,4)}">`;
+  rs.list.forEach((e,i)=>{h+=ggColumn(d,rs,i)});
   return h+`</div>`;
 }
 function gegnerText(d,rs){
@@ -991,10 +1058,10 @@ function eGroups(D,G,E){
   const MONO={"Adult monster":1,"Ancient monster":1,"Young monster":3},mUsed={};
   const predPool=G.creatures.map((c,i)=>i).filter(i=>G.creatures[i]["Kategorie"]==="Raubtier");
   const mPred=predPool[Math.floor(gU(E,"f:mp")*predPool.length)];
-  const make=(gi,p,ci,slot,maxCi)=>{
+  const make=(gi,p,ci,slot,maxCi,facOv,force)=>{
     const ov=E.ov[gi]||{};if(!F[slot])slot=0;
-    while(ci>0&&(cost(ci)>p||!okCls(ci,slot)))ci--;
-    let fac=F[slot]||F[0],mono=null,mNote=null;
+    if(!force)while(ci>0&&(cost(ci)>p||!okCls(ci,slot)))ci--;
+    let fac=facOv||F[slot]||F[0],mono=null,mNote=null;
     if(ov.cre!=null)fac={i:ov.cre,sub:null};if(ov.cls!=null)ci=ov.cls-1;
     const mName=G.creatures[fac.i]&&G.creatures[fac.i]["Name EN"];
     if(MONO[mName]&&ov.cre==null){const lim=MONO[mName],u=mUsed[mName]||0;
@@ -1009,15 +1076,27 @@ function eGroups(D,G,E){
     if(mNote)g.note=g.note.concat([t("eMonFill").replace("%a",mNote)]);
     out.push({gi,p,slot,sub:mNote?null:fac.sub,e,g,n,capT,boss:false});return out[out.length-1];
   };
+  const BM=eBossMod(D,E);
   if(E.inp.boss){
-    // Bosskampf: höchste bezahlbare Klasse der Hauptfraktion, Rest als Unterstützung bis Threat
-    let bc=B.max;while(bc>0&&(cost(bc)>B.pts||!okCls(bc,0)))bc--;
-    const b=make(0,cost(bc),bc,0,bc);b.boss=true;b.n=E.ov[0].n!=null?E.ov[0].n:1;
-    const rest=B.pts-cost(b.g.cls-1),nSup=Math.min(2,maxT-1);
+    // Bosskampf: höchste bezahlbare Klasse der Hauptfraktion, Rest als Unterstützung bis Threat.
+    // Schatzraum: Tyrant oder 2 Menace (Liste „Schatzraum: Gegner“), unabhängig von Budget und Ortsart.
+    let b;
+    if(E.inp.boss==="schatz"){const SZ=eSchatz(D,E);const[cn,nn]=String(SZ&&SZ.gen||"Tyrant:1").split(":");const bc=Math.max(0,ECLS.indexOf(cn));
+      b=make(0,cost(bc),bc,0,bc,null,true);b.boss=true;b.n=E.ov[0].n!=null?E.ov[0].n:(+nn||1)}
+    else{let bc=B.max;while(bc>0&&(cost(bc)>B.pts||!okCls(bc,0)))bc--;b=make(0,cost(bc),bc,0,bc);b.boss=true;b.n=E.ov[0].n!=null?E.ov[0].n:1}
+    const gen=BM&&BM.gen||"";
+    let rest=gen==="nosup"?0:B.pts-b.n*cost(b.g.cls-1);const modSup=gen.startsWith("sup:")||gen.startsWith("cls:"),nSup=modSup?Math.max(1,Math.min(2,maxT-1)):Math.min(2,maxT-1);
+    // Modifikatoren mit eigener Unterstützung (andere Fraktion, Raubtiere, Leibwache …) bekommen sie auch ohne Restbudget
+    if(modSup){const c=gen.startsWith("cls:")?Math.max(0,ECLS.indexOf(gen.slice(4))):1;rest=Math.max(rest,cost(c))}
     if(rest>0&&nSup>0){
       const q=nSup===2?Math.ceil(rest*(50+Math.floor(gU(E,"g:p2")*51))/100):rest;
       const ps=[q,rest-q];const Ws=W.filter(x=>ECLS.indexOf(x.c)<=3);
-      ps.slice(0,nSup).forEach((p,k)=>{if(p<=0)return;const w=gWPick(E,"g:t"+(k+1),Ws);make(k+1,p,ECLS.indexOf(w.c),w.f,3)});
+      ps.slice(0,nSup).forEach((p,k)=>{if(p<=0)return;const w=gWPick(E,"g:t"+(k+1),Ws);let ci=ECLS.indexOf(w.c),facOv=null,force=false;
+        if(k===0&&gen.startsWith("sup:")){const cat=gen.slice(4),used=new Set(F.filter(Boolean).map(f=>f.i));
+          let pool=G.creatures.map((c,i)=>i).filter(i=>G.creatures[i]["Kategorie"]===cat&&!used.has(i));
+          if(pool.length)facOv={i:pool[Math.floor(gU(E,"g:mf")*pool.length)],sub:null}}
+        if(k===0&&gen.startsWith("cls:")){const c=ECLS.indexOf(gen.slice(4));if(c>=0){ci=c;force=true}}
+        make(k+1,p,ci,w.f,3,facOv,force)});
     }
   }else{
     const p1=30+Math.floor(gU(E,"g:p1")*71),p2=Math.floor(gU(E,"g:p2")*Math.max(0,110-p1+1)),p3=Math.max(0,100-p1-p2);
@@ -1034,6 +1113,10 @@ function eGroups(D,G,E){
   const spent=m.reduce((a,x)=>a+x.n*(D.cost[ECLS[x.g.cls-1]]||0),0);
   return{B,F,groups:m,left:Math.max(0,B.pts-spent),capAll};
 }
+// Boss-Modifikator (Liste „Boss-Modifikator“): gewählt (E.inp.mod = Eintrag DE, "-" = keiner) oder gewürfelt
+function eBossMod(D,E){if(!E.inp.boss)return null;const a=D.lists["Boss-Modifikator"]||[];if(!a.length||E.inp.mod==="-")return null;
+  if(E.inp.mod)return a.find(x=>x.de===E.inp.mod)||null;return gWPick(E,"b:mod",a)}
+function eSchatz(D,E){const a=D.lists["Schatzraum: Gegner"]||[];return a.length?gWPick(E,"b:schatz",a):null}
 function eInfo(D,G,E,F){
   const L=(n,k)=>eList(D,E,n,"i:"+k);const pre=E.src&&E.src.pre||{};
   const fromList=(n,v)=>{if(!v)return null;const x=(D.lists[n]||[]).find(e=>String(e.de).toLowerCase()===String(v).toLowerCase());return x||{de:v}};
@@ -1065,58 +1148,78 @@ function eZones(D,E,groups){const ort=D.orte[E.inp.ort]||{};const z=+ort.zones||
 function eX(txt,z){if(!txt)return txt;return String(txt).replace(/X\s*([\/\-−])\s*(\d+)/,(m,op,n)=>{const v=op==="/"?Math.floor(z/+n):z-(+n);return `${m} (= ${Math.max(1,v)})`})}
 const eHzName=hz=>String(LANG==="de"?hz.de:(hz.en||hz.de)).replace(/^(k\. ?Gefahr|no hazard) ?[-–—] ?/i,"");
 const eHzF=(hz,f)=>LANG==="de"?hz[f]:(hz[f+"_en"]||hz[f]);
+const EI18N={
+ de:{lead:"%t.",prog:"Kampffähig %a/%b · Health %c/%d",fac:"Fraktionen",budgetC:"Budget & Fraktionen",groupsT:"Gegner",pts:"Punkte",gone:"besiegt",
+  cardRR:"Karte neu würfeln",open:"Karte aufklappen",close:"Karte zuklappen",bossMod:"Boss-Modifikator",noMod:"– kein Modifikator –",effect:"Wirkung",
+  smellOf:"Geruch",soundOf:"Geräusch",stats:"Werte",fsel:"Fraktion",csel:"Klasse",n:"Anzahl",
+  kind:"Kampf",kNorm:"normal",kBoss:"Bosskampf",kSchatz:"Schatzraum",kindT:"Bosskampf: höchste bezahlbare Klasse der Hauptfraktion als Boss, der Rest als Unterstützung bis Threat. Schatzraum: Tyrant oder 2 Menace, unabhängig vom Budget.",modRand:"zufällig",with:"mit"},
+ en:{lead:"%t.",prog:"Able to fight %a/%b · health %c/%d",fac:"Factions",budgetC:"Budget & factions",groupsT:"Enemies",pts:"points",gone:"defeated",
+  cardRR:"Reroll card",open:"Expand card",close:"Collapse card",bossMod:"Boss modifier",noMod:"– no modifier –",effect:"Effect",
+  smellOf:"Smell",soundOf:"Sound",stats:"Values",fsel:"Faction",csel:"Class",n:"Count",
+  kind:"Fight",kNorm:"normal",kBoss:"Boss fight",kSchatz:"Treasure room",kindT:"Boss fight: highest affordable class of the main faction as the boss, the rest as support up to threat. Treasure room: a tyrant or 2 menaces, regardless of the budget.",modRand:"random",with:"with"}};
+const eit=k=>{const v=EI18N[LANG][k];return v===undefined?EI18N.de[k]:v};
+const ECOL_DEF={budget:1};
+// Karte des Encounters (einklappbar, ⟳ mit mehreren Schlüsseln „a|b“)
+function eCard(E,id,title,body,rr,extra,cls){const c=E.col||(E.col={...ECOL_DEF});const shut=c[id];
+  return `<section class="scard${shut?" shut":""}${cls?" "+cls:""}"><div class="sch"><button class="scol" data-ecol="${id}" aria-expanded="${shut?"false":"true"}" title="${esc(eit(shut?"open":"close"))}"><span class="car">${shut?"▸":"▾"}</span><h3>${title}</h3></button>${extra||""}${rr?`<button class="icon" title="${esc(eit("cardRR"))}" data-err="${rr}">⟳</button>`:""}</div>${shut?"":body}</section>`}
+const eRow=(lab,val,k,sub)=>val?`<div class="sr"><span class="k">${esc(lab)}</span><span class="v">${val}${sub?`<span class="ss">${sub}</span>`:""}</span>${k?eRR(k):"<span></span>"}</div>`:"";
+// Fortschritt: alle Gegner, Health gesamt
+function eProgress(G,E,groups){let alive=0,all=0,cur=0,max=0;
+  groups.forEach(x=>{for(let k=0;k<x.n;k++){const key=eHPKey(x.gi,k),ph=E.ph[key]||1,mx=eMaxHP(G,x,k,ph),c=Math.max(0,mx-(E.hp[key]||0));
+    const p2=x.g.p2&&ph===1?eMaxHP(G,x,k,2):0;all++;max+=mx+p2;cur+=c+p2;if(c>0||(x.g.p2&&ph===1))alive++}});
+  return{alive,all,cur,max}}
 function eHTML(D,rs){
   const G=GD.gegner;if(!G)return `<div class="loading">${t("loading")}…</div>`;
-  const E=eState(rs);const{B,F,groups,left}=eGroups(D,G,E);const I=eInfo(D,G,E,F);const o=E.inp;const Z=eZones(D,E,groups);
-  const creOpts=(sel,rnd)=>`<option value="">${rnd}</option>`+[...new Set(G.creatures.map(c=>c["Kategorie"]))].map(k=>`<optgroup label="${esc(t("gCat_"+k)||k)}">`+G.creatures.map((c,i)=>c["Kategorie"]===k?`<option value="${i}" ${sel===i?"selected":""}>${esc(gN(c))}</option>`:"").join("")+`</optgroup>`).join("");
+  const E=eState(rs);if(!E.col)E.col={...ECOL_DEF};const{B,F,groups,left}=eGroups(D,G,E);const I=eInfo(D,G,E,F);const o=E.inp;const Z=eZones(D,E,groups);
   const cats=[...new Set(G.creatures.map(c=>c["Kategorie"]))];
-  const fsel=k=>{const v=o.f[k];const isR=typeof v==="string"&&v[0]==="r";const sel=v==null||isR?null:(typeof v==="object"?v.i:+v);let opts=creOpts(sel,k?t("eNone"):t("random"));
-    const ropt=cats.map(c=>`<option value="r:${esc(c)}" ${v==="r:"+c?"selected":""}>🎲 ${esc(t("gCat_"+c)||c)}</option>`).join("");
-    opts=opts.replace("</option>",`</option>${k?`<option value="r" ${v==="r"?"selected":""}>${t("random")}</option>`:""}<optgroup label="${esc(t("eRandGroup"))}">${ropt}</optgroup>`);
-    const rf=(v==null&&k===0)||isR?(F[k]?` <i>(${esc(gN(G.creatures[F[k].i]))})</i>`:""):"";
-    return `<label class="ef"><span>${t(["eMain","eSide","eMinor"][k])}${rf}</span><select data-einp="f${k}">${opts}</select></label>`};
-  let h=`<div class="ebar">
+  const creOpts=(sel,rnd)=>`<option value="">${rnd}</option>`+cats.map(k=>`<optgroup label="${esc(t("gCat_"+k)||k)}">`+G.creatures.map((c,i)=>c["Kategorie"]===k?`<option value="${i}" ${sel===i?"selected":""}>${esc(gN(c))}</option>`:"").join("")+`</optgroup>`).join("");
+  const facName=f=>f?gN(G.creatures[f.i])+(f.sub?` (${LANG==="de"?f.sub:((D.sub[f.sub]||{}).en||f.sub)})`:""):"";
+  const fsel=k=>{const v=o.f[k];const isR=typeof v==="string"&&v[0]==="r";const sel=v==null||isR?null:(typeof v==="object"?v.i:+v);
+    const rnd=(k?"":"🎲 "+t("random").replace(/^🎲\s*/,""))+((v==null&&k===0)||isR?(F[k]?` (${facName(F[k])})`:""):"");
+    let opts=creOpts(sel,k?t("eNone"):rnd);
+    const ropt=cats.map(c=>`<option value="r:${esc(c)}" ${v==="r:"+c?"selected":""}>🎲 ${esc(t("gCat_"+c)||c)}${v==="r:"+c&&F[k]?" ("+esc(facName(F[k]))+")":""}</option>`).join("");
+    opts=opts.replace("</option>",`</option>${k?`<option value="r" ${v==="r"?"selected":""}>🎲 ${t("random").replace(/^🎲\s*/,"")}${v==="r"&&F[k]?" ("+esc(facName(F[k]))+")":""}</option>`:""}<optgroup label="${esc(t("eRandGroup"))}">${ropt}</optgroup>`);
+    return `<label class="ef"><span>${t(["eMain","eSide","eMinor"][k])}</span><select data-einp="f${k}">${opts}</select></label>`};
+  const dn=D.diff.find(x=>x.p===+o.dp);
+  let h=`<div class="ebar sbar">
    <label class="ef sm"><span>${t("eHeroes")}</span><input type="number" min="1" max="9" value="${o.heroes}" data-einp="heroes"></label>
-   <label class="ef sm" title="${esc(t("eDiffT"))}"><span>${t("eDiff")}${(()=>{const n=D.diff.find(x=>x.p===+o.dp);return n?` <i>(${esc(eW(D,n))})</i>`:""})()}</span><input type="number" min="-4" max="12" step="1" value="${+o.dp||0}" data-einp="dp"></label>
-   <label class="ef sm eboss" title="${esc(t("eBossT"))}"><span>${t("eBoss")}</span><input type="checkbox" data-einp="boss" ${o.boss?"checked":""}></label>
+   <label class="ef sm" title="${esc(t("eDiffT"))}"><span>${t("eDiff")}${dn?` <i>(${esc(eW(D,dn))})</i>`:""}</span><input type="number" min="-4" max="12" step="1" value="${+o.dp||0}" data-einp="dp"></label>
    <label class="ef"><span>${t("ePlace")}</span><select data-einp="ort">${D.orte.map((l,i)=>`<option value="${i}" ${i===o.ort?"selected":""}>${esc(eW(D,l))}</option>`).join("")}</select></label>
-   ${fsel(0)}${fsel(1)}${fsel(2)}
+   ${fsel(0)}
+   <label class="ef ekind" title="${esc(eit("kindT"))}"><span>${eit("kind")}</span><select data-einp="boss"><option value="" ${!o.boss?"selected":""}>${eit("kNorm")}</option><option value="1" ${o.boss===true?"selected":""}>${eit("kBoss")}</option><option value="schatz" ${o.boss==="schatz"?"selected":""}>${eit("kSchatz")}</option></select></label>
    <button class="btn" id="eFocus" title="${t("eFocusT")}">⛶</button></div>`;
   if(E.src)h+=`<div class="esrc">${E.src.gen&&GENS.find(x=>x.id===E.src.gen)?`<button class="btn sm" data-go="${esc(E.src.gen)}" title="${esc(t("eBackT"))}">← ${esc(gTitle(GENS.find(x=>x.id===E.src.gen)))}</button> `:""}↪ ${esc(t("eFrom"))}: <b>${esc(E.src.title||"")}</b>${E.src.place?" · "+esc(E.src.place):""}${E.src.extra&&E.src.extra.length?" · "+esc(t("eAlso"))+": "+esc(E.src.extra.join(", ")):""} <button class="icon" data-eclr="1" title="${t("eClear")}">✕</button></div>`;
-  const ort=D.orte[o.ort]||{};
-  const row=(lab,val,k)=>val?`<div class="ei"><span class="k">${lab}</span><span>${esc(val)}</span>${k?eRR(k):""}</div>`:"";
-  const hz=I.hz;
-  h+=`<div class="einfo">
-   <div class="ebox"><div class="eh">${t("eSetting")}</div>
-    ${row(t("eBudget"),`${B.pts} ${t("ePts")} (${t("eRoll")} ${B.roll}: ${B.dp?"(":""}${B.base}${B.dp?(B.dp>0?" + ":" − ")+Math.abs(B.dp)+")":""} × ${B.hf}${B.max<5?" · "+t("eMaxCls").replace("%c",ECLS[B.max]):""})${left?` · ${t("eLeft").replace("%n",left)}`:""}`,"b:roll")}
-    ${row(t("ePlace"),`${eW(D,ort)} · ${Z.z} ${t("eZones")}${Z.big?" · "+t("eBig"):""}`)}
-    ${row(t("eShape"),eW(D,I.grund)+(I.tube?" · "+t("eTube"):""),"i:grund")}${row(t("eCover"),eW(D,I.deck),"i:deck")}${row(t("eSpecial"),eW(D,I.bes),"i:bes")}
-    ${row(t("eSplit"),eW(D,I.auf),E.src&&E.src.pre&&E.src.pre.auf?null:"i:auf")}${row(t("eWhere"),eW(D,I.lage),E.src&&E.src.pre&&E.src.pre.lage?null:"i:lage")}</div>
-   <div class="ebox"><div class="eh">${t("eWant")}</div>
-    ${row(t("eDoing"),[eW(D,I.tat),eW(D,I.ziel)].filter(Boolean).join(" → "),"i:tat")}
-    ${row(t("eForm"),eW(D,I.form),"i:form")}${row(t("eCirc"),eW(D,I.um),"i:um")}${row(t("eProb"),eW(D,I.prob),"i:prob")}
-    ${I.bez?row(t("eRel"),eW(D,I.bez),"i:bez"):""}</div>
-   <div class="ebox"><div class="eh">${t("eHazard")}</div>
-    ${hz?row(t("eHz"),eHzName(hz)+(hz.el?" ("+eHzF(hz,"el")+")":""),E.src&&E.src.hazard?null:"h:gef"):""}
-    ${hz&&hz.eff?row(t("eEffect"),eHzF(hz,"eff")):""}
-    ${I.hzA?row(t("eExtent"),[eX(eW(D,I.hzA),Z.z),eW(D,I.hzF)].filter(Boolean).join(", "),"i:hzA"):""}
-    ${I.hzU?row(t("eOrigin"),[eW(D,I.hzU),eW(D,I.hzD)].filter(Boolean).join(", "),"i:hzU"):""}
-    ${hz&&(hz.smell||hz.sound)?row(t("eSense"),[eHzF(hz,"smell"),eHzF(hz,"sound")].filter(Boolean).join(" · ")):""}
-    ${hz&&hz.none?`<div class="hint">${t("eNoHz")}</div>`:""}</div></div>`;
+  const ort=D.orte[o.ort]||{};const hz=I.hz;
+  // ---- Steckbrief
+  const gT=x=>`${x.n}× ${x.g.title||gN(x.g.cr)}`,bg=groups.find(x=>x.boss),rest=groups.filter(x=>!x.boss);
+  const name=bg?((bg.n>1?gT(bg):(bg.g.title||gN(bg.g.cr)))+(rest.length?` ${eit("with")} `+rest.map(gT).join(" · "):"")):groups.map(gT).join(" · ");
+  const tags=[`${eW(D,ort)} · ${Z.z} ${t("eZones")}${Z.big?" · "+t("eBig"):""}`,`${B.pts} ${t("ePts")}`,`${t("eDiff")}: ${dn?eW(D,dn):(o.dp>0?"+":"")+(+o.dp||0)}`]
+    .concat(o.boss?[o.boss==="schatz"?eit("kSchatz"):eit("kBoss")]:[]).concat(F.filter(Boolean).map((f,k)=>facName(f)));
+  const BM=eBossMod(D,E),bml=D.lists["Boss-Modifikator"]||[];
+  const modBox=o.boss&&bml.length?`<div class="sag emod"><span class="k">${eit("bossMod")}</span> <select data-einp="mod"><option value="" ${!o.mod?"selected":""}>🎲 ${eit("modRand")}${!o.mod&&BM?" ("+esc(eW(D,BM))+")":""}</option><option value="-" ${o.mod==="-"?"selected":""}>${eit("noMod")}</option>${bml.map(x=>`<option value="${esc(x.de)}" ${o.mod===x.de?"selected":""}>${esc(eW(D,x))}</option>`).join("")}</select>${!o.mod?eRR("b:mod"):""}
+     ${BM?`<div><b>${esc(sCap(eW(D,BM)))}</b> – ${esc(LANG==="de"?BM.eff:(BM.eff_en||BM.eff)||"")}</div>`:""}</div>`:"";
+  const doing=[eW(D,I.tat),eW(D,I.ziel)].filter(Boolean).join(" → ");
+  const lead=[doing?sCap(doing)+".":"",[eW(D,I.form),eW(D,I.um)].filter(Boolean).map(sCap).join(", ")+(I.form||I.um?".":""),I.prob?`${t("eProb")}: ${eW(D,I.prob)}.`:""].filter(Boolean).join(" ");
+  const g0=groups[0]&&groups[0].g.cr,sm=g0?[gTxt(g0,"Geruch EN","Geruch DE")].filter(Boolean):[],so=g0?[gTxt(g0,"Geräusch EN","Geräusch DE")].filter(Boolean):[];
+  if(hz&&hz.smell)sm.push(eHzF(hz,"smell"));if(hz&&hz.sound)so.push(eHzF(hz,"sound"));
+  const P=eProgress(G,E,groups);const pc=P.max?Math.round(P.cur/P.max*100):0;
+  h+=`<div class="shero ehero"><div class="sname"><h3>${esc(name)}</h3></div>
+   <div class="stags">${tags.map(x=>`<span class="stag">${esc(x)}</span>`).join("")}</div>
+   ${lead?`<p class="slead">${esc(lead)} ${eRR("i:tat|i:form|i:um|i:prob")}</p>`:""}
+   ${modBox}
+   <p class="ssense">${eit("smellOf")}: ${esc(sm.join(" · ")||"–")} · ${eit("soundOf")}: ${esc(so.join(" · ")||"–")}</p>
+   <div class="eprog"><span class="vbar"><span style="width:${pc}%"></span></span><span class="vstat">${esc(eit("prog").replace("%a",P.alive).replace("%b",P.all).replace("%c",P.cur).replace("%d",P.max))}</span></div></div>`;
+  // ---- Gegnerkarten
   h+=`<div class="egrid">`;
-  groups.forEach((x,gx)=>{
-    const g=x.g,cr=g.cr,ov=E.ov[x.gi]||{};
+  groups.forEach(x=>{
+    const g=x.g,cr=g.cr,ov=E.ov[x.gi]||{},sk=g.sk;
     const subTxt=x.sub?(LANG==="de"?x.sub:((D.sub[x.sub]||{}).en||x.sub)):"";
-    const sk=g.sk;
-    h+=`<section class="ecard"><div class="eselr">
-       <select data-eov="cre:${x.gi}">${creOpts(ov.cre??null,"↺ "+gN(cr))}</select>
-       <select data-eov="cls:${x.gi}"><option value="">↺ ${ECLS[g.cls-1]}</option>${ECLS.map((c,i)=>`<option value="${i+1}" ${ov.cls===i+1?"selected":""}>${c}</option>`).join("")}</select>
-       <button class="icon" data-ereset="${x.gi}" title="${t("gRerollAll")}">⟳</button></div>
-     <div class="ehead"><span class="en">${x.n}×</span> <span class="et">${esc(g.title||"")}</span>
-       <span class="ecnt"><button class="icon" data-en="${x.gi}:-1">−</button><button class="icon" data-en="${x.gi}:1">+</button></span></div>
-     <div class="sub">${x.boss?`<b>${t("eBossTag")}</b> · `:""}${esc(ECLS[g.cls-1])} · ${esc(gN(cr))}${subTxt?" · "+esc(subTxt):""} · ${x.p} ${t("ePts")}</div>
-     <div class="hint">${esc(gName(g))} – ${esc(gW(g.words.desc))}${g.note.length?` · ↪ ${esc(g.note.join(" "))}`:""}</div>
-     <div class="hint">👃 ${esc(gTxt(cr,"Geruch EN","Geruch DE")||"–")} · 👂 ${esc(gTxt(cr,"Geräusch EN","Geräusch DE")||"–")}</div>
+    const head=`<span class="en">${x.n}×</span> ${esc(g.title||"")}`;
+    const extra=`<span class="ecnt"><button class="icon" data-en="${x.gi}:-1" title="−1">−</button><button class="icon" data-en="${x.gi}:1" title="+1">+</button></span><button class="icon" data-ereset="${x.gi}" title="${t("gRerollAll")}">⟳</button>`;
+    let b=`<div class="eselr"><select data-eov="cre:${x.gi}" title="${eit("fsel")}">${creOpts(ov.cre??null,"🎲 "+gN(cr))}</select>
+       <select data-eov="cls:${x.gi}" title="${eit("csel")}"><option value="">🎲 ${ECLS[g.cls-1]}</option>${ECLS.map((c,i)=>`<option value="${i+1}" ${ov.cls===i+1?"selected":""}>${c}</option>`).join("")}</select></div>
+     <div class="stags">${x.boss?`<span class="stag eboss">${t("eBossTag")}</span>`:""}<span class="stag">${esc(ECLS[g.cls-1])}</span><span class="stag">${esc(gN(cr))}${subTxt?" · "+esc(subTxt):""}</span><span class="stag">${x.p} ${t("ePts")}</span></div>
+     <div class="gnm"><b>${esc(gName(g))}</b> <span class="ss">${esc(gW(g.words.desc))}</span><span class="chip pas esense" data-tip="${esc(eit("smellOf")+": "+(gTxt(cr,"Geruch EN","Geruch DE")||"–")+"\n"+eit("soundOf")+": "+(gTxt(cr,"Geräusch EN","Geräusch DE")||"–"))}">👃 👂</span>${g.note.length?`<div class="sid">↪ ${esc(g.note.join(" "))}</div>`:""}</div>
      <div class="estat"><span>Res <b>${g.st.resist}</b></span><span>Gr <b>${g.st.grounding}</b></span><span>Fight <b>${g.st.fight}</b></span><span>Tim <b>${g.st.timing}</b></span><span>Mov <b>${g.st.move}</b></span><span>Act <b>${esc(g.st.actions)}</b></span><span>Arm <b>${g.st.armor}</b></span><span>En <b>${g.st.energy}</b></span></div>
      <div class="echips">
       ${g.passive?`<span class="chip pas" data-tip="${esc(t("gPassive")+": "+g.passive)}">${t("gPassive")}</span>`:""}
@@ -1126,23 +1229,50 @@ function eHTML(D,rs){
      </div><div class="ehp${x.n>4?" many":""}">`;
     for(let k=0;k<x.n;k++){
       const key=eHPKey(x.gi,k),ph=E.ph[key]||1,mx=eMaxHP(G,x,k,ph),dmg=E.hp[key]||0,cur=mx-dmg,dead=cur<=0&&(ph===2||!g.p2);
-      if(x.n>4){h+=`<div class="hpt ${dead?"dead":""}"><span class="hn">${k+1}</span><span class="hv"><b>${cur}</b>/${mx}</span><button class="icon" data-ehp="${key}:1" title="−1">−</button><input type="number" class="hd" data-ehpin="${key}" placeholder="${t("eDmg")}" title="${t("eDmgT")}"><span class="hb"><span style="width:${Math.max(0,Math.min(100,cur/mx*100))}%"></span></span></div>`;continue}
-      h+=`<div class="hpi ${dead?"dead":""}"><span class="hn">${k+1}${ph===2?" ②":""}</span>
-        <span class="hb"><span style="width:${Math.max(0,Math.min(100,cur/mx*100))}%"></span></span>
+      const w=Math.max(0,Math.min(100,cur/mx*100)),lo=w<34?" lo":"";
+      if(x.n>4){b+=`<div class="hpt ${dead?"dead":""}"><span class="hn">${k+1}</span><span class="hv"><b>${cur}</b>/${mx}</span><button class="icon" data-ehp="${key}:1" title="−1">−</button><input type="number" class="hd" data-ehpin="${key}" placeholder="${t("eDmg")}" title="${t("eDmgT")}"><span class="hb${lo}"><span style="width:${w}%"></span></span></div>`;continue}
+      b+=`<div class="hpi ${dead?"dead":""}"><span class="hn">${k+1}${ph===2?" ②":""}</span>
+        <span class="hb${lo}"><span style="width:${w}%"></span></span>
         <span class="hv"><b>${cur}</b>/${mx}</span>
         <button class="icon" data-ehp="${key}:1" title="−1">−</button><input type="number" class="hd" data-ehpin="${key}" placeholder="${t("eDmg")}" title="${t("eDmgT")}"><button class="icon" data-ehp="${key}:-1" title="+1">+</button></div>`;
-      if(ph===2&&g.p2)h+=`<div class="echips p2">${t("gPhase2")}: ${g.p2.skills.map(s=>eTipSkill(s.s,s.slot==="spec"?g.v.spec:(s.slot[0]==="e"?g.v.en:null),GSLOTL(s.slot),s.slot[0]==="e")).join("")}<span class="chip pas" data-tip="${esc(gP2Hint(g))}">ⓘ</span></div>`;
+      if(ph===2&&g.p2)b+=`<div class="echips p2">${t("gPhase2")}: ${g.p2.skills.map(s=>eTipSkill(s.s,s.slot==="spec"?g.v.spec:(s.slot[0]==="e"?g.v.en:null),GSLOTL(s.slot),s.slot[0]==="e")).join("")}<span class="chip pas" data-tip="${esc(gP2Hint(g))}">ⓘ</span></div>`;
     }
-    h+=`</div>${g.p2?`<div class="hint">${t("eP2Hint")}</div>`:""}</section>`;
+    b+=`</div>${g.p2?`<div class="sid">${t("eP2Hint")}</div>`:""}`;
+    h+=eCard(E,"g"+x.gi,head,b,null,extra,"ecard2"+(x.boss?" eisboss":""));
   });
+  h+=`</div>`;
+  // ---- Schauplatz, Absicht, Gefahr, Budget
+  const pre=E.src&&E.src.pre||{};
+  h+=`<div class="sgrid einfo2">`;
+  h+=eCard(E,"set",esc(t("eSetting")),
+    eRow(t("ePlace"),`<b>${esc(eW(D,ort))}</b>`,null,`${Z.z} ${t("eZones")}${Z.big?" · "+t("eBig"):""}`)+
+    eRow(t("eShape"),`<b>${esc(sCap(eW(D,I.grund)))}</b>`,"i:grund",I.tube?esc(t("eTube")):"")+eRow(t("eCover"),esc(eW(D,I.deck)),"i:deck")+eRow(t("eSpecial"),esc(eW(D,I.bes)),"i:bes")+
+    eRow(t("eSplit"),esc(eW(D,I.auf)),pre.auf?null:"i:auf")+eRow(t("eWhere"),esc(eW(D,I.lage)),pre.lage?null:"i:lage"),
+    "i:grund|i:deck|i:bes"+(pre.auf?"":"|i:auf")+(pre.lage?"":"|i:lage"));
+  h+=eCard(E,"want",esc(t("eWant")),
+    eRow(t("eDoing"),`<b>${esc(sCap(doing))}</b>`,"i:tat")+eRow(t("eForm"),esc(eW(D,I.form)),"i:form")+eRow(t("eCirc"),esc(eW(D,I.um)),"i:um")+eRow(t("eProb"),esc(eW(D,I.prob)),"i:prob")+
+    (I.bez?eRow(t("eRel"),esc(eW(D,I.bez)),"i:bez"):""),"i:tat|i:form|i:um|i:prob|i:bez");
+  let hb="";
+  if(hz){hb+=eRow(t("eHz"),`<b>${esc(sCap(eHzName(hz)))}</b>`,E.src&&E.src.hazard?null:"h:gef",hz.el?esc(eHzF(hz,"el")):"");
+    if(hz.eff)hb+=eRow(t("eEffect"),esc(eHzF(hz,"eff")),null);
+    if(I.hzA)hb+=eRow(t("eExtent"),esc([eX(eW(D,I.hzA),Z.z),eW(D,I.hzF)].filter(Boolean).join(", ")),"i:hzA");
+    if(I.hzU)hb+=eRow(t("eOrigin"),esc([eW(D,I.hzU),eW(D,I.hzD)].filter(Boolean).join(", ")),"i:hzU");
+    if(hz.smell||hz.sound)hb+=eRow(t("eSense"),esc([eHzF(hz,"smell"),eHzF(hz,"sound")].filter(Boolean).join(" · ")),null);
+    if(hz.none)hb+=`<div class="sid">${t("eNoHz")}</div>`}
+  h+=eCard(E,"hz",esc(t("eHazard")),hb,(E.src&&E.src.hazard?"":"h:gef|")+"i:hzA|i:hzU");
+  const calc=`${B.pts} ${t("ePts")}`,calcS=`${t("eRoll")} ${B.roll}: ${B.dp?"(":""}${B.base}${B.dp?(B.dp>0?" + ":" − ")+Math.abs(B.dp)+")":""} × ${B.hf}${B.max<5?" · "+t("eMaxCls").replace("%c",ECLS[B.max]):""}${left?` · ${t("eLeft").replace("%n",left)}`:""}`;
+  h+=eCard(E,"budget",esc(eit("budgetC")),eRow(t("eBudget"),`<b>${esc(calc)}</b>`,"b:roll",esc(calcS))+
+    `<div class="ebsel">${fsel(1)}${fsel(2)}</div>`,"b:roll");
   h+=`</div><div class="hint">${t("eEndHint")}</div><div id="etip" class="etip" hidden></div>`;
   return h;
 }
+
 function eText(D,rs){
   const G=GD.gegner;if(!G)return[];const E=eState(rs);const{B,F,groups,left}=eGroups(D,G,E);const I=eInfo(D,G,E,F);const o=E.inp,L=[];const Z=eZones(D,E,groups);
   const ort=D.orte[o.ort]||{};
   if(E.src)L.push(`${t("eFrom")}: ${E.src.title||""}${E.src.place?" · "+E.src.place:""}`);
-  L.push(`${t("eBudget")}: ${B.pts} ${t("ePts")} · ${o.heroes} ${t("eHeroes")} · ${t("eDiff")} ${o.dp>0?"+":""}${+o.dp||0}${o.boss?" · "+t("eBoss"):""} · ${eW(D,ort)} (${Z.z} ${t("eZones")}${Z.big?", "+t("eBig"):""})${left?" · "+t("eLeft").replace("%n",left):""}`);
+  L.push(`${t("eBudget")}: ${B.pts} ${t("ePts")} · ${o.heroes} ${t("eHeroes")} · ${t("eDiff")} ${o.dp>0?"+":""}${+o.dp||0} · ${eW(D,ort)} (${Z.z} ${t("eZones")}${Z.big?", "+t("eBig"):""})${left?" · "+t("eLeft").replace("%n",left):""}`);
+  {const BM=eBossMod(D,E);if(o.boss)L.push(`${o.boss==="schatz"?eit("kSchatz"):eit("kBoss")}${BM?" · "+eit("bossMod")+": "+eW(D,BM)+" – "+(LANG==="de"?BM.eff:(BM.eff_en||BM.eff)||""):""}`)}
   L.push(`${t("eShape")}: ${eW(D,I.grund)}${I.tube?" ("+t("eTube")+")":""} · ${t("eCover")}: ${eW(D,I.deck)} · ${t("eSpecial")}: ${eW(D,I.bes)}`);
   L.push(`${t("eSplit")}: ${eW(D,I.auf)} · ${t("eWhere")}: ${eW(D,I.lage)}`);
   L.push(`${t("eWant")}: ${[eW(D,I.tat),eW(D,I.ziel)].filter(Boolean).join(" → ")} · ${t("eForm")}: ${eW(D,I.form)} · ${t("eCirc")}: ${eW(D,I.um)} · ${t("eProb")}: ${eW(D,I.prob)}${I.bez?" · "+t("eRel")+": "+eW(D,I.bez):""}`);
@@ -2363,14 +2493,17 @@ function ruineText(D,rs){
 async function ruToEnc(arg,boss){
   const id=S.cur,g=GENS.find(x=>x.id===id),D=GD[id],B=ruState(res(id)),C=ruBuild(D,B);
   await Promise.all([loadGen("encounter"),loadGen("gegner")]);await loadRes("encounter");
-  const G=GD.gegner,E=eState(res("encounter")),ED=GD.encounter;let who,hz=null,ort="Raum",title,ov=[{},{},{}],extra=[];
+  const G=GD.gegner,E=eState(res("encounter")),ED=GD.encounter;let who,hz=null,ort="Raum",title,ov=[{},{},{}],extra=[],mod=null;
   if(boss){const L=C.L[+arg];ort="Etappe";
     if(L.last){const tb=C.tb;if(tb.mon){const ci=G.creatures.findIndex(c=>c["Name EN"]==="Ancient monster");who=ci>=0?{i:ci,sub:null}:null;extra.push(sW(tb.cre))}else who=eFindCre(G,tb.fac);
-      ov[0]=tb.tyr?{cls:6}:{cls:5,n:2};hz=tb.hz;extra.push(`${rut("mod")}: ${sW(tb.mod)}`);if(tb.name)extra.push(tb.name);title=rut("troom")}
-    else{const s=L.st;who=s.who.fac?eFindCre(G,s.who.fac):eFindCre(G,s.who.cre.de);ov[0]={cls:/menace/i.test((s.cls&&s.cls.de)||"")?5:4};hz=s.hz;extra.push(`${rut("mod")}: ${sW(s.mod)}`);title=`${rut("level")} ${L.i+1} · ${rut("stage")}`}
-    E.inp.boss=true}
+      ov[0]=tb.tyr?{cls:6}:{cls:5,n:2};hz=tb.hz;mod=tb.mod;if(tb.name)extra.push(tb.name);title=rut("troom")}
+    else{const s=L.st;who=s.who.fac?eFindCre(G,s.who.fac):eFindCre(G,s.who.cre.de);ov[0]={cls:/menace/i.test((s.cls&&s.cls.de)||"")?5:4};hz=s.hz;mod=s.mod;title=`${rut("level")} ${L.i+1} · ${rut("stage")}`}
+    E.inp.boss=L.last?"schatz":true;
+    // Boss-Modifikator der Ruine im Encounter festsetzen (Abgleich über DE oder EN mit Encounter_v5), sonst als Hinweis
+    const bm=(ED.lists["Boss-Modifikator"]||[]).find(x=>mod&&((x.en&&mod.en&&x.en.toLowerCase()===String(mod.en).toLowerCase())||x.de===mod.de));
+    E.inp.mod=bm?bm.de:"-";if(!bm&&mod)extra.push(`${rut("mod")}: ${sW(mod)}`)}
   else{const[i,j]=String(arg).split("|").map(Number);const L=C.L[i],r=L.rooms[j];if(!r||!r.fight)return;
-    who=r.who.fac?eFindCre(G,r.who.fac):eFindCre(G,r.who.cre.de);if(!who)extra.push(ruWho(D,r.who));hz=r.hz;E.inp.boss=false;title=`${rut("level")} ${i+1} · ${L.no[j]} ${sW(r.name)}`}
+    who=r.who.fac?eFindCre(G,r.who.fac):eFindCre(G,r.who.cre.de);if(!who)extra.push(ruWho(D,r.who));hz=r.hz;E.inp.boss=false;E.inp.mod=null;title=`${rut("level")} ${i+1} · ${L.no[j]} ${sW(r.name)}`}
   const oi=ED.orte.findIndex(o=>o.de===ort);if(oi>=0)E.inp.ort=oi;E.inp.f=[who||null,null,null];
   E.src={gen:id,title:`${gTitle(g)} ${LANG==="de"?C.nameDe:C.nameEn} · ${title}`,place:[LANG==="de"?C.T.de:(C.T.en||C.T.de),sW(C.Z)].filter(Boolean).join(" · "),hazard:hz?hz.de:"k. Gefahr",pre:{},extra};
   E.draws={};E.gd=[{},{},{}];E.ov=ov;E.hp={};E.ph={};saveRes("encounter");go("encounter");
@@ -2670,7 +2803,7 @@ async function go(id){
   if(id==="villa"||id==="tempel")id="gebaeude";
   if(id!=="_fate"&&!GENS.find(g=>g.id===id))id="_fate";
   S.cur=id;saveMain();renderNav();
-  document.documentElement.dataset.pal=["siedlung","npc","mystery","natur","gebaeude","ruine"].includes(id)?"mot":"";
+  document.documentElement.dataset.pal=["siedlung","npc","mystery","natur","gebaeude","ruine","gegner","encounter"].includes(id)?"mot":"";
   $("#fateView").hidden=id!=="_fate";$("#genCard").hidden=id==="_fate";
   if(id==="_fate"){renderFate();return}
   renderGen();
@@ -2778,7 +2911,8 @@ document.addEventListener("click",ev=>{
   if(b.id==="toEnc"){encFromPlace();return}
   if(ds.encrow!=null){encFromPlace(ds.encrow);return}
   if(rs&&GD[S.cur].hazards){const E=eState(rs);
-    if(ds.err){const k=ds.err;for(const key of Object.keys(E.draws))if(key===k||key.startsWith(k+"#"))delete E.draws[key];if(k==="i:tat")delete E.draws["i:ziel"];if(k==="i:hzA")delete E.draws["i:hzF"];if(k==="i:hzU")delete E.draws["i:hzD"];saveRes(S.cur);renderGen();return}
+    if(ds.err){for(const k of ds.err.split("|")){for(const key of Object.keys(E.draws))if(key===k||key.startsWith(k+"#"))delete E.draws[key];if(k==="i:tat")delete E.draws["i:ziel"];if(k==="i:hzA")delete E.draws["i:hzF"];if(k==="i:hzU")delete E.draws["i:hzD"]}saveRes(S.cur);renderGen();return}
+    if(ds.ecol!=null){E.col=E.col||{...ECOL_DEF};E.col[ds.ecol]=E.col[ds.ecol]?0:1;saveRes(S.cur);renderGen();return}
     if(ds.ereset!=null){const gi=+ds.ereset;E.gd[gi]={};E.ov[gi]={};delete E.draws["g:t"+gi];for(const k of Object.keys(E.hp))if(k.startsWith(gi+"#")){delete E.hp[k];delete E.ph[k]}saveRes(S.cur);renderGen();return}
     if(ds.en){const[gi,d]=ds.en.split(":").map(Number);const{groups}=eGroups(GD[S.cur],GD.gegner,E);const x=groups.find(z=>z.gi===gi);E.ov[gi].n=Math.max(1,(x?x.n:1)+d);saveRes(S.cur);renderGen();return}
     if(ds.ehp){const i=ds.ehp.lastIndexOf(":");eDamage(rs,ds.ehp.slice(0,i),+ds.ehp.slice(i+1));saveRes(S.cur);renderGen();return}
@@ -2789,11 +2923,14 @@ document.addEventListener("click",ev=>{
   if(rs&&GD[S.cur].creatures){
     if(!rs.list)rs.list=[];
     if(ds.grr){const p=ds.grr.indexOf(":");const i=+ds.grr.slice(0,p),k=ds.grr.slice(p+1);const e=rs.list[i];
-      for(const key of Object.keys(e.draws))if(key===k||key.startsWith(k+"#")||(k==="w:n"&&(key==="w:n1"||key==="w:n2")))delete e.draws[key];
+      const ks=k.split("|");for(const key of Object.keys(e.draws))if(ks.some(k=>key===k||key.startsWith(k+"#")||(k.endsWith(":")&&key.startsWith(k))||(k==="w:n"&&(key==="w:n1"||key==="w:n2"))))delete e.draws[key];
       saveRes(S.cur);renderGen();return}
     if(ds.greset!=null){const e=rs.list[+ds.greset];const keep={};if(e.cre==null&&"cre" in e.draws)keep.cre=e.draws.cre;if(e.cls==null&&"cls" in e.draws)keep.cls=e.draws.cls;e.draws=keep;saveRes(S.cur);renderGen();return}
-    if(ds.gdel!=null){rs.list.splice(+ds.gdel,1);saveRes(S.cur);renderGen();return}
+    if(ds.gdel!=null){rs.list.splice(+ds.gdel,1);if(!rs.list.length)rs.list.push({cre:null,cls:null,draws:{}});rs.sko={};rs.col={};saveRes(S.cur);renderGen();return}
     if(b.id==="gAdd"){rs.list.push({cre:null,cls:null,draws:{}});saveRes(S.cur);renderGen();return}
+    if(ds.ggcol!=null){rs.col=rs.col||{};rs.col[ds.ggcol]=rs.col[ds.ggcol]?0:1;saveRes(S.cur);renderGen();return}
+    if(ds.ggsk!=null){rs.sko=rs.sko||{};rs.sko[ds.ggsk]=rs.sko[ds.ggsk]?0:1;saveRes(S.cur);renderGen();return}
+    if(ds.ggall!=null){const i=+ds.ggall,g=gBuild(GD[S.cur],rs.list[i]),ks=ggSkKeys(g,i);rs.sko=rs.sko||{};const on=!ks.every(k=>rs.sko[k]);ks.forEach(k=>rs.sko[k]=on?1:0);saveRes(S.cur);renderGen();return}
     if(b.id==="regen"){rs.list.forEach(e=>e.draws={});saveRes(S.cur);renderGen();return}
   }
   if(b.id==="regen"){rs.draws={};rs.t=Date.now();if(rs.deck)rs.deck.u=rand();saveRes(S.cur);renderGen();return}
@@ -2807,7 +2944,7 @@ document.addEventListener("change",ev=>{
   if(e.dataset.einp!=null||e.dataset.eov!=null||e.dataset.ehpin!=null){const rs=res(S.cur),E=eState(rs);
     if(e.dataset.ehpin!=null){const v=parseInt(e.value,10);if(!isNaN(v)&&v!==0)eDamage(rs,e.dataset.ehpin,v)}
     else if(e.dataset.eov!=null){const[f,gi]=e.dataset.eov.split(":");E.ov[+gi][f]=e.value===""?undefined:+e.value;if(f==="cre"||f==="cls")for(const k of Object.keys(E.hp))if(k.startsWith(gi+"#")){delete E.hp[k];delete E.ph[k]}}
-    else{const k=e.dataset.einp;if(k[0]==="f"){E.inp.f[+k[1]]=e.value===""?null:(e.value[0]==="r"?e.value:+e.value);delete E.draws["f:"+k[1]]}else if(k==="boss")E.inp.boss=e.checked;else if(k==="dp")E.inp.dp=Math.max(-4,Math.min(12,parseInt(e.value,10)||0));else E.inp[k]=Math.max(0,parseInt(e.value,10)||0);if(k==="heroes")E.inp.heroes=Math.min(9,Math.max(1,E.inp.heroes))}
+    else{const k=e.dataset.einp;if(k[0]==="f"){E.inp.f[+k[1]]=e.value===""?null:(e.value[0]==="r"?e.value:+e.value);delete E.draws["f:"+k[1]]}else if(k==="boss"){E.inp.boss=e.value==="schatz"?"schatz":e.value==="1";delete E.draws["b:mod"];delete E.draws["b:schatz"];for(const k2 of Object.keys(E.hp)){delete E.hp[k2];delete E.ph[k2]}}else if(k==="mod"){E.inp.mod=e.value||null;delete E.draws["b:mod"]}else if(k==="dp")E.inp.dp=Math.max(-4,Math.min(12,parseInt(e.value,10)||0));else E.inp[k]=Math.max(0,parseInt(e.value,10)||0);if(k==="heroes")E.inp.heroes=Math.min(9,Math.max(1,E.inp.heroes))}
     saveRes(S.cur);renderGen();return}
   if(e.dataset.vinp!=null||e.dataset.vst!=null){const V=vState(res(S.cur));
     if(e.dataset.vst!=null){const v=e.value===""?null:Math.max(0,parseInt(e.value,10)||0);if(v==null)delete V.st[e.dataset.vst];else V.st[e.dataset.vst]=v}
@@ -2836,6 +2973,7 @@ document.addEventListener("change",ev=>{
     if(k==="main")delete Sx.draws["facs:haupt"];
     saveRes(S.cur);renderGen();return}
   if(e.id==="navSel"){go(e.value);return}
+  if(e.dataset.gcount!=null){const rs=res(S.cur);ggState(rs);const n=Math.max(1,Math.min(4,+e.value||1));while(rs.list.length<n)rs.list.push({cre:null,cls:null,draws:{}});rs.list.length=n;saveRes(S.cur);renderGen();return}
   if(e.dataset.gcre!=null||e.dataset.gcls!=null){const rs=res(S.cur);const i=+(e.dataset.gcre??e.dataset.gcls);const en=rs.list[i];
     if(e.dataset.gcre!=null){en.cre=e.value===""?null:+e.value;delete en.draws.cre}else{en.cls=e.value===""?null:+e.value;delete en.draws.cls}
     saveRes(S.cur);renderGen();return}
