@@ -1722,6 +1722,12 @@ function wArea(D,W,C,i,last){
   // Umweltgefahr
   const hc=wNum(D,"Umweltgefahr: "+C.B.gef,15)/100;
   if(gU(W,k+"h")<hc){const hl=D.whz.map(x=>x.bw&&x.bw[C.B.en]!=null?Object.assign({},x,{w:(x.w||1)*x.bw[C.B.en]}):x).filter(x=>x.w>0);a.hz=gWPick(W,k+"hz",hl.length?hl:D.whz)}
+  // Sinne aus dem Inhalt (Martin 26.10.): Gefahr und Gegner bestimmen Geruch und Geräusch; beides da → 50/50 je Sinn; sonst neutrale Sinne
+  const foe=[a.foe,a.obstFoe,a.enc].find(f=>f&&f.art&&f.art.de!=="Reisende"),pHz=wNum(D,"Sinne: Gefahr statt Gegner",50)/100;
+  const from=(sm,kk)=>{const o=[];if(a.hz){const v=sE(a.hz,sm?"sm":"so");if(v)o.push({t:v,from:sW(a.hz),hz:1})}
+    if(foe){const v=sm?foe.sm:foe.so;if(v)o.push({t:v,from:foe.who})}
+    return o.length>1?(gU(W,kk)<pHz?o[0]:o[1]):o[0]||null};
+  a.smSrc=from(1,k+"smx");a.soSrc=from(0,k+"sox");
   return a;
 }
 function wBuild(D,W){const C=wCore(D,W);C.wx=wWeather(D,W,C);C.A=[];for(let i=0;i<C.n;i++)C.A.push(wArea(D,W,C,i,i===C.n-1));return C}
@@ -1771,8 +1777,8 @@ function wildnisHTML0(D,rs){
     else if(a.gen==="ruine")ort+=` <button class="btn sm sgo" data-wru="${i}">→ ${esc(gTitle(GENS.find(x=>x.id==="ruine")||{title:"Ruine"}))}</button>`;
     else if(a.gen)ort+=" "+wGo(a.gen);
     if(a.sicht)ort+=`<div class="sid"><span class="k">${esc(wt("sight"))}:</span> <b>${esc(sE({x:a.sicht.de,xEn:a.sicht.en},"x"))}</b> – ${esc(sE({x:a.sicht.hde,xEn:a.sicht.hen},"x"))}${a.reveal?" · "+esc(wt("reveal"))+" "+esc(sW(a.reveal)):""} ${sRR(k+"vs|"+k+"vr")}</div>`;
-    const smell=a.smell?wSmell(a.smell):"",sound=a.sound?sCap(sW(a.sound)):"";
-    let body=`<div class="wsense"><div><span class="wsi">👃</span> ${esc(smell||"–")} ${sRR(k+"sm")}</div><div><span class="wsi">👂</span> ${esc(sound||"–")} ${sRR(k+"so")}</div></div>`;
+    const sline=(S,neu,rk)=>S?`${esc(sCap(S.t))} <span class="ss">– ${esc(S.from)}</span> ${sRR(rk+"x")}`:`${esc(neu||"–")} ${sRR(rk)}`;
+    let body=`<div class="wsense"><div><span class="wsi">👃</span> ${sline(a.smSrc,a.smell?wSmell(a.smell):"",k+"sm")}</div><div><span class="wsi">👂</span> ${sline(a.soSrc,a.sound?sCap(sW(a.sound)):"",k+"so")}</div></div>`;
     body+=sRow(wt("terrain"),a.form?`<b>${esc(sW(a.form))}</b> <span class="ss">${esc([sW(a.umg),sW(a.boden)].filter(Boolean).join(" · "))}</span>`:"",k+"gf|"+k+"gu|"+k+"gb");
     body+=sRow(wt("land"),esc(ld.join(" · ")),k+"k1|"+k+"k2|"+k+"l1|"+k+"l2")+sRow(wt("way"),esc(a.way.map(sW).join(" · ")),k+"ws|"+k+"w0|"+k+"w1|"+k+"w2")+
       sRow(a.tag?wt("goal"):wt("place"),ort,k+"og|"+k+"o|"+k+"od|"+k+"ok|"+k+"of");
@@ -1792,7 +1798,7 @@ function wildnisText(D,rs){
   o.push(`${wt("weather")}: ${sW(X.wk)} + ${sW(X.dy)} → Temp ${X.v[0]} (${X.tm==="Kälte"?wt("cold"):wt("heat")}), Wind ${X.v[1]}, Wet ${X.v[2]}`);
   o.push(`${wt("facs")}: ${C.F.map(f=>wFacN(D,f)).join(", ")}`);
   const fo=f=>f?`${sW(f.art)}: ${f.who||""}${f.look?" "+wLookTxt(f.look):""}${f.do?" ("+sW(f.do)+")":""} – ${(wt("stage")[f.stage]||"").split(" – ")[0]}`:"";
-  C.A.forEach((a,i)=>{const p=[`${wt("area")} ${i+1} – ${a.name}: ${[sW(a.l1),sW(a.l2)].filter(Boolean).join(", ")}`,`${a.smell?wSmell(a.smell):""}; ${a.sound?sW(a.sound):""}`,`${wt("terrain")}: ${[a.form&&sW(a.form),a.umg&&sW(a.umg),a.boden&&sW(a.boden)].filter(Boolean).join(", ")}`,`${wt("way")}: ${a.way.map(sW).join(", ")}`,
+  C.A.forEach((a,i)=>{const p=[`${wt("area")} ${i+1} – ${a.name}: ${[sW(a.l1),sW(a.l2)].filter(Boolean).join(", ")}`,`${a.smSrc?sCap(a.smSrc.t)+" ("+a.smSrc.from+")":a.smell?wSmell(a.smell):""}; ${a.soSrc?sCap(a.soSrc.t)+" ("+a.soSrc.from+")":a.sound?sW(a.sound):""}`,`${wt("terrain")}: ${[a.form&&sW(a.form),a.umg&&sW(a.umg),a.boden&&sW(a.boden)].filter(Boolean).join(", ")}`,`${wt("way")}: ${a.way.map(sW).join(", ")}`,
     `${a.tag?wt("goal"):wt("place")}: ${sW(a.ort)}${a.det&&a.ort.de!=="Gegner"?" ("+sW(a.det)+")":""}${a.war?" – "+sE({k:a.ort.kde,kEn:a.ort.ken},"k"):""}${a.foe?" – "+fo(a.foe):""}`];
     if(a.spur)p.push(`${wt("spur")}: ${sW(a.spur)}`);if(a.obst)p.push(`${wt("obst")}: ${sW(a.obst)}${a.obstFoe?" – "+fo(a.obstFoe):""}`);
     if(a.enc)p.push(`${wt("enc")}: ${fo(a.enc)}`);if(a.hz)p.push(`${wt("hz")}: ${sW(a.hz)} (${sE(a.hz,"eff")})`);
