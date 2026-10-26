@@ -1499,6 +1499,13 @@ const WI18N={
   rest:"deep rest possible",mini:"small ruin",fromT:"From",gefahr:"Danger",gef:{niedrig:"low",mittel:"medium",hoch:"high"},
   A:["urban","mostly urban","mixed","mostly wild","wilderness"],B:["safe","mostly safe","tense","unsafe","war"],C:["untouched","little history","some history","old history","ancient history"],
   toEnc:"Encounter for this encounter",toNpc:"Create an NPC",toChase:"Chase",toSied:"Create the settlement",terrain:"Terrain",sight:"Sight",reveal:"gives itself away by",smellP:"smells of",smellA:"smells",both:"Encounter and hazard together: whoever knows the zone can use the hazard as a weapon (Rules and Heroes, Chapter 4.3).",wayThere:"The way there (wilderness)",hint:"The heroes can leave any area they do not like. Whoever spots the signs early (survival, alertness) can avoid an encounter."}};
+// Aussehen der Monster: Skillgruppen aus Kreaturen (Angriff, Verteidigung, Spezial) als erste Hinweise; DE im Dativ (nach „mit“)
+const WLOOK={Teeth:["riesigen Zähnen","huge teeth"],Mass:["einem massigen Körper","a massive body"],Grap:["Greifarmen","grasping arms"],Coil:["einem schlangenartigen Leib","a coiling, snake-like body"],
+ Speedy:["langen, schnellen Beinen","long, fast legs"],Fat:["dicken Fettschichten","thick layers of fat"],Shell:["einem Panzer","an armored shell"],Wings:["Flügeln","wings"],
+ Tail:["einem schweren Schwanz","a heavy tail"],Pores:["nässenden Poren","oozing pores"],Claws:["langen Klauen","long claws"],Momentum:["einem Rammschädel","a battering head"],Spit:["einem spuckenden Maul","a spitting maw"],Poison:["Giftdrüsen","poison glands"]};
+function wLook(W,cre,k,spec){const sp=v=>String(v||"").split(",").map(x=>x.trim()).filter(x=>WLOOK[x]);const L={att:gPick(W,k+"la",sp(cre.att)),def:gPick(W,k+"ld",sp(cre.def))};if(spec)L.spec=gPick(W,k+"ls",sp(cre.spec));return L}
+function wLookTxt(L){if(!L)return "";const p=[L.att,L.def,L.spec].filter(Boolean).map(g=>WLOOK[g][LANG==="de"?0:1]);if(!p.length)return "";
+  const and=LANG==="de"?" und ":" and ";return (LANG==="de"?"mit ":"with ")+(p.length>1?p.slice(0,-1).join(", ")+and+p[p.length-1]:p[0])}
 const wt=k=>{const v=WI18N[LANG][k];return v===undefined?WI18N.de[k]:v};
 const WZIEL=["wander","reach","hunt","clear"];
 const WCOL_DEF={a1:1,a2:1,a3:1,a4:1};
@@ -1516,7 +1523,7 @@ function wFoe(D,W,C,k,forceArt){
   const f={art};const st=["Peace","Caution","Alertness","Combat"].map(s=>{const a=String(wR(D,"Eskalation: "+s,"1,1,1,1,1")).split(",").map(Number);return a[C.sk[1]-1]||1});
   f.stage=gWPick(W,k+"st",st.map((w,i)=>({i,w}))).i;
   if(art.de==="Raubtier"){const n=gPick(W,k+"r",C.B.raub);f.cre=wCre(D,n);f.who=sW(f.cre);f.enc=f.cre.de;f.do=wL(D,W,"Raubtier: Verhalten",k+"v");f.mood=wL(D,W,"Raubtier: Stimmung",k+"m");f.sm=sE({s:f.cre.sm,sEn:f.cre.smEn},"s");f.so=sE({s:f.cre.so,sEn:f.cre.soEn},"s")}
-  else if(art.de==="Monster"){const ms=(D.cre||[]).filter(c=>c.kat==="Monster");f.cre=gWPick(W,k+"r",ms.map((c,i)=>Object.assign({w:[3,2,1][i]||1},c)))||{de:"Monster",en:"monster"};f.who=sW(f.cre);f.enc=f.cre.de;f.do=wL(D,W,"Raubtier: Verhalten",k+"v");f.sm=sE({s:f.cre.sm,sEn:f.cre.smEn},"s");f.so=sE({s:f.cre.so,sEn:f.cre.soEn},"s")}
+  else if(art.de==="Monster"){const ms=(D.cre||[]).filter(c=>c.kat==="Monster");f.cre=gWPick(W,k+"r",ms.map((c,i)=>Object.assign({w:[3,2,1][i]||1},c)))||{de:"Monster",en:"monster"};f.who=sW(f.cre);f.enc=f.cre.de;f.look=wLook(W,f.cre,k,true);f.do=wL(D,W,"Raubtier: Verhalten",k+"v");f.sm=sE({s:f.cre.sm,sEn:f.cre.smEn},"s");f.so=sE({s:f.cre.so,sEn:f.cre.soEn},"s")}
   else if(art.de==="Reisende"){f.trav=wL(D,W,"Reisende",k+"r");f.who=sW(f.trav);f.do=wL(D,W,D.lists["Reisende: Tätigkeit"]?"Reisende: Tätigkeit":"Gegner: Tätigkeit",k+"v");f.fac=(gWPick(W,k+"f",C.T.f)||{}).t;f.npc=1;
     f.stage=Math.min(f.stage,wNum(D,"Reisende: höchste Stufe",1))}
   else{f.fac=(gWPick(W,k+"r",C.T.f)||{}).t;f.who=wFacN(D,f.fac);f.enc=f.fac;f.do=wL(D,W,"Gegner: Tätigkeit",k+"v");f.goal=wL(D,W,"Gegner: Ziel",k+"g");f.npc=1;
@@ -1592,7 +1599,7 @@ function wSmell(x){const v=sW(x);if(LANG==="de"?/Geruch$/.test(v):/(smell|scent)
 function wGo(gen,extra){const g=GENS.find(x=>x.id===gen);return g?`<button class="btn sm sgo" data-wgo="${gen}"${extra||""}>→ ${esc(gTitle(g))}</button>`:""}
 function wFoeHTML(D,f,i,kind){if(!f)return "";
   const what=f.art.de==="Reisende"?`<b>${esc(sCap(f.who||""))}</b> <span class="ss">${esc(wFacN(D,f.fac))}</span>`:`<b>${esc(f.who||"")}</b>`;
-  const det=[f.do&&sW(f.do),f.mood&&sW(f.mood),f.goal&&("→ "+sW(f.goal))].filter(Boolean).join(" · ");
+  const det=[wLookTxt(f.look),f.do&&sW(f.do),f.mood&&sW(f.mood),f.goal&&("→ "+sW(f.goal))].filter(Boolean).join(" · ");
   const btn=`${f.enc?`<button class="icon encb" data-wenc="${i}" data-wk="${kind}" title="${esc(wt("toEnc"))}">⚔</button>`:""}<button class="icon encb" data-wchase="${i}" data-wk="${kind}" title="${esc(wt("toChase"))}">🏃</button>${f.npc?`<button class="icon encb" data-wnpc="${i}" data-wk="${kind}" title="${esc(wt("toNpc"))}">👤</button>`:""}`;
   return `<span class="shead">${esc(sW(f.art))}</span> ${what}${det?`<span class="ss">${esc(det)}</span>`:""} ${btn}`+
     `<div class="sid">${esc(wt("stage")[f.stage]||"")}${f.sm||f.so?` · ${esc(wt("signs"))}: ${esc([f.sm,f.so].filter(Boolean).join(" · "))}`:""}</div>`}
@@ -1654,7 +1661,7 @@ function wildnisText(D,rs){
   o.push(`${wTitle(D,C)} · ${tn} (${bn}) · ${wt("gefahr")} ${wt("gef")[C.B.gef]||C.B.gef} · ${[wt("A")[C.sk[0]-1],wt("B")[C.sk[1]-1],wt("C")[C.sk[2]-1]].join(", ")}`);
   o.push(`${wt("weather")}: ${sW(X.wk)} + ${sW(X.dy)} → Temp ${X.v[0]} (${X.tm==="Kälte"?wt("cold"):wt("heat")}), Wind ${X.v[1]}, Wet ${X.v[2]}`);
   o.push(`${wt("facs")}: ${C.F.map(f=>wFacN(D,f)).join(", ")}`);
-  const fo=f=>f?`${sW(f.art)}: ${f.who||""}${f.do?" ("+sW(f.do)+")":""} – ${(wt("stage")[f.stage]||"").split(" – ")[0]}`:"";
+  const fo=f=>f?`${sW(f.art)}: ${f.who||""}${f.look?" "+wLookTxt(f.look):""}${f.do?" ("+sW(f.do)+")":""} – ${(wt("stage")[f.stage]||"").split(" – ")[0]}`:"";
   C.A.forEach((a,i)=>{const p=[`${wt("area")} ${i+1} – ${a.name}: ${[sW(a.l1),sW(a.l2)].filter(Boolean).join(", ")}`,`${a.smell?wSmell(a.smell):""}; ${a.sound?sW(a.sound):""}`,`${wt("terrain")}: ${[a.form&&sW(a.form),a.umg&&sW(a.umg),a.boden&&sW(a.boden)].filter(Boolean).join(", ")}`,`${wt("way")}: ${a.way.map(sW).join(", ")}`,
     `${a.tag?wt("goal"):wt("place")}: ${sW(a.ort)}${a.det&&a.ort.de!=="Gegner"?" ("+sW(a.det)+")":""}${a.war?" – "+sE({k:a.ort.kde,kEn:a.ort.ken},"k"):""}${a.foe?" – "+fo(a.foe):""}`];
     if(a.spur)p.push(`${wt("spur")}: ${sW(a.spur)}`);if(a.obst)p.push(`${wt("obst")}: ${sW(a.obst)}${a.obstFoe?" – "+fo(a.obstFoe):""}`);
@@ -1674,6 +1681,11 @@ async function wildToEnc(i,k){
   E.src={gen:id,title:`${gTitle(g)} ${a.name} · ${wt("area")} ${+i+1}`,place:[LANG==="de"?C.T.de:(C.T.en||C.T.de),sW(a.l1),sW(a.l2)].filter(Boolean).join(" · "),
     hazard:a.hz?a.hz.de:"k. Gefahr",pre:{tat},extra};
   E.draws={};E.gd=[{},{},{}];E.ov=[{},{},{}];E.hp={};E.ph={};
+  // Monster: Aussehen aus dem Wildnis-Ort an den Gegner weitergeben (gleiche Skillgruppen)
+  if(f.look&&c){const cr=G.creatures[c.i];for(const sl of ["att","def","spec"]){const grp=f.look[sl];if(!grp)continue;
+    const full=gResolve(G,sl,cr[GCOL[sl]]),part=full.filter(n=>{const s=G.skills.find(x=>x.n===n);return s&&gnorm(s.sub)===gnorm(grp)});
+    if(!part.length)continue;const n=part[Math.floor(gU(W,"enc:"+i+k+sl)*part.length)];E.gd[0]["s:"+sl]=(full.indexOf(n)+.5)/full.length}
+    E.src.extra=(E.src.extra||[]).concat([wLookTxt(f.look)])}
   saveRes("encounter");go("encounter");
 }
 async function wildToChase(i,k){
