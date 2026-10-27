@@ -290,6 +290,7 @@ details.soff{margin-top:4px;font-size:13px}details.soff summary{cursor:pointer;c
 .chip b{color:var(--accent)}
 .chip.fix{background:var(--surface)}
 .gnmh{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.gdesc{font-family:Georgia,"Times New Roman",serif;font-style:italic;color:var(--ink);font-size:14px;margin:1px 0 2px}.estat .chip.pas{background:none;padding:0 5px;font-size:inherit}
+.epass2{font-size:12.5px;line-height:1.35;margin:2px 0 4px;padding:3px 8px;border:1px dashed var(--line);border-radius:8px}.epass2 .estl{margin-right:4px}
 .echips.estd{gap:3px;margin-bottom:2px}.echips.estd .chip{font-size:12px;padding:0 6px}.estl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;align-self:center;margin-right:2px}
 .chip.pas{border-style:dashed}
 .echips.p2{font-size:12px;color:var(--accent);align-items:center;margin-left:18px}
@@ -909,7 +910,7 @@ function gBuild(d,e){
   const A={};for(const a of GATTR)A[a]=gDie(e,"a:"+a,fa.n,fa.s)+gNum(fa.k)*C+gNum(fa.c)+am[a];
   const st={health:gFormula(d,e,"Health",C,cr),energy:K.energy,resist:gFormula(d,e,"Resistance",C,cr,A),grounding:gFormula(d,e,"Grounding",C,cr),
     fight:K.fight,timing:gFormula(d,e,"Timing",C,cr),move:gFormula(d,e,"Movement",C,cr)+gNum(K.move),actions:K.actions,armor:gNum(cr["Rüstungswert"]),armorType:gTxt(cr,"Rüstung","Rüstung DE")};
-  const v={duck:gSV(d,gDK(d),K,A),att:gSV(d,"Attack",K,A),spec:gSV(d,"Spezialskill",K,A),en:gSV(d,"Energieskill",K,A)};
+  const v={def:gSV(d,"Verteidigungsskill",K,A),atk:gSV(d,"Angriffsskill",K,A),duck:gSV(d,gDK(d),K,A),att:gSV(d,"Attack",K,A),spec:gSV(d,"Spezialskill",K,A),en:gSV(d,"Energieskill",K,A)};
   const u=d.unlock[K.name]||{},pred=cr["Kategorie"]==="Raubtier";
   const e1slot=u.e1==="1b"&&!pred?"e1b":u.e1?"e1a":null;
   const sk={def:gSkill(d,e,"def",cr,"s:def"),att:gSkill(d,e,"att",cr,"s:att"),spec:u.spec?gSkill(d,e,"spec",cr,"s:spec"):null,
@@ -985,7 +986,7 @@ function ggColumn(d,rs,i){
   const keys=ggSkKeys(g,i),allOpen=keys.every(k=>rs.sko[k]);
   const tog=`<button class="icon gall" data-ggall="${i}" title="${esc(ggt(allOpen?"allClose":"allOpen"))}">${allOpen?"⊟":"⊞"}</button>`;
   h+=ggCard(rs,i,"def",ggt("def"),gStdChips(g)+(g.passive?`<div class="sitem"><div class="sit"><span class="gsl">${ggt("passive")}</span></div><div class="gtx">${esc(g.passive)}</div></div>`:"")+
-    ggSkill(rs,i,"s:def",g.sk.def,null,false,t("gDefense"))+ggSkill(rs,i,"s:att",g.sk.att,null,false,t("gAttack")),"s:def|s:att",tog);
+    ggSkill(rs,i,"s:def",g.sk.def,g.v.def,false,t("gDefense"))+ggSkill(rs,i,"s:att",g.sk.att,g.v.atk,false,t("gAttack")),"s:def|s:att",tog);
   if(g.sk.spec||g.sk.e1||g.sk.e2)h+=ggCard(rs,i,"spec",ggt("spec"),ggSkill(rs,i,"s:spec",g.sk.spec,g.v.spec,false,t("gSpecial"))+ggSkill(rs,i,"s:e1",g.sk.e1,g.v.en,true,t("gEnergy"))+ggSkill(rs,i,"s:e2",g.sk.e2,g.v.en,true,t("gEnergy")+" 2"),"s:spec|s:e1|s:e2");
   if(g.p2)h+=ggCard(rs,i,"p2",ggt("p2"),`<div class="sag"><b>${esc(String(gP2Trig(g)).replace(/[:.]?\s*$/,":"))}</b> ${esc(gP2Hint(g))}</div>`+
     (g.p2.health!=null?ggRow(ggt("newHP"),`<b>${g.p2.health}</b>`,i,"p2:Health"):"")+(g.p2.P.energy?ggRow(ggt("en"),`<b>${g.st.energy}</b>`,i,null,t("gP2En")):"")+
@@ -1008,7 +1009,7 @@ function gegnerText(d,rs){
     L.push("   "+Object.entries(g.A).map(([k,v])=>k+" "+v).join(" · "));
     if(g.passive)L.push(`   ${t("gPassive")}: ${g.passive}`);
     L.push("   "+t("gStd")+": "+g.std.map(s=>s.n+" "+s.val).join(" · "));
-    for(const[k,lab,val]of[["def",t("gDefense"),null],["att",t("gAttack"),null],["spec",t("gSpecial"),g.v.spec],["e1",t("gEnergy"),g.v.en],["e2",t("gEnergy")+" 2",g.v.en]]){
+    for(const[k,lab,val]of[["def",t("gDefense"),g.v.def],["att",t("gAttack"),g.v.atk],["spec",t("gSpecial"),g.v.spec],["e1",t("gEnergy"),g.v.en],["e2",t("gEnergy")+" 2",g.v.en]]){
       const s=g.sk[k];if(s)L.push(`   ${lab}: ${gS(s,"name")}${val!=null?" ("+val+")":""} – ${gS(s,"text")}${s.item?" ["+gS(s,"item")+"]":""}`)}
     if(g.p2){L.push(`   ${t("gPhase2")} – ${gP2Trig(g)}${g.p2.health!=null?" Health "+g.p2.health:""}${g.p2.P.energy?" · "+t("gP2En"):""}`);
       L.push("   "+gP2Hint(g));
@@ -1242,9 +1243,8 @@ function eHTML(D,rs){
      <div class="stags">${x.boss?`<span class="stag eboss">${t("eBossTag")}</span>`:""}<span class="stag">${esc(ECLS[g.cls-1])}</span><span class="stag">${esc(gN(cr))}${subTxt?" · "+esc(subTxt):""}</span><span class="stag">${x.p} ${x.p===1?eit("pt1"):t("ePts")}</span></div>
      <div class="gnm"><div class="gnmh"><b>${esc(gName(g))}</b><span class="chip pas esense" data-tip="${esc(eit("smellOf")+": "+(gTxt(cr,"Geruch EN","Geruch DE")||"–")+"\n"+eit("soundOf")+": "+(gTxt(cr,"Geräusch EN","Geräusch DE")||"–"))}">👃 👂</span></div><div class="gdesc">${esc(gLookItems(g).map(sCap).join(" · "))}</div></div>
      <div class="estat"><span class="chip pas" data-tip="${esc(t("gResArm").replace("%a",g.st.armor).replace("%t",g.st.armorType||"–"))}">Res <b>${g.st.resist}</b></span><span>Gr <b>${g.st.grounding}</b></span><span>Fight <b>${g.st.fight}</b></span><span>Tim <b>${g.st.timing}</b></span><span>Mov <b>${g.st.move}</b></span><span>Act <b>${esc(g.st.actions)}</b></span><span>En <b>${g.st.energy}</b></span></div>
-     ${gStdChips(g)}<div class="echips">
-      ${g.passive?`<span class="chip pas" data-tip="${esc(t("gPassive")+": "+g.passive)}">${t("gPassive")}</span>`:""}
-      ${eTipSkill(sk.def,null,t("gDefense"))}${eTipSkill(sk.att,null,t("gAttack"))}${eTipSkill(sk.spec,g.v.spec,t("gSpecial"))}${eTipSkill(sk.e1,g.v.en,t("gEnergy"),true)}${eTipSkill(sk.e2,g.v.en,t("gEnergy")+" 2",true)}
+     ${gStdChips(g)}${g.passive?`<div class="epass2"><span class="estl">${t("gPassive")}</span> ${esc(g.passive)}</div>`:""}<div class="echips">
+      ${eTipSkill(sk.def,g.v.def,t("gDefense"))}${eTipSkill(sk.att,g.v.atk,t("gAttack"))}${eTipSkill(sk.spec,g.v.spec,t("gSpecial"))}${eTipSkill(sk.e1,g.v.en,t("gEnergy"),true)}${eTipSkill(sk.e2,g.v.en,t("gEnergy")+" 2",true)}
      </div><div class="ehp${x.n>4?" many":""}">`;
     for(let k=0;k<x.n;k++){
       const key=eHPKey(x.gi,k),ph=E.ph[key]||1,mx=eMaxHP(G,x,k,ph),dmg=E.hp[key]||0,cur=Math.max(0,mx-dmg),dead=cur<=0&&(ph===2||!g.p2);
@@ -1300,7 +1300,8 @@ function eText(D,rs){
     L.push(`${x.n}× ${g.title} (${ECLS[g.cls-1]} · ${gN(g.cr)}${x.sub?" · "+x.sub:""}) – ${gName(g)}: ${gLookItems(g).join(", ")}`);
     L.push(`   Res ${g.st.resist} (${t("gResArm").replace("%a",g.st.armor).replace("%t",g.st.armorType||"–")}) · Gr ${g.st.grounding} · Fight ${g.st.fight} · Tim ${g.st.timing} · Mov ${g.st.move} · Act ${g.st.actions}`);
     L.push("   "+t("gStd")+": "+g.std.map(s=>s.n+" "+s.val).join(" · "));
-    L.push("   "+[g.sk.def,g.sk.att,g.sk.spec,g.sk.e1,g.sk.e2].filter(Boolean).map(s=>gS(s,"name")).join(" · "));
+    if(g.passive)L.push(`   ${t("gPassive")}: ${g.passive}`);
+    L.push("   "+[[g.sk.def,g.v.def],[g.sk.att,g.v.atk],[g.sk.spec,g.v.spec],[g.sk.e1,g.v.en],[g.sk.e2,g.v.en]].filter(x=>x[0]).map(([s,v])=>gS(s,"name")+" "+v).join(" · "));
     const hp=[];for(let k=0;k<x.n;k++){const key=eHPKey(x.gi,k),ph=E.ph[key]||1,mx=eMaxHP(G,x,k,ph);hp.push(`${Math.max(0,mx-(E.hp[key]||0))}/${mx}`)}
     L.push("   Health: "+hp.join(", "))});
   return L;
