@@ -2658,7 +2658,7 @@ function hoObst(D,B,C,k){const O=D.obst;if(!O||!O.mech||!O.mech.length)return nu
   return{m,st,rz,sinn:st.sinn}}
 const hoObFl=o=>LANG==="de"?o.st.fl:(o.st.flEn||o.st.fl);
 const hoObHead=o=>`${sCap(hoOW(o.m,""))}: ${hoOW(o.st,"")}${o.rz?" ("+hot("stim")+": "+hoOW(o.rz,"")+")":""}`;
-const hoObSol=o=>o.rz?hoOW(o.rz,"v"):hoOW(o.m,"l");
+const hoObSol=o=>o.rz?hoOW(o.rz,"v"):(hoOW(o.st,"l")||hoOW(o.m,"l"));
 // ---------- Höhlen füllen
 function hoBuild(D,B){
   const C=hoCore(D,B),G=hoGraph(D,B,C);C.G=G;
