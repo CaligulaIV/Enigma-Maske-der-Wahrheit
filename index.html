@@ -2544,7 +2544,7 @@ const HI18N={
  de:{terr:"Territorium",tiefe:"Tiefe",gr:"Größe",rand:"zufällig",oberflaeche:"Oberfläche",flach:"flach",tief:"tief",adj:{oberflaeche:"oberflächennahes",flach:"flaches",tief:"tiefes"},next:{oberflaeche:"Flache Höhle erzeugen",flach:"Tiefe Höhle erzeugen"},backUp:{flach:"zurück zur Oberflächenhöhle",tief:"zurück zur flachen Höhle"},fromT:"Aus",caves:"Höhlen",cavesL:"Höhlen",cave1:"Höhle",
   haupt:"Haupthöhle",hauptPl:"Haupthöhlen",neben:"Nebenhöhle",heart:"Herz der Höhle",inh:"Bewohner",b1:"Haupt",b2:"Neben",b3:"Minder",rel:"Beziehung",
   ways:"Ein- und Ausgänge",entry:"Eingang",exit:"Ausgang",down:"Abstieg",up:"nach oben",map:"Karte",rock:"Gestein",global:"Global",
-  zones:"Zonen",form:"Form",feat:"Merkmal",echo:"wie überall",interest:"Auffällig",terrain:"Gelände",pacify:"Erst der Sieg im Herz befriedet die Höhle.",loot:"Loot",enc:"Begegnung",hz:"Gefahr",smell:"Geruch",sound:"Geräusch",
+  zones:"Zonen",form:"Form",feat:"Merkmal",echo:"wie überall",interest:"Auffällig",fromC:"von",terrain:"Gelände",pacify:"Erst der Sieg im Herz befriedet die Höhle.",loot:"Loot",enc:"Begegnung",hz:"Gefahr",smell:"Geruch",sound:"Geräusch",
   pass:"Durchgänge",free:"frei begehbar",check:"Check",mod:"Modifikator",fail:"Fehlschlag",foeT:"Gegner",bmod:"Boss-Modifikator",treasure:"Schatz",lies:"liegt",
   toEnc:"Encounter für diese Höhle",toBoss:"Bosskampf als Encounter",toNpc:"NPC dazu erzeugen",
   deepNote:"Weg in die Untertiefe – dafür kommt ein eigener Generator.",tyr:"Tyrant",men:"Menace",men2:"2 Menace",tyrMon:"Uraltes Monster",
@@ -2556,7 +2556,7 @@ const HI18N={
  en:{terr:"Territory",tiefe:"Depth",gr:"Size",rand:"random",oberflaeche:"surface",flach:"shallow",tief:"deep",adj:{oberflaeche:"surface",flach:"shallow",tief:"deep"},next:{oberflaeche:"Create the shallow cave",flach:"Create the deep cave"},backUp:{flach:"back to the surface cave",tief:"back to the shallow cave"},fromT:"From",caves:"Caves",cavesL:"caves",cave1:"Cave",
   haupt:"Main cave",hauptPl:"main caves",neben:"Side cave",heart:"Heart of the cave",inh:"Inhabitants",b1:"Main",b2:"Second",b3:"Minor",rel:"Relation",
   ways:"Ways in and out",entry:"Entrance",exit:"Exit",down:"Way down",up:"upwards",map:"Map",rock:"Rock",global:"Global",
-  zones:"zones",form:"Shape",feat:"Feature",echo:"as everywhere",interest:"Notable",terrain:"Terrain",pacify:"Only victory in the heart pacifies the cave.",loot:"Loot",enc:"Encounter",hz:"Hazard",smell:"Smell",sound:"Sound",
+  zones:"zones",form:"Shape",feat:"Feature",echo:"as everywhere",interest:"Notable",fromC:"from",terrain:"Terrain",pacify:"Only victory in the heart pacifies the cave.",loot:"Loot",enc:"Encounter",hz:"Hazard",smell:"Smell",sound:"Sound",
   pass:"Passages",free:"open",check:"Check",mod:"Modifier",fail:"On a failure",foeT:"Enemy",bmod:"Boss modifier",treasure:"Treasure",lies:"lies",
   toEnc:"Encounter for this cave",toBoss:"Boss fight as an encounter",toNpc:"Create an NPC",
   deepNote:"A way into the Underdeep – it will get a generator of its own.",tyr:"Tyrant",men:"Menace",men2:"2 menaces",tyrMon:"Ancient monster",
@@ -2683,6 +2683,20 @@ function hoBuild(D,B){
       if(o.hz){o.hzA=hoEL(D,B,"Gefahr: Ausdehnung",k+"ha");o.hzZ=hoEL(D,B,"Gefahr: Zustand",k+"hzz");o.hzU=hoEL(D,B,"Gefahr: Ursprung",k+"hu")}}
     o.mood=hoPick(B,k+"md",D.mood,y=>y[C.wk]);
     return o});
+  // Sinne (Martin 27.10.): Geruch/Geräusch der Begegnung und der Gefahr; Nachbarn von Gegnerhöhlen tragen Geruch oder Geräusch dieser Gegner; Tunnel kündigen an
+  const foeOf=y=>G.N[y].heart?C.boss.who:(C.cv[y].enc&&C.cv[y].enc.typ==="kampf"?C.cv[y].enc.who:null);
+  const fs=(w,f)=>w?hoSmSo(D,w,f):"";
+  C.sense=G.N.map((x,j)=>{const o=C.cv[j],S={sm:[],so:[]},w=foeOf(j);
+    if(w){const a=fs(w,"smell"),b=fs(w,"sound");if(a)S.sm.push({t:a,src:hoWho(D,w)});if(b)S.so.push({t:b,src:hoWho(D,w)})}
+    const hz=o.hz||(x.heart?C.boss.hz:null);
+    if(hz){const a=eHzF(hz,"smell"),b=eHzF(hz,"sound"),n=sCap(eHzName(hz));if(a)S.sm.push({t:a,src:n});if(b)S.so.push({t:b,src:n})}
+    if(!S.sm.length&&o.mood&&eHzF(o.mood,"smell"))S.sm.push({t:eHzF(o.mood,"smell"),src:""});
+    if(!S.so.length&&o.mood&&eHzF(o.mood,"sound"))S.so.push({t:eHzF(o.mood,"sound"),src:""});
+    G.adj[j].forEach(y=>{const v=foeOf(y);if(!v)return;const f=gU(B,`cv:${j}:nb${y}`)<.5?"smell":"sound",t=fs(v,f);if(t)S[f==="smell"?"sm":"so"].push({t,src:"",nb:y})});
+    return S});
+  C.sign={};G.E.forEach(e=>{[[e.a,e.b],[e.b,e.a]].forEach(([j,y])=>{const w=foeOf(y),hz=C.cv[y].hz||(G.N[y].heart?C.boss.hz:null);if(!w&&!hz)return;
+    const k=`e:${e.a}-${e.b}:s${j}`,useF=w&&(!hz||gU(B,k+"w")<.7),f=gU(B,k+"f")<.5?"smell":"sound";
+    const t=useF?fs(w,f):eHzF(hz,f);if(t)C.sign[j+"-"+y]={f,t}})});
   return C}
 // ---------- Karte
 function hoMap(C){const G=C.G,U=60,P=26;const pts=G.N.map(n=>({x:n.x,y:n.y}));
@@ -2712,6 +2726,8 @@ function hoEncW(D,y){if(!y)return "";const a=sW(y.art);
   if(y.typ==="tier")return `🐾 <b>${esc(sCap(a))}</b> ${wGo("tiere")}`;
   return esc(sCap(a))}
 function hoCaveHTML(D,C,j){const o=C.cv[j],G=C.G,k=`cv:${j}:`;const lines=[];
+  const SN=C.sense[j],sl=a=>a.length?a.map(x=>`${esc(sCap(x.t))}${x.src?` <span class="ss">– ${esc(x.src)}</span>`:""}${x.nb!=null?` <span class="ss">– ${esc(hot("fromC"))} ${esc(String(G.no[x.nb]))}</span>`:""}`).join(" · "):"–";
+  lines.push(`<div class="wsense"><div><span class="wsi">👃</span> ${sl(SN.sm)}</div><div><span class="wsi">👂</span> ${sl(SN.so)}</div></div>`);
   const chips=[];if(o.enc&&o.enc.typ==="kampf")chips.push(hot("enc"));if(o.hz)chips.push(hot("hz"));if(o.loot)chips.push(hot("loot"));if(C.downs.includes(j))chips.push(hot("down"));
   lines.push(`<div><b>${esc(hoFeatW(o.feat))}</b>${o.echo!=null?` <span class="ss">· ${esc(hot("echo"))}: ${esc(sW(C.gl[o.echo].a))}</span>`:""}</div>`);
   if(o.ter&&o.ter.length)lines.push(`<div>⛰ ${o.ter.map(g=>`<b>${esc(sCap(sW(g)))}</b>${g.t?` <span class="ss">(${esc(hoSkill(g.t))})</span>`:""}`).join(" · ")}</div>`);
@@ -2724,20 +2740,18 @@ function hoCaveHTML(D,C,j){const o=C.cv[j],G=C.G,k=`cv:${j}:`;const lines=[];
   if(o.int)lines.push(`<div class="sid">${esc(hot("interest"))}: ${esc(sCap(sW(o.int)))}</div>`);
   if(o.loot)lines.push(`<div class="sid">${esc(hot("loot"))}: <b>${esc(sCap(sW(o.loot)))}</b> <span class="ss">${esc(sW(o.lw))}</span></div>`);
   const ds=C.down.filter(d=>d.j===j);ds.forEach(d=>lines.push(`<div>↓ <b>${esc(hot("down"))}: ${esc(sCap(sW(d.art)))}</b> <span class="ss">${esc(sW(d.p.la))} · ${esc(hoPassW(d.p))}</span> ${C.deep?`<span class="ss">${esc(hot("deepNote"))}</span>`:`<button class="btn sm sgo" data-hodown="1">↓ ${esc(hot("next")[C.tiefe])}</button>`}</div>`));
-  const sm=o.enc&&o.enc.typ==="kampf"?hoSmSo(D,o.enc.who,"smell"):G.N[j].heart?hoSmSo(D,C.boss.who,"smell"):o.hz?eHzF(o.hz,"smell"):o.mood?eHzF(o.mood,"smell"):"";
-  const so=o.enc&&o.enc.typ==="kampf"?hoSmSo(D,o.enc.who,"sound"):G.N[j].heart?hoSmSo(D,C.boss.who,"sound"):o.hz?eHzF(o.hz,"sound"):o.mood?eHzF(o.mood,"sound"):"";
-  if(sm||so)lines.push(`<div class="sid">${esc(hot("smell"))}: ${esc(sm||"–")} · ${esc(hot("sound"))}: ${esc(so||"–")}</div>`);
   // Durchgänge
   const ps=[];if(j===0)ps.push(`E ${esc(hot("entry"))} <span class="ss">(${esc(sW(C.ent.p.lb))} · ${esc(hoPassW(C.ent.p))})</span>`);
   C.exits.filter(x=>x.j===j).forEach(x=>ps.push(`A ${esc(sCap(sW(x.art)))} <span class="ss">(${esc(sW(x.p.la))} · ${esc(hoPassW(x.p))})</span>`));
   G.E.filter(e=>e.a===j||e.b===j).forEach(e=>{const y=e.a===j?e.b:e.a,p=C.pass[e.a+"-"+e.b];const lage=e.a===j?p.la:p.lb;
-    ps.push(`→ ${esc(G.N[y].heart?"◆":String(G.no[y]))} <span class="ss">(${esc(sW(lage))} · ${p.hard?"<b>"+esc(hoPassW(p))+"</b>":esc(hot("free"))})</span>`)});
+    const sg=C.sign[j+"-"+y];
+    ps.push(`→ ${esc(G.N[y].heart?"◆":String(G.no[y]))} <span class="ss">(${esc(sW(lage))} · ${p.hard?"<b>"+esc(hoPassW(p))+"</b>":esc(hot("free"))})</span>${sg?` ${sg.f==="smell"?"👃":"👂"} <i>${esc(sg.t)}</i>`:""}`)});
   lines.push(`<div class="sid hops">${ps.map(p=>`<div>${p}</div>`).join("")}</div>`);
-  const no=G.N[j].heart?"◆":G.no[j],cid="cv"+j,shut=SCOL&&SCOL[cid];
-  return `<div class="sitem${G.N[j].heart?" rustg":""}"><div class="sit"><button class="scol hocol" data-scol="${cid}" aria-expanded="${shut?"false":"true"}" title="${esc(st(shut?"cardOpen":"cardClose"))}"><span class="car">${shut?"▸":"▾"}</span><span class="runo">${no}</span><b>${esc(G.N[j].heart?hot("heart"):G.N[j].main?hot("haupt"):hot("neben"))}</b></button><span class="ss">${esc(sW(o.z))} · ${esc(sW(o.form))}</span>${chips.map(c=>`<span class="shead">${esc(c)}</span>`).join("")}<span style="margin-left:auto">${sRR(k+(G.N[j].heart?"|herz:":""))}</span></div>${shut?"":lines.join("")}</div>`}
+  const no=G.N[j].heart?"◆":G.no[j],shut=!(C.open&&C.open[j]);
+  return `<div class="sitem${G.N[j].heart?" rustg":""}"><div class="sit"><button class="scol hocol" data-hocv="${j}" aria-expanded="${shut?"false":"true"}" title="${esc(st(shut?"cardOpen":"cardClose"))}"><span class="car">${shut?"▸":"▾"}</span><span class="runo">${no}</span><b>${esc(G.N[j].heart?hot("heart"):G.N[j].main?hot("haupt"):hot("neben"))}</b></button><span class="ss">${esc(sW(o.z))} · ${esc(sW(o.form))}</span>${chips.map(c=>`<span class="shead">${esc(c)}</span>`).join("")}<span style="margin-left:auto">${sRR(k+(G.N[j].heart?"|herz:":""))}</span></div>${shut?"":lines.join("")}</div>`}
 function hoehleHTML(D,rs){SCOL=hoState(rs).col;try{return hoehleHTML0(D,rs)}finally{SCOL=null}}
 function hoehleHTML0(D,rs){
-  const B=hoState(rs),o=B.inp,C=hoBuild(D,B);const tn=LANG==="de"?C.T.de:(C.T.en||C.T.de);const name=LANG==="de"?C.nameDe:C.nameEn;
+  const B=hoState(rs),o=B.inp,C=hoBuild(D,B);C.open=B.open||{};const tn=LANG==="de"?C.T.de:(C.T.en||C.T.de);const name=LANG==="de"?C.nameDe:C.nameEn;
   let h=`<div class="ebar sbar">
    <label class="ef"><span>${hot("terr")}</span><select data-hoinp="terr"><option value="">🎲 ${hot("rand")}${o.terr==null?" ("+esc(tn)+")":""}</option>${D.terr.map(x=>`<option value="${x.nr}" ${+o.terr===x.nr?"selected":""}>${x.nr} – ${esc(LANG==="de"?x.de:(x.en||x.de))}</option>`).join("")}</select></label>
    <label class="ef"><span>${hot("tiefe")}</span><select data-hoinp="tiefe"><option value="">🎲 ${hot("rand")}${o.tiefe==null?" ("+esc(hot(C.tiefe))+")":""}</option>${HOTF.map(v=>{const z=D.sizes.find(s=>s.k===String((D.rules&&D.rules["Größe: "+v])||{oberflaeche:"klein",flach:"mittel",tief:"gross"}[v]).replace("groß","gross"))||{};return `<option value="${v}" ${o.tiefe===v?"selected":""}>${esc(hot(v))} – ${esc(sW(z))} (${z.min}–${z.max})</option>`}).join("")}</select></label></div>`;
@@ -2784,7 +2798,7 @@ function hoehleText(D,rs){
   o.push(C.down.map(d=>`${hot("down")}: ${sW(d.art)} – ${hoCaveName(C,d.j)} (${hoPassW(d.p)})${C.deep?" – "+hot("deepNote"):""}`).join(" · "));
   const order=[...Array(C.n).keys()].sort((a,b2)=>(G.N[a].heart?1:0)-(G.N[b2].heart?1:0)||G.no[a]-G.no[b2]);
   order.forEach(j=>{const c=C.cv[j],p=[];o.push("");
-    p.push(`${sW(c.z)}, ${sW(c.form)}`);p.push(hoFeatW(c.feat));if(c.ter&&c.ter.length)p.push(c.ter.map(g=>sW(g)+(g.t?" ("+hoSkill(g.t)+")":"")).join(", "));
+    p.push(`${sW(c.z)}, ${sW(c.form)}`);{const SN=C.sense[j],f=a=>a.map(x=>x.t+(x.src?" ("+x.src+")":x.nb!=null?" ("+hot("fromC")+" "+G.no[x.nb]+")":"")).join(", ");p.push(`👃 ${f(SN.sm)||"–"} · 👂 ${f(SN.so)||"–"}`)}p.push(hoFeatW(c.feat));if(c.ter&&c.ter.length)p.push(c.ter.map(g=>sW(g)+(g.t?" ("+hoSkill(g.t)+")":"")).join(", "));
     if(c.enc){const y=c.enc;p.push(y.typ==="kampf"?`⚔ ${hoWho(D,y.who)}${y.tat?" ("+sW(y.tat)+(y.ziel?", "+sW(y.ziel):"")+")":""}`:`${sW(y.art)}${y.name?": "+y.name:""}`)}
     if(c.hz)p.push(`⚠ ${eHzName(c.hz)}${c.hz.eff?" ("+eHzF(c.hz,"eff")+")":""}`);
     if(c.int)p.push(`${hot("interest")}: ${sW(c.int)}`);if(c.loot)p.push(`${hot("loot")}: ${sW(c.loot)} (${sW(c.lw)})`);
@@ -3185,6 +3199,7 @@ document.addEventListener("click",ev=>{
     if(ds.hoboss!=null){hoToEnc(null,true);return}
     if(ds.honpc!=null){hoToNpc(ds.honpc);return}
     if(ds.hodown!=null){hoDown();return}
+    if(ds.hocv!=null){B.open=B.open||{};B.open[ds.hocv]=B.open[ds.hocv]?0:1;saveRes(S.cur);renderGen();return}
     if(ds.houp!=null){hoUp();return}
     if(ds.wgo){go(ds.wgo);return}
     if(ds.hoclr){B.src=null;B.ctx=null;B.up=null;saveRes(S.cur);renderGen();return}
