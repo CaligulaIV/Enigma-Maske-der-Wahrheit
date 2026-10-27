@@ -869,6 +869,8 @@ function gAttrs(cr){const o={};GATTR.forEach(a=>o[a]=0);
 const gN=c=>LANG==="de"?(c["Name DE"]||c["Name EN"]):c["Name EN"];
 function gCreatureByName(d,n){return d.creatures.find(c=>c["Name EN"]===n)||d.creatures.find(c=>gnorm(c["Name EN"]).startsWith(gnorm(n)))}
 const gClsTitle=(cr,k)=>cr["Titel "+GCLS()[k-1]];
+// Anzeige-Titel: DE aus „Titel DE k“, wenn vorhanden und gültig
+const gClsTitleL=(cr,k)=>{const de=cr["Titel DE "+k];return LANG==="de"&&de&&!/^[—-]$/.test(de)&&!/^Hier /.test(de)?de:gClsTitle(cr,k)};
 const gOwn=t=>t&&t!=="—"&&t!=="-"&&!String(t).startsWith("Pick ");
 // Kreatur + Klasse auflösen (Ersatz bei „Pick …“ oder fehlender Klasse)
 function gEffective(d,e){
@@ -899,14 +901,14 @@ function gStd(d,K,A){let a=Object.entries(d.skillvals).filter(([k,s])=>s.std).so
   return a.map(([k,s])=>({n:k,val:gSV(d,k,K,A),text:LANG==="de"&&s.text_de?s.text_de:(s.text||"")}))}
 // Bild des Gegners: „sichtbar als“ der besonderen Skills (ohne Phase 2), sonst Merkmal der Kreatur
 function gLookItems(g){const a=[];[g.sk.def,g.sk.att,g.sk.spec,g.sk.e1,g.sk.e2].forEach(s=>{const x=s&&s.item?gS(s,"item"):"";if(x&&!a.includes(x))a.push(x)});
-  return a.length?a:[g.cr["Merkmal (EN)"]].filter(Boolean)}
+  return a.length?a:[gTxt(g.cr,"Merkmal (EN)","Merkmal DE")].filter(Boolean)}
 const gStdChips=g=>`<div class="echips estd"><span class="estl">${esc(t("gStd"))}</span>${g.std.map(s=>`<span class="chip fix" data-tip="${esc(s.n+": "+s.text)}">${esc(s.n)} <b>${s.val}</b></span>`).join("")}</div>`;
 function gBuild(d,e){
   const{cr,cls,note}=gEffective(d,e);const C=cls,K=d.classes[C-1],am=gAttrs(cr);
   const fa=d.formulas["Attribut (je Attribut)"]||{n:2,s:6,k:1,c:0};
   const A={};for(const a of GATTR)A[a]=gDie(e,"a:"+a,fa.n,fa.s)+gNum(fa.k)*C+gNum(fa.c)+am[a];
   const st={health:gFormula(d,e,"Health",C,cr),energy:K.energy,resist:gFormula(d,e,"Resistance",C,cr,A),grounding:gFormula(d,e,"Grounding",C,cr),
-    fight:K.fight,timing:gFormula(d,e,"Timing",C,cr),move:gFormula(d,e,"Movement",C,cr)+gNum(K.move),actions:K.actions,armor:gNum(cr["Rüstungswert"]),armorType:cr["Rüstung"]||""};
+    fight:K.fight,timing:gFormula(d,e,"Timing",C,cr),move:gFormula(d,e,"Movement",C,cr)+gNum(K.move),actions:K.actions,armor:gNum(cr["Rüstungswert"]),armorType:gTxt(cr,"Rüstung","Rüstung DE")};
   const v={duck:gSV(d,gDK(d),K,A),att:gSV(d,"Attack",K,A),spec:gSV(d,"Spezialskill",K,A),en:gSV(d,"Energieskill",K,A)};
   const u=d.unlock[K.name]||{},pred=cr["Kategorie"]==="Raubtier";
   const e1slot=u.e1==="1b"&&!pred?"e1b":u.e1?"e1a":null;
@@ -918,13 +920,16 @@ function gBuild(d,e){
   if(P){const taken=Object.values(sk).filter(Boolean).map(s=>s.n);const ps=[];
     P.skills.forEach((sl,i)=>{const s0=gSkill(d,e,sl,cr,"p2:"+sl+i,taken)||(sl==="e1b"?gSkill(d,e,"e1a",cr,"p2:"+sl+i,taken):null);if(s0){taken.push(s0.n);ps.push({slot:sl,key:"p2:"+sl+i,s:s0})}});
     p2={P,health:P.health?gFormula(d,e,"Health",C,cr,null,"p2:Health"):null,skills:ps}}
-  return{cr,cls:C,K,note,A,st,v,sk,std:gStd(d,K,A),words,p2,passive:u.passive?cr["Fraktionspassiv (EN)"]:null,title:gClsTitle(cr,C)};
+  return{cr,cls:C,K,note,A,st,v,sk,std:gStd(d,K,A),words,p2,passive:u.passive?gTxt(cr,"Fraktionspassiv (EN)","Fraktionspassiv DE"):null,title:gClsTitleL(cr,C)};
 }
 const gRole=g=>LANG==="de"?(g.K.role_de||g.K.role_en):(g.K.role_en||g.K.role_de);
 const gP2Trig=g=>LANG==="de"?(g.p2.P.trigger||t("gP2Trig")):t("gP2Trig");
 const gP2Hint=g=>LANG==="de"?(g.p2.P.hint||""):(g.p2.P.actions?t("gP2Act").replace("%n",g.p2.P.actions)+" ":"")+t("gP2HintEN");
 const GSLOTL=sl=>({def:t("gDefense"),att:t("gAttack"),spec:t("gSpecial"),e1a:t("gEnergy"),e1b:t("gEnergy"),e2:t("gEnergy")+" 2"})[sl]||sl;
-function gName(g){const a=gW(g.words.n1),n=gW(g.words.n2);return LANG==="de"?`${n}, ${a}`:`${a} ${n}`}
+// DE: Titel mit bestimmtem Artikel, Adjektiv schwach gebeugt („Der göttliche Besucher“, „Die strafenden Wächter“)
+function gAdjDe(a,pl){a=String(a||"");let f=/e$/.test(a)?a:/el$/.test(a)?a.slice(0,-2)+"le":/(au|eu)er$/.test(a)?a.slice(0,-2)+"re":a+"e";return pl?f+"n":f}
+function gName(g){const a=gW(g.words.n1),n=gW(g.words.n2);if(LANG!=="de")return `${a} ${n}`;const w=g.words.n2||{},gen=w.gen;
+  if(!gen)return `${n}, ${a}`;return `${{m:"Der",f:"Die",n:"Das",p:"Die"}[gen]||"Der"} ${gAdjDe(a,gen==="p")} ${w.da||n}`}
 const gTxt=(cr,en,de)=>LANG==="de"&&cr[de]?cr[de]:(cr[en]||cr[de]||"");
 const gS=(s,f)=>LANG==="de"&&s[f+"_de"]?s[f+"_de"]:s[f];
 function gRR(i,k){return `<button class="icon" title="${t("reroll")}" data-grr="${i}:${k}">⟳</button>`}
@@ -969,7 +974,7 @@ function ggColumn(d,rs,i){
    <div class="shero gmini"><div class="sname"><h3>${esc(g.title||gN(cr))}</h3></div>
     <div class="gcls"><b>${esc(CL[g.cls-1])}</b> – ${esc(ggShort(g))}</div>
     <p class="slead">${esc(gName(g))}, ${esc(gW(g.words.desc))}. ${ggRR(i,"w:n|w:desc")}</p>
-    ${ggRow(ggt("look"),`<b>${esc(cr["Merkmal (EN)"]||"–")}</b>`,i,null)}${ggRow(ggt("smell"),esc(smell||"–"),i,null)}${ggRow(ggt("sound"),esc(sound||"–"),i,null)}
+    ${ggRow(ggt("look"),`<b>${esc(gTxt(cr,"Merkmal (EN)","Merkmal DE")||"–")}</b>`,i,null)}${ggRow(ggt("smell"),esc(smell||"–"),i,null)}${ggRow(ggt("sound"),esc(sound||"–"),i,null)}
     <div class="stags"><span class="stag">${esc(gN(cr))}</span><span class="stag">${esc(t("gCat_"+cat)||cat)}</span>${g.st.armorType?`<span class="stag">${esc(ggt("arm"))}: ${esc(g.st.armorType)}</span>`:""}</div>
     ${g.note.map(n=>`<div class="sid">↪ ${esc(n)}</div>`).join("")}</div>`;
   h+=ggCard(rs,i,"stats",ggt("stats"),ggRow(ggt("health"),`<b>${g.st.health}</b>`,i,"Health")+
@@ -998,7 +1003,7 @@ function gegnerText(d,rs){
   const CL=GCLS(),L=[];(rs.list||[]).forEach((e,i)=>{const g=gBuild(d,e),cr=g.cr;
     L.push(`${i+1}. ${g.title} (${CL[g.cls-1]} · ${gN(cr)}) – ${gName(g)}, ${gW(g.words.desc)}`);
     g.note.forEach(n=>L.push("   ↪ "+n));
-    L.push(`   ${t("gLook")}: ${cr["Merkmal (EN)"]||"–"} · ${t("gSmell")}: ${gTxt(cr,"Geruch EN","Geruch DE")} · ${t("gSound")}: ${gTxt(cr,"Geräusch EN","Geräusch DE")}`);
+    L.push(`   ${t("gLook")}: ${gTxt(cr,"Merkmal (EN)","Merkmal DE")||"–"} · ${t("gSmell")}: ${gTxt(cr,"Geruch EN","Geruch DE")} · ${t("gSound")}: ${gTxt(cr,"Geräusch EN","Geräusch DE")}`);
     L.push(`   Health ${g.st.health} · Energy ${g.st.energy} · Resistance ${g.st.resist} · Grounding ${g.st.grounding} · Fight ${g.st.fight} · Timing ${g.st.timing} · Movement ${g.st.move} · Actions ${g.st.actions} · Armor ${g.st.armor} ${g.st.armorType}`);
     L.push("   "+Object.entries(g.A).map(([k,v])=>k+" "+v).join(" · "));
     if(g.passive)L.push(`   ${t("gPassive")}: ${g.passive}`);
