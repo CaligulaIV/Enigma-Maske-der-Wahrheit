@@ -176,7 +176,7 @@ details.camp summary{cursor:pointer;font-family:"Cormorant Garamond",serif;font-
 .runo{display:inline-block;min-width:20px;height:20px;line-height:20px;text-align:center;border-radius:999px;background:var(--surface2);border:1px solid var(--line);font-size:11.5px;font-weight:700;margin-right:6px}
 .rustg{background:var(--valbg);border-radius:8px;padding:5px 8px;margin-top:4px}
 .rumap .rue.hp{stroke-dasharray:6 3}.rumap .rue.hp.wat{stroke:var(--info);stroke-dasharray:7 3}.rumap .rue.hp.tight{stroke-dasharray:1 3;stroke-width:3}
-.rumap .rue.hp.blk{stroke:var(--err)}.rumap .hodn{fill:var(--gen);font-size:15px;font-weight:700}.hops div{margin:1px 0}
+.rumap .rue.hp.blk{stroke:var(--err)}.hocol{margin-right:4px}.hocol .runo{margin-right:4px}.rumap .hodn{fill:var(--gen);font-size:15px;font-weight:700}.hops div{margin:1px 0}
 
 
 .sh4{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--accent);margin:7px 0 2px}
@@ -2093,7 +2093,7 @@ function gebaeudeHTML0(D,rs){
     h+=sCard("faith",gbt("faith"),fb)}
   // Räume je Abschnitt
   const secs=[...new Set(L.R.map(x=>x.sec))];
-  secs.forEach(s=>{const items=L.R.map((x,i)=>x.sec===s?gbRoomHTML(D,C,x,i):"").join("")+((s==="Keller"||s==="kat")&&gU(B,"lay:hoe")<gbN(D,"Höhlenzugang %",25)/100?`<div class="sspur">${esc(LANG==="de"?"Ein Spalt im Boden führt hinab in eine Höhle.":"A crack in the floor leads down into a cave.")} <button class="btn sm sgo" data-gbhoe="1">→ ${esc(gTitle(GENS.find(x=>x.id==="hoehle")||{title:"Höhlensystem"}))}</button></div>`:"");
+  secs.forEach(s=>{const items=L.R.map((x,i)=>x.sec===s?gbRoomHTML(D,C,x,i):"").join("")+((s==="Keller"||s==="kat")&&gU(B,"lay:hoe")<(s==="Keller"?gbN(D,"Höhlenzugang Villa %",10):gbN(D,"Höhlenzugang %",25))/100?`<div class="sspur">${esc(LANG==="de"?"Ein Spalt im Boden führt hinab in eine Höhle.":"A crack in the floor leads down into a cave.")} <button class="btn sm sgo" data-gbhoe="1">→ ${esc(gTitle(GENS.find(x=>x.id==="hoehle")||{title:"Höhlensystem"}))}</button></div>`:"");
     const title=s==="ebenen"?`${gbt("sec")[s]} (${L.R.filter(x=>x.sec===s).length})`:(gbt("sec")[s]||s);
     h+=sCard("sec_"+s,title,items,L.R.filter(x=>x.sec===s).length>4)});
   return h+`</div><div class="hint">${esc(sE({x:TY.nde,xEn:TY.nen},"x"))} ${esc(gbt("hint"))}</div>`;
@@ -2733,8 +2733,8 @@ function hoCaveHTML(D,C,j){const o=C.cv[j],G=C.G,k=`cv:${j}:`;const lines=[];
   G.E.filter(e=>e.a===j||e.b===j).forEach(e=>{const y=e.a===j?e.b:e.a,p=C.pass[e.a+"-"+e.b];const lage=e.a===j?p.la:p.lb;
     ps.push(`→ ${esc(G.N[y].heart?"◆":String(G.no[y]))} <span class="ss">(${esc(sW(lage))} · ${p.hard?"<b>"+esc(hoPassW(p))+"</b>":esc(hot("free"))})</span>`)});
   lines.push(`<div class="sid hops">${ps.map(p=>`<div>${p}</div>`).join("")}</div>`);
-  const no=G.N[j].heart?"◆":G.no[j];
-  return `<div class="sitem${G.N[j].heart?" rustg":""}"><div class="sit"><span class="runo">${no}</span><b>${esc(G.N[j].heart?hot("heart"):G.N[j].main?hot("haupt"):hot("neben"))}</b><span class="ss">${esc(sW(o.z))} · ${esc(sW(o.form))}</span>${chips.map(c=>`<span class="shead">${esc(c)}</span>`).join("")}<span style="margin-left:auto">${sRR(k+(G.N[j].heart?"|herz:":""))}</span></div>${lines.join("")}</div>`}
+  const no=G.N[j].heart?"◆":G.no[j],cid="cv"+j,shut=SCOL&&SCOL[cid];
+  return `<div class="sitem${G.N[j].heart?" rustg":""}"><div class="sit"><button class="scol hocol" data-scol="${cid}" aria-expanded="${shut?"false":"true"}" title="${esc(st(shut?"cardOpen":"cardClose"))}"><span class="car">${shut?"▸":"▾"}</span><span class="runo">${no}</span><b>${esc(G.N[j].heart?hot("heart"):G.N[j].main?hot("haupt"):hot("neben"))}</b></button><span class="ss">${esc(sW(o.z))} · ${esc(sW(o.form))}</span>${chips.map(c=>`<span class="shead">${esc(c)}</span>`).join("")}<span style="margin-left:auto">${sRR(k+(G.N[j].heart?"|herz:":""))}</span></div>${shut?"":lines.join("")}</div>`}
 function hoehleHTML(D,rs){SCOL=hoState(rs).col;try{return hoehleHTML0(D,rs)}finally{SCOL=null}}
 function hoehleHTML0(D,rs){
   const B=hoState(rs),o=B.inp,C=hoBuild(D,B);const tn=LANG==="de"?C.T.de:(C.T.en||C.T.de);const name=LANG==="de"?C.nameDe:C.nameEn;
