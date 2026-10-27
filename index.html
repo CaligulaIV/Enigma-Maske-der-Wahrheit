@@ -2093,7 +2093,7 @@ function gebaeudeHTML0(D,rs){
     h+=sCard("faith",gbt("faith"),fb)}
   // Räume je Abschnitt
   const secs=[...new Set(L.R.map(x=>x.sec))];
-  secs.forEach(s=>{const items=L.R.map((x,i)=>x.sec===s?gbRoomHTML(D,C,x,i):"").join("");
+  secs.forEach(s=>{const items=L.R.map((x,i)=>x.sec===s?gbRoomHTML(D,C,x,i):"").join("")+((s==="Keller"||s==="kat")&&gU(B,"lay:hoe")<gbN(D,"Höhlenzugang %",25)/100?`<div class="sspur">${esc(LANG==="de"?"Ein Spalt im Boden führt hinab in eine Höhle.":"A crack in the floor leads down into a cave.")} <button class="btn sm sgo" data-gbhoe="1">→ ${esc(gTitle(GENS.find(x=>x.id==="hoehle")||{title:"Höhlensystem"}))}</button></div>`:"");
     const title=s==="ebenen"?`${gbt("sec")[s]} (${L.R.filter(x=>x.sec===s).length})`:(gbt("sec")[s]||s);
     h+=sCard("sec_"+s,title,items,L.R.filter(x=>x.sec===s).length>4)});
   return h+`</div><div class="hint">${esc(sE({x:TY.nde,xEn:TY.nen},"x"))} ${esc(gbt("hint"))}</div>`;
@@ -2541,37 +2541,38 @@ async function siedlungToRuin(label){const id=S.cur,g=GENS.find(x=>x.id===id),D=
 // Herz = tiefste Haupthöhle mit Bosskampf und Schatz. Flach → Abstieg in eine tiefe Höhle, tief → Untertiefe (nur über das Herz, selten über eine andere Haupthöhle).
 // Zufallsschlüssel: core:*, inh:*, herz:*, way:*, g:* (Graph), e:<a>-<b>:* (Durchgang), cv:<j>:* (Höhle j).
 const HI18N={
- de:{terr:"Territorium",tiefe:"Tiefe",gr:"Größe",rand:"zufällig",flach:"flach",tief:"tief",fromT:"Aus",caves:"Höhlen",cavesL:"Höhlen",cave1:"Höhle",
+ de:{terr:"Territorium",tiefe:"Tiefe",gr:"Größe",rand:"zufällig",oberflaeche:"Oberfläche",flach:"flach",tief:"tief",adj:{oberflaeche:"oberflächennahes",flach:"flaches",tief:"tiefes"},next:{oberflaeche:"Flache Höhle erzeugen",flach:"Tiefe Höhle erzeugen"},backUp:{flach:"zurück zur Oberflächenhöhle",tief:"zurück zur flachen Höhle"},fromT:"Aus",caves:"Höhlen",cavesL:"Höhlen",cave1:"Höhle",
   haupt:"Haupthöhle",hauptPl:"Haupthöhlen",neben:"Nebenhöhle",heart:"Herz der Höhle",inh:"Bewohner",b1:"Haupt",b2:"Neben",b3:"Minder",rel:"Beziehung",
   ways:"Ein- und Ausgänge",entry:"Eingang",exit:"Ausgang",down:"Abstieg",up:"nach oben",map:"Karte",rock:"Gestein",global:"Global",
   zones:"Zonen",form:"Form",feat:"Merkmal",echo:"wie überall",interest:"Auffällig",terrain:"Gelände",pacify:"Erst der Sieg im Herz befriedet die Höhle.",loot:"Loot",enc:"Begegnung",hz:"Gefahr",smell:"Geruch",sound:"Geräusch",
   pass:"Durchgänge",free:"frei begehbar",check:"Check",mod:"Modifikator",fail:"Fehlschlag",foeT:"Gegner",bmod:"Boss-Modifikator",treasure:"Schatz",lies:"liegt",
-  toEnc:"Encounter für diese Höhle",toBoss:"Bosskampf als Encounter",toNpc:"NPC dazu erzeugen",downGen:"Tiefe Höhle erzeugen",backUp:"zurück zur flachen Höhle",
+  toEnc:"Encounter für diese Höhle",toBoss:"Bosskampf als Encounter",toNpc:"NPC dazu erzeugen",
   deepNote:"Weg in die Untertiefe – dafür kommt ein eigener Generator.",tyr:"Tyrant",men:"Menace",men2:"2 Menace",tyrMon:"Uraltes Monster",
   does:"tut",wants:"will",
   lead:"Ein %t Höhlensystem aus %n Höhlen in %r. %g",
   legend:"E Eingang · A Ausgang · ◆ Herz · groß = Haupthöhle · rot = Begegnung · ↓ Abstieg · Linie: durchgezogen frei, gestrichelt Check (blau Wasser, gepunktet eng/klettern), ✕ versperrt",
-  hint:"Höhlen sind Orte für erfahrene Helden: langsam, dreidimensional, viele Checks, wenig Supply, aber Wertvolles. Wer zur Karawane zurückkehrt, setzt den Fortschritt zurück – die Gegner kehren zurück. Erst das Herz befriedet die Höhle. Über das Herz geht es tiefer; nach zwei Höhlensystemen (flach, tief) beginnt die Untertiefe.",
+  hint:"Höhlen sind Orte für erfahrene Helden: langsam, dreidimensional, viele Checks, wenig Supply, aber Wertvolles. Wer zur Karawane zurückkehrt, setzt den Fortschritt zurück – die Gegner kehren zurück. Erst das Herz befriedet die Höhle. Über das Herz geht es tiefer: Oberflächenhöhle (klein, aus der Wildnis) → flache Höhle (mittel, auch aus Ruinen und Gebäuden) → tiefe Höhle (groß) → Untertiefe.",
   sizes:{klein:"klein",mittel:"mittel",gross:"groß"}},
- en:{terr:"Territory",tiefe:"Depth",gr:"Size",rand:"random",flach:"shallow",tief:"deep",fromT:"From",caves:"Caves",cavesL:"caves",cave1:"Cave",
+ en:{terr:"Territory",tiefe:"Depth",gr:"Size",rand:"random",oberflaeche:"surface",flach:"shallow",tief:"deep",adj:{oberflaeche:"surface",flach:"shallow",tief:"deep"},next:{oberflaeche:"Create the shallow cave",flach:"Create the deep cave"},backUp:{flach:"back to the surface cave",tief:"back to the shallow cave"},fromT:"From",caves:"Caves",cavesL:"caves",cave1:"Cave",
   haupt:"Main cave",hauptPl:"main caves",neben:"Side cave",heart:"Heart of the cave",inh:"Inhabitants",b1:"Main",b2:"Second",b3:"Minor",rel:"Relation",
   ways:"Ways in and out",entry:"Entrance",exit:"Exit",down:"Way down",up:"upwards",map:"Map",rock:"Rock",global:"Global",
   zones:"zones",form:"Shape",feat:"Feature",echo:"as everywhere",interest:"Notable",terrain:"Terrain",pacify:"Only victory in the heart pacifies the cave.",loot:"Loot",enc:"Encounter",hz:"Hazard",smell:"Smell",sound:"Sound",
   pass:"Passages",free:"open",check:"Check",mod:"Modifier",fail:"On a failure",foeT:"Enemy",bmod:"Boss modifier",treasure:"Treasure",lies:"lies",
-  toEnc:"Encounter for this cave",toBoss:"Boss fight as an encounter",toNpc:"Create an NPC",downGen:"Create the deep cave",backUp:"back to the shallow cave",
+  toEnc:"Encounter for this cave",toBoss:"Boss fight as an encounter",toNpc:"Create an NPC",
   deepNote:"A way into the Underdeep – it will get a generator of its own.",tyr:"Tyrant",men:"Menace",men2:"2 menaces",tyrMon:"Ancient monster",
   does:"is",wants:"wants",
   lead:"A %t cave system of %n caves in %r. %g",
   legend:"E entrance · A exit · ◆ heart · large = main cave · red = encounter · ↓ way down · line: solid open, dashed check (blue water, dotted tight/climb), ✕ blocked",
-  hint:"Caves are places for experienced heroes: slow, three-dimensional, full of checks, little supply but valuable finds. Returning to the caravan resets progress – the enemies come back. Only the heart pacifies the cave. The way down leads through the heart; after two cave systems (shallow, deep) the Underdeep begins.",
+  hint:"Caves are places for experienced heroes: slow, three-dimensional, full of checks, little supply but valuable finds. Returning to the caravan resets progress – the enemies come back. Only the heart pacifies the cave. The way down leads through the heart: surface cave (small, from the wilderness) → shallow cave (medium, also from ruins and buildings) → deep cave (large) → the Underdeep.",
   sizes:{klein:"small",mittel:"medium",gross:"large"}}};
 const hot=k=>{const v=HI18N[LANG][k];return v===undefined?HI18N.de[k]:v};
-function hoState(rs){if(!rs.ho)rs.ho={inp:{terr:null,tiefe:null,gr:null},draws:{},src:null,ctx:null,col:{},up:null};const B=rs.ho;if(!B.col)B.col={};return B}
+function hoState(rs){if(!rs.ho)rs.ho={inp:{terr:null,tiefe:null},draws:{},src:null,ctx:null,col:{},up:[]};const B=rs.ho;if(!B.col)B.col={};if(!Array.isArray(B.up))B.up=B.up?[B.up]:[];return B}
 const hoN=(D,k,d)=>{const v=D.rules&&D.rules[k];const x=parseFloat(String(v==null?"":v).replace(",","."));return isNaN(x)?d:x};
 function hoDist(D,k,def){const s=String((D.rules&&D.rules[k])||def);const a=[];s.split(/[·;]/).forEach(p=>{const m=p.match(/(\d+)\s*:\s*([\d.,]+)/);if(m)a.push({v:+m[1],w:parseFloat(m[2].replace(",","."))})});return a}
 function hoRatio(D,k,def){const m=String((D.rules&&D.rules[k])||def).match(/([\d.,]+)\s*:\s*([\d.,]+)/);if(!m)return .5;const a=parseFloat(m[1].replace(",",".")),b=parseFloat(m[2].replace(",","."));return a/(a+b)}
 function hoPick(B,k,arr,wf){const a=(arr||[]).map(x=>({x,w:wf?wf(x):(x.w||1)})).filter(y=>y.w>0);if(!a.length)return null;return gWPick(B,k,a).x}
-function hoL(D,B,list,key,t){let a=D.lists[list]||[];if(t!=null)a=a.filter(x=>!x.t||x.t===t);return a.length?gWPick(B,key,a):null}
+const HOTF=["oberflaeche","flach","tief"];
+function hoL(D,B,list,key,t){let a=D.lists[list]||[];if(t!=null)a=a.filter(x=>!x.t||x.t.split(",").map(y=>y.trim()).includes(t));return a.length?gWPick(B,key,a):null}
 function hoEL(D,B,list,key){const a=D.elists[list]||[];return a.length?gWPick(B,key,a):null}
 const hoInt=(B,k,a,b)=>a+Math.floor(gU(B,k)*(b-a+1));
 const hoArt={m:"Der",f:"Die",n:"Das",p:"Die"};
@@ -2587,9 +2588,12 @@ function hoCore(D,B){
   const o=B.inp,ctx=B.ctx||{};
   const tnr=o.terr!=null?+o.terr:ctx.terr;
   const T=tnr!=null?(D.terr.find(x=>x.nr===tnr)||D.terr[0]):D.terr[Math.floor(gU(B,"core:terr")*D.terr.length)];
-  const tiefe=o.tiefe||ctx.tiefe||(gU(B,"core:tf")<hoRatio(D,"Tiefe zufällig: flach : tief","2 : 1")?"flach":"tief");
-  const deep=tiefe==="tief",wk=deep?"wt":"wf";
-  const size=(o.gr&&D.sizes.find(s=>s.k===o.gr))||hoPick(B,"core:gr",D.sizes)||D.sizes[0];
+  let tiefe=o.tiefe||ctx.tiefe;
+  if(!HOTF.includes(tiefe)){const w=(String((D.rules&&D.rules["Tiefe zufällig: Oberfläche : flach : tief"])||"1 : 2 : 1").match(/[\d.,]+/g)||[1,2,1]).map(x=>parseFloat(String(x).replace(",",".")));
+    tiefe=gWPick(B,"core:tf",HOTF.map((k,i)=>({k,w:w[i]||1}))).k}
+  const deep=tiefe==="tief",wk=deep?"wt":"wf",lt=deep?"tief":"flach";
+  const sk=String((D.rules&&D.rules["Größe: "+tiefe])||{oberflaeche:"klein",flach:"mittel",tief:"gross"}[tiefe]).replace("groß","gross");
+  const size=D.sizes.find(s=>s.k===sk||s.de===sk)||D.sizes[0];
   const n=hoInt(B,"core:n",size.min,size.max),h=Math.max(1,Math.min(n-1,hoInt(B,"core:h",size.hmin,size.hmax)));
   const n1=hoL(D,B,"Name: Teil 1","core:n1"),n2=hoL(D,B,"Name: Teil 2","core:n2");const g2=(n2&&n2.t)||"f";
   const nameDe=`${hoArt[g2]||"Die"} ${n1?n1.de+(g2==="p"?"n":""):""} ${n2?n2.de:""}`.replace(/\s+/g," ").trim();
@@ -2606,14 +2610,14 @@ function hoCore(D,B){
     if(w){used.add(w.fac||w.cre.de);w.h=hoEL(D,B,w.cre?"Raubtier: Tätigkeit":"Gegner: Tätigkeit",`inh:${i}:tat`);inh.push(w)}}
   const bez=hoEL(D,B,"Beziehung der Fraktionen","inh:bez");
   // Herz: Gegner, Boss, Schatz
-  const hg=hoL(D,B,"Herz: Gegner","herz:sg",tiefe);const hgd=hg?hg.de:"Menace";const tyr=/tyr/i.test(hgd),two=/^2/.test(hgd);
+  const hg=hoL(D,B,"Herz: Gegner","herz:sg",lt);const hgd=hg?hg.de:"Menace";const tyr=/tyr/i.test(hgd),two=/^2/.test(hgd);
   const mon=tyr&&gU(B,"herz:mon")<hoN(D,"Herz: Tyrant aus Monstern",.3);const H1=inh[0]||{};
   const boss={tyr,two,lab:tyr?hot("tyr"):two?hot("men2"):hot("men"),cls:tyr?6:5,n:two?2:1,mon,
     who:mon?{cre:hoCre(D,"Uraltes Monster")}:H1,mod:hoEL(D,B,"Boss-Modifikator","herz:md"),
     hz:gU(B,"herz:hz")<hoN(D,"Gefahr im Herz",.5)?hoPick(B,"herz:hzw",D.hz,x=>x[wk]):null,
     sch:hoL(D,B,"Herz: Schatz","herz:sc"),lies:hoL(D,B,"Herz: Schatz liegt","herz:sl")};
   boss.name=!mon&&boss.who.fac?sNpcName(D,B,"herz:nm",D.subs[boss.who.fac]||{}):"";
-  return{T,tiefe,deep,wk,size,n,h,nameDe,nameEn,gl,inh,bez,boss,ctx};
+  return{T,tiefe,deep,lt,wk,size,n,h,nameDe,nameEn,gl,inh,bez,boss,ctx};
 }
 // ---------- Graph: Baum + Schleifen, Herz = am weitesten vom Eingang
 function hoGraph(D,B,C){
@@ -2719,7 +2723,7 @@ function hoCaveHTML(D,C,j){const o=C.cv[j],G=C.G,k=`cv:${j}:`;const lines=[];
   if(o.hz)lines.push(`<div>⚠ ${hoHzW(o)}</div>`);
   if(o.int)lines.push(`<div class="sid">${esc(hot("interest"))}: ${esc(sCap(sW(o.int)))}</div>`);
   if(o.loot)lines.push(`<div class="sid">${esc(hot("loot"))}: <b>${esc(sCap(sW(o.loot)))}</b> <span class="ss">${esc(sW(o.lw))}</span></div>`);
-  const ds=C.down.filter(d=>d.j===j);ds.forEach(d=>lines.push(`<div>↓ <b>${esc(hot("down"))}: ${esc(sCap(sW(d.art)))}</b> <span class="ss">${esc(sW(d.p.la))} · ${esc(hoPassW(d.p))}</span> ${C.deep?`<span class="ss">${esc(hot("deepNote"))}</span>`:`<button class="btn sm sgo" data-hodown="1">↓ ${esc(hot("downGen"))}</button>`}</div>`));
+  const ds=C.down.filter(d=>d.j===j);ds.forEach(d=>lines.push(`<div>↓ <b>${esc(hot("down"))}: ${esc(sCap(sW(d.art)))}</b> <span class="ss">${esc(sW(d.p.la))} · ${esc(hoPassW(d.p))}</span> ${C.deep?`<span class="ss">${esc(hot("deepNote"))}</span>`:`<button class="btn sm sgo" data-hodown="1">↓ ${esc(hot("next")[C.tiefe])}</button>`}</div>`));
   const sm=o.enc&&o.enc.typ==="kampf"?hoSmSo(D,o.enc.who,"smell"):G.N[j].heart?hoSmSo(D,C.boss.who,"smell"):o.hz?eHzF(o.hz,"smell"):o.mood?eHzF(o.mood,"smell"):"";
   const so=o.enc&&o.enc.typ==="kampf"?hoSmSo(D,o.enc.who,"sound"):G.N[j].heart?hoSmSo(D,C.boss.who,"sound"):o.hz?eHzF(o.hz,"sound"):o.mood?eHzF(o.mood,"sound"):"";
   if(sm||so)lines.push(`<div class="sid">${esc(hot("smell"))}: ${esc(sm||"–")} · ${esc(hot("sound"))}: ${esc(so||"–")}</div>`);
@@ -2736,14 +2740,13 @@ function hoehleHTML0(D,rs){
   const B=hoState(rs),o=B.inp,C=hoBuild(D,B);const tn=LANG==="de"?C.T.de:(C.T.en||C.T.de);const name=LANG==="de"?C.nameDe:C.nameEn;
   let h=`<div class="ebar sbar">
    <label class="ef"><span>${hot("terr")}</span><select data-hoinp="terr"><option value="">🎲 ${hot("rand")}${o.terr==null?" ("+esc(tn)+")":""}</option>${D.terr.map(x=>`<option value="${x.nr}" ${+o.terr===x.nr?"selected":""}>${x.nr} – ${esc(LANG==="de"?x.de:(x.en||x.de))}</option>`).join("")}</select></label>
-   <label class="ef"><span>${hot("tiefe")}</span><select data-hoinp="tiefe"><option value="">🎲 ${hot("rand")}${o.tiefe==null?" ("+esc(hot(C.tiefe))+")":""}</option>${["flach","tief"].map(v=>`<option value="${v}" ${o.tiefe===v?"selected":""}>${esc(hot(v))}</option>`).join("")}</select></label>
-   <label class="ef"><span>${hot("gr")}</span><select data-hoinp="gr"><option value="">🎲 ${hot("rand")}${o.gr==null?" ("+esc(sW(C.size))+", "+C.n+")":""}</option>${D.sizes.map(s=>`<option value="${s.k}" ${o.gr===s.k?"selected":""}>${esc(sW(s))} (${s.min}–${s.max})</option>`).join("")}</select></label></div>`;
-  if(B.src){const back=B.up?`<button class="btn sm" data-houp="1">← ${esc(hot("backUp"))}</button> `:(B.src.gen&&GENS.find(x=>x.id===B.src.gen)?`<button class="btn sm" data-go="${esc(B.src.gen)}">← ${esc(gTitle(GENS.find(x=>x.id===B.src.gen)))}</button> `:"");
+   <label class="ef"><span>${hot("tiefe")}</span><select data-hoinp="tiefe"><option value="">🎲 ${hot("rand")}${o.tiefe==null?" ("+esc(hot(C.tiefe))+")":""}</option>${HOTF.map(v=>{const z=D.sizes.find(s=>s.k===String((D.rules&&D.rules["Größe: "+v])||{oberflaeche:"klein",flach:"mittel",tief:"gross"}[v]).replace("groß","gross"))||{};return `<option value="${v}" ${o.tiefe===v?"selected":""}>${esc(hot(v))} – ${esc(sW(z))} (${z.min}–${z.max})</option>`}).join("")}</select></label></div>`;
+  if(B.src){const back=B.up.length?`<button class="btn sm" data-houp="1">← ${esc(hot("backUp")[C.tiefe]||"←")}</button> `:(B.src.gen&&GENS.find(x=>x.id===B.src.gen)?`<button class="btn sm" data-go="${esc(B.src.gen)}">← ${esc(gTitle(GENS.find(x=>x.id===B.src.gen)))}</button> `:"");
     h+=`<div class="esrc">${back}↪ ${esc(hot("fromT"))}: <b>${esc(B.src.title||"")}</b>${B.src.extra&&B.src.extra.length?" · "+esc(B.src.extra.join(" · ")):""} <button class="icon" data-hoclr="1" title="${t("eClear")}">✕</button></div>`}
-  const lead=hot("lead").replace("%t",hot(C.tiefe)+(LANG==="de"?"es":"")).replace("%n",C.n).replace("%r",tn).replace("%g",hoFeatW(C.gl[0])+".");
+  const lead=hot("lead").replace("%t",hot("adj")[C.tiefe]).replace("%n",C.n).replace("%r",tn).replace("%g",hoFeatW(C.gl[0])+".");
   const H1=C.inh[0];
   h+=`<div class="shero"><div class="sname"><h3>${esc(name)}</h3>${sRR("core:n1|core:n2")}</div>
-   <div class="stags"><span class="stag">${esc(hot(C.tiefe))}</span><span class="stag">${C.n} ${esc(hot("cavesL"))} · ${C.h} ${esc(hot(C.h===1?"haupt":"hauptPl"))}</span><span class="stag">${esc(tn)}</span>${H1?`<span class="stag">${esc(hoWho(D,H1))}</span>`:""}</div>
+   <div class="stags"><span class="stag">${esc(hot(C.tiefe))} · ${esc(sW(C.size))}</span><span class="stag">${C.n} ${esc(hot("cavesL"))} · ${C.h} ${esc(hot(C.h===1?"haupt":"hauptPl"))}</span><span class="stag">${esc(tn)}</span>${H1?`<span class="stag">${esc(hoWho(D,H1))}</span>`:""}</div>
    <p class="slead">${esc(lead)} ${sRR("core:g1")}</p>
    <p class="ssense">${esc(hot("rock"))}: ${esc(hoFeatW(C.gl[1]))} ${sRR("core:g2")}</p>
    <p class="ssense">${esc(hot("smell"))}: ${esc(hoSmSo(D,H1,"smell")||"–")} · ${esc(hot("sound"))}: ${esc(hoSmSo(D,H1,"sound")||"–")}</p></div>`;
@@ -2800,7 +2803,7 @@ async function hoToEnc(j,boss){
   else{const c=C.cv[+j];if(!c||!c.enc||c.enc.typ!=="kampf")return;const y=c.enc;who=fw(y.who);if(!who)extra.push(hoWho(D,y.who));hz=c.hz;
     if(y.tat)extra.push(`${hot("does")}: ${sW(y.tat)}`);if(y.ziel)extra.push(`${hot("wants")}: ${sW(y.ziel)}`);
     ort=C.G.N[+j].main?"Haupthöhle":"Nebenhöhle";title=hoCaveName(C,+j);E.inp.boss=false}
-  if(C.deep)extra.push(hot("tief"));
+  extra.push(hot(C.tiefe));
   const oi=ED.orte.findIndex(o=>o.de===ort);if(oi>=0)E.inp.ort=oi;E.inp.f=[who||null,null,null];
   E.src={gen:id,title:`${gTitle(g)} ${LANG==="de"?C.nameDe:C.nameEn} · ${title}`,place:[LANG==="de"?C.T.de:(C.T.en||C.T.de),hot(C.tiefe)].filter(Boolean).join(" · "),hazard:hz?hz.de:"k. Gefahr",pre:{},extra};
   E.draws={};E.gd=[{},{},{}];E.ov=ov;E.hp={};E.ph={};saveRes("encounter");go("encounter");
@@ -2813,20 +2816,22 @@ async function hoToNpc(arg){
   const L=nLinkFor(rsN,key,{name:name||"",f,laune:null},role);L.fix.role=role;L.src={gen:id,title:`${gTitle(g)} ${LANG==="de"?C.nameDe:C.nameEn}`,label:role};rsN.cur=key;saveRes("npc");go("npc");
 }
 async function hoeFrom(ctx,src){await loadGen("hoehle");await loadRes("hoehle");const B=hoState(res("hoehle"));
-  B.ctx=Object.assign({tiefe:"flach"},ctx);B.inp={terr:null,tiefe:null,gr:null};B.src=src;B.draws={};B.up=null;saveRes("hoehle");go("hoehle")}
+  B.ctx=Object.assign({tiefe:"flach"},ctx);B.inp={terr:null,tiefe:null};B.src=src;B.draws={};B.up=[];saveRes("hoehle");go("hoehle")}
 function hoDown(){const id=S.cur,D=GD[id],B=hoState(res(id)),C=hoBuild(D,B);if(C.deep)return;
   const snap=JSON.parse(JSON.stringify({inp:B.inp,draws:B.draws,src:B.src,ctx:B.ctx}));
-  B.up=snap;B.ctx={terr:C.T.nr,tiefe:"tief",from:"hoehle"};B.inp={terr:null,tiefe:null,gr:null};B.draws={};
+  B.up.push(snap);B.ctx={terr:C.T.nr,tiefe:HOTF[HOTF.indexOf(C.tiefe)+1],from:"hoehle"};B.inp={terr:null,tiefe:null};B.draws={};
   B.src={gen:id,title:`${LANG==="de"?C.nameDe:C.nameEn} · ${hot("heart")}`,extra:[sW(C.down[0].art)]};saveRes(id);renderGen()}
-function hoUp(){const id=S.cur,B=hoState(res(id));if(!B.up)return;const u=B.up;B.inp=u.inp;B.draws=u.draws;B.src=u.src;B.ctx=u.ctx;B.up=null;saveRes(id);renderGen()}
+function hoUp(){const id=S.cur,B=hoState(res(id));if(!B.up.length)return;const u=B.up.pop();B.inp=u.inp;B.draws=u.draws;B.src=u.src;B.ctx=u.ctx;saveRes(id);renderGen()}
 async function wildToHoe(i){const id=S.cur,g=GENS.find(x=>x.id===id),D=GD[id],W=wState(res(id)),C=wBuild(D,W),a=C.A[+i];if(!a)return;
-  hoeFrom({from:"natur",terr:C.T.nr},{gen:id,title:`${gTitle(g)} · ${wt("area")} ${+i+1}: ${a.name}`,extra:[sW(a.det)||sW(a.ort)].filter(Boolean)})}
+  hoeFrom({from:"natur",terr:C.T.nr,tiefe:"oberflaeche"},{gen:id,title:`${gTitle(g)} · ${wt("area")} ${+i+1}: ${a.name}`,extra:[sW(a.det)||sW(a.ort)].filter(Boolean)})}
 async function siedlungToHoe(label){const id=S.cur,g=GENS.find(x=>x.id===id),D=GD[id],Sx=sState(res(id)),r=sBuild(D,Sx),C=r.C;
   const name=(sW(r.name[0])+(sW(r.name[1])||"").toLowerCase()).replace(/^./,c=>c.toUpperCase());
   const F=[[C.F[0],6],[C.F[1],3],[C.F[2],1]].filter(x=>x[0]).map(([t,w])=>({t,w}));
   hoeFrom({from:"siedlung",terr:C.T.nr,F},{gen:id,title:`${gTitle(g)} ${name}`,extra:label?[label]:[]})}
 async function ruToHoe(){const id=S.cur,D=GD[id],B=ruState(res(id)),C=ruBuild(D,B),g=GENS.find(x=>x.id===id);
   hoeFrom({from:"ruine",terr:C.T.nr},{gen:id,title:`${gTitle(g)} ${LANG==="de"?C.nameDe:C.nameEn}`,extra:[]})}
+async function gebToHoe(){const id=S.cur,D=GD[id],B=gbState(res(id)),C=gbBuild(D,B),g=GENS.find(x=>x.id===id);
+  hoeFrom({from:"gebaeude",terr:C.T.nr,tiefe:"flach"},{gen:id,title:`${gTitle(g)} ${C.name}`,extra:[]})}
 
 // ================= VERFOLGUNGSJAGD (Stammtabelle Verfolgung, Regeln Buch 1 Kap. 4.4 Chase) =================
 // Objective (Standard 50), Runden nach Dexterity der NPC-Gruppe (5/4/3). Je Runde: Szene auf dem direkten Weg (Beschreibung)
@@ -3204,6 +3209,7 @@ document.addEventListener("click",ev=>{
     if(ds.gbenc!=null){gebToEnc(ds.gbenc);return}
     if(ds.gbnpc!=null){gebToNpc(ds.gbnpc);return}
     if(ds.gbfoe!=null){gebToNpc(null,true);return}
+    if(ds.gbhoe!=null){gebToHoe();return}
     if(b.id==="toChase"){gebToChase();return}
     if(ds.wgo){go(ds.wgo);return}
     if(ds.gbclr){B.src=null;B.ctx=null;saveRes(S.cur);renderGen();return}
@@ -3276,7 +3282,7 @@ document.addEventListener("change",ev=>{
     for(const key of Object.keys(N.draws))if(drop.some(d=>key.startsWith(d)))delete N.draws[key];
     saveRes(S.cur);renderGen();return}
   if(e.dataset.hoinp!=null){const B=hoState(res(S.cur)),k=e.dataset.hoinp,v=e.value===""?null:e.value;B.inp[k]=v;
-    for(const key of Object.keys(B.draws))if(!/^core:(n[12]|g[12])/.test(key))delete B.draws[key];saveRes(S.cur);renderGen();return}
+    for(const key of Object.keys(B.draws))if(!/^core:(n[12]|g[12])/.test(key))delete B.draws[key];if(k==="tiefe")B.ctx=B.ctx?Object.assign({},B.ctx,{tiefe:null}):null;saveRes(S.cur);renderGen();return}
   if(e.dataset.ruinp!=null){const B=ruState(res(S.cur)),k=e.dataset.ruinp,v=e.value===""?null:e.value;B.inp[k]=v;
     for(const key of Object.keys(B.draws))if(!/^core:n[12]$/.test(key))delete B.draws[key];saveRes(S.cur);renderGen();return}
   if(e.dataset.gbinp!=null){const B=gbState(res(S.cur)),k=e.dataset.gbinp,v=e.value===""?null:e.value;B.inp[k]=v;
