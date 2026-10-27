@@ -2544,26 +2544,26 @@ const HI18N={
  de:{terr:"Territorium",tiefe:"Tiefe",gr:"Größe",rand:"zufällig",flach:"flach",tief:"tief",fromT:"Aus",caves:"Höhlen",cavesL:"Höhlen",cave1:"Höhle",
   haupt:"Haupthöhle",hauptPl:"Haupthöhlen",neben:"Nebenhöhle",heart:"Herz der Höhle",inh:"Bewohner",b1:"Haupt",b2:"Neben",b3:"Minder",rel:"Beziehung",
   ways:"Ein- und Ausgänge",entry:"Eingang",exit:"Ausgang",down:"Abstieg",up:"nach oben",map:"Karte",rock:"Gestein",global:"Global",
-  zones:"Zonen",form:"Form",feat:"Merkmal",echo:"wie überall",interest:"Auffällig",loot:"Loot",enc:"Begegnung",hz:"Gefahr",smell:"Geruch",sound:"Geräusch",
+  zones:"Zonen",form:"Form",feat:"Merkmal",echo:"wie überall",interest:"Auffällig",terrain:"Gelände",pacify:"Erst der Sieg im Herz befriedet die Höhle.",loot:"Loot",enc:"Begegnung",hz:"Gefahr",smell:"Geruch",sound:"Geräusch",
   pass:"Durchgänge",free:"frei begehbar",check:"Check",mod:"Modifikator",fail:"Fehlschlag",foeT:"Gegner",bmod:"Boss-Modifikator",treasure:"Schatz",lies:"liegt",
   toEnc:"Encounter für diese Höhle",toBoss:"Bosskampf als Encounter",toNpc:"NPC dazu erzeugen",downGen:"Tiefe Höhle erzeugen",backUp:"zurück zur flachen Höhle",
   deepNote:"Weg in die Untertiefe – dafür kommt ein eigener Generator.",tyr:"Tyrant",men:"Menace",men2:"2 Menace",tyrMon:"Uraltes Monster",
   does:"tut",wants:"will",
   lead:"Ein %t Höhlensystem aus %n Höhlen in %r. %g",
   legend:"E Eingang · A Ausgang · ◆ Herz · groß = Haupthöhle · rot = Begegnung · ↓ Abstieg · Linie: durchgezogen frei, gestrichelt Check (blau Wasser, gepunktet eng/klettern), ✕ versperrt",
-  hint:"Höhlen sind Orte für erfahrene Helden. Wichtiger als Türen sind die Durchgänge: Lage, Check und was bei einem Fehlschlag passiert. Der Weg nach unten führt über das Herz.",
+  hint:"Höhlen sind Orte für erfahrene Helden: langsam, dreidimensional, viele Checks, wenig Supply, aber Wertvolles. Wer zur Karawane zurückkehrt, setzt den Fortschritt zurück – die Gegner kehren zurück. Erst das Herz befriedet die Höhle. Über das Herz geht es tiefer; nach zwei Höhlensystemen (flach, tief) beginnt die Untertiefe.",
   sizes:{klein:"klein",mittel:"mittel",gross:"groß"}},
  en:{terr:"Territory",tiefe:"Depth",gr:"Size",rand:"random",flach:"shallow",tief:"deep",fromT:"From",caves:"Caves",cavesL:"caves",cave1:"Cave",
   haupt:"Main cave",hauptPl:"main caves",neben:"Side cave",heart:"Heart of the cave",inh:"Inhabitants",b1:"Main",b2:"Second",b3:"Minor",rel:"Relation",
   ways:"Ways in and out",entry:"Entrance",exit:"Exit",down:"Way down",up:"upwards",map:"Map",rock:"Rock",global:"Global",
-  zones:"zones",form:"Shape",feat:"Feature",echo:"as everywhere",interest:"Notable",loot:"Loot",enc:"Encounter",hz:"Hazard",smell:"Smell",sound:"Sound",
+  zones:"zones",form:"Shape",feat:"Feature",echo:"as everywhere",interest:"Notable",terrain:"Terrain",pacify:"Only victory in the heart pacifies the cave.",loot:"Loot",enc:"Encounter",hz:"Hazard",smell:"Smell",sound:"Sound",
   pass:"Passages",free:"open",check:"Check",mod:"Modifier",fail:"On a failure",foeT:"Enemy",bmod:"Boss modifier",treasure:"Treasure",lies:"lies",
   toEnc:"Encounter for this cave",toBoss:"Boss fight as an encounter",toNpc:"Create an NPC",downGen:"Create the deep cave",backUp:"back to the shallow cave",
   deepNote:"A way into the Underdeep – it will get a generator of its own.",tyr:"Tyrant",men:"Menace",men2:"2 menaces",tyrMon:"Ancient monster",
   does:"is",wants:"wants",
   lead:"A %t cave system of %n caves in %r. %g",
   legend:"E entrance · A exit · ◆ heart · large = main cave · red = encounter · ↓ way down · line: solid open, dashed check (blue water, dotted tight/climb), ✕ blocked",
-  hint:"Caves are places for experienced heroes. Passages matter more than doors: where they lie, the check, and what happens on a failure. The way down leads through the heart.",
+  hint:"Caves are places for experienced heroes: slow, three-dimensional, full of checks, little supply but valuable finds. Returning to the caravan resets progress – the enemies come back. Only the heart pacifies the cave. The way down leads through the heart; after two cave systems (shallow, deep) the Underdeep begins.",
   sizes:{klein:"small",mittel:"medium",gross:"large"}}};
 const hot=k=>{const v=HI18N[LANG][k];return v===undefined?HI18N.de[k]:v};
 function hoState(rs){if(!rs.ho)rs.ho={inp:{terr:null,tiefe:null,gr:null},draws:{},src:null,ctx:null,col:{},up:null};const B=rs.ho;if(!B.col)B.col={};return B}
@@ -2579,6 +2579,8 @@ function hoCre(D,n){return D.cre.find(x=>x.de===n)||{de:n,en:n}}
 function hoWho(D,w){return !w?"":w.cre?sW(w.cre):wFacN(D,w.fac)}
 function hoSmSo(D,w,f){if(!w)return "";if(w.cre)return sE({s:f==="smell"?w.cre.sm:w.cre.so,sEn:f==="smell"?w.cre.smEn:w.cre.soEn},"s");const x=D.subs[w.fac]||{};return sE(x,f)}
 function hoFeat(D,B,k){const a=hoL(D,B,"Merkmal: Teil 1",k+"m1");const b=gU(B,k+"m2p")<hoN(D,"Merkmal Teil 2",.6)?hoL(D,B,"Merkmal: Teil 2",k+"m2"):null;return{a,b}}
+const HOSK={Klettern:"Climbing",Akrobatik:"Acrobatics",Wachsamkeit:"Alertness",Wahrnehmung:"Perception","Griff/Stand":"Grip",Motorik:"Agility",Schwimmen:"Swimming",Reflex:"Reflex"};
+const hoSkill=s=>LANG==="de"?s:(HOSK[s]||s);
 const hoFeatW=f=>f&&f.a?sCap(sW(f.a))+(f.b?" – "+sW(f.b):""):"";
 // ---------- Grundgerüst
 function hoCore(D,B){
@@ -2660,6 +2662,7 @@ function hoBuild(D,B){
   const ratio=(()=>{const m=String((D.rules&&D.rules["Kampf: Haupt : Neben : Minder"])||"5 : 3 : 2").match(/[\d.,]+/g)||[5,3,2];return m.map(x=>parseFloat(String(x).replace(",",".")))})();
   C.cv=G.N.map((x,j)=>{const k=`cv:${j}:`,o={main:x.main,heart:x.heart};
     o.z=hoL(D,B,x.main?"Zonen: Haupthöhle":"Zonen: Nebenhöhle",k+"z");o.form=hoL(D,B,"Form",k+"fo");o.feat=hoFeat(D,B,k);
+    {const nt=gWPick(B,k+"tn",hoDist(D,"Gelände je Höhle","1:2 · 2:1")).v;o.ter=[];for(let i=0;i<nt;i++){const g=hoL(D,B,"Gelände",k+"t"+i);if(g&&!o.ter.includes(g))o.ter.push(g)}}
     o.echo=gU(B,k+"ep")<hoN(D,"Globales Merkmal je Höhle",.4)?(gU(B,k+"ew")<.5?0:1):null;
     if(gU(B,k+"ip")<hoN(D,"Interesse je Höhle",.7))o.int=hoL(D,B,"Interesse",k+"in");
     if(gU(B,k+"lp")<hoN(D,x.main?"Loot: Haupthöhle":"Loot: Nebenhöhle",x.main?.5:.3)){o.loot=hoL(D,B,"Loot",k+"lo");o.lw=hoL(D,B,"Loot: Fundort",k+"lw")}
@@ -2707,8 +2710,10 @@ function hoEncW(D,y){if(!y)return "";const a=sW(y.art);
 function hoCaveHTML(D,C,j){const o=C.cv[j],G=C.G,k=`cv:${j}:`;const lines=[];
   const chips=[];if(o.enc&&o.enc.typ==="kampf")chips.push(hot("enc"));if(o.hz)chips.push(hot("hz"));if(o.loot)chips.push(hot("loot"));if(C.downs.includes(j))chips.push(hot("down"));
   lines.push(`<div><b>${esc(hoFeatW(o.feat))}</b>${o.echo!=null?` <span class="ss">· ${esc(hot("echo"))}: ${esc(sW(C.gl[o.echo].a))}</span>`:""}</div>`);
+  if(o.ter&&o.ter.length)lines.push(`<div>⛰ ${o.ter.map(g=>`<b>${esc(sCap(sW(g)))}</b>${g.t?` <span class="ss">(${esc(hoSkill(g.t))})</span>`:""}`).join(" · ")}</div>`);
   if(G.N[j].heart){const b=C.boss;lines.push(`<div>⚔ <b>${esc(b.lab)}: ${esc(hoWho(D,b.who))}</b>${b.name?` – ${esc(b.name)}`:""} <button class="icon encb" data-hoboss="1" title="${esc(hot("toBoss"))}">⚔</button>${b.name?`<button class="icon encb" data-honpc="boss" title="${esc(hot("toNpc"))}">👤</button>`:""}</div>`);
     lines.push(`<div class="sid">${esc(hot("bmod"))}: <b>${esc(sW(b.mod))}</b>${b.hz?` · ${esc(hot("hz"))}: ${esc(sCap(eHzName(b.hz)))}${b.hz.eff?" ("+esc(eHzF(b.hz,"eff"))+")":""}`:""}</div>`);
+    lines.push(`<div class="sid">${esc(hot("pacify"))}</div>`);
     lines.push(`<div>💎 ${esc(hot("treasure"))}: <b>${esc(sCap(sW(b.sch)))}</b> <span class="ss">${esc(sW(b.lies))}</span> ${wGo("loot")}</div>`)}
   else if(o.enc){const y=o.enc;lines.push(`<div>${hoEncW(D,y)}${y.typ==="kampf"?` <button class="icon encb" data-hoenc="${j}" title="${esc(hot("toEnc"))}">⚔</button>`:""}${(y.typ==="npc"||y.typ==="hilfe")&&y.name?` <button class="icon encb" data-honpc="${j}" title="${esc(hot("toNpc"))}">👤</button>`:""}</div>`)}
   if(o.hz)lines.push(`<div>⚠ ${hoHzW(o)}</div>`);
@@ -2776,7 +2781,7 @@ function hoehleText(D,rs){
   o.push(C.down.map(d=>`${hot("down")}: ${sW(d.art)} – ${hoCaveName(C,d.j)} (${hoPassW(d.p)})${C.deep?" – "+hot("deepNote"):""}`).join(" · "));
   const order=[...Array(C.n).keys()].sort((a,b2)=>(G.N[a].heart?1:0)-(G.N[b2].heart?1:0)||G.no[a]-G.no[b2]);
   order.forEach(j=>{const c=C.cv[j],p=[];o.push("");
-    p.push(`${sW(c.z)}, ${sW(c.form)}`);p.push(hoFeatW(c.feat));
+    p.push(`${sW(c.z)}, ${sW(c.form)}`);p.push(hoFeatW(c.feat));if(c.ter&&c.ter.length)p.push(c.ter.map(g=>sW(g)+(g.t?" ("+hoSkill(g.t)+")":"")).join(", "));
     if(c.enc){const y=c.enc;p.push(y.typ==="kampf"?`⚔ ${hoWho(D,y.who)}${y.tat?" ("+sW(y.tat)+(y.ziel?", "+sW(y.ziel):"")+")":""}`:`${sW(y.art)}${y.name?": "+y.name:""}`)}
     if(c.hz)p.push(`⚠ ${eHzName(c.hz)}${c.hz.eff?" ("+eHzF(c.hz,"eff")+")":""}`);
     if(c.int)p.push(`${hot("interest")}: ${sW(c.int)}`);if(c.loot)p.push(`${hot("loot")}: ${sW(c.loot)} (${sW(c.lw)})`);
