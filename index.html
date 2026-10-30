@@ -3052,6 +3052,9 @@ function rsL(D,B,list,key,excl){let a=D.lists[list]||[];if(excl)a=a.filter(x=>!e
 const rsArt={m:"Der",f:"Die",n:"Das",p:"Die"};
 const rsTx=(o,f)=>!o?"":LANG==="de"?(o[f+"de"]||""):(o[f+"en"]||o[f+"de"]||"");
 const rsHead=x=>{const s=sW(x),i=s.indexOf(": ");return i>0?[s.slice(0,i),s.slice(i+2)]:[s,""]};
+const RSB1EN={Sturz:"falling",Zonen:"zones",Dunkelheit:"darkness",Deckung:"cover",Timing:"timing",Push:"push",blinded:"blinded",grabbed:"grabbed",confused:"confused",
+  "Umweltgefahr Kälte":"environmental hazard: cold","Umweltgefahr Hitze":"environmental hazard: heat","Umweltgefahr Energie":"environmental hazard: energy","Kap. 4.2 Krankheit":"Chapter 4.2, disease"};
+const rsB1=s=>LANG==="de"?s:(RSB1EN[s]||s);
 const rsGh=C=>C.gs?(LANG==="de"?C.gs.tde:(C.gs.ten||C.gs.tde)):ECLS[C.cls];
 const rsAltTx=C=>!C.alt?"":C.her?sW(C.her).replace(/\{Altvolk\}/g,LANG==="de"?`„${C.alt.de}“`:(C.alt.en||C.alt.de)):(LANG==="de"?C.alt.de:(C.alt.en||C.alt.de));
 function rsBuild(D,B){const o=B.inp||{},cx=B.ctx||{},C={};
@@ -3116,7 +3119,7 @@ function rissHTML0(D,rs){
   let cb=sRow(rst("scene"),`<b>${esc(rsTx(C.sp,"z"))}</b>`,null);
   if(C.sty.name||C.sty.p.length)cb+=sRow(rst("style"),`${esc(C.sty.name)}${C.sty.p.length?` <span class="ss">${esc(C.sty.p.map(sW).join(", "))}</span>`:""}`,"st:");
   C.ph.forEach((p,i)=>{const[t1,t2]=rsHead(p);
-    cb+=`<div class="sitem"><div class="sit"><span class="ss">${esc(rst("hPh"))} · ${esc(rst("G")[p.g]||p.g)}</span>&nbsp;<b>${esc(sCap(t1))}</b>${sRR(`p:${i}:`)}</div>${t2?`<div class="sid">${esc(t2)}</div>`:""}<div class="sid"><b>${esc(rst("eff"))}:</b> ${esc(rsTx(p,"w"))}${p.b1?` <span class="ss">${esc(rst("b1"))}: ${esc(p.b1)}</span>`:""}</div></div>`});
+    cb+=`<div class="sitem"><div class="sit"><span class="ss">${esc(rst("hPh"))} · ${esc(rst("G")[p.g]||p.g)}</span>&nbsp;<b>${esc(sCap(t1))}</b>${sRR(`p:${i}:`)}</div>${t2?`<div class="sid">${esc(sCap(t2))}</div>`:""}<div class="sid"><b>${esc(rst("eff"))}:</b> ${esc(rsTx(p,"w"))}${p.b1?` <span class="ss">${esc(rst("b1"))}: ${esc(rsB1(p.b1))}</span>`:""}</div></div>`});
   cb+=`<div class="hint">${esc(rst("phNote"))}</div>`;
   h+=sCard("core",rst("core"),cb,true);
   // Schließen
