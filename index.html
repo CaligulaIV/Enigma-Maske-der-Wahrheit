@@ -141,6 +141,8 @@ details.camp summary{cursor:pointer;font-family:"Cormorant Garamond",serif;font-
 .wsense{background:var(--surface2);border-left:3px solid var(--info);border-radius:7px;padding:5px 9px;margin:2px 0 6px;font-size:14px;line-height:1.45}.wsense .wsi{display:inline-block;width:20px}.wsense .er{font-size:11px}
 .ssense{font-size:13px;color:var(--muted);margin:2px 0 0}
 .sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:10px;align-items:start}
+.sgrid.brq{grid-template-columns:repeat(2,minmax(0,1fr))}@media(max-width:760px){.sgrid.brq{grid-template-columns:minmax(0,1fr)}}
+.brk{font:inherit;font-size:.8rem;max-width:9em;margin-left:auto;padding:1px 2px}.brs{font-size:1.04rem;line-height:1.35}
 .scard{border:1px solid var(--line);border-radius:10px;padding:8px 11px 9px;background:var(--surface);min-width:0}
 .scard.wide{grid-column:span 2}
 @media (max-width:720px){.scard.wide{grid-column:auto}}
@@ -445,7 +447,7 @@ body.efocus .wrap{max-width:none}
 <div class="toast" id="toast"></div>
 
 <script>
-const GENS=[{"id": "natur", "title": "Wildnis-Ort", "title_en": "Wilderness", "group": "Welt", "group_en": "World", "note": "Neue Maske, baut auf den Stammtabellen Territorien (47 Territorien mit drei Skalen, Fraktionen, Biome, Wetter, Landschaft) und Wildnis (Orte, Weg, Spuren, Hindernisse, Regeln) auf, dazu Kreaturen und Encounter (Tätigkeit, Verhalten, Umweltgefahren). Listen und Gewichte sind Vorschläge (orange).", "special": "wildnis", "lang": "de/en", "chase": true, "file": "gens/natur.json"}, {"id": "gegner", "title": "Gegner", "title_en": "Enemies", "group": "Kampf", "group_en": "Combat", "special": "gegner", "lang": "en", "file": "gens/gegner.json"}, {"id": "sammeln", "title": "Sammeln (Karten)", "title_en": "Gathering (cards)", "group": "Natur", "group_en": "Nature", "note": "Digitales Sammel-Deck: Karte ziehen oder echte Kartenzahl eintragen. Fund-Wahrscheinlichkeiten aus deinem Sammeln-Blatt.", "special": "sammeln", "lang": "de", "file": "gens/sammeln.json"}, {"id": "encounter", "title": "Encounter", "title_en": "Encounter", "group": "Kampf", "group_en": "Combat", "note": "Baut auf den Stammtabellen Encounter (Budget, Ortsarten, Listen, Umweltgefahren) und Gegner auf. Aus einem Ort mit „⚔ Encounter erstellen“ übernimmt er Fraktionen, Gefahr und Lage.", "special": "encounter", "lang": "de/en", "file": "gens/encounter.json"}, {"id": "siedlung", "title": "Siedlung", "title_en": "Settlement", "group": "Welt", "group_en": "World", "note": "Neue Maske, baut auf der Stammtabelle Siedlung (Listen, Größen, 47 Territorien, Religionen) und den Stammtabellen Kreaturen (Fraktionen, Baustil, Handelsgut, Geruch, Namen) und Beiwörter (Laune, Charakter der NPCs) auf. Wortlisten noch deutsch. Mit „⚔ Encounter“ (ganze Siedlung oder je Aufgabe) entsteht ein Kampf mit Ortsart Stadt.", "special": "siedlung", "lang": "de", "enc": {"ort": "Stadt"}, "chase": true, "file": "gens/siedlung.json"}, {"id": "ritual", "title": "Ritual-Ort", "title_en": "Ritual site", "group": "Welt", "group_en": "World", "note": "Neue Maske, baut auf der Stammtabelle Ritualort (Themen, Gesetze mit Anzeichen und Schlüssel, Listen, Ausstrahlung, Regeln) auf, dazu Territorien und Fraktionen. Ersetzt den alten Generator Ritual-Ort. Gesetze, Listen und Gewichte sind Vorschläge (orange).", "special": "ritual", "lang": "de/en", "file": "gens/ritual.json"}, {"id": "riss", "title": "Zweitweltriss", "title_en": "Otherworld rift", "group": "Welt", "group_en": "World", "note": "Neue Maske, baut auf der Stammtabelle Zweitweltriss (Arten, Schandtaten, Objekte, Phänomene, Schauplätze, Gegnerstärke, Listen, Regeln) auf, dazu Territorien, Fraktionen mit Baustil und Altvölker. Ersetzt den alten Generator Zweitweltriss. Inhalte und Gewichte sind Vorschläge (orange).", "special": "riss", "lang": "de/en", "file": "gens/riss.json"}, {"id": "ruine", "title": "Ruine", "title_en": "Ruin", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "note": "Neue Maske, baut auf den Stammtabellen Ruine (Wegeformen, Zusätze, Abschluss, Zwecke, Räume, Listen, Regeln) und Altvölker (Erbauer, Baustile) auf, dazu Territorien, Kreaturen, Siedlung (Baustil, Namen) und Encounter (Umweltgefahren). Ersetzt den alten Generator Ruine. Listen und Gewichte sind Vorschläge (orange).", "special": "ruine", "lang": "de/en", "file": "gens/ruine.json"}, {"id": "hoehle", "title": "Höhlensystem", "title_en": "Cave system", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "note": "Neue Maske, baut auf der Stammtabelle Höhle (Größe, Bewohner, Listen, Gefahren, Regeln) auf, dazu Territorien, Kreaturen, Siedlung (Namen) und Encounter (Umweltgefahren, Boss-Modifikatoren). Ersetzt den alten Generator Höhlensystem. Listen und Gewichte sind Vorschläge (orange).", "special": "hoehle", "lang": "de/en", "file": "gens/hoehle.json"}, {"id": "gebaeude", "title": "Gebäude", "title_en": "Building", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "note": "Neue Maske, baut auf der Stammtabelle Gebäude (vier Typen Villa, Tempel, Turm, Hof; Zustand, Haltung, Räume, Raumrollen, Listen) auf, dazu Territorien, Kreaturen (Raubtiere, Monster, Geruch), Siedlung (Baustil, Namen) und Religionen. Ersetzt die alten Generatoren Villa und Tempel. Listen und Gewichte sind Vorschläge (orange).", "special": "gebaeude", "lang": "de/en", "chase": true, "file": "gens/gebaeude.json"}, {"id": "npc", "title": "NPC", "title_en": "NPC", "group": "Personen", "group_en": "People", "note": "Neue Maske mit Postkarte. Baut auf den Stammtabellen NPC (Professionen nach Kap. 5.1, Lebensweg, Spezies, Aussehen, Laune-Skala, Sprüche), Religionen, Kreaturen (Fraktionen, Namen) und Beiwörter (Charakter, Ruf) auf. Level = Level der Profession; wichtige NPCs haben Level 6–9. Aus der Siedlung mit 👤 je wichtigem NPC.", "special": "npc", "lang": "de/en", "file": "gens/npc.json"}, {"id": "zirkel", "title": "Zirkel", "title_en": "Circle", "group": "Personen", "group_en": "People", "lang": "de", "file": "gens/zirkel.json"}, {"id": "charakter", "title": "Zufälliger Charakter", "title_en": "Random character", "group": "Personen", "group_en": "People", "lang": "de", "file": "gens/charakter.json"}, {"id": "mystery", "title": "Mysterium", "title_en": "Mystery", "group": "Abenteuer", "group_en": "Adventure", "note": "Neue Maske: ein Rätsel für etwa eine Sitzung – Opfer und drei Beteiligte (einer ist der Täter), je zwei Spuren; die Wahrheit ist zugeklappt. Stammtabelle Mysterium (aus dem alten Mystery-Blatt). Aus der Siedlung (🔍 an einer Stadt-Aufgabe) sind Opfer, Täter und Verdächtige Personen der Stadt; das Motiv ist eine Agenda.", "special": "mystery", "lang": "de/en", "file": "gens/mystery.json"}, {"id": "aufgabe", "title": "Auftrag", "title_en": "Task", "group": "Abenteuer", "group_en": "Adventure", "lang": "de", "file": "gens/aufgabe.json"}, {"id": "verfolgung", "title": "Verfolgungsjagd", "title_en": "Chase", "group": "Abenteuer", "group_en": "Adventure", "note": "Neue Maske nach Buch 1 (Kap. 4.4 Chase): Objective 50, Runden nach Dexterity der NPC-Gruppe, je Runde Szene und Abkürzung aus der Stammtabelle Verfolgung (Stadt und Natur). Stärken je Runde eintragen – der Status rechnet mit. Aus der Siedlung mit „🏃 Verfolgungsjagd“.", "special": "verfolgung", "lang": "de", "file": "gens/verfolgung.json"}, {"id": "spuren", "title": "Spuren & Hinweise", "title_en": "Tracks & clues", "group": "Abenteuer", "group_en": "Adventure", "lang": "de", "file": "gens/spuren.json"}, {"id": "pakt", "title": "Pakt-Aufgabe", "title_en": "Pact task", "group": "Magie", "group_en": "Magic", "lang": "de", "file": "gens/pakt.json"}, {"id": "fallen", "title": "Runenfalle", "title_en": "Rune-trap", "group": "Magie", "group_en": "Magic", "note": "Runenherzen noch lateinisch (Terram/Aquam/Ignem).", "lang": "de", "file": "gens/fallen.json"}, {"id": "wahnsinn", "title": "Trauma & Narben", "title_en": "Trauma & scars", "group": "Magie", "group_en": "Magic", "note": "Psychose ab Seelenintegrität 1 (Buch 1: 0); eigene Narbenliste.", "lang": "de", "file": "gens/wahnsinn.json"}, {"id": "loot", "title": "Loot & Dinge", "title_en": "Loot & things", "group": "Dinge", "group_en": "Things", "note": "Preise noch in Gold; deutsche Skillnamen.", "lang": "de", "file": "gens/loot.json"}, {"id": "objects", "title": "Objects (neu)", "title_en": "Objects", "group": "Dinge", "group_en": "Things", "note": "Englische, neuere Fassung (Buch-1-Begriffe).", "lang": "en", "file": "gens/objects.json"}, {"id": "trank", "title": "Trank & Öl", "title_en": "Potions & oils", "group": "Dinge", "group_en": "Things", "lang": "de", "file": "gens/trank.json"}, {"id": "gift", "title": "Gift & Krankheit", "title_en": "Poisons & diseases", "group": "Dinge", "group_en": "Things", "note": "Stufenwerte weichen von Buch 1 ab (Gift 2 Schaden am Ende der Battle-Phase).", "lang": "de", "file": "gens/gift.json"}, {"id": "box", "title": "Geheimnisvolle Box", "title_en": "Mysterious box", "group": "Dinge", "group_en": "Things", "lang": "de", "file": "gens/box.json"}, {"id": "tiere", "title": "Pflanze & Kleintier", "title_en": "Plants & small animals", "group": "Natur", "group_en": "Nature", "lang": "de", "file": "gens/tiere.json"}, {"id": "laden", "title": "Laden", "title_en": "Shop", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold (Buch 1: Wealth-Level).", "lang": "de", "file": "gens/laden.json"}, {"id": "tempeldienst", "title": "Tempeldienste", "title_en": "Temple services", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold.", "lang": "de", "file": "gens/tempeldienst.json"}, {"id": "taverne", "title": "Taverne", "title_en": "Tavern", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold, Speisenboni mit alten Begriffen.", "lang": "de", "file": "gens/taverne.json"}];
+const GENS=[{"id": "natur", "title": "Wildnis-Ort", "title_en": "Wilderness", "group": "Welt", "group_en": "World", "note": "Neue Maske, baut auf den Stammtabellen Territorien (47 Territorien mit drei Skalen, Fraktionen, Biome, Wetter, Landschaft) und Wildnis (Orte, Weg, Spuren, Hindernisse, Regeln) auf, dazu Kreaturen und Encounter (Tätigkeit, Verhalten, Umweltgefahren). Listen und Gewichte sind Vorschläge (orange).", "special": "wildnis", "lang": "de/en", "chase": true, "file": "gens/natur.json"}, {"id": "gegner", "title": "Gegner", "title_en": "Enemies", "group": "Kampf", "group_en": "Combat", "special": "gegner", "lang": "en", "file": "gens/gegner.json"}, {"id": "sammeln", "title": "Sammeln (Karten)", "title_en": "Gathering (cards)", "group": "Natur", "group_en": "Nature", "note": "Digitales Sammel-Deck: Karte ziehen oder echte Kartenzahl eintragen. Fund-Wahrscheinlichkeiten aus deinem Sammeln-Blatt.", "special": "sammeln", "lang": "de", "file": "gens/sammeln.json"}, {"id": "encounter", "title": "Encounter", "title_en": "Encounter", "group": "Kampf", "group_en": "Combat", "note": "Baut auf den Stammtabellen Encounter (Budget, Ortsarten, Listen, Umweltgefahren) und Gegner auf. Aus einem Ort mit „⚔ Encounter erstellen“ übernimmt er Fraktionen, Gefahr und Lage.", "special": "encounter", "lang": "de/en", "file": "gens/encounter.json"}, {"id": "siedlung", "title": "Siedlung", "title_en": "Settlement", "group": "Welt", "group_en": "World", "note": "Neue Maske, baut auf der Stammtabelle Siedlung (Listen, Größen, 47 Territorien, Religionen) und den Stammtabellen Kreaturen (Fraktionen, Baustil, Handelsgut, Geruch, Namen) und Beiwörter (Laune, Charakter der NPCs) auf. Wortlisten noch deutsch. Mit „⚔ Encounter“ (ganze Siedlung oder je Aufgabe) entsteht ein Kampf mit Ortsart Stadt.", "special": "siedlung", "lang": "de", "enc": {"ort": "Stadt"}, "chase": true, "file": "gens/siedlung.json"}, {"id": "ritual", "title": "Ritual-Ort", "title_en": "Ritual site", "group": "Welt", "group_en": "World", "note": "Neue Maske, baut auf der Stammtabelle Ritualort (Themen, Gesetze mit Anzeichen und Schlüssel, Listen, Ausstrahlung, Regeln) auf, dazu Territorien und Fraktionen. Ersetzt den alten Generator Ritual-Ort. Gesetze, Listen und Gewichte sind Vorschläge (orange).", "special": "ritual", "lang": "de/en", "file": "gens/ritual.json"}, {"id": "riss", "title": "Zweitweltriss", "title_en": "Otherworld rift", "group": "Welt", "group_en": "World", "note": "Neue Maske, baut auf der Stammtabelle Zweitweltriss (Arten, Schandtaten, Objekte, Phänomene, Schauplätze, Gegnerstärke, Listen, Regeln) auf, dazu Territorien, Fraktionen mit Baustil und Altvölker. Ersetzt den alten Generator Zweitweltriss. Inhalte und Gewichte sind Vorschläge (orange).", "special": "riss", "lang": "de/en", "file": "gens/riss.json"}, {"id": "ruine", "title": "Ruine", "title_en": "Ruin", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "note": "Neue Maske, baut auf den Stammtabellen Ruine (Wegeformen, Zusätze, Abschluss, Zwecke, Räume, Listen, Regeln) und Altvölker (Erbauer, Baustile) auf, dazu Territorien, Kreaturen, Siedlung (Baustil, Namen) und Encounter (Umweltgefahren). Ersetzt den alten Generator Ruine. Listen und Gewichte sind Vorschläge (orange).", "special": "ruine", "lang": "de/en", "file": "gens/ruine.json"}, {"id": "hoehle", "title": "Höhlensystem", "title_en": "Cave system", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "note": "Neue Maske, baut auf der Stammtabelle Höhle (Größe, Bewohner, Listen, Gefahren, Regeln) auf, dazu Territorien, Kreaturen, Siedlung (Namen) und Encounter (Umweltgefahren, Boss-Modifikatoren). Ersetzt den alten Generator Höhlensystem. Listen und Gewichte sind Vorschläge (orange).", "special": "hoehle", "lang": "de/en", "file": "gens/hoehle.json"}, {"id": "gebaeude", "title": "Gebäude", "title_en": "Building", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "note": "Neue Maske, baut auf der Stammtabelle Gebäude (vier Typen Villa, Tempel, Turm, Hof; Zustand, Haltung, Räume, Raumrollen, Listen) auf, dazu Territorien, Kreaturen (Raubtiere, Monster, Geruch), Siedlung (Baustil, Namen) und Religionen. Ersetzt die alten Generatoren Villa und Tempel. Listen und Gewichte sind Vorschläge (orange).", "special": "gebaeude", "lang": "de/en", "chase": true, "file": "gens/gebaeude.json"}, {"id": "npc", "title": "NPC", "title_en": "NPC", "group": "Personen", "group_en": "People", "note": "Neue Maske mit Postkarte. Baut auf den Stammtabellen NPC (Professionen nach Kap. 5.1, Lebensweg, Spezies, Aussehen, Laune-Skala, Sprüche), Religionen, Kreaturen (Fraktionen, Namen) und Beiwörter (Charakter, Ruf) auf. Level = Level der Profession; wichtige NPCs haben Level 6–9. Aus der Siedlung mit 👤 je wichtigem NPC.", "special": "npc", "lang": "de/en", "file": "gens/npc.json"}, {"id": "zirkel", "title": "Zirkel", "title_en": "Circle", "group": "Personen", "group_en": "People", "lang": "de", "file": "gens/zirkel.json"}, {"id": "charakter", "title": "Zufälliger Charakter", "title_en": "Random character", "group": "Personen", "group_en": "People", "lang": "de", "file": "gens/charakter.json"}, {"id": "mystery", "title": "Mysterium", "title_en": "Mystery", "group": "Abenteuer", "group_en": "Adventure", "note": "Neue Maske: ein Rätsel für etwa eine Sitzung – Opfer und drei Beteiligte (einer ist der Täter), je zwei Spuren; die Wahrheit ist zugeklappt. Stammtabelle Mysterium (aus dem alten Mystery-Blatt). Aus der Siedlung (🔍 an einer Stadt-Aufgabe) sind Opfer, Täter und Verdächtige Personen der Stadt; das Motiv ist eine Agenda.", "special": "mystery", "lang": "de/en", "file": "gens/mystery.json"}, {"id": "brett", "title": "Schwarzes Brett", "title_en": "Notice board", "group": "Abenteuer", "group_en": "Adventure", "note": "Neue Maske, baut auf der Stammtabelle Aufträge (6 Kategorien, Bausteine, Orte, Regeln) und dem Mysterium (Art, Tat) auf, dazu Territorien und Fraktionen. Immer 4 Aushänge, je aus einer anderen Kategorie; aus der Siedlung mit Personen und Stadtteilen der Stadt. Ersetzt den alten Generator Auftrag. Inhalte und Gewichte sind Vorschläge (orange).", "special": "brett", "lang": "de/en", "file": "gens/brett.json"}, {"id": "verfolgung", "title": "Verfolgungsjagd", "title_en": "Chase", "group": "Abenteuer", "group_en": "Adventure", "note": "Neue Maske nach Buch 1 (Kap. 4.4 Chase): Objective 50, Runden nach Dexterity der NPC-Gruppe, je Runde Szene und Abkürzung aus der Stammtabelle Verfolgung (Stadt und Natur). Stärken je Runde eintragen – der Status rechnet mit. Aus der Siedlung mit „🏃 Verfolgungsjagd“.", "special": "verfolgung", "lang": "de", "file": "gens/verfolgung.json"}, {"id": "spuren", "title": "Spuren & Hinweise", "title_en": "Tracks & clues", "group": "Abenteuer", "group_en": "Adventure", "lang": "de", "file": "gens/spuren.json"}, {"id": "pakt", "title": "Pakt-Aufgabe", "title_en": "Pact task", "group": "Magie", "group_en": "Magic", "lang": "de", "file": "gens/pakt.json"}, {"id": "fallen", "title": "Runenfalle", "title_en": "Rune-trap", "group": "Magie", "group_en": "Magic", "note": "Runenherzen noch lateinisch (Terram/Aquam/Ignem).", "lang": "de", "file": "gens/fallen.json"}, {"id": "wahnsinn", "title": "Trauma & Narben", "title_en": "Trauma & scars", "group": "Magie", "group_en": "Magic", "note": "Psychose ab Seelenintegrität 1 (Buch 1: 0); eigene Narbenliste.", "lang": "de", "file": "gens/wahnsinn.json"}, {"id": "loot", "title": "Loot & Dinge", "title_en": "Loot & things", "group": "Dinge", "group_en": "Things", "note": "Preise noch in Gold; deutsche Skillnamen.", "lang": "de", "file": "gens/loot.json"}, {"id": "objects", "title": "Objects (neu)", "title_en": "Objects", "group": "Dinge", "group_en": "Things", "note": "Englische, neuere Fassung (Buch-1-Begriffe).", "lang": "en", "file": "gens/objects.json"}, {"id": "trank", "title": "Trank & Öl", "title_en": "Potions & oils", "group": "Dinge", "group_en": "Things", "lang": "de", "file": "gens/trank.json"}, {"id": "gift", "title": "Gift & Krankheit", "title_en": "Poisons & diseases", "group": "Dinge", "group_en": "Things", "note": "Stufenwerte weichen von Buch 1 ab (Gift 2 Schaden am Ende der Battle-Phase).", "lang": "de", "file": "gens/gift.json"}, {"id": "box", "title": "Geheimnisvolle Box", "title_en": "Mysterious box", "group": "Dinge", "group_en": "Things", "lang": "de", "file": "gens/box.json"}, {"id": "tiere", "title": "Pflanze & Kleintier", "title_en": "Plants & small animals", "group": "Natur", "group_en": "Nature", "lang": "de", "file": "gens/tiere.json"}, {"id": "laden", "title": "Laden", "title_en": "Shop", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold (Buch 1: Wealth-Level).", "lang": "de", "file": "gens/laden.json"}, {"id": "tempeldienst", "title": "Tempeldienste", "title_en": "Temple services", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold.", "lang": "de", "file": "gens/tempeldienst.json"}, {"id": "taverne", "title": "Taverne", "title_en": "Tavern", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold, Speisenboni mit alten Begriffen.", "lang": "de", "file": "gens/taverne.json"}];
 const DATA={"cards":[["Narr","richtig herum","Neustart, Überraschung, Potential, Freiheit, Unschuld",["Überraschung","Potential","Freiheit"]],["Narr","umgedreht","Dummheit, Überstürzt, Chaos, Naive, Grenzen, Hürden",["Dummheit","Chaos","Hürde"]],["Magier","richtig herum","Kraft, Kommunikation, Magie, Selbstbestimmung, Aktion",["Kommunikation","Magie","Selbstbestimmung"]],["Magier","umgedreht","Lüge, Kommunikationsblock, Stagnation, Schummeln, Falschheit",["Lüge","Kommunikationsblock","Stagnation"]],["Hohepriesterin","richtig herum","Mysterium, Intuition, Erleuchtung, Weisheit, Vorahnung",["Mysterium","Erleuchtung","Vorahnung"]],["Hohepriesterin","umgedreht","Geheimnisse, Unsicherheit, Verborgenheit, Unfähigkeit zu hören, Überraschung",["Geheimnis","Unsicherheit","Verborgenheit"]],["Königin","richtig herum","Pflege, Überschuss, Fruchtbarkeit, Mutterschaft, Schönheit, Liebe",["Überschuss","Mutterschaft","Schönheit"]],["Königin","umgedreht","Faulheit, Koordinationschwäche, Verschwendung, Beziehungskrise, Depression, Verbannung",["Koordinationsschwäche","Verschwendung","Beziehung senken"]],["König","richtig herum","Autorität, Ordnung, Struktur, Hierarchie, Aufstieg, Rationalität",["Autorität","Aufstieg","Rationalität"]],["König","umgedreht","Autokratisch, Unterdrücken, Zwang, Grausamkeit, keine Unterstützung, Machtmissbrauch, Irrationalität",["Zwang","Grausamkeit","Machtmissbrauch"]],["Hierophant","richtig herum","Tradition, Gruppenidentifikation, Lehre, Gesetze, Bruderschaft, Religion",["Gruppenidentifikation","Lehre","Religion"]],["Hierophant","umgedreht","Extremismus, Kulte, Verfall Gesellschaft, Abwendung Religion, Abbruch Gespräche, rückständig",["Extremismus","Abwendung Religion","Abbruch Gespräch"]],["Liebhaber","richtig herum","Zusammenkommen, Wahl, Zuneigung, Verpflichtung, Vertrauen, Bündnis",["Zusammenkommen","Vertrauen","Verpflichtung"]],["Liebhaber","umgedreht","Auseinanderbrechen, Angst vor Bindung, Fremd gehen, Bündnis brechen, Misstrauen",["Auseinanderbrechen","Angst vor Bindung","Misstrauen"]],["Wagen","richtig herum","Antrieb, Willenskraft, Richtung, Sieg, Probleme enden, zu Hilfe kommen",["Willenskraft","Richtung","zu Hilfe kommen"]],["Wagen","umgedreht","verirren, richtungslos, antriebslos, Zweifel, abbruch Reise, Verzögerung, braucht Hilfe",["verirren","Zweifel","braucht Hilfe"]],["Stärke","richtig herum","Stärke, Sicherheit, Selbstkontrolle, Geduld, Gesundheit, Leidenschaft",["Sicherheit","Gesundheit","Stärke"]],["Stärke","umgedreht","Schwäche, Zerbrechlichkeit, Ungeduld, Unbeherrscht, Überheblich, Doppelmoral",["Schwäche","Unbeherrscht","Zerbrechlichkeit"]],["Eremit","richtig herum","Selbstbetrachtung, Besinnung, Ruhe, Diskretion, Meditation",["Besinnung","Diskretion","Ruhe"]],["Eremit","umgedreht","Aberkennen, Rückzug, im stich lassen, Isolation, einsamkeit, Exil",["Rückzug","Im Stich lassen","Isolation"]],["Rad","richtig herum","Glück, Chance, Gelegenheit, Umschlagen, Gewinnen, Zyklus, Schicksal, ja",["Glück","Gelegenheit","Zyklus"]],["Rad","umgedreht","Unglück, Fehlschlag, verlieren, Not, Härte, Enttäuschung, nein",["Unglück","Not","Enttäuschung"]],["Gericht","richtig herum","Gerechtigkeit, Karma, Balance, Wahrheit, Verantwortung, Vereinbarung",["Gerechtigkeit","Wahrheit","Vereinbarung"]],["Gericht","umgedreht","Willkür, Unfair, Unrecht, Verruf, Ungleichheit, Falsche Entscheidung",["Willkür/ Unfair","Ungleichheit","Verruf"]],["Gehängte Mann","richtig herum","loslassen, Opferung, Aufgaben, Perspektivwechsel, Musterbrechen, Verspätung, Stoppen",["Loslassen","Perspektivwechsel","Stoppen"]],["Gehängte Mann","umgedreht","in Schwebe, Engstirnig, ins Leben zurück, falsches Motiv, nicht loslassen, zurückhalten",["in schwebe","ins Leben zurück","festhalten"]],["Tod","richtig herum","Ende, Sterblichkeit, echter Wandel, Bruch einer Bindung, Ende einer Ära, Transformation, Wiedergeburt",["Ende","Bindungsbruch","Transformation"]],["Tod","umgedreht","Ende aufgehalten, nicht loslassen können, lange Krankheit, Wandel ablehnen, falscher Wandel",["Aufhalten Ende","Krankheit","Wandel ablehnen"]],["Mäßigkeit","richtig herum","Harmonie, Balance, Mäßigung, Zusammenwirken, vermischen, verbinden",["Balance","Vermischen","Verbinden"]],["Mäßigkeit","umgedreht","Disharmonie,Krankheit, nichts bekommen, Trennen, Bruch",["Unbalance","trennen","leer ausgehen"]],["Dämon","richtig herum","Knechtschaft, Abhängigkeit, Versuchung, Gewalt, Angst, Überarbeitet",["Knechtschaft","Abhängigkeit","Gewalt"]],["Dämon","umgedreht","frei brechen, widerstehen, kraftlosigkeit, keine Verbindung",["frei brechen","widerstehen","keine Bindung"]],["Turm","richtig herum","Zerstörung, unerwarteter Wandel, ruinieren, schaden, stürzen, verdrängen, Gefahr",["Zerstörung","verdrängen","Gefahr"]],["Turm","umgedreht","Anhaltende Zerstörung, langfristige Krise, schwere Gewalt, chaotische Situation, Nachbeben",["Krise","Brutalität","Nachbeben"]],["Sterne","richtig herum","Hoffnung, Freude, Optimismus, Segen, Hilfe, Frieden",["Hoffnung","Segen","Frieden"]],["Sterne","umgedreht","Hoffnungslosigkeit, Unwohlsein, Enttäuschung, hilfe verweigern, Hindernisse des Glaubens",["Enttäuschung","Hoffnungslos","Glaubenskrise"]],["Mond","richtig herum","Träume, Alpträume, Illusionen, verborgene Feinde, Verwirrung, Geheimnis",["Alptraum","Illusion","verborgene Gefahr"]],["Mond","umgedreht","Offenbarung, Vision, durchschauen von Illusionen, Schlaflosigkeit",["Vision","Offenbarung","Schlaflosigkeit"]],["Sonne","richtig herum","Leben, Energie, Wärme, Erschaffung, Reichtum, Erfolg",["Energie","Erschaffung","Reichtum"]],["Sonne","umgedreht","Halber Erfolg, Kälte, hypersensibel, rosarote Brille",["Halber Erfolg","Kälte","rosarote Brille"]],["Urteil","richtig herum","Erlösung, Erwachen, Ruf zu Taten, Berufung, vollendeter Wandel, Entscheidung",["Erwachen","Berufung","Entscheidung"]],["Urteil","umgedreht","Ignorieren, Wider besseren Wissens, Zweifel, Leiten von Angst, entscheidungslos",["Ignorieren","Entgegen Wissen","Leiten von Angst"]],["Welt","richtig herum","Vollendung, Folgen, Resultate, Möglichkeiten, Ziele, Absolutheit, Reisen",["Vollendung","Resultate","Reisen"]],["Welt","umgedreht","Verplanen, unerledigte Aufgaben, Stagnation, festhalten, feststecken",["feststecken","nicht weiterkommen","keine Resultate"]]],"targets":["Spieler","Spieler-Gruppe","Gegenwart","Anderer Spieler","Gegner","NPC","Zukunft","Positiv","Negativ"],"ev":["entferntes Event","NPC Aktion","Neuer NPC","Strang voranbringen","Strang entfernen","Strang verändern","PC negativ","PC positiv","Ambivalentes Ereignis","NPC negativ","NPC positiv","Nemesis positiv","Nemesis negativ"],"act":["Ziel erreichen","Starten","Vernachlässigen","Kämpfen","Rekrutieren","Siegen","Verletzen","Widersetzen","Arglist","Kommunizieren","Verfolgen","Steigern","Senken","Verlassen","Befriedigen","Erkundigen","Verärgern","Bewegen","verschwenden","Wahrheit","Freilassen","Befreunden","urteilen","Desertieren","Dominieren","Aufschieben","Loben","Trennen","Nehmen","Brechen","Heilen","Verzögern","Stoppen","Lügen","Wiederkommen","Nachahmen","Ringen","informieren","verschenken","verschieben","entblößen","verhandeln","einsperren","feiern","verschleiern","entwickeln","reisen","blocken","verletzen","herabsetzen","überladen","Vertagen","Widrigkeiten","töten","unterbrechen","an sich reißen","erschaffen","verraten","zustimmen","ausnutzen","unterdrücken","inspezieren","überfallen","spionieren","tragen","offen","nachlässig","ruinieren","extravagant","Täuschen","ankommen","vorschlagen","trennen","ablehnen","misstrauen","grausamkeit","Intoleranz","vertrauen","Aufregung","Aktivität","Helfen","pflegen","leidenschaft","ablassen","hart arbeiten","kontrollieren","anziehen","versagen","nachgehen","rächen","aufgeben","streiten","bestrafen","führen","transformieren","unterwerfen","verändern","steigern","umstürzen","nähern"],"sub":["Ziele","Träume","Umwelt","Draußen","Innen","Realität","Verbündete","Feinde","Böse","Gute","Gefühle","Gegenteil","Krieg","Frieden","Unschuldige","Liebe","geistlich","intellektuell","Neue Ideen","Freude","Massage","Energie","Gleichgewicht","Spannung","Freundschaft","physisches","Projekt","Freuden","Schmerz","Besitz","Pläne","Lügen","Erwartungen","Gesetz","Bürokratie","Geschäft","Pfad","Neuigkeiten","äußere Faktoren","Ratschlag","Handlung","Wettbewerb","Gefängnis","Krankheit","Nahrung","Aufmerksamkeit","Erfolg","Versagen","Reise","Neid","Streit","Heimat","Investment","Leid","Wünsche","Taktik","Pattsituation","Willkür","Unglück","Tod","Unterbrechung","Macht","Bürde","Intrige","Ängste","Gerücht","Wunden","extravaganz","Repräsentation","Gegner","Reichtum","Freiheit","Militär","Gewöhnliches","Test","Massen","Fahrzeug","Kunst","Sieg","Unklarheit","Fülle","Status Quo","Technik","Hoffnung","Magie","Illusion","Portale","Gefahr","Waffen","Tiere","Wetter","Elemente","Natur","Öffentlichkeit","Führung","Ruhm","Zorn","Information","Vergangenheit","Götter"],"fac":["[GK] Sultane","[GK] Wesire","[GK] Kalifen","[FU] Monarchisten","[FU] Republikaner","[FU] Unabhängige","[ZRO] Restauratoren","[ZRO] Reformisten","[ZRO] Vergelter","[EIS] Familien","[EIS] Lord","[EIS] Marine","[HAI] Kachol","[HAI] Schemeschya","[HAI] Han","[GER] Aisin-Geren","[GER] Süd-Geren","[GER] Nord-Geren","[PIR] Wildling","[PIR] Waldlinge","[PIR] Berglinge","[WS] Waldelfen","[WS] Hochelfen","[WS] Lichterelfen","[HIV] Südkolonie","[HIV] Nordkolonie","[HIV] Exilanten","[ECH] Troglodyten","[ECH] Sumpfechsen","[ECH] Obsidianechsen","[NAG] Manipulatoren","[NAG] Usurpatoren","[NAG] Intriganten","[KOB] Patrioten","[KOB] Anarchisten","[KOB] Hungernd","[SAT] Zentauren","[SAT] Leotauren","[SAT] Aerotauren","[YET] Wanderer","[YET] Eroberer","[YET] Flüchtlinge","[GNO] Seeräuber","[GNO] Fischer","[GNO] Eisgnome"],"pred":["Drachaten","Teufel","Würmer","Schleichen","Pirscher","Säbelaffen","Salamander","Ofanten","Netzfüssler","Weber","Flattervieh","junges Monster"]};
 
 // ================= language =================
@@ -722,7 +724,7 @@ async function loadGen(id){
   if(GD[id])return GD[id];
   const g=GENS.find(x=>x.id===id);const r=await fetch(g.file);if(!r.ok)throw new Error("load");
   const d=await r.json();
-  if(d.creatures||d.hazards||d.siedlung||d.chase||d.npcgen||d.mystery||d.wild||d.geb||d.ruin||d.cave||d.rit||d.riss){GD[id]=d;return d}
+  if(d.creatures||d.hazards||d.siedlung||d.chase||d.npcgen||d.mystery||d.wild||d.geb||d.ruin||d.cave||d.rit||d.riss||d.brett){GD[id]=d;return d}
   d.inp={};for(const i of d.inputs)d.inp[i.r+","+i.c]=i;
   d.mset={};for(const m of d.merges)d.mset[m[0]+","+m[1]]=m;
   d.bset=new Set(d.bold.map(([r,c])=>r+","+c));
@@ -744,7 +746,7 @@ function renderGen(){
   const id=S.cur;const g=GENS.find(x=>x.id===id);const d=GD[id];const card=$("#genCard");
   if(!g)return;
   if(!d){card.innerHTML=`<div class="loading">${t("loading")} ${esc(gTitle(g))}…</div>`;return}
-  const rs=res(id);const sp=d.creatures||d.hazards||d.siedlung||d.chase||d.npcgen||d.mystery||d.wild||d.geb||d.ruin||d.cave||d.rit||d.riss;const eng=sp?null:new Engine(d,rs);const vals=sp?{}:computeAll(d,eng);
+  const rs=res(id);const sp=d.creatures||d.hazards||d.siedlung||d.chase||d.npcgen||d.mystery||d.wild||d.geb||d.ruin||d.cave||d.rit||d.riss||d.brett;const eng=sp?null:new Engine(d,rs);const vals=sp?{}:computeAll(d,eng);
   const encB={};if(!sp&&g.encRows)encRowsOf(g,d,rs,vals).forEach((x,i)=>{encB[x.anchor]=` <button class="icon encb" data-encrow="${i}" title="${esc(t("toEncRow"))}">⚔</button>`});
   let h=`<div class="gh"><h2>${esc(gTitle(g))}</h2><span class="badge" title="${t("contentLang")}">${t("contentLang")}: ${(g.lang||"de").toUpperCase()}</span>
    <button class="btn primary" id="regen">${t("regen")}</button><button class="btn" id="toLog">${t("toLog")}</button>${g.enc?`<button class="btn" id="toEnc" title="${esc(t("toEncT"))}">${t("toEnc")}</button>`:""}${g.chase?`<button class="btn" id="toChase" title="${esc(vt("toChaseT"))}">${vt("toChase")}</button>`:""}${(()=>{const v=R.verfolgung&&R.verfolgung.vf&&R.verfolgung.vf.src;return g.chase&&v&&v.gen===id?`<button class="btn" data-go="verfolgung">🏃 → ${esc(v.title.split(" · ").slice(1).join(" · ")||vt("titleCatch"))}</button>`:""})()}${(()=>{const e=R.encounter&&R.encounter.enc&&R.encounter.enc.src;return e&&e.gen===id?`<button class="btn" data-go="encounter" title="${esc(t("toEncOpenT"))}">⚔ → ${esc(e.title.split(" · ").slice(1).join(" · ")||"Encounter")}</button>`:""})()}</div>`;
@@ -753,6 +755,7 @@ function renderGen(){
   if(g.special==="gegner"){card.innerHTML=h.replace(`<div class="note">${t("genHint")}</div>`,"")+gegnerHTML(d,rs);return}
   if(g.special==="verfolgung"){card.innerHTML=h.replace(`<div class="note">${t("genHint")}</div>`,"")+verfolgungHTML(d,rs);return}
   if(g.special==="mystery"){card.innerHTML=h.replace(`<div class="note">${t("genHint")}</div>`,"")+mysteryHTML(d,rs);if(NPCDIRTY){NPCDIRTY=false;saveRes("npc")}return}
+  if(g.special==="brett"){card.innerHTML=h.replace(`<div class="note">${t("genHint")}</div>`,"")+brettHTML(d,rs);return}
   if(g.special==="riss"){card.innerHTML=h.replace(`<div class="note">${t("genHint")}</div>`,"")+rissHTML(d,rs);return}
   if(g.special==="ritual"){card.innerHTML=h.replace(`<div class="note">${t("genHint")}</div>`,"")+ritualHTML(d,rs);return}
   if(g.special==="hoehle"){card.innerHTML=h.replace(`<div class="note">${t("genHint")}</div>`,"")+hoehleHTML(d,rs);return}
@@ -806,6 +809,7 @@ function genText(id){
   if(GD[id].cave)return hoehleText(GD[id],res(id));
   if(GD[id].rit)return ritualText(GD[id],res(id));
   if(GD[id].riss)return rissText(GD[id],res(id));
+  if(GD[id].brett)return brettText(GD[id],res(id));
   if(GD[id].npcgen)return npcText(GD[id],res(id));
   if(GD[id].mystery)return mysteryText(GD[id],res(id));
   if(GD[id].chase)return verfolgungText(GD[id],res(id));
@@ -1564,15 +1568,8 @@ function siedlungHTML0(D,rs){
   const P=r.pol;
   h+=sCard("pol",st("rule"),sRow(st("gov"),esc(sW(P.gov)),"pol:gov")+sRow(st("law"),esc(sW(P.law)),"pol:law")+sRow(st("judge"),esc(sW(P.judge)),"pol:judge")+sRow(st("pun"),esc(sW(P.pun)),"pol:pun")+
     sRow(st("order"),`<b>${esc(sW(P.ord))}</b> <span class="ss">${esc(sW(P.oa))} ${esc(st("against"))} ${esc(sRef(D,r,P.og))}, ${esc(st("but"))} ${esc(sW(P.ob))}</span>`,"pol:ord|pol:oa|pol:og|pol:ob"));
-  // Aufgaben (mit Encounter-Knopf)
-  h+=sCard("task",st("tasks"),r.tasks.map((x,i)=>{const cli=r.people[x.client];const enc=`<button class="icon encb" data-stask="${i}" title="${esc(st("toEncTask"))}">⚔</button><button class="icon encb" data-schase="${i}" title="${esc(vt("toChaseTask"))}">🏃</button>`;
-    const typ=x.type==="natur"?st("tNat"):`${st("tCity")} · ${sW(x.art)}`;
-    const what=x.type==="natur"?`<b>${esc(sCap(sRef(D,r,x.p)))}</b><span class="ss">${esc(sW(x.pa))}</span>`:(x.art&&x.art.de==="Finden"?`<b>${esc(sCap(sW(x.find)))}</b>`:`<b>${esc(sCap(sRef(D,r,x.p)))}</b><span class="ss">${esc(sW(x.pa))}</span>`);
-    const way=x.type==="natur"?`${esc(st("job"))}: <b>${esc(sW(x.verb))}</b> · ${esc(st("where"))}: ${esc(sW(x.wild))} ${x.wild.gen==="natur"?`<button class="btn sm sgo" data-stw="${i}">→ ${esc(gTitle(GENS.find(q=>q.id==="natur")||{title:"Wildnis-Ort"}))}</button>`:`${sGo(x.wild.gen,null,sW(x.wild))} <button class="btn sm sgo" data-stw="${i}" title="${esc(wt("wayThere"))}">🌲</button>`}`:(x.art&&x.art.de==="Mysterium"?`<button class="btn sm sgo" data-smys="${i}">🔍 ${esc(mt("title"))}</button>`:`${esc(st("chaseHint"))}`);
-    return `<div class="sitem"><div class="sit"><span class="shead">${esc(typ)}</span> ${what}${sRR(`task:p${i}|task:a${i}|task:v${i}|task:o${i}|task:t${i}|task:g${i}`)}${enc}</div>
-    <div class="sid">${way}</div>
-    <div class="sid">${esc(st("goal"))}: ${esc(sW(x.z))} – ${esc(sRef(D,r,x.zb))} ${sRR(`task:z${i}|task:b${i}`)} · ${esc(st("client"))}: ${cli?sNpcBtn(x.client,cli):"–"} ${sRR("task:c"+i)}</div>
-    <div class="sid">${esc(st("wage"))}: ${esc(st("wageT").replace("%n",x.wage))} ${sRR("task:r"+i)}</div></div>`}).join(""));
+  // Schwarzes Brett (Aufgaben, Martin 30.10.2026)
+  h+=sBrettCard(D,r,S);
   // Taverne
   const V=r.tav;
   h+=sCard("tav",st("tav"),`<div class="sit stavn"><b>„${esc(sCap(sW(V.n1)))} ${esc(sW(V.n2))}“</b>${sRR("tav:n1|tav:n2")}</div>`+
@@ -1612,7 +1609,7 @@ function siedlungText(D,rs){
   o.push(`${st("actorsH")}: ${r.actors.map(a=>`${a.p.name} – ${sW(a.role)} (${sFacName(D,a.f)}, ${sW(a.ruf)}; ${sW(a.p.laune)}, ${sW(a.p.char)})`).join("; ")}`);
   r.agendas.forEach(a=>o.push(`  ${st("agenda")}: ${sEnt(D,r,a.a)} – ${sW(a.verb)} – ${sEnt(D,r,a.b)} · ${sW(a.goal)} (${sW(a.mod)})`));
   const P=r.pol;o.push(`${st("rule")}: ${st("gov")} ${sW(P.gov)}, ${st("law")} ${sW(P.law)}, ${st("judge")} ${sW(P.judge)}, ${st("pun")} ${sW(P.pun)}; ${st("order")}: ${sW(P.ord)} – ${sW(P.oa)} ${st("against")} ${sRef(D,r,P.og)}, ${st("but")} ${sW(P.ob)}`);
-  r.tasks.forEach(x=>{const cli=r.people[x.client];o.push(`${st("task")} (${x.type==="natur"?st("tNat"):st("tCity")+" · "+sW(x.art)}): ${x.type==="natur"?sRef(D,r,x.p)+" ("+sW(x.pa)+") – "+sW(x.verb)+" – "+sW(x.wild):(x.art&&x.art.de==="Finden"?sW(x.find):sRef(D,r,x.p)+" ("+sW(x.pa)+")")} · ${st("goal")}: ${sW(x.z)} – ${sRef(D,r,x.zb)} · ${st("client")}: ${cli?cli.name:"–"} · ${st("wage")}: ${st("wageT").replace("%n",x.wage)}`)});
+  sBrettText(D,r,S).forEach(x=>o.push(x));
   const V=r.tav;o.push(`${st("tav")}: „${sCap(sW(V.n1))} ${sW(V.n2)}“ (${st("host")} ${V.host.name}, ${sW(V.rep)}, ${sW(V.desc)}, ${sW(V.feat)}) · ${st("drink")}: ${sDrink(V.dk)} · ${st("dish")}: ${sDish(V.fd)} (${sW(V.eff)} ${V.pow})`);
   o.push(`${st("temples")}: ${r.temples.map(x=>`${sW(x.art)} – ${x.god?sE(x.god,"rel")+" ("+sE(x.god,"god")+")":""}`).join("; ")}`);
   const gd=x=>x?(LANG==="de"?x.goods:(x.goodsEn||x.goods)):"";
@@ -3165,6 +3162,185 @@ async function siedlungToRis(label){const id=S.cur,g=GENS.find(x=>x.id===id),D=G
   const name=(sW(r.name[0])+(sW(r.name[1])||"").toLowerCase()).replace(/^./,c=>c.toUpperCase());
   rissFrom({from:"siedlung",terr:C.T.nr},{gen:id,title:`${gTitle(g)} ${name}`,extra:label?[label]:[]})}
 
+// ================= SCHWARZES BRETT (Stammtabelle Auftraege, dazu Mysterium: Art/Tat, Territorien, Fraktionen) =================
+// Martin 30.10.2026 (Auftraege_Martin.md): Entscheidungsfreiheit für die Spieler. Jeder urbane Ort hat ein Schwarzes Brett mit immer 4 Aushängen
+// (je ein Quadrant), jeder aus einer anderen Kategorie, jede Aufgabe etwa eine Session. Nur Knochen, kein Fließtext. Die Wendung (aber … weil) liegt in der Hinterhand.
+// Zufallsschlüssel je Aushang i: a<i>:k (Kategorie), a<i>:sp, a<i>:cl/h (Auftraggeber), a<i>:o/en/sd (Ort), a<i>:x1..x4 (Bausteine), a<i>:au, a<i>:gx*, a<i>:vx*, a<i>:wa/ww, a<i>:lo
+const BRI18N={
+ de:{terr:"Territorium",sp:"Schauplatz",mix:"gemischt",city:"nur Stadt",wild:"nur Natur",Stadt:"Stadt",Natur:"Natur",rand:"zufällig",fromT:"Aus",note:"Aushang",cat:"Kategorie",
+  client:"Auftraggeber",place:"Ort",to:"nach",cargo:"Fracht",sought:"Gesucht",seen:"Zuletzt gesehen",then:"Dann",danger:"Gefahr",how:"Vorgehen",deed:"Tat",known:"Bekannt",
+  other:"Gegenpart",concern:"Anliegen",issue:"Streitpunkt",know:"Gesucht wird",cond:"Auflage",chase:"Verfolgung",twist:"In der Hinterhand",but:"aber",because:"weil",
+  wage:"Lohn",wageT:"aushandeln · Richtwert %n Plunder je Sitzung",person:"Person",object:"Objekt",victim:"Opfer",scene:"Tatort",meet:"Treffpunkt",way:"unterwegs",
+  toEnc:"⚔ Encounter",toChase:"🏃 Verfolgungsjagd",toMys:"🔍 Mysterium",toNpc:"NPC erzeugen – Postkarte",open:"📋 Schwarzes Brett",board:"Schwarzes Brett",
+  boardT:"Vier Aushänge – kurz vorlesen, bis die Gruppe anbeißt. Mehr gibt es nicht.",catAuto:"🎲 zufällig",loading:"lädt …",
+  hint:"Am Schwarzen Brett hängen immer vier Aushänge, jeder aus einer anderen Kategorie. Lies die Kurzzeilen stark vereinfacht vor, bis die Gruppe Interesse hat, und arbeite dann die gewählte Aufgabe aus. Jede Aufgabe füllt etwa eine Session. Die Wendung in der Hinterhand sehen die Spieler nicht. Zu Beginn einer Kampagne: Schauplatz „nur Stadt“."},
+ en:{terr:"Territory",sp:"Setting",mix:"mixed",city:"city only",wild:"wilds only",Stadt:"City",Natur:"Wilds",rand:"random",fromT:"From",note:"Notice",cat:"Category",
+  client:"Client",place:"Place",to:"to",cargo:"Cargo",sought:"Sought",seen:"Last seen",then:"Then",danger:"Danger",how:"Approach",deed:"Deed",known:"Known",
+  other:"Other party",concern:"Matter",issue:"Point of conflict",know:"Wanted",cond:"Condition",chase:"Chase",twist:"Up the sleeve",but:"but",because:"because",
+  wage:"Pay",wageT:"negotiate · guideline %n plunder per session",person:"person",object:"object",victim:"Victim",scene:"Scene",meet:"Meeting place",way:"on the way",
+  toEnc:"⚔ Encounter",toChase:"🏃 Chase",toMys:"🔍 Mystery",toNpc:"Create NPC – postcard",open:"📋 Notice board",board:"Notice board",
+  boardT:"Four notices – read them out briefly until the group bites. There are no more.",catAuto:"🎲 random",loading:"loading …",
+  hint:"The notice board always holds four notices, each from a different category. Read the short lines out in a simplified way until the group is interested, then work out the chosen task. Each task fills about one session. The players never see the twist up your sleeve. At the start of a campaign: setting “city only”."}};
+const brt=k=>{const v=BRI18N[LANG][k];return v===undefined?BRI18N.de[k]:v};
+const BRCRE={Drachaten:"Drachats",Teufel:"Devils",Würmer:"Worms",Schleichen:"Creepings",Pirscher:"Stalkers",Säbelaffen:"Sabre-monkeys",Salamander:"Salamanders",Ofanten:"Ofants",
+  Netzfüßler:"Beetlepedes",Weber:"Weavers",Flatterviecher:"Wingbeasts",Geister:"Ghosts",Skelette:"Skeletons","Junges Monster":"Young monster",Abenteurer:"Adventurers",Mutanten:"Mutants"};
+const brNew=()=>({inp:{terr:null,sp:null,k:[null,null,null,null]},draws:{},src:null,ctx:null});
+function brState(rs){if(!rs.brx)rs.brx=brNew();const B=rs.brx;if(!B.inp)B.inp={};if(!Array.isArray(B.inp.k))B.inp.k=[null,null,null,null];return B}
+const brNum=(D,k,d)=>{const x=parseFloat(String((D.rules||{})[k]??"").replace(",","."));return isNaN(x)?d:x};
+const brTx=(o,f)=>!o?"":LANG==="de"?(o[f+"de"]||""):(o[f+"en"]||o[f+"de"]||"");
+const brCatW=(D,de)=>D.kat.find(x=>x.de===de);
+function brFac(D,t){const x=D.subs[t];if(!x)return String(t||"").replace(/^\[[^\]]*\]\s*/,"");const sub=LANG==="de"?x.sub:(x.subEn||x.sub),fac=LANG==="de"?x.fac:(x.facEn||x.fac);return x.k&&sub!==fac?`${sub} (${fac})`:fac}
+function brBuild(D,B){const o=B.inp||{},cx=B.ctx||{},R={};
+  const tn=cx.terr!=null?+cx.terr:o.terr!=null?+o.terr:null;
+  R.T=(tn!=null&&D.terr.find(x=>x.nr===tn))||gWPick(B,"core:t",D.terr);
+  const facPool=(cx.F&&cx.F.length?cx.F:(R.T.f||[])).filter(f=>f.t&&f.t!=="Monster"&&f.t!=="Feen");
+  const manual=(o.k||[]).filter(Boolean),used=[];R.list=[];
+  const n=Math.max(1,Math.min(6,brNum(D,"Aushänge",4)|0||4)),rew=[brNum(D,"Lohn je Sitzung: min",9),brNum(D,"Lohn je Sitzung: max",12)];
+  const people=(cx.people||[]).slice(),usedCl=[];
+  for(let i=0;i<n;i++){const P=`a${i}:`,u=k=>gU(B,P+k),pick=(k,a)=>a&&a.length?gWPick(B,P+k,a):null,A={i};
+    // Kategorie: von Hand oder zufällig (ohne Wiederholung)
+    const kd=(o.k||[])[i];let kat=kd&&brCatW(D,kd);
+    if(!kat){let pool=D.kat.filter(x=>!used.includes(x.de)&&!manual.includes(x.de));if(!pool.length)pool=D.kat.filter(x=>!used.includes(x.de));if(!pool.length)pool=D.kat;kat=pick("k",pool)}
+    used.push(kat.de);A.kat=kat;A.manual=!!kd;
+    A.sp=o.sp==="Stadt"||o.sp==="Natur"?o.sp:(u("sp")<kat.st?"Stadt":"Natur");
+    const fl=a=>{const b=(a||[]).filter(x=>!x.sp||x.sp===A.sp);return b.length?b:(a||[])};
+    const flt=a=>{let b=fl(a);if(A.ty){const c=b.filter(x=>!x.ty||!x.ty.length||x.ty.includes(A.ty));if(c.length)b=c}return b};
+    const Lk=(b,k)=>pick(k,flt(D.L[kat.de+"|"+b])),La=(b,k)=>pick(k,fl(D.L["alle|"+b]));
+    // Auftraggeber: Person der Stadt oder Rolle
+    let pl=people.filter(p=>!usedCl.includes(p.k));if(!pl.length)pl=people;
+    if(pl.length){A.cl=pl[Math.floor(u("cl")*pl.length)];usedCl.push(A.cl.k)}else{A.role=La("Auftraggeber","cl");A.clf=facPool.length?gWPick(B,P+"clf",facPool).t:null}
+    A.h=La("Haltung","h");
+    // Ort
+    let op=D.orte.filter(x=>x.sp===A.sp&&x.k.includes(kat.de));if(!op.length)op=D.orte.filter(x=>x.k.includes(kat.de));A.ort=pick("o",op)||D.orte[0];
+    if(/\{Stadtteil\}/.test(A.ort.de)){const ds=cx.dist||[];const d=ds.length?ds[Math.floor(u("sd")*ds.length)]:La("Stadtteil","sd");A.sd=d}
+    if(A.sp==="Natur")A.en=La("Entfernung","en");
+    // Gegner auflösen
+    const foe=(g,k)=>{if(!g)return null;if(g==="Raubtier"){const ls=String((D.rules||{}).Raubtiere||"Drachaten").split(/\s*,\s*/).filter(Boolean);const nm=ls[Math.floor(u(k)*ls.length)];return{de:nm,en:BRCRE[nm]||nm,cre:nm}}
+      if(g==="Fraktion"){if(!facPool.length)return null;const f=gWPick(B,P+k,facPool).t;return{fac:f,cre:f}}return{de:g,en:BRCRE[g]||g,cre:g}};
+    const X={};
+    if(kat.de==="Transport"){X.f=Lk("Fracht","x1");A.ty=X.f&&X.f.ty&&X.f.ty[0];X.e=Lk("Eigenschaft","x2")}
+    else if(kat.de==="Aufspüren"){X.g=Lk("Gesucht","x1");A.ty=X.g&&X.g.ty&&X.g.ty[0];X.z=Lk("Zuletzt gesehen","x2");X.d=Lk("Dann","x3");if(X.g&&X.g.g)X.gfoe=foe(X.g.g,"x4")}
+    else if(kat.de==="Bannen"){let gp=fl(D.L["Bannen|Gefahr"]);if(A.ort.g){const q=gp.filter(x=>x.g===A.ort.g);if(q.length)gp=q}X.gf=pick("x1",gp);X.v=Lk("Vorgehen","x2");X.foe=X.gf?(A.ort.g?foe(A.ort.g,"x3"):foe(X.gf.g,"x3")):null}
+    else if(kat.de==="Aufklären"){X.ma=pick("x1",D.mys.Art||[]);const lk=X.ma&&X.ma.de==="Objekt"?"Tat: Objekt":"Tat: Person";X.mdl=D.mys[lk]||[];X.md=pick("x2",X.mdl);X.b=Lk("Bekannt","x3")}
+    else if(kat.de==="Vermitteln"){X.gp=Lk("Gegenpart","x1");X.an=Lk("Anliegen","x2");X.is=Lk("Streitpunkt","x3")}
+    else if(kat.de==="Erkunden"){X.w=Lk("Wissen","x1")}
+    A.X=X;A.au=Lk("Auflage","au");
+    if(kat.de!=="Bannen"&&u("cg")<kat.gf){A.gx=La("Gefahr","gx");A.gxfoe=A.gx?(A.ort.g?foe(A.ort.g,"gxf"):foe(A.gx.g,"gxf")):null}
+    if(u("cv")<kat.vf)A.vx=Lk("Verfolgung","vx");
+    A.wa=Lk("Wendung: aber","wa");A.ww=La("Wendung: weil","ww");
+    A.lo=rew[0]+Math.floor(u("lo")*(rew[1]-rew[0]+1));
+    R.list.push(A)}
+  return R}
+const brFoeN=(D,f)=>!f?"":f.fac?brFac(D,f.fac):(LANG==="de"?f.de:(f.en||f.de));
+function brOrt(A){let s=sW(A.ort);if(A.sd)s=s.replace(/\{Stadtteil\}/g,sW(A.sd));return s}
+function brShort(D,A){const X=A.X,k=A.kat.de,c=sCap;
+  if(k==="Transport")return `${c(sW(X.f))}${X.e?" ("+sW(X.e)+")":""} → ${brOrt(A)}`;
+  if(k==="Aufspüren")return `${c(sW(X.g))} – ${sW(X.d)}`;
+  if(k==="Bannen")return `${c(brFoeN(D,X.foe))}: ${sW(X.gf)} · ${brOrt(A)}`;
+  if(k==="Aufklären")return `${c(sW(X.b))} · ${brOrt(A)}`;
+  if(k==="Vermitteln")return `${c(sW(X.an))} · ${sW(X.gp)}`;
+  if(k==="Erkunden")return `${c(brOrt(A))}: ${sW(X.w)}`;return ""}
+function brClient(D,A){if(A.cl)return `${A.cl.name||"–"}${A.cl.role?" ("+A.cl.role+")":""}`;return sCap(sW(A.role))}
+function brCity(B){return B.ctx&&B.ctx.city||""}
+function brBtn(gen,i){if(!gen)return "";const id=gen.split(":")[0],g=GENS.find(x=>x.id===id);return g?` <button class="btn sm sgo" data-brgo="${i}">→ ${esc(gTitle(g))}</button>`:""}
+function brettHTML(D,rs){SCOL=null;const B=brState(rs),o=B.inp,R=brBuild(D,B),fromS=B.ctx&&B.ctx.from==="siedlung";
+  const sel=(k,cur,auto,opts)=>`<label class="ef"><span>${esc(brt(k))}</span><select data-brinp="${k}"><option value="">🎲 ${esc(brt("rand"))}${cur==null?" ("+esc(auto)+")":""}</option>${opts.map(([v,l])=>`<option value="${esc(String(v))}" ${cur!=null&&String(cur)===String(v)?"selected":""}>${esc(l)}</option>`).join("")}</select></label>`;
+  let h=`<div class="ebar sbar">${fromS?"":sel("terr",o.terr,sW(R.T),D.terr.map(x=>[x.nr,`${x.nr} – ${sW(x)}`]))}<label class="ef"><span>${esc(brt("sp"))}</span><select data-brinp="sp"><option value="">${esc(brt("mix"))}</option><option value="Stadt" ${o.sp==="Stadt"?"selected":""}>${esc(brt("city"))}</option><option value="Natur" ${o.sp==="Natur"?"selected":""}>${esc(brt("wild"))}</option></select></label></div>`;
+  if(B.src){const g0=B.src.gen&&GENS.find(x=>x.id===B.src.gen);
+    h+=`<div class="esrc">${g0?`<button class="btn sm" data-go="${esc(B.src.gen)}">← ${esc(gTitle(g0))}</button> `:""}↪ ${esc(brt("fromT"))}: <b>${esc(B.src.title||"")}</b>${B.src.extra&&B.src.extra.length?" · "+esc(B.src.extra.join(" · ")):""} <button class="icon" data-brclr="1" title="${t("eClear")}">✕</button></div>`}
+  h+=`<div class="sgrid brq">`;
+  R.list.forEach((A,i)=>{const X=A.X,k=A.kat.de,P=`a${i}:`;
+    const ksel=`<select class="brk" data-brk="${i}" title="${esc(brt("cat"))}"><option value="">${esc(brt("catAuto"))}</option>${D.kat.map(c=>`<option value="${esc(c.de)}" ${A.manual&&c.de===A.kat.de?"selected":""}>${esc(sW(c))}</option>`).join("")}</select>`;
+    let b=`<div class="sit brs"><b>${esc(brShort(D,A))}</b></div><div class="sid">${esc(brTx(A.kat,"q"))} <span class="ss">· ${esc(brt(A.sp))}</span></div>`;
+    b+=sRow(brt("client"),`${A.cl||A.role?`<b>${esc(brClient(D,A))}</b>`:"–"} <span class="ss">${esc(sW(A.h))}</span> <button class="icon encb" data-brnpc="${i}" title="${esc(brt("toNpc"))}">👤</button>`,P+"cl|"+P+"h|"+P+"clf");
+    const ortV=`${esc(brOrt(A))}${A.en?` <span class="ss">${esc(sW(A.en))}</span>`:""}${A.ort.gen&&!(A.ort.gen==="siedlung"&&fromS)?brBtn(A.ort.gen,i):""}`;
+    if(k==="Transport"){b+=sRow(brt("cargo"),`<b>${esc(sCap(sW(X.f)))}</b> <span class="ss">${esc(sW(X.e))}</span>`,P+"x1|"+P+"x2");b+=sRow(brt("to"),ortV,P+"o|"+P+"en|"+P+"sd")}
+    else if(k==="Aufspüren"){b+=sRow(brt("sought"),`<b>${esc(sCap(sW(X.g)))}</b>${X.gfoe?` <span class="ss">${esc(brFoeN(D,X.gfoe))}</span> <button class="btn sm sgo" data-brenc="${i}" data-brw="g">${esc(brt("toEnc"))}</button>`:""}`,P+"x1|"+P+"x4");
+      b+=sRow(brt("seen"),esc(sW(X.z)),P+"x2");b+=sRow(brt("then"),`<b>${esc(sW(X.d))}</b>`,P+"x3");b+=sRow(brt("place"),ortV,P+"o|"+P+"en|"+P+"sd")}
+    else if(k==="Bannen"){b+=sRow(brt("danger"),`<b>${esc(sCap(brFoeN(D,X.foe)))}</b> – ${esc(sW(X.gf))}${X.foe?` <button class="btn sm sgo" data-brenc="${i}" data-brw="b">${esc(brt("toEnc"))}</button>`:""}`,P+"x1|"+P+"x3");
+      b+=sRow(brt("how"),esc(sW(X.v)),P+"x2");b+=sRow(brt("place"),ortV,P+"o|"+P+"en|"+P+"sd")}
+    else if(k==="Aufklären"){b+=sRow(brt("known"),`<b>${esc(sCap(sW(X.b)))}</b>`,P+"x3");
+      b+=sRow(brt("deed"),`${esc(sW(X.md))} <span class="ss">${esc(brt(X.ma&&X.ma.de==="Objekt"?"object":"person"))}</span> <button class="btn sm sgo" data-brmys="${i}">${esc(brt("toMys"))}</button>`,P+"x1|"+P+"x2");
+      b+=sRow(brt("scene"),ortV,P+"o|"+P+"en|"+P+"sd")}
+    else if(k==="Vermitteln"){b+=sRow(brt("other"),`<b>${esc(sCap(sW(X.gp)))}</b>`,P+"x1");b+=sRow(brt("concern"),esc(sW(X.an)),P+"x2");b+=sRow(brt("issue"),esc(sW(X.is)),P+"x3");b+=sRow(brt("meet"),ortV,P+"o|"+P+"en|"+P+"sd")}
+    else if(k==="Erkunden"){b+=sRow(brt("place"),`<b>${ortV}</b>`,P+"o|"+P+"en|"+P+"sd");b+=sRow(brt("know"),esc(sW(X.w)),P+"x1")}
+    b+=sRow(brt("cond"),`<b>${esc(sCap(sW(A.au)))}</b>`,P+"au");
+    if(A.gx)b+=sRow(brt("danger"),`${A.gxfoe?`<b>${esc(sCap(brFoeN(D,A.gxfoe)))}</b> – `:""}${esc(sW(A.gx))} <span class="ss">${esc(brt("way"))}</span>${A.gxfoe?` <button class="btn sm sgo" data-brenc="${i}" data-brw="x">${esc(brt("toEnc"))}</button>`:""}`,P+"gx");
+    if(A.vx)b+=sRow(brt("chase"),`${esc(sCap(sW(A.vx)))} <button class="btn sm sgo" data-brchase="${i}">${esc(brt("toChase"))}</button>`,P+"vx");
+    b+=sRow(brt("twist"),`<span class="ss">${esc(brt("but"))}</span> ${esc(sW(A.wa))} <span class="ss">– ${esc(brt("because"))}</span> ${esc(sW(A.ww))}`,P+"wa|"+P+"ww");
+    b+=sRow(brt("wage"),esc(brt("wageT").replace("%n",A.lo)),P+"lo");
+    h+=sCard("a"+i,`${brt("note")} ${i+1} · ${sW(A.kat)}`,b,false,ksel)});
+  return h+`</div><div class="hint">${esc(brt("hint"))}</div>`}
+function brettText(D,rs){const B=brState(rs),R=brBuild(D,B),o=[];
+  if(B.src)o.push(`${brt("fromT")}: ${B.src.title||""}`);
+  o.push(`${brt("board")}${brCity(B)?" – "+brCity(B):""} · ${sW(R.T)}`);
+  R.list.forEach((A,i)=>{o.push(`${brt("note")} ${i+1} (${sW(A.kat)}, ${brt(A.sp)}): ${brShort(D,A)}`);
+    o.push(`  ${brt("client")}: ${brClient(D,A)} (${sW(A.h)}) · ${brt("cond")}: ${sW(A.au)}${A.gx?` · ${brt("danger")}: ${A.gxfoe?brFoeN(D,A.gxfoe)+" – ":""}${sW(A.gx)}`:""}${A.vx?` · ${brt("chase")}: ${sW(A.vx)}`:""}`);
+    o.push(`  ${brt("twist")}: ${brt("but")} ${sW(A.wa)} – ${brt("because")} ${sW(A.ww)} · ${brt("wage")}: ${brt("wageT").replace("%n",A.lo)}`)});
+  return o}
+// ---------- Siedlung ↔ Brett: dieselben Würfe (Sx.br) und derselbe Kontext
+function brSig(r){return [r.name[0]&&r.name[0].de,r.name[1]&&r.name[1].de,r.C.T.nr,r.C.Z&&r.C.Z.de].join("|")}
+function brCtxS(D,r){const C=r.C,name=(sW(r.name[0])+(sW(r.name[1])||"").toLowerCase()).replace(/^./,c=>c.toUpperCase());
+  const people=Object.keys(r.people).filter(k=>!k.startsWith("t")||k==="t0").map(k=>Object.assign({k},r.people[k]));
+  const dist=r.dist.map(d=>({de:((d.n1&&d.n1.de)||"")+(((d.n2&&d.n2.de)||"").toLowerCase()),en:((d.n1&&(d.n1.en||d.n1.de))||"")+(((d.n2&&(d.n2.en||d.n2.de))||"").toLowerCase())}));
+  const F=[[C.F[0],6],[C.F[1],3],[C.F[2],1]].filter(x=>x[0]).map(([t,w])=>({t,w}));
+  return{from:"siedlung",terr:C.T.nr,city:name,sig:brSig(r),people,dist,F}}
+function brS(Sx){if(!Sx.br)Sx.br={inp:{terr:null,sp:null,k:[null,null,null,null]},draws:{}};if(!Array.isArray(Sx.br.inp.k))Sx.br.inp.k=[null,null,null,null];return Sx.br}
+function sBrettCard(D,r,Sx){
+  if(!GD.brett){loadGen("brett").then(()=>{if(S.cur==="siedlung")renderGen()}).catch(()=>{});return sCard("brett",brt("board"),`<div class="sid">${esc(brt("loading"))}</div>`)}
+  const sb=brS(Sx),B={inp:sb.inp,draws:sb.draws,ctx:brCtxS(D,r)},R=brBuild(GD.brett,B);
+  const body=R.list.map((A,i)=>`<div class="sitem"><div class="sit"><span class="shead">${i+1} · ${esc(sW(A.kat))}</span> ${esc(brShort(GD.brett,A))}</div><div class="sid">${esc(brt("client"))}: ${esc(brClient(GD.brett,A))} · ${esc(brt(A.sp))}</div></div>`).join("")+
+    `<div class="sid">${esc(brt("boardT"))} <button class="btn sm sgo" data-sbrett="1">${esc(brt("open"))}</button></div>`;
+  return sCard("brett",brt("board"),body)}
+function sBrettText(D,r,Sx){if(!GD.brett)return [];const sb=brS(Sx),B={inp:sb.inp,draws:sb.draws,ctx:brCtxS(D,r)},R=brBuild(GD.brett,B);
+  return R.list.map((A,i)=>`${brt("note")} ${i+1} (${sW(A.kat)}): ${brShort(GD.brett,A)} · ${brt("client")}: ${brClient(GD.brett,A)}`)}
+async function siedlungToBrett(){const id=S.cur,g=GENS.find(x=>x.id===id),D=GD[id],Sx=sState(res(id)),r=sBuild(D,Sx);
+  await loadGen("brett");await loadRes("brett");const B=brState(res("brett")),sb=brS(Sx),ctx=brCtxS(D,r);
+  B.ctx=ctx;B.inp=JSON.parse(JSON.stringify(sb.inp));B.draws=JSON.parse(JSON.stringify(sb.draws));B.src={gen:id,title:`${gTitle(g)} ${ctx.city}`,extra:[]};
+  saveRes("brett");go("brett")}
+function brSync(B){if(!B.src||B.src.gen!=="siedlung"||!B.ctx||!GD.siedlung||!loadedRes.has("siedlung"))return;
+  const Sx=sState(res("siedlung"));let r;try{r=sBuild(GD.siedlung,Sx)}catch(e){return}if(brSig(r)!==B.ctx.sig)return;
+  Sx.br={inp:JSON.parse(JSON.stringify(B.inp)),draws:JSON.parse(JSON.stringify(B.draws))};saveRes("siedlung")}
+function brSave(){const B=brState(res(S.cur));saveRes(S.cur);brSync(B)}
+// ---------- Übergaben
+function brSrc(B,A,extra){const g=GENS.find(x=>x.id==="brett");return{gen:"brett",title:`${gTitle(g)}${brCity(B)?" "+brCity(B):""} · ${brt("note")} ${A.i+1}`,extra:[`${sW(A.kat)}: ${brShort(GD.brett,A)}`].concat(extra||[])}}
+async function brToEnc(i,w){const D=GD.brett,B=brState(res("brett")),R=brBuild(D,B),A=R.list[+i];if(!A)return;
+  const f=w==="g"?A.X.gfoe:w==="b"?A.X.foe:A.gxfoe;
+  await Promise.all([loadGen("encounter"),loadGen("gegner")]);await loadRes("encounter");
+  const G=GD.gegner,E=eState(res("encounter")),ED=GD.encounter,c=f?eFindCre(G,f.cre):null;
+  const oi=ED.orte.findIndex(x=>x.de===(A.sp==="Stadt"?"Stadt":"Natur"));if(oi>=0)E.inp.ort=oi;E.inp.f=[c||null,null,null];E.inp.boss=false;
+  const s=brSrc(B,A,[]);E.src={gen:"brett",title:s.title,place:[sW(R.T),brOrt(A)].filter(Boolean).join(" · "),hazard:null,pre:{},extra:s.extra.concat(f&&!c?[brFoeN(D,f)]:[])};
+  E.draws={};E.gd=[{},{},{}];E.ov=[{},{},{}];E.hp={};E.ph={};saveRes("encounter");go("encounter")}
+async function brToChase(i){const D=GD.brett,B=brState(res("brett")),R=brBuild(D,B),A=R.list[+i];if(!A)return;
+  await loadGen("verfolgung");await loadRes("verfolgung");const V=vState(res("verfolgung")),X=A.X;
+  const who=A.kat.de==="Aufspüren"?sW(X.g):A.kat.de==="Vermitteln"?sW(X.gp):A.kat.de==="Bannen"?brFoeN(D,X.foe):A.gxfoe?brFoeN(D,A.gxfoe):sW(A.vx);
+  V.inp.g=A.sp==="Stadt"?"Stadt":"Natur";V.inp.who=sCap(who||"");V.draws={};V.st={};V.src=brSrc(B,A,[sW(A.vx)]);saveRes("verfolgung");go("verfolgung")}
+async function brToNpc(i){const D=GD.brett,B=brState(res("brett")),R=brBuild(D,B),A=R.list[+i];if(!A)return;
+  await loadGen("npc");await loadRes("npc");const rsN=nState(res("npc")),s=brSrc(B,A,[]);let key,L;
+  if(A.cl){key="siedlung:"+A.cl.k;L=nLinkFor(rsN,key,A.cl,A.cl.role||"");L.fix.role=A.cl.role||""}
+  else{const role=sCap(sW(A.role));key="brett:"+i;L=nLinkFor(rsN,key,{name:"",f:A.clf},role);L.fix.role=role}
+  L.src={gen:"brett",title:s.title,label:brt("client")};rsN.cur=key;saveRes("npc");go("npc")}
+async function brToMys(i){const D=GD.brett,B=brState(res("brett")),R=brBuild(D,B),A=R.list[+i];if(!A||A.kat.de!=="Aufklären")return;
+  const pre={art:A.X.ma?A.X.ma.de:null,deed:B.draws[`a${i}:x2`],place:brOrt(A)},s=brSrc(B,A,[]);
+  if(B.ctx&&B.ctx.from==="siedlung"&&GD.siedlung&&loadedRes.has("siedlung")){let r=null;try{r=sBuild(GD.siedlung,sState(res("siedlung")))}catch(e){}
+    if(r&&brSig(r)===B.ctx.sig){S.cur="siedlung";await siedlungToMystery("b"+i,{label:`${brt("note")} ${+i+1}`,back:"brett",title:s.title,pre});return}}
+  await loadGen("mystery");await loadGen("npc");await loadRes("mystery");await loadRes("npc");
+  const M=mState(res("mystery"));M.draws={};M.inp.art=pre.art;if(pre.deed!=null)M.draws["m:deed"]=pre.deed;
+  const rsN=nState(res("npc"));[0,1,2,3].forEach(j=>{const L=rsN.links["mystery:"+j];if(L)L.draws={}});
+  M.src={gen:"brett",title:s.title,place:pre.place};saveRes("npc");saveRes("mystery");go("mystery")}
+async function brGo(i){const D=GD.brett,B=brState(res("brett")),R=brBuild(D,B),A=R.list[+i];if(!A||!A.ort.gen)return;
+  const [gen,typ]=A.ort.gen.split(":"),cx=B.ctx||{},terr=R.T.nr,s=brSrc(B,A,[brOrt(A)]),fromS=cx.from==="siedlung"&&A.sp==="Stadt";
+  const hunt=(A.kat.de==="Aufspüren"&&A.X.gfoe)||A.kat.de==="Bannen";
+  if(gen==="natur"){await loadGen("natur");await loadRes("natur");const W=wState(res("natur"));W.inp.terr=terr;W.inp.n=null;W.inp.ziel=hunt?"hunt":"reach";W.inp.zort=null;
+    W.src=s;W.draws={};W.col={...WCOL_DEF};saveRes("natur");go("natur");return}
+  if(gen==="gebaeude"){gebFrom({from:fromS?"siedlung":"natur",terr,F:fromS?cx.F:undefined,ab:/verlassen|abandoned/i.test(A.ort.de)},typ?{typ}:{},s);return}
+  if(gen==="ruine"){ruFrom(fromS?{from:"siedlung",terr,F:cx.F}:{from:"natur",terr},s);return}
+  if(gen==="hoehle"){hoeFrom(fromS?{from:"siedlung",terr,F:cx.F}:{from:"natur",terr},s);return}
+  if(gen==="riss"){rissFrom({from:"natur",terr},s);return}
+  if(gen==="ritual"){ritFrom({from:"natur",terr},s);return}
+  if(gen==="siedlung"){await loadGen("siedlung");await loadRes("siedlung");const Sx=sState(res("siedlung"));Sx.inp.terr=terr;Sx.inp.main=null;Sx.draws={};if(Sx.br)Sx.br.draws={};saveRes("siedlung");go("siedlung");return}
+  go(gen)}
+
 // ================= VERFOLGUNGSJAGD (Stammtabelle Verfolgung, Regeln Buch 1 Kap. 4.4 Chase) =================
 // Objective (Standard 50), Runden nach Dexterity der NPC-Gruppe (5/4/3). Je Runde: Szene auf dem direkten Weg (Beschreibung)
 // und eine Abkürzung (zwei Wege, ein Merkmal). Die Stärken werden je Runde eingetragen und zum Status addiert.
@@ -3412,7 +3588,7 @@ function mysteryText(D,rs){const M=mState(rs),P=mPeople(M),m=mBuild(D,M),o=[];mN
   o.push(`${mt("plan")}: ${sW(m.plan.means)}, ${sW(m.plan.how)} ${sW(m.plan.cover)}`);
   o.push(`${mt("truth")}: ${mt("culprit")} ${mNick(P[m.culprit]||P[1])} · ${mt("motive")} ${m.motive.map(sW).join(", ")}${M.src&&M.src.agenda?" · "+M.src.agenda:""} · ${mt("alibi")} ${m.alibi.map(x=>mW(x,P)).join(" ")}`);
   return o}
-async function siedlungToMystery(ti){
+async function siedlungToMystery(ti,opt){
   const id=S.cur,g=GENS.find(x=>x.id===id),D=GD[id],Sx=sState(res(id)),r=sBuild(D,Sx);
   await loadGen("mystery");await loadGen("npc");await loadRes("mystery");await loadRes("npc");
   const u=x=>gU(Sx,"mys:"+ti+":"+x);
@@ -3430,6 +3606,7 @@ async function siedlungToMystery(ti){
   const M=mState(res("mystery"));M.draws={};M.inp.art=null;
   M.src={gen:id,title:`${gTitle(g)} ${name} · ${st("task")} ${+ti+1}`,keys:[vk,...sus].map(k=>"siedlung:"+k),culprit:1+sus.indexOf(ck),
     agenda:ag?`${sEnt(D,r,ag.a)} – ${sW(ag.verb)} – ${sEnt(D,r,ag.b)} · ${sW(ag.goal)} (${sW(ag.mod)})`:"",place:d?(sW(d.n1)+(sW(d.n2)||"").toLowerCase()):""};
+  if(opt){M.src.gen=opt.back||id;if(opt.title)M.src.title=opt.title;const p=opt.pre||{};if(p.art)M.inp.art=p.art;if(p.deed!=null)M.draws["m:deed"]=p.deed;if(p.place)M.src.place=p.place}
   saveRes("npc");saveRes("mystery");go("mystery")}
 
 // ================= navigation =================
@@ -3445,7 +3622,7 @@ async function go(id){
   if(id==="villa"||id==="tempel")id="gebaeude";
   if(id!=="_fate"&&!GENS.find(g=>g.id===id))id="_fate";
   S.cur=id;saveMain();renderNav();
-  document.documentElement.dataset.pal=["siedlung","npc","mystery","natur","gebaeude","ruine","hoehle","ritual","riss","gegner","encounter"].includes(id)?"mot":"";
+  document.documentElement.dataset.pal=["siedlung","npc","mystery","natur","gebaeude","ruine","hoehle","ritual","riss","brett","gegner","encounter"].includes(id)?"mot":"";
   $("#fateView").hidden=id!=="_fate";$("#genCard").hidden=id==="_fate";
   if(id==="_fate"){renderFate();return}
   renderGen();
@@ -3497,7 +3674,7 @@ document.addEventListener("click",ev=>{
       for(const key of Object.keys(N.draws))if(ks.some(k=>key.startsWith(k)))delete N.draws[key];saveRes(S.cur);renderGen();return}
     if(b.id==="regen"){N.draws={};saveRes(S.cur);renderGen();return}
   }
-  if(rs&&GD[S.cur].wild){const W=wState(rs);
+  if(rs&&GD[S.cur].wild&&!GD[S.cur].siedlung){const W=wState(rs);
     if(ds.wenc!=null){wildToEnc(ds.wenc,ds.wk);return}
     if(ds.wchase!=null){wildToChase(ds.wchase,ds.wk);return}
     if(b.id==="toChase"){wildToChase(null);return}
@@ -3513,6 +3690,16 @@ document.addEventListener("click",ev=>{
     if(ds.scol!=null){W.col[ds.scol]=W.col[ds.scol]?0:1;saveRes(S.cur);renderGen();return}
     if(ds.srr!=null){const ks=ds.srr.split("|");for(const key of Object.keys(W.draws))if(ks.some(k=>key.startsWith(k)))delete W.draws[key];saveRes(S.cur);renderGen();return}
     if(b.id==="regen"){W.draws={};W.col={...WCOL_DEF};saveRes(S.cur);renderGen();return}
+  }
+  if(rs&&GD[S.cur].brett){const B=brState(rs);
+    if(ds.brenc!=null){brToEnc(ds.brenc,ds.brw);return}
+    if(ds.brchase!=null){brToChase(ds.brchase);return}
+    if(ds.brnpc!=null){brToNpc(ds.brnpc);return}
+    if(ds.brmys!=null){brToMys(ds.brmys);return}
+    if(ds.brgo!=null){brGo(ds.brgo);return}
+    if(ds.brclr){B.src=null;B.ctx=null;saveRes(S.cur);renderGen();return}
+    if(ds.srr!=null){const ks=ds.srr.split("|");for(const key of Object.keys(B.draws))if(ks.some(k=>key.startsWith(k)))delete B.draws[key];renderGen();brSave();return}
+    if(b.id==="regen"){B.draws={};renderGen();brSave();return}
   }
   if(rs&&GD[S.cur].riss){const B=rsState(rs);
     if(ds.rsenc!=null){rsToEnc();return}
@@ -3577,13 +3764,15 @@ document.addEventListener("click",ev=>{
     if(ds.srit!=null){siedlungToRit(ds.sgl);return}
     if(ds.sris!=null){siedlungToRis(ds.sgl);return}
     if(ds.sgo){go(ds.sgo);return}
+    if(ds.sbrett!=null){siedlungToBrett();return}
+    if(ds.srr==="brett:"){brS(Sx).draws={};saveRes(S.cur);renderGen();return}
     if(ds.smys!=null){siedlungToMystery(ds.smys);return}
     if(ds.stpr!=null){Sx.pr=Sx.pr||{};Sx.pr[ds.stpr]=1;saveRes(S.cur);renderGen();return}
     if(ds.snpc!=null){const tip=document.getElementById("pctip");if(eTouch&&ds.pc&&(!tip||tip.hidden||tip.dataset.k!==ds.pc)){pcTip(b);return}pcTip(null);siedlungToNpc(ds.snpc);return}
     if(ds.schase!=null){siedlungToChase(ds.schase);return}
     if(ds.scol!=null){const c=sCol(rs);c[ds.scol]=c[ds.scol]?0:1;saveRes(S.cur);renderGen();return}
     if(ds.srr!=null){const ks=ds.srr.split("|");for(const key of Object.keys(Sx.draws))if(ks.some(k=>key.startsWith(k)))delete Sx.draws[key];saveRes(S.cur);renderGen();return}
-    if(b.id==="regen"){Sx.draws={};saveRes(S.cur);renderGen();return}
+    if(b.id==="regen"){Sx.draws={};if(Sx.br)Sx.br.draws={};saveRes(S.cur);renderGen();return}
   }
   if(b.id==="toEnc"){encFromPlace();return}
   if(ds.encrow!=null){encFromPlace(ds.encrow);return}
@@ -3632,6 +3821,8 @@ document.addEventListener("change",ev=>{
     const drop={fac:["n:fac","n:name","n:spec","n:t"],spec:["n:spec","n:t"],lvl:["n:lvl","n:prof","n:leb","n:bes"]}[k]||[];
     for(const key of Object.keys(N.draws))if(drop.some(d=>key.startsWith(d)))delete N.draws[key];
     saveRes(S.cur);renderGen();return}
+  if(e.dataset.brinp!=null){const B=brState(res(S.cur)),k=e.dataset.brinp,v=e.value===""?null:e.value;B.inp[k]=v;renderGen();brSave();return}
+  if(e.dataset.brk!=null){const B=brState(res(S.cur)),i=+e.dataset.brk;B.inp.k[i]=e.value||null;for(const key of Object.keys(B.draws))if(key.startsWith(`a${i}:`))delete B.draws[key];renderGen();brSave();return}
   if(e.dataset.rsinp!=null){const B=rsState(res(S.cur)),k=e.dataset.rsinp,v=e.value===""?null:e.value;B.inp[k]=v;
     if(k==="terr")B.ctx=B.ctx?Object.assign({},B.ctx,{terr:null}):null;saveRes(S.cur);renderGen();return}
   if(e.dataset.riinp!=null){const B=riState(res(S.cur)),k=e.dataset.riinp,v=e.value===""?null:e.value;B.inp[k]=v;
