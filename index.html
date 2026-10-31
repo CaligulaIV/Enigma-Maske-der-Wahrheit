@@ -1249,7 +1249,7 @@ function eHTML(D,rs){
    ${lead?`<p class="slead">${esc(lead)} ${eRR("i:tat|i:form|i:um|i:prob")}</p>`:""}
    ${modBox}
    <p class="ssense">${eit("smellOf")}: ${esc(sm.join(" · ")||"–")} · ${eit("soundOf")}: ${esc(so.join(" · ")||"–")}</p>
-   <div class="eprog"><span class="vbar"><span style="width:${pc}%"></span></span><span class="vstat">${esc(eit("prog").replace("%a",P.alive).replace("%b",P.all).replace("%c",P.cur).replace("%d",P.max))}</span></div></div>`;
+   <div class="eprog"><span class="vbar"><span style="width:${pc}%"></span></span><span class="vstat">${esc(eit("prog").replace("%a",P.alive).replace("%b",P.all).replace("%c",P.cur).replace("%d",P.max))}</span>${GENS.find(x=>x.id==="loot")?` <button class="btn sm sgo" data-eloot="1" title="${esc(lot("encLootT"))}">💎 ${esc(gTitle(GENS.find(x=>x.id==="loot")))}</button>`:""}</div></div>`;
   // ---- Gegnerkarten
   h+=`<div class="egrid">`;
   groups.forEach(x=>{
@@ -1815,6 +1815,7 @@ function wildnisHTML0(D,rs){
     else if(a.gen==="ritual")ort+=` <button class="btn sm sgo" data-writ="${i}">→ ${esc(gTitle(GENS.find(x=>x.id==="ritual")||{title:"Ritual-Ort"}))}</button>`;
     else if(a.gen==="hoehle")ort+=` <button class="btn sm sgo" data-whoe="${i}">→ ${esc(gTitle(GENS.find(x=>x.id==="hoehle")||{title:"Höhlensystem"}))}</button>`;
     else if(a.gen==="ruine")ort+=` <button class="btn sm sgo" data-wru="${i}">→ ${esc(gTitle(GENS.find(x=>x.id==="ruine")||{title:"Ruine"}))}</button>`;
+    else if(a.gen==="loot")ort+=" "+wGo("loot",` data-lf="lager" data-lst="1" data-ll="${esc(wt("area")+" "+(i+1)+": "+a.name)}"`);
     else if(a.gen)ort+=" "+wGo(a.gen);
     if(a.sicht)ort+=`<div class="sid"><span class="k">${esc(wt("sight"))}:</span> <b>${esc(sE({x:a.sicht.de,xEn:a.sicht.en},"x"))}</b> – ${esc(sE({x:a.sicht.hde,xEn:a.sicht.hen},"x"))}${a.reveal?" · "+esc(wt("reveal"))+" "+esc(sW(a.reveal)):""} ${sRR(k+"vs|"+k+"vr")}</div>`;
     const sline=(S,neu,rk)=>S?`${esc(sCap(S.t))} <span class="ss">– ${esc(S.from)}</span> ${sRR(rk+"x")}`:`${esc(neu||"–")} ${sRR(rk)}`;
@@ -3240,7 +3241,7 @@ function brBuild(D,B){const o=B.inp||{},cx=B.ctx||{},R={};
     if(kat.de!=="Bannen"&&u("cg")<kat.gf){A.gx=La("Gefahr","gx");A.gxfoe=A.gx?(A.ort.g?foe(A.ort.g,"gxf"):foe(A.gx.g,"gxf")):null}
     if(u("cv")<kat.vf)A.vx=Lk("Verfolgung","vx");
     A.wa=Lk("Wendung: aber","wa");A.ww=La("Wendung: weil","ww");
-    A.lo=rew[0]+Math.floor(u("lo")*(rew[1]-rew[0]+1));
+    A.lo=`${brNum(D,"Lohn: Grundwert",8)} + ${LANG==="de"?"Wealth-Level":"wealth-level"}`;
     R.list.push(A)}
   return R}
 const brFoeN=(D,f)=>!f?"":f.fac?brFac(D,f.fac):(LANG==="de"?f.de:(f.en||f.de));
@@ -3372,7 +3373,7 @@ const LOI18N={
   pact:"Pakt",leg:"Legendärer Gegenstand",legT:"Abstrakte magische Fähigkeit, keine feste Mechanik – kommt nicht als normaler Loot vor.",rune:"Runenherz × Rahmen",
   coins:"Münzen, Schmuckstücke",valuable:"Wertsache",worth:"wert",total:"zusammen",
   passion:"Passion",path:"Pfad",place:"Ort",
-  hint:"Ein Fund: Plunder und bis zu sechs Gegenstände. Die Fundstelle bestimmt, aus welchen Pools gezogen wird, die Ortsstufe Level, Plunder und den Anteil meisterhafter und epischer Gegenstände. Jede Kachel würfelt nach der Fundstelle oder nach der gewählten Kategorie – so entsteht auch ein einzelner Gegenstand. Richtwert Lohn: 8 + Wealth-Level Plunder je Session. Nicht alles ist nützlich: Die Helden lernen, mit dem zu arbeiten, was sie finden."},
+  encLootT:"Loot der besiegten Gegner: Fundstelle nach den Gegnern, Ortsstufe nach der Ortsart",hint:"Ein Fund: Plunder und bis zu sechs Gegenstände. Die Fundstelle bestimmt, aus welchen Pools gezogen wird, die Ortsstufe Level, Plunder und den Anteil meisterhafter und epischer Gegenstände. Jede Kachel würfelt nach der Fundstelle oder nach der gewählten Kategorie – so entsteht auch ein einzelner Gegenstand. Richtwert Lohn: 8 + Wealth-Level Plunder je Session. Nicht alles ist nützlich: Die Helden lernen, mit dem zu arbeiten, was sie finden."},
  en:{fs:"Find",ort:"Place",st:"Place tier",terr:"Territory",rand:"random",fromT:"From",plunder:"plunder",items:"items",perS:"Per session",
   stufe:"Tier",tileAuto:"random",empty:"empty",addTile:"🎲 roll",cat:"Category",none:"nothing",
   P:{banal:"mundane",nuetzlich:"useful",reserve:"reserve",ausruestung:"equipment",wertvoll:"valuable",magisch:"magical"},
@@ -3386,7 +3387,7 @@ const LOI18N={
   pact:"Pact",leg:"Legendary item",legT:"An abstract magical ability, no fixed mechanic – never part of normal loot.",rune:"Rune-heart × frame",
   coins:"coins, trinkets",valuable:"Valuable",worth:"worth",total:"in total",
   passion:"Passion",path:"Path",place:"Place",
-  hint:"A find: plunder and up to six items. The find decides which pools are drawn from; the place tier sets levels, plunder and the share of masterful and epic items. Each tile rolls by the find or by the chosen category – that is also how you get a single item. Guideline for pay: 8 + wealth-level plunder per session. Not everything is useful: the heroes learn to work with what they find."}};
+  encLootT:"Loot of the defeated enemies: find by the enemies, place tier by the kind of place",hint:"A find: plunder and up to six items. The find decides which pools are drawn from; the place tier sets levels, plunder and the share of masterful and epic items. Each tile rolls by the find or by the chosen category – that is also how you get a single item. Guideline for pay: 8 + wealth-level plunder per session. Not everything is useful: the heroes learn to work with what they find."}};
 const lot=k=>{const v=LOI18N[LANG][k];return v===undefined?LOI18N.de[k]:v};
 const LOPOOLS=["banal","nuetzlich","reserve","ausruestung","wertvoll","magisch"];
 const LOKAT=["trank","schrift","waffe","ruestung","schild","kleidung","fokus","wertsache","mrare","mepic","leg"];
@@ -3573,6 +3574,12 @@ async function lootFromHere(b){const id=S.cur,g=GENS.find(x=>x.id===id),D=GD[id]
 async function rsToLoot(){const id=S.cur,g=GENS.find(x=>x.id===id),D=GD[id],B=rsState(res(id)),C=rsBuild(D,B);
   lootFrom({st:C.big?3:2,fs:null,riss:{ep:!!C.big},terr:C.T.nr},{gen:id,title:`${gTitle(g)} ${LANG==="de"?C.nameDe:C.nameEn}`,extra:[sW(C.obj)]})}
 
+async function eToLoot(){const id=S.cur,g=GENS.find(x=>x.id===id),D=GD[id],G=GD.gegner,E=eState(res(id));if(!G)return;
+  const{groups}=eGroups(D,G,E),ort=D.orte[E.inp.ort]||{};
+  const boss=!!E.inp.boss||groups.some(x=>x.boss||x.g.cls>=5),beast=groups.length&&groups.every(x=>["Raubtier","Monster"].includes(x.g.cr["Kategorie"]));
+  const st={Natur:1,Wildnis:1,Stadt:1,Korridor:2,Raum:2,Etappe:2,Zweitweltriss:boss?3:2,"Nebenhöhle":3,"Haupthöhle":3,Untertiefe:4}[ort.de]||1;
+  const name=groups.map(x=>`${x.n}× ${x.g.title||gN(x.g.cr)}`).join(" · ");
+  lootFrom({st,fs:boss?"boss":beast?"tier":"person",terr:null},{gen:id,title:`${gTitle(g)}: ${name}`,extra:[eW(D,ort)].filter(Boolean)})}
 // ================= VERFOLGUNGSJAGD (Stammtabelle Verfolgung, Regeln Buch 1 Kap. 4.4 Chase) =================
 // Objective (Standard 50), Runden nach Dexterity der NPC-Gruppe (5/4/3). Je Runde: Szene auf dem direkten Weg (Beschreibung)
 // und eine Abkürzung (zwei Wege, ein Merkmal). Die Stärken werden je Runde eingetragen und zum Status addiert.
@@ -4024,6 +4031,7 @@ document.addEventListener("click",ev=>{
     if(ds.en){const[gi,d]=ds.en.split(":").map(Number);const{groups}=eGroups(GD[S.cur],GD.gegner,E);const x=groups.find(z=>z.gi===gi);E.ov[gi].n=Math.max(1,(x?x.n:1)+d);saveRes(S.cur);renderGen();return}
     if(ds.ehp){const i=ds.ehp.lastIndexOf(":");eDamage(rs,ds.ehp.slice(0,i),+ds.ehp.slice(i+1));saveRes(S.cur);renderGen();return}
     if(ds.eclr){E.src=null;saveRes(S.cur);renderGen();return}
+    if(ds.eloot!=null){eToLoot();return}
     if(b.id==="eFocus"){document.body.classList.toggle("efocus");return}
     if(b.id==="regen"){E.draws={};E.gd=[{},{},{}];E.ov=[{},{},{}];E.hp={};E.ph={};saveRes(S.cur);renderGen();return}
   }
