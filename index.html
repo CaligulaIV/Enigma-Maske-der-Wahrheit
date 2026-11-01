@@ -3599,11 +3599,11 @@ async function eToLoot(){const id=S.cur,g=GENS.find(x=>x.id===id),D=GD[id],G=GD.
 // Martin 01.11.2026 (Neuordnung_Generatoren_Martin.md): Die Rast ist ein eigener Spielabschnitt. Viel Interaktion der Spieler untereinander –
 // das Enigma füttert nur an und schmückt aus. Störung nur bei behelfsmäßiger Rast (10 %), davon 20 % Kampf. Wetter nur Wildnis und Karawane,
 // Nässewurf nur nach behelfsmäßiger Rast in der Wildnis (tiefe Rasten: sicher und warm). Keine „seltsame Nachricht“ (macht das Enigma per Hand).
-// Zufallsschlüssel: core:o (Ortsart), core:t (Territorium) · pl:p/m/g/r (Platz, Merkmal, Geräusch, Geruch) · ac:<id>:g/h/zc/z (Rest-actions)
+// Zufallsschlüssel: core:o (Ortsart W/R/S/K), core:t (Territorium) · pl:p/m/g/r (Platz, Merkmal, Geräusch, Geruch) · ac:<id>:g/h/zc/z (Rest-actions)
 // fe:a/t (Am Feuer) · tr:b/g/z (Traum) · st:c/s/e/f (Störung) · wx:w/d/t (Woche, Nacht, Kälte/Hitze) · mo:n/e/<Aspekt> (Morgen)
 const RAI18N={
  de:{ort:"Ort",art:"Art",terr:"Territorium",wk:"Wochenwetter",rand:"zufällig",fromT:"Aus",auto:"automatisch",
-  W:"Wildnis",D:"Dungeon/Gebäude",S:"Stadt",K:"Karawane",B:"behelfsmäßig",T:"tief",
+  W:"Wildnis",R:"Ruine",S:"Stadt",K:"Karawane",B:"behelfsmäßig",T:"tief",
   costB:"1 Supply je Held",costT:"1 Plunder für die Gruppe (erste tiefe Rast nach einem Abenteuer frei)",need:"Voraussetzung: sicherer Ort, Supply ≥ 1",
   recB:"Behelfsmäßig: nur Grund-Aktionen · +1 auf negative Reserven · −1 Erschöpfung",recT:"Tief: alle Rest-actions · +1 auf alle Reserven · −1 Erschöpfung",
   place:"Rastplatz",feat:"Merkmal",sound:"Geräusch",smell:"Geruch",acts:"Rest-actions",actsT:"Je Held 2 Rest-actions (je eine Stunde). Wähle die Aktionen der Helden – die Wortgruppen färben das Ergebnis der Probe ein.",
@@ -3612,13 +3612,13 @@ const RAI18N={
   dream:"Traum",dreamB:"🌙 Traum würfeln",img:"Bild",feel:"Gefühl",link:"Bezug",dreamT:"Der Bezug ist nur für dich: woran du den Traum knüpfst, um die Story voranzutreiben.",
   night:"Störung in der Nacht",quiet:"ruhige Nacht",quietT:"Chance %p – ⟳ würfelt neu",deepNo:"Tiefe Rast: keine Störung – die Helden sind sicher.",
   "Falscher Alarm":"falscher Alarm",Harmlos:"harmlos",Kampf:"Kampf",fightT:"Ein Kampf in der Rast ist extrem gefährlich und unterbricht die Session – nur selten.",
-  toEnc:"⚔ Encounter",toNpc:"👤 NPC",morning:"Am Morgen",impr:"Eindruck",week:"Woche",nightW:"Nacht",newDay:"Neuer Tag",noWx:"Kein Wetter (Dungeon, Gebäude oder Stadt).",
+  toEnc:"⚔ Encounter",toNpc:"👤 NPC",morning:"Am Morgen",impr:"Eindruck",week:"Woche",nightW:"Nacht",newDay:"Neuer Tag",noWx:"Kein Wetter (Ruine, Höhle, Gebäude oder Stadt).",
   malus:"Malus ohne Schutz",malusT:"Malus = Stärke − Schutz − 1 (Buch 1, 4.3); mit Kleidung entsprechend weniger.",wet:"Nässewurf",wetT:"am Ende der Rast: W20 + Nässe-Malus; ab 20 Krankheit Stufe 1 (oder +1 Stufe).",
   deepWx:"Tiefe Rast: kein Nässewurf – die Helden übernachten sicher und warm.",cold:"Kälte",heat:"Hitze",Nässe:"Nässe",Wind:"Wind",Kälte:"Kälte",Hitze:"Hitze",
   toRest:"🏕 Rast",toRestT:"Rast an diesem Ort",rest:"Rast",
   hint:"Die Rast dauert etwa 10 Stunden. Lies den Rastplatz vor, lass die Spieler ihre Rest-actions wählen und gib einem Helden den Anlass am Feuer. Die Störung kommt nur bei behelfsmäßigen Rasten und ist meist harmlos. Am Morgen wechselt das Tageswetter."},
  en:{ort:"Place",art:"Kind",terr:"Territory",wk:"Weekly weather",rand:"random",fromT:"From",auto:"automatic",
-  W:"Wilderness",D:"Dungeon/building",S:"City",K:"Caravan",B:"makeshift",T:"deep",
+  W:"Wilderness",R:"Ruin",S:"City",K:"Caravan",B:"makeshift",T:"deep",
   costB:"1 supply per hero",costT:"1 plunder for the group (the first deep rest after an adventure is free)",need:"Requires: safe place, supply ≥ 1",
   recB:"Makeshift: basic actions only · +1 to negative reserves · −1 exhaustion",recT:"Deep: all rest-actions · +1 to all reserves · −1 exhaustion",
   place:"Resting place",feat:"Feature",sound:"Sound",smell:"Smell",acts:"Rest-actions",actsT:"2 rest-actions per hero (one hour each). Pick the heroes’ actions – the word groups colour the result of the check.",
@@ -3627,20 +3627,20 @@ const RAI18N={
   dream:"Dream",dreamB:"🌙 Roll a dream",img:"Image",feel:"Feeling",link:"Link",dreamT:"The link is for you only: what you tie the dream to in order to drive the story.",
   night:"Disturbance at night",quiet:"quiet night",quietT:"chance %p – ⟳ rolls again",deepNo:"Deep rest: no disturbance – the heroes are safe.",
   "Falscher Alarm":"false alarm",Harmlos:"harmless",Kampf:"fight",fightT:"A fight during a rest is extremely dangerous and interrupts the session – rare.",
-  toEnc:"⚔ Encounter",toNpc:"👤 NPC",morning:"In the morning",impr:"Impression",week:"Week",nightW:"Night",newDay:"New day",noWx:"No weather (dungeon, building or city).",
+  toEnc:"⚔ Encounter",toNpc:"👤 NPC",morning:"In the morning",impr:"Impression",week:"Week",nightW:"Night",newDay:"New day",noWx:"No weather (ruin, cave, building or city).",
   malus:"Penalty without protection",malusT:"Penalty = strength − protection − 1 (Book 1, 4.3); less with clothing.",wet:"Wetness roll",wetT:"at the end of the rest: D20 + wetness penalty; 20 or more gives disease stage 1 (or +1 stage).",
   deepWx:"Deep rest: no wetness roll – the heroes sleep safe and warm.",cold:"cold",heat:"heat",Nässe:"Wetness",Wind:"Wind",Kälte:"Cold",Hitze:"Heat",
   toRest:"🏕 Rest",toRestT:"Rest at this place",rest:"Rest",
   hint:"A rest lasts about 10 hours. Read out the resting place, let the players pick their rest-actions and give one hero the occasion by the fire. Disturbances only happen on makeshift rests and are usually harmless. In the morning the daily weather changes."}};
 const rat=k=>{const v=RAI18N[LANG][k];return v===undefined?RAI18N.de[k]:v};
-const RAO=["W","D","S","K"];
+const RAO=["W","R","S","K"];
 const raNew=()=>({inp:{ort:null,art:null,terr:null,wk:null},draws:{},src:null,ctx:null,acts:[],nid:0,dream:false,col:{}});
 function raState(rs){if(!rs.ra)rs.ra=raNew();const B=rs.ra;if(!B.inp)B.inp={};if(!Array.isArray(B.acts))B.acts=[];if(!B.col)B.col={};return B}
 const raNum=(D,k,d)=>{const x=parseFloat(String((D.rules||{})[k]??"").replace(",","."));return isNaN(x)?d:x};
 const raFo=(a,O)=>(a||[]).filter(x=>!x.o||!x.o.length||x.o.includes(O));
 const raFl=(a,O)=>{const b=raFo(a,O);return b.length?b:(a||[])};
 function raCore(D,B){const o=B.inp||{},cx=B.ctx||{},C={};
-  C.O=o.ort||cx.ort||gWPick(B,"core:o",[{o:"W",w:4},{o:"D",w:3},{o:"S",w:2},{o:"K",w:1}]).o;
+  C.O=o.ort||cx.ort||gWPick(B,"core:o",[{o:"W",w:4},{o:"R",w:3},{o:"S",w:2},{o:"K",w:1}]).o;
   const tn=o.terr!=null?+o.terr:cx.terr!=null?+cx.terr:null;
   C.T=(tn!=null&&D.terr.find(x=>x.nr===tn))||D.terr[Math.floor(gU(B,"core:t")*D.terr.length)];
   C.Bi=D.biome[C.T.biom]||Object.values(D.biome)[0];
@@ -3703,7 +3703,7 @@ function raHTML0(D,B){const o=B.inp,C=raBuild(D,B),O=C.O,cx=B.ctx||{};
   if(B.src){const g0=B.src.gen&&GENS.find(x=>x.id===B.src.gen);
     h+=`<div class="esrc">${g0?`<button class="btn sm" data-go="${esc(B.src.gen)}">← ${esc(gTitle(g0))}</button> `:""}↪ ${esc(rat("fromT"))}: <b>${esc(B.src.title||"")}</b>${B.src.extra&&B.src.extra.length?" · "+esc(B.src.extra.join(" · ")):""} <button class="icon" data-raclr="1" title="${t("eClear")}">✕</button></div>`}
   // Steckbrief
-  const cost=O==="W"||O==="D"?rat("costB"):C.A==="T"?rat("costT"):"";
+  const cost=O==="W"||O==="R"?rat("costB"):C.A==="T"?rat("costT"):"";
   h+=`<div class="shero"><div class="sname"><h3>${esc(raTitle(C))}</h3> ${sRR("pl:p")}</div>
    <div class="stags"><span class="stag">${esc(rat("rest"))}: ${esc(rat(C.A))}</span><span class="stag">${esc(rat(O))}</span><span class="stag">${esc(sW(C.T))}${O==="W"?" · "+esc(sW(C.Bi)):""}</span>${cost?`<span class="stag">${esc(cost)}</span>`:""}</div>
    <p class="slead">${esc(sCap(sW(C.mk)))}. ${sRR("pl:m")}</p>
@@ -3756,7 +3756,7 @@ function raSrc(B,C,extra){const g=GENS.find(x=>x.id==="rast");return{gen:"rast",
 async function raToEnc(){const D=GD.rast,B=raState(res("rast")),C=raBuild(D,B);if(!C.st)return;const f=C.st.foe;
   await Promise.all([loadGen("encounter"),loadGen("gegner")]);await loadRes("encounter");
   const G=GD.gegner,E=eState(res("encounter")),ED=GD.encounter,c=f?eFindCre(G,f.cre):null;
-  const oi=ED.orte.findIndex(x=>x.de===({W:"Natur",D:"Raum",S:"Stadt",K:"Natur"}[C.O]));if(oi>=0)E.inp.ort=oi;E.inp.f=[c||null,null,null];E.inp.boss=false;
+  const oi=ED.orte.findIndex(x=>x.de===({W:"Natur",R:"Raum",S:"Stadt",K:"Natur"}[C.O]));if(oi>=0)E.inp.ort=oi;E.inp.f=[c||null,null,null];E.inp.boss=false;
   const s=raSrc(B,C,[sW(C.st.e)]);E.src={gen:"rast",title:s.title,place:[sW(C.T),raTitle(C)].filter(Boolean).join(" · "),hazard:null,pre:{},extra:s.extra.concat(f&&!c?[raFoeN(D,f)]:[])};
   E.draws={};E.gd=[{},{},{}];E.ov=[{},{},{}];E.hp={};E.ph={};saveRes("encounter");go("encounter")}
 async function raToNpc(){const D=GD.rast,B=raState(res("rast")),C=raBuild(D,B);if(!C.st)return;
@@ -3768,7 +3768,7 @@ async function rastFromHere(){const id=S.cur,g=GENS.find(x=>x.id===id),D=GD[id],
   try{if(id==="natur"){const C=wBuild(D,wState(rs));ctx={ort:"W",terr:C.T.nr,wk:C.wx.wk.n,dy:C.wx.dy.n};name=wTitle(D,C)}
     else if(id==="siedlung"){const r=sBuild(D,sState(rs));ctx={ort:"S",terr:r.C.T.nr};name=(sW(r.name[0])+(sW(r.name[1])||"").toLowerCase()).replace(/^./,c=>c.toUpperCase())}
     else{const C=id==="ruine"?ruCore(D,ruState(rs)):id==="hoehle"?hoCore(D,hoState(rs)):id==="gebaeude"?gbCore(D,gbState(rs)):null;
-      ctx={ort:"D",terr:C&&C.T?C.T.nr:null};name=C?(LANG==="de"?(C.nameDe||C.name||""):(C.nameEn||C.nameDe||C.name||"")):""}}catch(e){ctx=ctx.ort?ctx:{ort:id==="natur"?"W":id==="siedlung"?"S":"D"}}
+      ctx={ort:"R",terr:C&&C.T?C.T.nr:null};name=C?(LANG==="de"?(C.nameDe||C.name||""):(C.nameEn||C.nameDe||C.name||"")):""}}catch(e){ctx=ctx.ort?ctx:{ort:id==="natur"?"W":id==="siedlung"?"S":"R"}}
   await loadGen("rast");await loadRes("rast");const B=raState(res("rast"));
   B.ctx=ctx;B.inp={ort:null,art:null,terr:null,wk:null};B.src={gen:id,title:`${gTitle(g)}${name?" "+name:""}`,extra:[]};B.draws={};B.acts=[];B.dream=false;
   saveRes("rast");go("rast")}
