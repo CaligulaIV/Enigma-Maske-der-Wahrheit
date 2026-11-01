@@ -3231,14 +3231,14 @@ function brBuild(D,B){const o=B.inp||{},cx=B.ctx||{},R={};
     const foe=(g,k)=>{if(!g)return null;const rl=(key,d)=>String((D.rules||{})[key]||d).split(/\s*,\s*/).filter(Boolean);
       if(g==="Raubtier"||g==="Raubtier unterirdisch"){const ls=g==="Raubtier"?rl("Raubtiere","Drachaten"):rl("Raubtiere unterirdisch","Weber");const nm=ls[Math.floor(u(k)*ls.length)];return{de:nm,en:BRCRE[nm]||nm,cre:nm}}
       if(g==="Fraktion"){if(!facPool.length)return null;const f=gWPick(B,P+k,facPool).t;return{fac:f,cre:f}}
-      if(g==="Seltene Fraktion"){const own=new Set((R.T.f||[]).concat(cx.F||[]).map(f=>f.t));const pool=Object.keys(D.subs||{}).filter(t=>!own.has(t)).map(t=>({t,w:1}));if(!pool.length)return null;const f=gWPick(B,P+k,pool).t;return{fac:f,cre:f,rare:1}}
+      if(g==="Seltene Fraktion"){const ks=[...new Set((D.rare||[]).map(t=>(D.subs[t]||{}).k||t))];if(!ks.length)return null;const kk=ks[Math.floor(u(k)*ks.length)],ts=(D.rare||[]).filter(t=>((D.subs[t]||{}).k||t)===kk);const f=ts[Math.floor(u(k+"s")*ts.length)];return{fac:f,cre:f,rare:1}}
       if(g==="Umweltgefahren"){const h=(D.haz||[]).length?gWPick(B,P+k,D.haz):null;return h?{haz:h,de:h.de,en:h.en||h.de}:null}
       const rm=/^(kleiner|großer) Zweitweltriss$/.exec(g);if(rm){const big=rm[1]==="großer";return{riss:big?"groß":"klein",de:g,en:big?"large otherworld rift":"small otherworld rift"}}
       return{de:g,en:BRCRE[g]||g,cre:g}};
     const X={};
     if(kat.de==="Transport"){X.f=Lk("Fracht","x1");A.ty=X.f&&X.f.ty&&X.f.ty[0];X.e=Lk("Eigenschaft","x2")}
     else if(kat.de==="Aufspüren"){X.g=Lk("Gesucht","x1");A.ty=X.g&&X.g.ty&&X.g.ty[0];X.z=Lk("Zuletzt gesehen","x2");X.d=Lk("Dann","x3");if(X.g&&X.g.g)X.gfoe=foe(X.g.g,"x4")}
-    else if(kat.de==="Bannen"){let gp=fl(D.L["Bannen|Gefahr"]);if(A.ort.g){const q=gp.filter(x=>x.g===A.ort.g);if(q.length)gp=q}X.gf=pick("x1",gp);X.v=Lk("Vorgehen","x2");X.foe=X.gf?(A.ort.g?foe(A.ort.g,"x3"):foe(X.gf.g,"x3")):null}
+    else if(kat.de==="Bannen"){let gp=fl(D.L["Bannen|Gefahr"]);if(A.ort.g){let q=gp.filter(x=>x.g===A.ort.g);if(!q.length&&/^riss/.test(A.ort.gen||""))q=gp.filter(x=>/Zweitweltriss/.test(x.g||""));if(q.length)gp=q}X.gf=pick("x1",gp);X.v=Lk("Vorgehen","x2");X.foe=X.gf?(A.ort.g?foe(A.ort.g,"x3"):foe(X.gf.g,"x3")):null}
     else if(kat.de==="Aufklären"){X.ma=pick("x1",D.mys.Art||[]);const lk=X.ma&&X.ma.de==="Objekt"?"Tat: Objekt":"Tat: Person";X.mdl=D.mys[lk]||[];X.md=pick("x2",X.mdl);X.b=Lk("Bekannt","x3")}
     else if(kat.de==="Vermitteln"){X.gp=Lk("Gegenpart","x1");X.an=Lk("Anliegen","x2");X.is=Lk("Streitpunkt","x3")}
     else if(kat.de==="Erkunden"){X.w=Lk("Wissen","x1")}
