@@ -3824,7 +3824,10 @@ function ptBuild(PT,S,k,kind,hab){
   C.name=LANG==="de"?a.de+b.de:(kind==="p"?a.en+b.en:`${a.en} ${b.en}`);
   C.look=[L("Aussehen 1","l0")].concat(ptN(S,k+"l",Ls["Aussehen 2"],ptNum(R[kind==="p"?"Pflanze – Aussehen 2: Anzahl":"Kleintier – Aussehen 2: Anzahl"],kind==="p"?2:1)));
   if(kind==="p"){
-    C.bes=[L("Besonderheit","b1"),L("Auslöser","b2"),L("Verlauf","b3")];C.taste=L("Geschmack","e1");C.ess=L("Essbarkeit","e2");
+    C.bes=[L("Besonderheit","b1"),L("Auslöser","b2"),L("Verlauf","b3")];C.taste=L("Geschmack","e1");
+    // starke Pflanzen (Martin 02.11.): Gewicht nach Lebensraum – harsche Biome häufiger, milde nur sehr selten
+    const sw=ptNum(R[C.hab.rau?"Starke Pflanze – Gewicht rau":"Starke Pflanze – Gewicht mild"],C.hab.rau?0.5:0.2);
+    C.ess=gWPick(S,k+"e2",(Ls["Essbarkeit"]||[]).map(x=>x.st?Object.assign({},x,{w:sw}):x))||{de:"",en:""};C.stark=!!C.ess.st;
     C.teil=L("Teil","u1");C.nutz=gWPick(S,k+"u2",PT.nutz||[])||{de:"",en:""};C.vork=L("Vorkommen","v");
     C.gift=/giftig/.test(C.ess.de)||/giftig/.test(C.bes[0].de);C.zust=String(R["Pflanze – giftig = Zustand"]||"poisoned 1");
   }else{
