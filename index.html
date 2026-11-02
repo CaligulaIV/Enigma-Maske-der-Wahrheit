@@ -3824,7 +3824,7 @@ function saBuild(D,B,C,x,P){const A=D.sa,R=A.rules||{},it=(B.acts||[]).find(y=>y
       if(rk===1){out.push({lab,ace:1});continue}
       const col=rk<=7?0:rk<=10?1:rk<=12?2:rk===13?3:4,row=saD(B,P+"r"+i,12),code=(A.beute[row-1]||[])[col]||"N";
       let chk=null;if(rk>=8){const d=saD(B,P+"k"+i,12),line=A.check.find(z=>d>=z.a&&d<=z.b)||A.check[0];
-        const mal=rk<=10?0:rk<=12?+(R["Malus Bube/Ritter"]||-1):rk===13?+(R["Malus Königin"]||-3):+(R["Malus König"]||-5);
+        const mal=rk<=10?0:rk<=12?+(R["Malus Bube/Ritter"]||-1):rk===13?+(R["Malus Königin"]||-2):+(R["Malus König"]||-3);
         chk=`${sat("attr")[su]} · ${line.sk[su]}${mal?" "+String(mal).replace("-","−"):""}`}
       out.push({lab,chk,res:saCode(D,B,P+"x"+i+":",code,hab)})}}
   return{v,n,out,hab,mk:C.A==="B"}}
