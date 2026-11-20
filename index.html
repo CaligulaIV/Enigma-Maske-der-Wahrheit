@@ -1254,23 +1254,23 @@ function eProgress(G,E,groups){let alive=0,all=0,cur=0,max=0;
 // Buch 1 Kap. 1: Timing = W20 + Timing-Wert (gewürfelte 20 = 0, überrascht = ohne Timing-Wert), Gleichstand: Helden zuerst;
 // Deklaration langsamste zuerst, Ausführung schnellste zuerst. Zustände: Buch 1 Kap. 1.2 (Stammtabelle Encounter, Blatt Zustände).
 const RDI18N={
- de:{title:"Runde",round:"Runde %n",hero:"Held",addHero:"+ Held",roll:"🎲 Gegner würfeln",rollT:"Würfelt W20 + Timing für alle Gegner, deren Feld leer oder gewürfelt ist. Selbst eingetragene Werte bleiben. Eine gewürfelte 20 ergibt Timing 0.",
+ de:{title:"Runde",round:"Runde %n",hero:"Held",addHero:"+ Held",roll:"🎲 Gegner Timing-Wurf",rollT:"Würfelt W20 + Timing für alle Gegner, deren Feld leer oder gewürfelt ist. Selbst eingetragene Werte bleiben. Eine gewürfelte 20 ergibt Timing 0.",
   sur:"überrascht",surT:"Überraschte Gegner addieren ihren Timing-Wert nicht (nur W20).",next:"Neue Runde",nextT:"Leert Timing und Deklarationen. Health und Zustände bleiben.",
   reset:"Kampf neu",resetT:"Zurück auf Runde 1: Timing, Deklarationen und Zustände leeren. Die Helden bleiben.",act:"Ausführung",actT:"Schnellste zuerst – Vorbereitung, Bewegung, Kampf",decl:"Deklaration",declT:"Langsamste zuerst – Deklaration und freie Bewegung",
   tim:"Timing",timT:"Timing-Wurf (W20 + Timing-Wert)",auto:"gewürfelt",nat20:"20 gewürfelt: Timing 0",addSk:"+ Skill",addC:"+ Zustand",acts:"Aktionen",
   selT:"Gegner auswählen – danach deklariert ein Klick auf einen Skill seiner Karte diesen Skill",dist:"abgelenkt: zuletzt im Timing",heroName:"Name",del:"Held entfernen",
   r1:"Runde 1: Jede Kreatur darf einen freien, plötzlichen Rückzugs- oder Verfolgungs-Check machen, höchstes Timing zuerst.",
   rescue:"Rundenende: Rettungswürfe gegen aktive Zustände; misslungene dürfen einmal wiederholt werden. In der ersten Runde eines Zustands muss der Rettungswurf die Stärke der Quelle übertreffen.",
-  hint:"Timing der Helden eintragen, Gegner würfeln oder eintragen. Einen Gegner in der Liste anklicken, dann auf seiner Karte Skills anklicken – sie stehen dann in seiner Zeile. Klick auf einen deklarierten Skill nimmt ihn zurück.",
+  hint:"Timing der Helden eintragen; für die Gegner eintragen oder „Gegner Timing-Wurf“. Einen Gegner in der Liste anklicken, dann auf seiner Karte Skills anklicken – sie stehen dann in seiner Zeile. Klick auf einen deklarierten Skill nimmt ihn zurück.",
   rs:"Rettungswurf",stUp:"Stufe höher",stDown:"Stufe niedriger (auf Stufe 0 endet der Zustand)",undecl:"Deklaration zurücknehmen",tie:"Gleichstand: Helden zuerst",order:"Reihenfolge",none:"–"},
- en:{title:"Round",round:"Round %n",hero:"Hero",addHero:"+ Hero",roll:"🎲 Roll enemies",rollT:"Rolls D20 + timing for every enemy whose field is empty or was rolled. Values you entered stay. A rolled 20 means timing 0.",
+ en:{title:"Round",round:"Round %n",hero:"Hero",addHero:"+ Hero",roll:"🎲 Enemy timing roll",rollT:"Rolls D20 + timing for every enemy whose field is empty or was rolled. Values you entered stay. A rolled 20 means timing 0.",
   sur:"surprised",surT:"Surprised enemies do not add their timing-value (D20 only).",next:"New round",nextT:"Clears timing and declarations. Health and conditions stay.",
   reset:"New fight",resetT:"Back to round 1: clears timing, declarations and conditions. The heroes stay.",act:"Execution",actT:"Fastest first – preparation, movement, battle",decl:"Declaration",declT:"Slowest first – declaration and free movement",
   tim:"Timing",timT:"Timing roll (D20 + timing-value)",auto:"rolled",nat20:"rolled a 20: timing 0",addSk:"+ Skill",addC:"+ Condition",acts:"Actions",
   selT:"Select the enemy – then a click on a skill on its card declares that skill",dist:"distracted: last in timing",heroName:"Name",del:"Remove hero",
   r1:"Round 1: every creature may make a free and sudden retreat- or pursuit-check, highest timing first.",
   rescue:"End of round: rescue-checks against active conditions; failed ones may be repeated once. In a condition's first round the rescue-check must beat the strength of the source.",
-  hint:"Enter the heroes' timing, roll or enter the enemies'. Click an enemy in the list, then click skills on its card – they appear in its row. Click a declared skill to take it back.",
+  hint:"Enter the heroes' timing; enter the enemies' too or use “Enemy timing roll”. Click an enemy in the list, then click skills on its card – they appear in its row. Click a declared skill to take it back.",
   rs:"Rescue-check",stUp:"Stage up",stDown:"Stage down (at stage 0 the condition ends)",undecl:"Take back the declaration",tie:"Tie: heroes first",order:"Order",none:"–"}};
 const rdt=k=>{const v=RDI18N[LANG][k];return v===undefined?RDI18N.de[k]:v};
 const RDATTR={Strength:"Str",Dexterity:"Dex",Constitution:"Con",Intuition:"Itu",Intelligence:"Int"};
