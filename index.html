@@ -347,6 +347,36 @@ body.efocus .wrap{max-width:none}
 .entry details summary{cursor:pointer;font-size:12px;color:var(--muted)}
 .entry input{margin-top:4px;padding:4px 8px;font-size:13px}
 .tag{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-right:6px}
+/* Runde (Encounter, 20.11.2026) */
+.rdcard{border-color:var(--accent)}
+.rdbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:2px 0 8px}
+.rdbar .rdn{font-weight:800;color:var(--accent);margin-right:4px}.rdsp{flex:1}
+.rdsur{font-size:13px;display:inline-flex;gap:4px;align-items:center;color:var(--muted)}
+.rdmode{display:inline-flex;gap:0}.rdmode .btn{border-radius:0}.rdmode .btn:first-child{border-radius:8px 0 0 8px}.rdmode .btn:last-child{border-radius:0 8px 8px 0}
+.rdlist{display:flex;flex-direction:column;gap:4px}
+.rdr{display:grid;grid-template-columns:24px minmax(150px,1fr) 78px 250px;gap:4px 8px;align-items:center;padding:4px 6px;border-radius:8px;background:var(--valbg);font-size:13px}
+.rdr.rdh{background:var(--surface2)}.rdr.rdh input.rdhn{max-width:260px}.rdr.rdh .icon{justify-self:start}
+.rdr.sel{outline:2px solid var(--accent);outline-offset:-1px}
+.rdr.dead{opacity:.45}.rdr.dead .rdname{text-decoration:line-through}
+.rdpos{font-weight:800;color:var(--muted);text-align:center}
+.rdname{border:none;background:none;text-align:left;cursor:pointer;font-weight:700;padding:2px 0;color:var(--ink);font-size:13.5px}
+.rdname:hover{color:var(--accent)}.rdflag{font-size:11px;color:var(--err);font-weight:600}
+.rdtw{display:flex;align-items:center;gap:2px}.rdtw .rdm{font-size:11px;color:var(--muted);font-weight:700}
+input.rdt{width:56px;padding:3px 5px;font-weight:700;text-align:center}
+input.rdhn{padding:3px 6px}
+.rdhp{display:grid;grid-template-columns:70px 52px auto 48px auto;gap:3px;align-items:center}
+.rdhp .icon{font-size:14px;padding:0 4px}.rdhp input.hd{padding:2px 4px;font-size:12px;width:48px}
+.rdsub{grid-column:2/-1;display:flex;flex-wrap:wrap;gap:4px 14px;align-items:center}
+.rdd .estl.over{color:var(--err);font-weight:700}
+.rdd,.rdc{display:flex;flex-wrap:wrap;gap:3px;align-items:center}
+.rdchip{cursor:pointer;font-size:12px}.rdchip:hover{border-color:var(--err)}
+.rdcond{display:inline-flex;align-items:center;gap:1px;padding:0 2px;border-color:var(--err);color:var(--err);font-size:12px}
+.rdcond .icon{font-size:12px;padding:0 3px}
+select.rdsel{width:auto;padding:1px 4px;font-size:12px;border-style:dashed;background:transparent;color:var(--muted)}
+.chip.edecl{cursor:pointer}.chip.edecl:hover{border-color:var(--accent)}
+.estat.eattr .chip.pas{border:none}.estat.eattr i{font-style:normal;color:var(--muted);font-size:11.5px}
+@media (max-width:700px){.rdr{grid-template-columns:24px 1fr 70px}.rdr.rdh{grid-template-columns:24px 1fr 70px 26px}.rdhp,.rdsub{grid-column:2/-1}}
+select.brk.lolv{max-width:96px}.sch:has(select.lolv){flex-wrap:wrap}.sch:has(select.lolv) h3{min-width:0;white-space:nowrap}
 </style>
 </head><body>
 
@@ -451,7 +481,7 @@ body.efocus .wrap{max-width:none}
 <div class="toast" id="toast"></div>
 
 <script>
-const GENS=[{"id": "natur", "title": "Wildnis-Ort", "title_en": "Wilderness", "group": "Welt", "group_en": "World", "note": "Neue Maske, baut auf den Stammtabellen Territorien (47 Territorien mit drei Skalen, Fraktionen, Biome, Wetter, Landschaft) und Wildnis (Orte, Weg, Spuren, Hindernisse, Regeln) auf, dazu Kreaturen und Encounter (Tätigkeit, Verhalten, Umweltgefahren). Listen und Gewichte sind Vorschläge (orange). Je Gebiet auf Knopfdruck Pflanze oder Kleintier (Stammtabelle PflanzenTiere).", "special": "wildnis", "lang": "de/en", "chase": true, "rest": true, "file": "gens/natur.json"}, {"id": "gegner", "title": "Gegner", "title_en": "Enemies", "group": "Kampf", "group_en": "Combat", "special": "gegner", "lang": "en", "file": "gens/gegner.json"}, {"id": "encounter", "title": "Encounter", "title_en": "Encounter", "group": "Kampf", "group_en": "Combat", "note": "Baut auf den Stammtabellen Encounter (Budget, Ortsarten, Listen, Umweltgefahren) und Gegner auf. Aus einem Ort mit „⚔ Encounter erstellen“ übernimmt er Fraktionen, Gefahr und Lage.", "special": "encounter", "lang": "de/en", "file": "gens/encounter.json"}, {"id": "siedlung", "title": "Siedlung", "title_en": "Settlement", "group": "Welt", "group_en": "World", "note": "Neue Maske, baut auf der Stammtabelle Siedlung (Listen, Größen, 47 Territorien, Religionen) und den Stammtabellen Kreaturen (Fraktionen, Baustil, Handelsgut, Geruch, Namen) und Beiwörter (Laune, Charakter der NPCs) auf. Wortlisten noch deutsch. Mit „⚔ Encounter“ (ganze Siedlung oder je Aufgabe) entsteht ein Kampf mit Ortsart Stadt.", "special": "siedlung", "lang": "de", "enc": {"ort": "Stadt"}, "chase": true, "rest": true, "file": "gens/siedlung.json"}, {"id": "ritual", "title": "Ritual-Ort", "title_en": "Ritual site", "group": "Welt", "group_en": "World", "note": "Neue Maske, baut auf der Stammtabelle Ritualort (Themen, Gesetze mit Anzeichen und Schlüssel, Listen, Ausstrahlung, Regeln) auf, dazu Territorien und Fraktionen. Ersetzt den alten Generator Ritual-Ort. Gesetze, Listen und Gewichte sind Vorschläge (orange). Runenfalle (häufiger mit Runenmagier, Stammtabelle Runenfalle).", "special": "ritual", "lang": "de/en", "file": "gens/ritual.json"}, {"id": "riss", "title": "Zweitweltriss", "title_en": "Otherworld rift", "group": "Welt", "group_en": "World", "note": "Neue Maske, baut auf der Stammtabelle Zweitweltriss (Arten, Schandtaten, Objekte, Phänomene, Schauplätze, Gegnerstärke, Listen, Regeln) auf, dazu Territorien, Fraktionen mit Baustil und Altvölker. Ersetzt den alten Generator Zweitweltriss. Inhalte und Gewichte sind Vorschläge (orange).", "special": "riss", "lang": "de/en", "file": "gens/riss.json"}, {"id": "ruine", "title": "Ruine", "title_en": "Ruin", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "note": "Neue Maske, baut auf den Stammtabellen Ruine (Wegeformen, Zusätze, Abschluss, Zwecke, Räume, Listen, Regeln) und Altvölker (Erbauer, Baustile) auf, dazu Territorien, Kreaturen, Siedlung (Baustil, Namen) und Encounter (Umweltgefahren, Boss-Modifikatoren, Schatzraum-Gegner). Ersetzt den alten Generator Ruine. Listen und Gewichte sind Vorschläge (orange). Runenfallen je Raum (Stammtabelle Runenfalle).", "special": "ruine", "lang": "de/en", "rest": true, "file": "gens/ruine.json"}, {"id": "hoehle", "title": "Höhlensystem", "title_en": "Cave system", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "note": "Neue Maske, baut auf der Stammtabelle Höhle (Größe, Bewohner, Listen, Gefahren, Regeln) auf, dazu Territorien, Kreaturen, Siedlung (Namen) und Encounter (Umweltgefahren, Boss-Modifikatoren). Ersetzt den alten Generator Höhlensystem. Listen und Gewichte sind Vorschläge (orange). Runenfallen je Höhle (Stammtabelle Runenfalle).", "special": "hoehle", "lang": "de/en", "rest": true, "file": "gens/hoehle.json"}, {"id": "gebaeude", "title": "Gebäude", "title_en": "Building", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "note": "Neue Maske, baut auf der Stammtabelle Gebäude (vier Typen Villa, Tempel, Turm, Hof; Zustand, Haltung, Räume, Raumrollen, Listen) auf, dazu Territorien, Kreaturen (Raubtiere, Monster, Geruch), Siedlung (Baustil, Namen) und Religionen. Ersetzt die alten Generatoren Villa und Tempel. Listen und Gewichte sind Vorschläge (orange).", "special": "gebaeude", "lang": "de/en", "chase": true, "rest": true, "file": "gens/gebaeude.json"}, {"id": "npc", "title": "NPC", "title_en": "NPC", "group": "Personen", "group_en": "People", "note": "Neue Maske mit Postkarte. Baut auf den Stammtabellen NPC (Professionen nach Kap. 5.1, Lebensweg, Spezies, Aussehen, Laune-Skala, Sprüche), Religionen, Kreaturen (Fraktionen, Namen) und Beiwörter (Charakter, Ruf) auf. Level = Level der Profession; wichtige NPCs haben Level 6–9. Aus der Siedlung mit 👤 je wichtigem NPC. Modus „Zirkel“: schnelle Gruppe oder Kult mit dem NPC als Anführer (Stammtabelle Zirkel; ersetzt den alten Generator „Zirkel“).", "special": "npc", "lang": "de/en", "file": "gens/npc.json"}, {"id": "ambitionen", "title": "Ambitionen", "title_en": "Ambitions", "group": "Personen", "group_en": "People", "note": "Neue Maske, baut auf der Stammtabelle Helden auf (Blatt Ambitionen = Buch 1 Table 2.5.1–2.5.3, DE-Übersetzung blau). Drei Plätze je Held (10/20/50) oder eine Stufe, mehrere Helden ohne Doppelte, ⟳ = Veto. Ersetzt zusammen mit der Toolbox-Karte „Held“ den alten Generator „Zufälliger Charakter“.", "special": "ambitionen", "lang": "de/en", "file": "gens/ambitionen.json"}, {"id": "mystery", "title": "Mysterium", "title_en": "Mystery", "group": "Abenteuer", "group_en": "Adventure", "note": "Neue Maske: ein Rätsel für etwa eine Sitzung – Opfer und drei Beteiligte (einer ist der Täter), je zwei Spuren; die Wahrheit ist zugeklappt. Stammtabelle Mysterium (aus dem alten Mystery-Blatt). Aus der Siedlung (🔍 an einer Stadt-Aufgabe) sind Opfer, Täter und Verdächtige Personen der Stadt; das Motiv ist eine Agenda.", "special": "mystery", "lang": "de/en", "file": "gens/mystery.json"}, {"id": "brett", "title": "Schwarzes Brett", "title_en": "Notice board", "group": "Abenteuer", "group_en": "Adventure", "note": "Neue Maske, baut auf der Stammtabelle Aufträge (6 Kategorien, Bausteine, Orte, Regeln) und dem Mysterium (Art, Tat) auf, dazu Territorien und Fraktionen. Immer 4 Aushänge, je aus einer anderen Kategorie; aus der Siedlung mit Personen und Stadtteilen der Stadt. Ersetzt den alten Generator Auftrag. Inhalte von Martin geprüft (01.11.).", "special": "brett", "lang": "de/en", "file": "gens/brett.json"}, {"id": "verfolgung", "title": "Verfolgungsjagd", "title_en": "Chase", "group": "Abenteuer", "group_en": "Adventure", "note": "Neue Maske nach Buch 1 (Kap. 4.4 Chase): Objective 50, Runden nach Dexterity der NPC-Gruppe, je Runde Szene und Abkürzung aus der Stammtabelle Verfolgung (Stadt und Natur). Stärken je Runde eintragen – der Status rechnet mit. Aus der Siedlung mit „🏃 Verfolgungsjagd“.", "special": "verfolgung", "lang": "de", "file": "gens/verfolgung.json"}, {"id": "rast", "title": "Rast", "title_en": "Rest", "group": "Abenteuer", "group_en": "Adventure", "note": "Neue Maske, baut auf der Stammtabelle Rast (Rastplätze, Merkmale, Sinne, Wortgruppen für die Rest-actions, Am Feuer, Träume, Störungen, Morgen, Regeln) auf, dazu Territorien, Biome, Wetter und Fraktionen. Aus Wildnis, Ruine, Höhle, Gebäude und Siedlung mit „🏕 Rast“. Inhalte sind Vorschläge (orange). Sammeln (Würfel oder Karten nach Buch 2, E1.4) direkt unter der Rest-action; ersetzt den alten Generator „Sammeln (Karten)“.", "special": "rast", "lang": "de/en", "file": "gens/rast.json"}, {"id": "toolbox", "title": "Toolbox", "title_en": "Toolbox", "group": "Toolbox", "group_en": "Toolbox", "note": "Neue Maske, baut auf der Stammtabelle Toolbox auf: Gift & Krankheit und Trauma & Narben fassen Buch 1, 4.2 zusammen (Stufen, Psychose, Narben, Behandlung aus Buch 2 E.16/E.17), dazu Pakt-Aufgabe (E.22), Spur & Rätsel und Box als kleine Inspirationshilfen; Held (Spezies, Heimatfraktion, Lebensweg, Bluterbe, Charakteristik, Schicksalsobjekt, Selbstobjekt) aus der Stammtabelle Helden (Buch 1, 2.2/2.3). Ersetzt die alten Generatoren Spuren & Hinweise, Pakt-Aufgabe, Trauma & Narben, Gift & Krankheit und Geheimnisvolle Box. Trauma-Tabelle und Herkunft sind Vorschläge (orange); Pflanze und Kleintier aus der Stammtabelle PflanzenTiere (ersetzt den alten Generator „Pflanze & Kleintier“, auch im Wildnis-Ort je Gebiet und im NPC). Runenfalle aus der Stammtabelle Runenfalle (ersetzt den alten Generator „Runenfalle“).", "special": "toolbox", "lang": "de/en", "file": "gens/toolbox.json"}, {"id": "loot", "title": "Loot & Dinge", "title_en": "Loot & things", "group": "Dinge", "group_en": "Things", "note": "Neue Maske, baut auf der Stammtabelle Loot (Fundstellen, Pools, Ortsstufen, Ausrüstung, Gebrauchsgegenstände, Tränke, Bücher, Fokus-Objekte, Zauber, Pakt, Boni, Echo, Aktivierung, Legendär) und den Beiwörtern auf, dazu Territorien, Fraktionen, Namen und Altvölker. Ersetzt Loot & Dinge, Objects und Trank & Öl. Zahlen nach Simulation eingestellt, Inhalte sind Vorschläge (orange).", "special": "loot", "lang": "de/en", "file": "gens/loot.json"}, {"id": "laden", "title": "Laden", "title_en": "Shop", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold (Buch 1: Wealth-Level).", "lang": "de", "file": "gens/laden.json"}, {"id": "tempeldienst", "title": "Tempeldienste", "title_en": "Temple services", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold.", "lang": "de", "file": "gens/tempeldienst.json"}, {"id": "taverne", "title": "Taverne", "title_en": "Tavern", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold, Speisenboni mit alten Begriffen.", "lang": "de", "file": "gens/taverne.json"}];
+const GENS=[{"id": "natur", "title": "Wildnis-Ort", "title_en": "Wilderness", "group": "Welt", "group_en": "World", "note": "Neue Maske, baut auf den Stammtabellen Territorien (47 Territorien mit drei Skalen, Fraktionen, Biome, Wetter, Landschaft) und Wildnis (Orte, Weg, Spuren, Hindernisse, Regeln) auf, dazu Kreaturen und Encounter (Tätigkeit, Verhalten, Umweltgefahren). Listen und Gewichte sind Vorschläge (orange). Je Gebiet auf Knopfdruck Pflanze oder Kleintier (Stammtabelle PflanzenTiere).", "special": "wildnis", "lang": "de/en", "chase": true, "rest": true, "file": "gens/natur.json"}, {"id": "gegner", "title": "Gegner", "title_en": "Enemies", "group": "Kampf", "group_en": "Combat", "special": "gegner", "lang": "en", "file": "gens/gegner.json"}, {"id": "encounter", "title": "Encounter", "title_en": "Encounter", "group": "Kampf", "group_en": "Combat", "note": "Baut auf den Stammtabellen Encounter (Budget, Ortsarten, Listen, Umweltgefahren) und Gegner auf. Aus einem Ort mit „⚔ Encounter erstellen“ übernimmt er Fraktionen, Gefahr und Lage.", "special": "encounter", "lang": "de/en", "file": "gens/encounter.json"}, {"id": "siedlung", "title": "Siedlung", "title_en": "Settlement", "group": "Welt", "group_en": "World", "note": "Neue Maske, baut auf der Stammtabelle Siedlung (Listen, Größen, 47 Territorien, Religionen) und den Stammtabellen Kreaturen (Fraktionen, Baustil, Handelsgut, Geruch, Namen) und Beiwörter (Laune, Charakter der NPCs) auf. Wortlisten noch deutsch. Mit „⚔ Encounter“ (ganze Siedlung oder je Aufgabe) entsteht ein Kampf mit Ortsart Stadt.", "special": "siedlung", "lang": "de", "enc": {"ort": "Stadt"}, "chase": true, "rest": true, "file": "gens/siedlung.json"}, {"id": "ritual", "title": "Ritual-Ort", "title_en": "Ritual site", "group": "Welt", "group_en": "World", "note": "Neue Maske, baut auf der Stammtabelle Ritualort (Themen, Gesetze mit Anzeichen und Schlüssel, Listen, Ausstrahlung, Regeln) auf, dazu Territorien und Fraktionen. Ersetzt den alten Generator Ritual-Ort. Gesetze, Listen und Gewichte sind Vorschläge (orange). Runenfalle (häufiger mit Runenmagier, Stammtabelle Runenfalle).", "special": "ritual", "lang": "de/en", "file": "gens/ritual.json"}, {"id": "riss", "title": "Zweitweltriss", "title_en": "Otherworld rift", "group": "Welt", "group_en": "World", "note": "Neue Maske, baut auf der Stammtabelle Zweitweltriss (Arten, Schandtaten, Objekte, Phänomene, Schauplätze, Gegnerstärke, Listen, Regeln) auf, dazu Territorien, Fraktionen mit Baustil und Altvölker. Ersetzt den alten Generator Zweitweltriss. Inhalte und Gewichte sind Vorschläge (orange).", "special": "riss", "lang": "de/en", "file": "gens/riss.json"}, {"id": "ruine", "title": "Ruine", "title_en": "Ruin", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "note": "Neue Maske, baut auf den Stammtabellen Ruine (Wegeformen, Zusätze, Abschluss, Zwecke, Räume, Listen, Regeln) und Altvölker (Erbauer, Baustile) auf, dazu Territorien, Kreaturen, Siedlung (Baustil, Namen) und Encounter (Umweltgefahren, Boss-Modifikatoren, Schatzraum-Gegner). Ersetzt den alten Generator Ruine. Listen und Gewichte sind Vorschläge (orange). Runenfallen je Raum (Stammtabelle Runenfalle).", "special": "ruine", "lang": "de/en", "rest": true, "file": "gens/ruine.json"}, {"id": "hoehle", "title": "Höhlensystem", "title_en": "Cave system", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "note": "Neue Maske, baut auf der Stammtabelle Höhle (Größe, Bewohner, Listen, Gefahren, Regeln) auf, dazu Territorien, Kreaturen, Siedlung (Namen) und Encounter (Umweltgefahren, Boss-Modifikatoren). Ersetzt den alten Generator Höhlensystem. Listen und Gewichte sind Vorschläge (orange). Runenfallen je Höhle (Stammtabelle Runenfalle).", "special": "hoehle", "lang": "de/en", "rest": true, "file": "gens/hoehle.json"}, {"id": "gebaeude", "title": "Gebäude", "title_en": "Building", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "note": "Neue Maske, baut auf der Stammtabelle Gebäude (vier Typen Villa, Tempel, Turm, Hof; Zustand, Haltung, Räume, Raumrollen, Listen) auf, dazu Territorien, Kreaturen (Raubtiere, Monster, Geruch), Siedlung (Baustil, Namen) und Religionen. Ersetzt die alten Generatoren Villa und Tempel. Listen und Gewichte sind Vorschläge (orange).", "special": "gebaeude", "lang": "de/en", "chase": true, "rest": true, "file": "gens/gebaeude.json"}, {"id": "npc", "title": "NPC", "title_en": "NPC", "group": "Personen", "group_en": "People", "note": "Neue Maske mit Postkarte. Baut auf den Stammtabellen NPC (Professionen nach Kap. 5.1, Lebensweg, Spezies, Aussehen, Laune-Skala, Sprüche), Religionen, Kreaturen (Fraktionen, Namen) und Beiwörter (Charakter, Ruf) auf. Level = Level der Profession; wichtige NPCs haben Level 6–9. Aus der Siedlung mit 👤 je wichtigem NPC. Modus „Zirkel“: schnelle Gruppe oder Kult mit dem NPC als Anführer (Stammtabelle Zirkel; ersetzt den alten Generator „Zirkel“).", "special": "npc", "lang": "de/en", "file": "gens/npc.json"}, {"id": "mystery", "title": "Mysterium", "title_en": "Mystery", "group": "Abenteuer", "group_en": "Adventure", "note": "Neue Maske: ein Rätsel für etwa eine Sitzung – Opfer und drei Beteiligte (einer ist der Täter), je zwei Spuren; die Wahrheit ist zugeklappt. Stammtabelle Mysterium (aus dem alten Mystery-Blatt). Aus der Siedlung (🔍 an einer Stadt-Aufgabe) sind Opfer, Täter und Verdächtige Personen der Stadt; das Motiv ist eine Agenda.", "special": "mystery", "lang": "de/en", "file": "gens/mystery.json"}, {"id": "brett", "title": "Schwarzes Brett", "title_en": "Notice board", "group": "Abenteuer", "group_en": "Adventure", "note": "Neue Maske, baut auf der Stammtabelle Aufträge (6 Kategorien, Bausteine, Orte, Regeln) und dem Mysterium (Art, Tat) auf, dazu Territorien und Fraktionen. Immer 4 Aushänge, je aus einer anderen Kategorie; aus der Siedlung mit Personen und Stadtteilen der Stadt. Ersetzt den alten Generator Auftrag. Inhalte von Martin geprüft (01.11.).", "special": "brett", "lang": "de/en", "file": "gens/brett.json"}, {"id": "verfolgung", "title": "Verfolgungsjagd", "title_en": "Chase", "group": "Abenteuer", "group_en": "Adventure", "note": "Neue Maske nach Buch 1 (Kap. 4.4 Chase): Objective 50, Runden nach Dexterity der NPC-Gruppe, je Runde Szene und Abkürzung aus der Stammtabelle Verfolgung (Stadt und Natur). Stärken je Runde eintragen – der Status rechnet mit. Aus der Siedlung mit „🏃 Verfolgungsjagd“.", "special": "verfolgung", "lang": "de", "file": "gens/verfolgung.json"}, {"id": "rast", "title": "Rast", "title_en": "Rest", "group": "Abenteuer", "group_en": "Adventure", "note": "Neue Maske, baut auf der Stammtabelle Rast (Rastplätze, Merkmale, Sinne, Wortgruppen für die Rest-actions, Am Feuer, Träume, Störungen, Morgen, Regeln) auf, dazu Territorien, Biome, Wetter und Fraktionen. Aus Wildnis, Ruine, Höhle, Gebäude und Siedlung mit „🏕 Rast“. Inhalte sind Vorschläge (orange). Sammeln (Würfel oder Karten nach Buch 2, E1.4) direkt unter der Rest-action; ersetzt den alten Generator „Sammeln (Karten)“.", "special": "rast", "lang": "de/en", "file": "gens/rast.json"}, {"id": "toolbox", "title": "Toolbox", "title_en": "Toolbox", "group": "Toolbox", "group_en": "Toolbox", "note": "Neue Maske, baut auf der Stammtabelle Toolbox auf: Gift & Krankheit und Trauma & Narben fassen Buch 1, 4.2 zusammen (Stufen, Psychose, Narben, Behandlung aus Buch 2 E.16/E.17), dazu Pakt-Aufgabe (E.22), Spur & Rätsel und Box als kleine Inspirationshilfen; Held (Spezies, Heimatfraktion, Lebensweg, Bluterbe, Charakteristik, Schicksalsobjekt, Selbstobjekt) aus der Stammtabelle Helden (Buch 1, 2.2/2.3). Ersetzt die alten Generatoren Spuren & Hinweise, Pakt-Aufgabe, Trauma & Narben, Gift & Krankheit und Geheimnisvolle Box. Trauma-Tabelle und Herkunft sind Vorschläge (orange); Pflanze und Kleintier aus der Stammtabelle PflanzenTiere (ersetzt den alten Generator „Pflanze & Kleintier“, auch im Wildnis-Ort je Gebiet und im NPC). Runenfalle aus der Stammtabelle Runenfalle (ersetzt den alten Generator „Runenfalle“). Seit 20.11.2026 auch Ambitionen (Stammtabelle Helden, Buch 1 Table 2.5.1–2.5.3; ersetzt den eigenen Ambitions-Generator) und Zauberfehlschlag (Buch 1 Table 3.6.4, 2W20).", "special": "toolbox", "lang": "de/en", "file": "gens/toolbox.json"}, {"id": "loot", "title": "Loot & Dinge", "title_en": "Loot & things", "group": "Dinge", "group_en": "Things", "note": "Neue Maske, baut auf der Stammtabelle Loot (Fundstellen, Pools, Ortsstufen, Ausrüstung, Gebrauchsgegenstände, Tränke, Bücher, Fokus-Objekte, Zauber, Pakt, Boni, Echo, Aktivierung, Legendär) und den Beiwörtern auf, dazu Territorien, Fraktionen, Namen und Altvölker. Ersetzt Loot & Dinge, Objects und Trank & Öl. Zahlen nach Simulation eingestellt, Inhalte sind Vorschläge (orange).", "special": "loot", "lang": "de/en", "file": "gens/loot.json"}, {"id": "laden", "title": "Laden", "title_en": "Shop", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold (Buch 1: Wealth-Level).", "lang": "de", "file": "gens/laden.json"}, {"id": "tempeldienst", "title": "Tempeldienste", "title_en": "Temple services", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold.", "lang": "de", "file": "gens/tempeldienst.json"}, {"id": "taverne", "title": "Taverne", "title_en": "Tavern", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold, Speisenboni mit alten Begriffen.", "lang": "de", "file": "gens/taverne.json"}];
 const DATA={"cards":[["Narr","richtig herum","Neustart, Überraschung, Potential, Freiheit, Unschuld",["Überraschung","Potential","Freiheit"]],["Narr","umgedreht","Dummheit, Überstürzt, Chaos, Naive, Grenzen, Hürden",["Dummheit","Chaos","Hürde"]],["Magier","richtig herum","Kraft, Kommunikation, Magie, Selbstbestimmung, Aktion",["Kommunikation","Magie","Selbstbestimmung"]],["Magier","umgedreht","Lüge, Kommunikationsblock, Stagnation, Schummeln, Falschheit",["Lüge","Kommunikationsblock","Stagnation"]],["Hohepriesterin","richtig herum","Mysterium, Intuition, Erleuchtung, Weisheit, Vorahnung",["Mysterium","Erleuchtung","Vorahnung"]],["Hohepriesterin","umgedreht","Geheimnisse, Unsicherheit, Verborgenheit, Unfähigkeit zu hören, Überraschung",["Geheimnis","Unsicherheit","Verborgenheit"]],["Königin","richtig herum","Pflege, Überschuss, Fruchtbarkeit, Mutterschaft, Schönheit, Liebe",["Überschuss","Mutterschaft","Schönheit"]],["Königin","umgedreht","Faulheit, Koordinationschwäche, Verschwendung, Beziehungskrise, Depression, Verbannung",["Koordinationsschwäche","Verschwendung","Beziehung senken"]],["König","richtig herum","Autorität, Ordnung, Struktur, Hierarchie, Aufstieg, Rationalität",["Autorität","Aufstieg","Rationalität"]],["König","umgedreht","Autokratisch, Unterdrücken, Zwang, Grausamkeit, keine Unterstützung, Machtmissbrauch, Irrationalität",["Zwang","Grausamkeit","Machtmissbrauch"]],["Hierophant","richtig herum","Tradition, Gruppenidentifikation, Lehre, Gesetze, Bruderschaft, Religion",["Gruppenidentifikation","Lehre","Religion"]],["Hierophant","umgedreht","Extremismus, Kulte, Verfall Gesellschaft, Abwendung Religion, Abbruch Gespräche, rückständig",["Extremismus","Abwendung Religion","Abbruch Gespräch"]],["Liebhaber","richtig herum","Zusammenkommen, Wahl, Zuneigung, Verpflichtung, Vertrauen, Bündnis",["Zusammenkommen","Vertrauen","Verpflichtung"]],["Liebhaber","umgedreht","Auseinanderbrechen, Angst vor Bindung, Fremd gehen, Bündnis brechen, Misstrauen",["Auseinanderbrechen","Angst vor Bindung","Misstrauen"]],["Wagen","richtig herum","Antrieb, Willenskraft, Richtung, Sieg, Probleme enden, zu Hilfe kommen",["Willenskraft","Richtung","zu Hilfe kommen"]],["Wagen","umgedreht","verirren, richtungslos, antriebslos, Zweifel, abbruch Reise, Verzögerung, braucht Hilfe",["verirren","Zweifel","braucht Hilfe"]],["Stärke","richtig herum","Stärke, Sicherheit, Selbstkontrolle, Geduld, Gesundheit, Leidenschaft",["Sicherheit","Gesundheit","Stärke"]],["Stärke","umgedreht","Schwäche, Zerbrechlichkeit, Ungeduld, Unbeherrscht, Überheblich, Doppelmoral",["Schwäche","Unbeherrscht","Zerbrechlichkeit"]],["Eremit","richtig herum","Selbstbetrachtung, Besinnung, Ruhe, Diskretion, Meditation",["Besinnung","Diskretion","Ruhe"]],["Eremit","umgedreht","Aberkennen, Rückzug, im stich lassen, Isolation, einsamkeit, Exil",["Rückzug","Im Stich lassen","Isolation"]],["Rad","richtig herum","Glück, Chance, Gelegenheit, Umschlagen, Gewinnen, Zyklus, Schicksal, ja",["Glück","Gelegenheit","Zyklus"]],["Rad","umgedreht","Unglück, Fehlschlag, verlieren, Not, Härte, Enttäuschung, nein",["Unglück","Not","Enttäuschung"]],["Gericht","richtig herum","Gerechtigkeit, Karma, Balance, Wahrheit, Verantwortung, Vereinbarung",["Gerechtigkeit","Wahrheit","Vereinbarung"]],["Gericht","umgedreht","Willkür, Unfair, Unrecht, Verruf, Ungleichheit, Falsche Entscheidung",["Willkür/ Unfair","Ungleichheit","Verruf"]],["Gehängte Mann","richtig herum","loslassen, Opferung, Aufgaben, Perspektivwechsel, Musterbrechen, Verspätung, Stoppen",["Loslassen","Perspektivwechsel","Stoppen"]],["Gehängte Mann","umgedreht","in Schwebe, Engstirnig, ins Leben zurück, falsches Motiv, nicht loslassen, zurückhalten",["in schwebe","ins Leben zurück","festhalten"]],["Tod","richtig herum","Ende, Sterblichkeit, echter Wandel, Bruch einer Bindung, Ende einer Ära, Transformation, Wiedergeburt",["Ende","Bindungsbruch","Transformation"]],["Tod","umgedreht","Ende aufgehalten, nicht loslassen können, lange Krankheit, Wandel ablehnen, falscher Wandel",["Aufhalten Ende","Krankheit","Wandel ablehnen"]],["Mäßigkeit","richtig herum","Harmonie, Balance, Mäßigung, Zusammenwirken, vermischen, verbinden",["Balance","Vermischen","Verbinden"]],["Mäßigkeit","umgedreht","Disharmonie,Krankheit, nichts bekommen, Trennen, Bruch",["Unbalance","trennen","leer ausgehen"]],["Dämon","richtig herum","Knechtschaft, Abhängigkeit, Versuchung, Gewalt, Angst, Überarbeitet",["Knechtschaft","Abhängigkeit","Gewalt"]],["Dämon","umgedreht","frei brechen, widerstehen, kraftlosigkeit, keine Verbindung",["frei brechen","widerstehen","keine Bindung"]],["Turm","richtig herum","Zerstörung, unerwarteter Wandel, ruinieren, schaden, stürzen, verdrängen, Gefahr",["Zerstörung","verdrängen","Gefahr"]],["Turm","umgedreht","Anhaltende Zerstörung, langfristige Krise, schwere Gewalt, chaotische Situation, Nachbeben",["Krise","Brutalität","Nachbeben"]],["Sterne","richtig herum","Hoffnung, Freude, Optimismus, Segen, Hilfe, Frieden",["Hoffnung","Segen","Frieden"]],["Sterne","umgedreht","Hoffnungslosigkeit, Unwohlsein, Enttäuschung, hilfe verweigern, Hindernisse des Glaubens",["Enttäuschung","Hoffnungslos","Glaubenskrise"]],["Mond","richtig herum","Träume, Alpträume, Illusionen, verborgene Feinde, Verwirrung, Geheimnis",["Alptraum","Illusion","verborgene Gefahr"]],["Mond","umgedreht","Offenbarung, Vision, durchschauen von Illusionen, Schlaflosigkeit",["Vision","Offenbarung","Schlaflosigkeit"]],["Sonne","richtig herum","Leben, Energie, Wärme, Erschaffung, Reichtum, Erfolg",["Energie","Erschaffung","Reichtum"]],["Sonne","umgedreht","Halber Erfolg, Kälte, hypersensibel, rosarote Brille",["Halber Erfolg","Kälte","rosarote Brille"]],["Urteil","richtig herum","Erlösung, Erwachen, Ruf zu Taten, Berufung, vollendeter Wandel, Entscheidung",["Erwachen","Berufung","Entscheidung"]],["Urteil","umgedreht","Ignorieren, Wider besseren Wissens, Zweifel, Leiten von Angst, entscheidungslos",["Ignorieren","Entgegen Wissen","Leiten von Angst"]],["Welt","richtig herum","Vollendung, Folgen, Resultate, Möglichkeiten, Ziele, Absolutheit, Reisen",["Vollendung","Resultate","Reisen"]],["Welt","umgedreht","Verplanen, unerledigte Aufgaben, Stagnation, festhalten, feststecken",["feststecken","nicht weiterkommen","keine Resultate"]]],"targets":["Spieler","Spieler-Gruppe","Gegenwart","Anderer Spieler","Gegner","NPC","Zukunft","Positiv","Negativ"],"ev":["entferntes Event","NPC Aktion","Neuer NPC","Strang voranbringen","Strang entfernen","Strang verändern","PC negativ","PC positiv","Ambivalentes Ereignis","NPC negativ","NPC positiv","Nemesis positiv","Nemesis negativ"],"act":["Ziel erreichen","Starten","Vernachlässigen","Kämpfen","Rekrutieren","Siegen","Verletzen","Widersetzen","Arglist","Kommunizieren","Verfolgen","Steigern","Senken","Verlassen","Befriedigen","Erkundigen","Verärgern","Bewegen","verschwenden","Wahrheit","Freilassen","Befreunden","urteilen","Desertieren","Dominieren","Aufschieben","Loben","Trennen","Nehmen","Brechen","Heilen","Verzögern","Stoppen","Lügen","Wiederkommen","Nachahmen","Ringen","informieren","verschenken","verschieben","entblößen","verhandeln","einsperren","feiern","verschleiern","entwickeln","reisen","blocken","verletzen","herabsetzen","überladen","Vertagen","Widrigkeiten","töten","unterbrechen","an sich reißen","erschaffen","verraten","zustimmen","ausnutzen","unterdrücken","inspezieren","überfallen","spionieren","tragen","offen","nachlässig","ruinieren","extravagant","Täuschen","ankommen","vorschlagen","trennen","ablehnen","misstrauen","grausamkeit","Intoleranz","vertrauen","Aufregung","Aktivität","Helfen","pflegen","leidenschaft","ablassen","hart arbeiten","kontrollieren","anziehen","versagen","nachgehen","rächen","aufgeben","streiten","bestrafen","führen","transformieren","unterwerfen","verändern","steigern","umstürzen","nähern"],"sub":["Ziele","Träume","Umwelt","Draußen","Innen","Realität","Verbündete","Feinde","Böse","Gute","Gefühle","Gegenteil","Krieg","Frieden","Unschuldige","Liebe","geistlich","intellektuell","Neue Ideen","Freude","Massage","Energie","Gleichgewicht","Spannung","Freundschaft","physisches","Projekt","Freuden","Schmerz","Besitz","Pläne","Lügen","Erwartungen","Gesetz","Bürokratie","Geschäft","Pfad","Neuigkeiten","äußere Faktoren","Ratschlag","Handlung","Wettbewerb","Gefängnis","Krankheit","Nahrung","Aufmerksamkeit","Erfolg","Versagen","Reise","Neid","Streit","Heimat","Investment","Leid","Wünsche","Taktik","Pattsituation","Willkür","Unglück","Tod","Unterbrechung","Macht","Bürde","Intrige","Ängste","Gerücht","Wunden","extravaganz","Repräsentation","Gegner","Reichtum","Freiheit","Militär","Gewöhnliches","Test","Massen","Fahrzeug","Kunst","Sieg","Unklarheit","Fülle","Status Quo","Technik","Hoffnung","Magie","Illusion","Portale","Gefahr","Waffen","Tiere","Wetter","Elemente","Natur","Öffentlichkeit","Führung","Ruhm","Zorn","Information","Vergangenheit","Götter"],"fac":["[GK] Sultane","[GK] Wesire","[GK] Kalifen","[FU] Monarchisten","[FU] Republikaner","[FU] Unabhängige","[ZRO] Restauratoren","[ZRO] Reformisten","[ZRO] Vergelter","[EIS] Familien","[EIS] Lord","[EIS] Marine","[HAI] Kachol","[HAI] Schemeschya","[HAI] Han","[GER] Aisin-Geren","[GER] Süd-Geren","[GER] Nord-Geren","[PIR] Wildling","[PIR] Waldlinge","[PIR] Berglinge","[WS] Waldelfen","[WS] Hochelfen","[WS] Lichterelfen","[HIV] Südkolonie","[HIV] Nordkolonie","[HIV] Exilanten","[ECH] Troglodyten","[ECH] Sumpfechsen","[ECH] Obsidianechsen","[NAG] Manipulatoren","[NAG] Usurpatoren","[NAG] Intriganten","[KOB] Patrioten","[KOB] Anarchisten","[KOB] Hungernd","[SAT] Zentauren","[SAT] Leotauren","[SAT] Aerotauren","[YET] Wanderer","[YET] Eroberer","[YET] Flüchtlinge","[GNO] Seeräuber","[GNO] Fischer","[GNO] Eisgnome"],"pred":["Drachaten","Teufel","Würmer","Schleichen","Pirscher","Säbelaffen","Salamander","Ofanten","Netzfüssler","Weber","Flattervieh","junges Monster"]};
 
 // ================= language =================
@@ -925,6 +955,7 @@ function gLookItems(g){const a=[];[g.sk.def,g.sk.att,g.sk.spec,g.sk.e1,g.sk.e2].
   return a.length?a:[gTxt(g.cr,"Merkmal (EN)","Merkmal DE")].filter(Boolean)}
 // Energiepassiv: nur aktiv, wenn der Skill diese Runde deklariert wurde
 const gEPassBox=s=>s&&s.passive?`<div class="epass2"><span class="estl" data-tip="${esc(t("gEPassT"))}">${esc(t("gEPass"))}</span> – <b>${esc(gS(s,"name"))}</b> – ${esc(gS(s,"passive"))}</div>`:"";
+const eStdChips=(g,gi)=>`<div class="echips estd"><span class="estl">${esc(t("gStd"))}</span>${g.std.map(s=>`<span class="chip fix edecl" data-edecl="${esc(gi+"|"+s.n+"|"+s.val)}" data-tip="${esc(s.n+": "+s.text)}">${esc(s.n)} <b>${s.val}</b></span>`).join("")}</div>`;
 const gStdChips=g=>`<div class="echips estd"><span class="estl">${esc(t("gStd"))}</span>${g.std.map(s=>`<span class="chip fix" data-tip="${esc(s.n+": "+s.text)}">${esc(s.n)} <b>${s.val}</b></span>`).join("")}</div>`;
 function gBuild(d,e){
   const{cr,cls,note}=gEffective(d,e);const C=cls,K=d.classes[C-1],am=gAttrs(cr);
@@ -1185,9 +1216,9 @@ function eInfo(D,G,E,F){
   return i;
 }
 function eRR(k){return `<button class="icon er" title="${t("reroll")}" data-err="${k}">⟳</button>`}
-function eTipSkill(s,val,label,pass){if(!s)return "";
+function eTipSkill(s,val,label,pass,dk){if(!s)return "";
   const tip=gS(s,"text")+(s.item?"\n"+t("gItem")+": "+gS(s,"item"):"")+(pass&&s.passive?"\n"+t("gEPass")+": "+gS(s,"passive"):"");
-  return `<span class="chip" data-tip="${esc(label+": "+tip)}">${esc(gS(s,"name"))}${val!=null?` <b>${val}</b>`:""}</span>`}
+  return `<span class="chip${dk!=null?" edecl":""}"${dk!=null?` data-edecl="${esc(dk+"|"+gS(s,"name")+"|"+(val??""))}"`:""} data-tip="${esc(label+": "+tip)}">${esc(gS(s,"name"))}${val!=null?` <b>${val}</b>`:""}</span>`}
 function eHPKey(gi,k){return gi+"#"+k}
 function eMaxHP(G,x,k,phase){return gFormula(G,x.e,"Health",x.g.cls,x.g.cr,null,(phase===2?"p2:":"")+"hp#"+k)}
 // Zonen: Ortsart, bei wichtigen Kämpfen (Menace/Tyrant) große Karte
@@ -1219,6 +1250,106 @@ function eProgress(G,E,groups){let alive=0,all=0,cur=0,max=0;
   groups.forEach(x=>{for(let k=0;k<x.n;k++){const key=eHPKey(x.gi,k),ph=E.ph[key]||1,mx=eMaxHP(G,x,k,ph),c=Math.max(0,mx-(E.hp[key]||0));
     const p2=x.g.p2&&ph===1?eMaxHP(G,x,k,2):0;all++;max+=mx+p2;cur+=c+p2;if(c>0||(x.g.p2&&ph===1))alive++}});
   return{alive,all,cur,max}}
+// ---------- RUNDE im Encounter (Martin 20.11.2026): Timing eintragen oder würfeln, Reihenfolge, Deklaration per Skill-Klick, Health, Zustände
+// Buch 1 Kap. 1: Timing = W20 + Timing-Wert (gewürfelte 20 = 0, überrascht = ohne Timing-Wert), Gleichstand: Helden zuerst;
+// Deklaration langsamste zuerst, Ausführung schnellste zuerst. Zustände: Buch 1 Kap. 1.2 (Stammtabelle Encounter, Blatt Zustände).
+const RDI18N={
+ de:{title:"Runde",round:"Runde %n",hero:"Held",addHero:"+ Held",roll:"🎲 Gegner würfeln",rollT:"Würfelt W20 + Timing für alle Gegner, deren Feld leer oder gewürfelt ist. Selbst eingetragene Werte bleiben. Eine gewürfelte 20 ergibt Timing 0.",
+  sur:"überrascht",surT:"Überraschte Gegner addieren ihren Timing-Wert nicht (nur W20).",next:"Neue Runde",nextT:"Leert Timing und Deklarationen. Health und Zustände bleiben.",
+  reset:"Kampf neu",resetT:"Zurück auf Runde 1: Timing, Deklarationen und Zustände leeren. Die Helden bleiben.",act:"Ausführung",actT:"Schnellste zuerst – Vorbereitung, Bewegung, Kampf",decl:"Deklaration",declT:"Langsamste zuerst – Deklaration und freie Bewegung",
+  tim:"Timing",timT:"Timing-Wurf (W20 + Timing-Wert)",auto:"gewürfelt",nat20:"20 gewürfelt: Timing 0",addSk:"+ Skill",addC:"+ Zustand",acts:"Aktionen",
+  selT:"Gegner auswählen – danach deklariert ein Klick auf einen Skill seiner Karte diesen Skill",dist:"abgelenkt: zuletzt im Timing",heroName:"Name",del:"Held entfernen",
+  r1:"Runde 1: Jede Kreatur darf einen freien, plötzlichen Rückzugs- oder Verfolgungs-Check machen, höchstes Timing zuerst.",
+  rescue:"Rundenende: Rettungswürfe gegen aktive Zustände; misslungene dürfen einmal wiederholt werden. In der ersten Runde eines Zustands muss der Rettungswurf die Stärke der Quelle übertreffen.",
+  hint:"Timing der Helden eintragen, Gegner würfeln oder eintragen. Einen Gegner in der Liste anklicken, dann auf seiner Karte Skills anklicken – sie stehen dann in seiner Zeile. Klick auf einen deklarierten Skill nimmt ihn zurück.",
+  rs:"Rettungswurf",stUp:"Stufe höher",stDown:"Stufe niedriger (auf Stufe 0 endet der Zustand)",undecl:"Deklaration zurücknehmen",tie:"Gleichstand: Helden zuerst",order:"Reihenfolge",none:"–"},
+ en:{title:"Round",round:"Round %n",hero:"Hero",addHero:"+ Hero",roll:"🎲 Roll enemies",rollT:"Rolls D20 + timing for every enemy whose field is empty or was rolled. Values you entered stay. A rolled 20 means timing 0.",
+  sur:"surprised",surT:"Surprised enemies do not add their timing-value (D20 only).",next:"New round",nextT:"Clears timing and declarations. Health and conditions stay.",
+  reset:"New fight",resetT:"Back to round 1: clears timing, declarations and conditions. The heroes stay.",act:"Execution",actT:"Fastest first – preparation, movement, battle",decl:"Declaration",declT:"Slowest first – declaration and free movement",
+  tim:"Timing",timT:"Timing roll (D20 + timing-value)",auto:"rolled",nat20:"rolled a 20: timing 0",addSk:"+ Skill",addC:"+ Condition",acts:"Actions",
+  selT:"Select the enemy – then a click on a skill on its card declares that skill",dist:"distracted: last in timing",heroName:"Name",del:"Remove hero",
+  r1:"Round 1: every creature may make a free and sudden retreat- or pursuit-check, highest timing first.",
+  rescue:"End of round: rescue-checks against active conditions; failed ones may be repeated once. In a condition's first round the rescue-check must beat the strength of the source.",
+  hint:"Enter the heroes' timing, roll or enter the enemies'. Click an enemy in the list, then click skills on its card – they appear in its row. Click a declared skill to take it back.",
+  rs:"Rescue-check",stUp:"Stage up",stDown:"Stage down (at stage 0 the condition ends)",undecl:"Take back the declaration",tie:"Tie: heroes first",order:"Order",none:"–"}};
+const rdt=k=>{const v=RDI18N[LANG][k];return v===undefined?RDI18N.de[k]:v};
+const RDATTR={Strength:"Str",Dexterity:"Dex",Constitution:"Con",Intuition:"Itu",Intelligence:"Int"};
+function rdState(E){if(!E.rd)E.rd={n:1,heroes:null,hn:0,t:{},auto:{},nat:{},d:{},c:{},sel:null,mode:"act",sur:0};const R=E.rd;
+  for(const k of ["t","auto","nat","d","c"])if(!R[k])R[k]={};
+  if(!R.heroes){R.heroes=[];const n=Math.max(1,Math.min(9,+E.inp.heroes||4));for(let i=0;i<n;i++)R.heroes.push({id:"h"+(++R.hn),name:""})}
+  return R}
+function rdClear(R,all){R.t={};R.auto={};R.nat={};R.d={};R.sel=null;if(all){R.c={};R.n=1}}
+// Gegner einzeln (Schlüssel wie Health: Gruppe#Nr.)
+function rdEnemies(G,E,groups){const L=[];
+  groups.forEach(x=>{for(let k=0;k<x.n;k++){const key=eHPKey(x.gi,k),ph=E.ph[key]||1,mx=eMaxHP(G,x,k,ph),cur=Math.max(0,mx-(E.hp[key]||0));
+    L.push({key,x,k,ph,mx,cur,dead:cur<=0&&(ph===2||!x.g.p2),name:(x.g.title||gN(x.g.cr))+(x.n>1?" "+(k+1):""),tim:+x.g.st.timing||0})}});
+  return L}
+// Andere Gegner (neuer Encounter): Schlüssel, die es nicht mehr gibt, fallen weg; ganz neue Aufstellung = Runde 1
+function rdSync(R,groups,ens){const sig=groups.map(x=>(x.g.cr&&x.g.cr["Name EN"])+":"+x.g.cls).join("|");
+  if(R.sig!==sig){if(R.sig!=null)rdClear(R,true);R.sig=sig}
+  const ok=new Set(ens.map(e=>"e:"+e.key).concat(R.heroes.map(h=>"h:"+h.id)));
+  for(const m of [R.t,R.auto,R.nat])for(const k of Object.keys(m))if(!ok.has(k))delete m[k];
+  for(const m of [R.d,R.c])for(const k of Object.keys(m))if(!ok.has("e:"+k))delete m[k];
+  if(R.sel&&!ok.has("e:"+R.sel))R.sel=null}
+function rdCond(D,k,st){return(D.cond||[]).find(c=>c.k===k&&c.st===st)||null}
+const rdCMax=(D,k)=>Math.max(1,...(D.cond||[]).filter(c=>c.k===k).map(c=>c.st));
+const rdCN=c=>c?(LANG==="de"?(c.de||c.en):(c.en||c.de)):"";
+function rdOrder(R,ens){
+  const rows=R.heroes.map((h,i)=>({h,key:"h:"+h.id,name:h.name||rdt("hero")+" "+(i+1)})).concat(ens.map(e=>({e,key:"e:"+e.key,name:e.name})));
+  rows.forEach(r=>{const v=R.t[r.key];r.v=v==null||v===""?null:+v;r.dist=!!(r.e&&(R.c[r.e.key]||[]).some(c=>c.k==="distracted"));r.dead=!!(r.e&&r.e.dead)});
+  const sv=r=>r.dead?-3e9:r.dist?-2e9+(r.v||0):r.v==null?-1e9:r.v;
+  rows.sort((a,b)=>sv(b)-sv(a)||(b.h?1:0)-(a.h?1:0)||(a.e&&b.e?b.e.tim-a.e.tim:0));
+  if(R.mode==="decl"){const live=rows.filter(r=>!r.dead).reverse();return live.concat(rows.filter(r=>r.dead))}
+  return rows}
+// Skills eines Gegners (Standard, Verteidigung, Angriff, Spezial, Energie; in Phase 2 dazu die Phase-2-Skills)
+function rdSkills(g,ph){const a=g.std.map(s=>({n:s.n,v:s.val}));
+  [[g.sk.def,g.v.def],[g.sk.att,g.v.atk],[g.sk.spec,g.v.spec],[g.sk.e1,g.v.en],[g.sk.e2,g.v.en]].forEach(([s,v])=>{if(s)a.push({n:gS(s,"name"),v})});
+  if(ph===2&&g.p2)g.p2.skills.forEach(s=>a.push({n:gS(s.s,"name"),v:s.slot==="spec"?g.v.spec:(s.slot[0]==="e"?g.v.en:null)}));
+  return a}
+// Aktionen „2/2+1“: größter Wert der Teile (2+1 = 3) als Obergrenze für die Warnung
+const rdActMax=a=>Math.max(1,...String(a||"1").split("/").map(x=>x.split("+").reduce((s,n)=>s+(+n||0),0)));
+function rdRoll(R,ens){for(const e of ens){if(e.dead)continue;const k="e:"+e.key;if(R.t[k]!=null&&R.t[k]!==""&&!R.auto[k])continue;
+  const d=1+Math.floor(rand()*20);R.t[k]=d===20?0:d+(R.sur?0:e.tim);R.auto[k]=1;if(d===20)R.nat[k]=1;else delete R.nat[k]}}
+function rdDeclare(R,key,n,v){(R.d[key]=R.d[key]||[]).push({n,v:v===""||v==null?null:+v})}
+// Klick auf einen Skill-Chip einer Gegnerkarte: dem ausgewählten Gegner dieser Gruppe zuordnen (sonst dem ersten kampffähigen der Gruppe)
+function rdChip(rs,spec){const D=GD.encounter,G=GD.gegner,E=eState(rs);if(!D||!G||(E.col||{}).rd)return false;
+  const[gi,n,v]=spec.split("|");const{groups}=eGroups(D,G,E);const ens=rdEnemies(G,E,groups);const R=rdState(E);rdSync(R,groups,ens);
+  let tg=R.sel&&R.sel.startsWith(gi+"#")?R.sel:null;if(!tg){const e=ens.find(e=>String(e.x.gi)===gi&&!e.dead)||ens.find(e=>String(e.x.gi)===gi);if(!e)return false;tg=e.key;R.sel=tg}
+  rdDeclare(R,tg,n,v);return true}
+function rdHTML(D,G,E,groups){
+  const R=rdState(E),ens=rdEnemies(G,E,groups);rdSync(R,groups,ens);const rows=rdOrder(R,ens);
+  const bar=`<div class="rdbar"><span class="rdn">${esc(rdt("round").replace("%n",R.n))}</span>
+    <button class="btn sm primary" id="rdRoll" title="${esc(rdt("rollT"))}">${esc(rdt("roll"))}</button>
+    <label class="rdsur" title="${esc(rdt("surT"))}"><input type="checkbox" data-rdsur="1" ${R.sur?"checked":""}> ${esc(rdt("sur"))}</label>
+    <span class="rdmode"><button class="btn sm ${R.mode!=="decl"?"on":""}" data-rdmode="act" title="${esc(rdt("actT"))}">${esc(rdt("act"))}</button><button class="btn sm ${R.mode==="decl"?"on":""}" data-rdmode="decl" title="${esc(rdt("declT"))}">${esc(rdt("decl"))}</button></span>
+    <span class="rdsp"></span><button class="btn sm" id="rdAddH">${esc(rdt("addHero"))}</button>
+    <button class="btn sm" id="rdNext" title="${esc(rdt("nextT"))}">${esc(rdt("next"))} ▸</button><button class="btn sm" id="rdReset" title="${esc(rdt("resetT"))}">↺ ${esc(rdt("reset"))}</button></div>`;
+  const condOpts=()=>{const gs=[];for(const c of (D.cond||[])){if(c.st!==1)continue;let g=gs.find(x=>x.g===c.g);if(!g)gs.push(g={g:c.g,lab:LANG==="de"?c.gde:c.g,a:[]});g.a.push(c)}
+    return `<option value="">${esc(rdt("addC"))}</option>`+gs.map(g=>`<optgroup label="${esc(g.lab)}">${g.a.map(c=>`<option value="${esc(c.k)}">${esc(rdCN(c).replace(/ 1$/,""))}</option>`).join("")}</optgroup>`).join("")};
+  let pos=0,body=bar+`<div class="rdlist">`;
+  for(const r of rows){pos++;const tv=r.v==null?"":r.v;
+    if(r.h){body+=`<div class="rdr rdh"><span class="rdpos">${pos}</span>
+      <input type="text" class="rdhn" data-rdhn="${esc(r.h.id)}" value="${esc(r.h.name)}" placeholder="${esc(r.name)}" title="${esc(rdt("heroName"))}">
+      <input type="number" class="rdt" data-rdt="${esc(r.key)}" value="${tv}" placeholder="Tim" title="${esc(rdt("timT"))}">
+      <button class="icon" data-rdhdel="${esc(r.h.id)}" title="${esc(rdt("del"))}">✕</button></div>`;continue}
+    const e=r.e,g=e.x.g,sel=R.sel===e.key,w=Math.max(0,Math.min(100,e.cur/e.mx*100));
+    const dl=R.d[e.key]||[],cs=R.c[e.key]||[];
+    const opts=`<option value="">${esc(rdt("addSk"))}</option>`+rdSkills(g,e.ph).map((s,i)=>`<option value="${i}">${esc(s.n)}${s.v!=null?" "+s.v:""}</option>`).join("");
+    body+=`<div class="rdr rde${sel?" sel":""}${e.dead?" dead":""}"><span class="rdpos">${pos}</span>
+      <button class="rdname" data-rdsel="${esc(e.key)}" title="${esc(rdt("selT"))}">${esc(e.name)}${e.ph===2?" ②":""}<span class="ss"> · ${esc(ECLS[g.cls-1])} · Tim ${e.tim}</span>${r.dist?` <span class="rdflag">${esc(rdt("dist"))}</span>`:""}</button>
+      <span class="rdtw"><input type="number" class="rdt" data-rdt="${esc(r.key)}" value="${tv}" placeholder="Tim" title="${esc(rdt("timT"))}">${R.nat[r.key]?`<span class="rdm" title="${esc(rdt("nat20"))}">20!</span>`:R.auto[r.key]?`<span class="rdm" title="${esc(rdt("auto"))}">🎲</span>`:""}</span>
+      <span class="rdhp"><span class="hb${w<34?" lo":""}"><span style="width:${w}%"></span></span><span class="hv"><b>${e.cur}</b>/${e.mx}</span><button class="icon" data-ehp="${e.key}:1" title="−1">−</button><input type="number" class="hd" data-ehpin="${e.key}" placeholder="${t("eDmg")}" title="${t("eDmgT")}"><button class="icon" data-ehp="${e.key}:-1" title="+1">+</button></span>
+      <div class="rdsub"><span class="rdd"><span class="estl${dl.length>rdActMax(g.st.actions)?" over":""}">${esc(rdt("acts"))} ${dl.length}/${esc(g.st.actions)}</span>${dl.map((s,i)=>`<button class="chip rdchip" data-rddel="${esc(e.key)}|${i}" title="${esc(rdt("undecl"))}">${esc(s.n)}${s.v!=null?` <b>${s.v}</b>`:""} ✕</button>`).join("")}<select class="rdsel" data-rdsk="${esc(e.key)}">${opts}</select></span>
+      <span class="rdc">${cs.map((c,i)=>{const z=rdCond(D,c.k,c.st);if(!z)return "";const rs=LANG==="de"?z.rsde:z.rs;
+        return `<span class="chip rdcond" data-tip="${esc(rdCN(z)+" – "+(LANG==="de"?z.effde:z.eff)+(rs&&rs!=="—"?"\n"+rdt("rs")+": "+rs:""))}"><button class="icon" data-rdcs="${esc(e.key)}|${i}|-1" title="${esc(rdt("stDown"))}">−</button>${esc(rdCN(z))}<button class="icon" data-rdcs="${esc(e.key)}|${i}|1" title="${esc(rdt("stUp"))}">+</button></span>`}).join("")}
+      <select class="rdsel" data-rdcadd="${esc(e.key)}">${condOpts()}</select></span></div></div>`}
+  body+=`</div><div class="sid">${R.n===1?esc(rdt("r1"))+" ":""}${esc(rdt("rescue"))} ${esc(rdt("tie"))}.</div><div class="hint">${esc(rdt("hint"))}</div>`;
+  return eCard(E,"rd",esc(rdt("title")),body,null,"","rdcard")}
+function rdText(D,G,E,groups){const R=E.rd;if(!R)return[];const ens=rdEnemies(G,E,groups);const rows=rdOrder(R,ens).filter(r=>r.v!=null||(r.e&&((R.d[r.e.key]||[]).length||(R.c[r.e.key]||[]).length)));
+  if(!rows.length)return[];const L=[`${rdt("round").replace("%n",R.n)} – ${rdt("order")} (${rdt(R.mode==="decl"?"decl":"act")}):`];
+  rows.forEach((r,i)=>{const dl=r.e?(R.d[r.e.key]||[]).map(s=>s.n+(s.v!=null?" "+s.v:"")):[],cs=r.e?(R.c[r.e.key]||[]).map(c=>rdCN(rdCond(D,c.k,c.st))):[];
+    L.push(`   ${i+1}. ${r.name} (${r.v==null?rdt("none"):r.v})${r.e?` · Health ${r.e.cur}/${r.e.mx}`:""}${dl.length?" · "+dl.join(", "):""}${cs.length?" · "+cs.join(", "):""}`)});
+  return L}
 function eHTML(D,rs){
   const G=GD.gegner;if(!G)return `<div class="loading">${t("loading")}…</div>`;
   const E=eState(rs);if(!E.col)E.col={...ECOL_DEF};const{B,F,groups,left}=eGroups(D,G,E);const I=eInfo(D,G,E,F);const o=E.inp;const Z=eZones(D,E,groups);
@@ -1260,6 +1391,7 @@ function eHTML(D,rs){
    ${modBox}
    <p class="ssense">${eit("smellOf")}: ${esc(sm.join(" · ")||"–")} · ${eit("soundOf")}: ${esc(so.join(" · ")||"–")}</p>
    <div class="eprog"><span class="vbar"><span style="width:${pc}%"></span></span><span class="vstat">${esc(eit("prog").replace("%a",P.alive).replace("%b",P.all).replace("%c",P.cur).replace("%d",P.max))}</span>${GENS.find(x=>x.id==="loot")?` <button class="btn sm sgo" data-eloot="1" title="${esc(lot("encLootT"))}">💎 ${esc(gTitle(GENS.find(x=>x.id==="loot")))}</button>`:""}</div></div>`;
+  h+=rdHTML(D,G,E,groups);
   // ---- Gegnerkarten
   h+=`<div class="egrid">`;
   groups.forEach(x=>{
@@ -1272,8 +1404,9 @@ function eHTML(D,rs){
      <div class="stags">${x.boss?`<span class="stag eboss">${t("eBossTag")}</span>`:""}<span class="stag">${esc(ECLS[g.cls-1])}</span><span class="stag">${esc(gN(cr))}${subTxt?" · "+esc(subTxt):""}</span><span class="stag">${x.p} ${x.p===1?eit("pt1"):t("ePts")}</span></div>
      <div class="gnm"><div class="gnmh"><b>${esc(gName(g))}</b><span class="chip pas esense" data-tip="${esc(eit("smellOf")+": "+(gTxt(cr,"Geruch EN","Geruch DE")||"–")+"\n"+eit("soundOf")+": "+(gTxt(cr,"Geräusch EN","Geräusch DE")||"–"))}">👃 👂</span></div><div class="gdesc">${esc(gLookItems(g).map(sCap).join(" · "))}</div></div>
      <div class="estat"><span class="chip pas" data-tip="${esc(t("gResArm").replace("%a",g.st.armor).replace("%t",g.st.armorType||"–"))}">Res <b>${g.st.resist}</b></span><span>Gr <b>${g.st.grounding}</b></span><span>Fight <b>${g.st.fight}</b></span><span>Tim <b>${g.st.timing}</b></span><span>Mov <b>${g.st.move}</b></span><span>Act <b>${esc(g.st.actions)}</b></span><span>En <b>${g.st.energy}</b></span></div>
-     ${gStdChips(g)}${g.passive?`<div class="epass2"><span class="estl">${t("gPassive")}</span> ${esc(g.passive)}</div>`:""}<div class="echips">
-      ${eTipSkill(sk.def,g.v.def,t("gDefense"))}${eTipSkill(sk.att,g.v.atk,t("gAttack"))}${eTipSkill(sk.spec,g.v.spec,t("gSpecial"))}${eTipSkill(sk.e1,g.v.en,t("gEnergy"))}${eTipSkill(sk.e2,g.v.en,t("gEnergy")+" 2")}
+     <div class="estat eattr">${GATTR.map(a=>`<span class="chip pas" data-tip="${esc(a+": "+g.A[a]+" · "+ggt("mod")+" "+ggSign(gMod(G,g.A[a])))}">${RDATTR[a]||a} <b>${g.A[a]}</b> <i>${ggSign(gMod(G,g.A[a]))}</i></span>`).join("")}</div>
+     ${eStdChips(g,x.gi)}${g.passive?`<div class="epass2"><span class="estl">${t("gPassive")}</span> ${esc(g.passive)}</div>`:""}<div class="echips">
+      ${eTipSkill(sk.def,g.v.def,t("gDefense"),0,x.gi)}${eTipSkill(sk.att,g.v.atk,t("gAttack"),0,x.gi)}${eTipSkill(sk.spec,g.v.spec,t("gSpecial"),0,x.gi)}${eTipSkill(sk.e1,g.v.en,t("gEnergy"),0,x.gi)}${eTipSkill(sk.e2,g.v.en,t("gEnergy")+" 2",0,x.gi)}
      </div>${gEPassBox(sk.e1)}${gEPassBox(sk.e2)}<div class="ehp${x.n>4?" many":""}">`;
     for(let k=0;k<x.n;k++){
       const key=eHPKey(x.gi,k),ph=E.ph[key]||1,mx=eMaxHP(G,x,k,ph),dmg=E.hp[key]||0,cur=Math.max(0,mx-dmg),dead=cur<=0&&(ph===2||!g.p2);
@@ -1283,7 +1416,7 @@ function eHTML(D,rs){
         <span class="hb${lo}"><span style="width:${w}%"></span></span>
         <span class="hv"><b>${cur}</b>/${mx}</span>
         <button class="icon" data-ehp="${key}:1" title="−1">−</button><input type="number" class="hd" data-ehpin="${key}" placeholder="${t("eDmg")}" title="${t("eDmgT")}"><button class="icon" data-ehp="${key}:-1" title="+1">+</button></div>`;
-      if(ph===2&&g.p2)b+=`<div class="echips p2">${t("gPhase2")}: ${g.p2.skills.map(s=>eTipSkill(s.s,s.slot==="spec"?g.v.spec:(s.slot[0]==="e"?g.v.en:null),GSLOTL(s.slot))).join("")}<span class="chip pas" data-tip="${esc(gP2Hint(g))}">ⓘ</span></div>${g.p2.skills.map(s=>s.slot[0]==="e"?gEPassBox(s.s):"").join("")}`;
+      if(ph===2&&g.p2)b+=`<div class="echips p2">${t("gPhase2")}: ${g.p2.skills.map(s=>eTipSkill(s.s,s.slot==="spec"?g.v.spec:(s.slot[0]==="e"?g.v.en:null),GSLOTL(s.slot),0,x.gi)).join("")}<span class="chip pas" data-tip="${esc(gP2Hint(g))}">ⓘ</span></div>${g.p2.skills.map(s=>s.slot[0]==="e"?gEPassBox(s.s):"").join("")}`;
     }
     b+=`</div>${g.p2?`<div class="sid">${t("eP2Hint")}</div>`:""}`;
     h+=eCard(E,"g"+x.gi,head,b,null,extra,"ecard2"+(x.boss?" eisboss":""));
@@ -1328,12 +1461,14 @@ function eText(D,rs){
   groups.forEach(x=>{const g=x.g;
     L.push(`${x.n}× ${g.title} (${ECLS[g.cls-1]} · ${gN(g.cr)}${x.sub?" · "+x.sub:""}) – ${gName(g)}: ${gLookItems(g).join(", ")}`);
     L.push(`   Res ${g.st.resist} (${t("gResArm").replace("%a",g.st.armor).replace("%t",g.st.armorType||"–")}) · Gr ${g.st.grounding} · Fight ${g.st.fight} · Tim ${g.st.timing} · Mov ${g.st.move} · Act ${g.st.actions}`);
+    L.push("   "+GATTR.map(a=>`${RDATTR[a]||a} ${g.A[a]} (${ggSign(gMod(G,g.A[a]))})`).join(" · "));
     L.push("   "+t("gStd")+": "+g.std.map(s=>s.n+" "+s.val).join(" · "));
     if(g.passive)L.push(`   ${t("gPassive")}: ${g.passive}`);
     L.push("   "+[[g.sk.def,g.v.def],[g.sk.att,g.v.atk],[g.sk.spec,g.v.spec],[g.sk.e1,g.v.en],[g.sk.e2,g.v.en]].filter(x=>x[0]).map(([s,v])=>gS(s,"name")+" "+v).join(" · "));
     [g.sk.e1,g.sk.e2].forEach(s=>{if(s&&s.passive)L.push(`   ${t("gEPass")} – ${gS(s,"name")} – ${gS(s,"passive")}`)});
     const hp=[];for(let k=0;k<x.n;k++){const key=eHPKey(x.gi,k),ph=E.ph[key]||1,mx=eMaxHP(G,x,k,ph);hp.push(`${Math.max(0,mx-(E.hp[key]||0))}/${mx}`)}
     L.push("   Health: "+hp.join(", "))});
+  rdText(D,G,E,groups).forEach(x=>L.push(x));
   return L;
 }
 function eDamage(rs,key,amt){
@@ -2508,7 +2643,7 @@ function ruineHTML0(D,rs){
    <p class="ssense">${esc(rut("smell"))}: ${esc(C.sm1||"–")} · ${esc(rut("sound"))}: ${esc(C.so1||"–")}</p></div>`;
   h+=`<div class="sgrid">`;
   // Geschichte
-  let hb=sRow(rut("builder"),`<b>${esc(bau)}</b>${C.alt?` <span class="ss">${esc([C.alt.zeit,C.alt.spr?rut("lang")+": "+C.alt.spr:""].filter(Boolean).join(" · "))}</span>`:""}`,"core:mod|core:alt|core:bf");
+  let hb=sRow(rut("builder"),`<b>${esc(bau)}</b>${C.alt?` <span class="ss">${esc([altZeit(C.alt.zeit),C.alt.spr?rut("lang")+": "+C.alt.spr:""].filter(Boolean).join(" · "))}</span>`:""}`,"core:mod|core:alt|core:bf");
   if(C.alt&&sE({x:C.alt.kde,xEn:C.alt.ken},"x"))hb+=`<div class="sid">${esc(sE({x:C.alt.kde,xEn:C.alt.ken},"x"))}</div>`;
   hb+=sRow(rut("style"),`<b>${esc(C.style.name)}</b> <span class="ss">${esc([C.style.insp?"Inspiration: "+C.style.insp:"",...C.sm.map(sW)].filter(Boolean).join(" · "))}</span>`,"core:sm");
   hb+=sRow(rut("purpose"),`<b>${esc(sW(C.Z))}</b> <span class="ss">${esc(C.th.map(sW).join(" · "))}</span>`,"core:zw|core:th");
@@ -3386,6 +3521,7 @@ async function brGo(i){const D=GD.brett,B=brState(res("brett")),R=brBuild(D,B),A
   go(gen)}
 
 // ================= LOOT & DINGE (Stammtabelle Loot, dazu Beiwörter, Territorien, Fraktionen, Namen, Altvölker) =================
+// 20.11.2026: Level je Kachel (1 / 2–3 / 4–5), Aktivierungen ausgeglichen (Loot_v2: „Nur bei Bonus“, {N} Checks, Opfer AP 10/20).
 // Martin 31.10.2026 (Loot_Martin.md): Ein Fund = Plunder + Gegenstände aus sechs Pools; die Fundstelle gibt die Gewichte, die Ortsstufe Level, Plunder-Faktor,
 // Anteil meisterhaft und episch. Bis zu 6 Kacheln: jede würfelt nach der Fundstelle oder nach einer gewählten Kategorie (so entsteht auch ein Einzelgegenstand).
 // Magische Gegenstände: ein Bonus (in der Gruppe gleich wahrscheinlich), Form und Echo nach der Domäne des Bonus gewichtet, Aktivierung aus „unerledigt“.
@@ -3396,6 +3532,7 @@ const LOI18N={
   P:{banal:"banal",nuetzlich:"nützlich",reserve:"Reserve",ausruestung:"Ausrüstung",wertvoll:"wertvoll",magisch:"magisch"},
   K:{trank:"Trank",schrift:"Schriftstück",waffe:"Waffe",ruestung:"Rüstung",schild:"Schild",kleidung:"Kleidung",fokus:"Fokus-Objekt",wertsache:"Wertsache",mrare:"magisch: rare",mepic:"magisch: episch",leg:"legendär"},
   master:"meisterhaft",masterEq:"meisterhaft: ein Bonus +1 oder +1 Angriff",masterCl:"meisterhaft: +1 Wetterschutz",skill:"Skill",supply:"Supply",potion:"Trank",oil:"Öl (auf eine Waffe)",drink:"zum Trinken",str:"Stärke",eff:"Wirkung",side:"Nebenwirkung",unknown:"Wirkung unbekannt – erst beim Trinken oder nach Analyse",
+  lvT:"Level für Tränke, Gebrauchsgegenstände, Rezepte, Schriftrollen und Zauberbücher: automatisch nach Ortsstufe oder fest. Mit festem Level zieht die Kachel nur Gegenstände mit Level.",
   lvl:"Level",recipe:"Rezept",scroll:"Zauberschriftrolle",spellbook:"Zauberbuch",scrollT:"lesen = wirken mit Stärke 10, oder lernen",theme:"Thema",curse:"Fluch für Curseweaver",track:"Spur",form:"Form",
   rare:"rare",epic:"episch",effect:"Wirkung",feltT:"Die Helden spüren die Wirkung schon jetzt.",echo:"Echo",hints:"Hinweise",act:"Aktivierung",actOpen:"▸ Aktivierung (Identifikation)",actClose:"▾ Aktivierung (Identifikation)",
   cond:"Bedingung",ident:"Identifikation: Magier, Priester, Erfinder oder Opticarium der Karawane",idCost:"Plunder",sale:"Verkauf",inactive:"inaktiv",active:"aktiv",WP:"WP",
@@ -3410,7 +3547,8 @@ const LOI18N={
   P:{banal:"mundane",nuetzlich:"useful",reserve:"reserve",ausruestung:"equipment",wertvoll:"valuable",magisch:"magical"},
   K:{trank:"Potion",schrift:"Writing",waffe:"Weapon",ruestung:"Armor",schild:"Shield",kleidung:"Clothing",fokus:"Focus-object",wertsache:"Valuable",mrare:"magical: rare",mepic:"magical: epic",leg:"legendary"},
   master:"masterful",masterEq:"masterful: one bonus +1 or +1 attack",masterCl:"masterful: +1 weather protection",skill:"Skill",supply:"supply",potion:"Potion",oil:"Oil (for a weapon)",drink:"to drink",str:"Strength",eff:"Effect",side:"Side effect",unknown:"Effect unknown – only when drunk or analysed",
-  lvl:"level",recipe:"Recipe",scroll:"Spell scroll",spellbook:"Spellbook",scrollT:"read = cast at strength 10, or learn",theme:"Theme",curse:"curse for a curseweaver",track:"Lead",form:"Form",
+  lvT:"Level for potions, useful items, recipes, scrolls and spellbooks: automatic by place tier or fixed. With a fixed level the tile draws only items that have a level.",
+  lvl:"Level",recipe:"Recipe",scroll:"Spell scroll",spellbook:"Spellbook",scrollT:"read = cast at strength 10, or learn",theme:"Theme",curse:"curse for a curseweaver",track:"Lead",form:"Form",
   rare:"rare",epic:"epic",effect:"Effect",feltT:"The heroes already sense the effect.",echo:"Echo",hints:"Clues",act:"Activation",actOpen:"▸ Activation (identification)",actClose:"▾ Activation (identification)",
   cond:"Condition",ident:"Identification: mages, priests, inventors or the caravan's opticarium",idCost:"plunder",sale:"Sale",inactive:"inactive",active:"active",WP:"WP",
   activated:"activated – closing the rift was the activation",choice:"The heroes choose: form OR bonus",choiceF:"Forms (bonus stays)",choiceB:"Bonuses (form stays)",
@@ -3422,8 +3560,8 @@ const LOI18N={
 const lot=k=>{const v=LOI18N[LANG][k];return v===undefined?LOI18N.de[k]:v};
 const LOPOOLS=["banal","nuetzlich","reserve","ausruestung","wertvoll","magisch"];
 const LOKAT=["trank","schrift","waffe","ruestung","schild","kleidung","fokus","wertsache","mrare","mepic","leg"];
-function loState(rs){if(!rs.lo)rs.lo={inp:{fs:null,ort:null,st:null,terr:null},kat:[null,null,null,null,null,null],on:[0,0,0,0,0,0],open:{},draws:{},src:null,ctx:null,col:{}};
-  const B=rs.lo;if(!B.col)B.col={};if(!B.open)B.open={};if(!B.kat)B.kat=[null,null,null,null,null,null];if(!B.on)B.on=[0,0,0,0,0,0];return B}
+function loState(rs){if(!rs.lo)rs.lo={inp:{fs:null,ort:null,st:null,terr:null},kat:[null,null,null,null,null,null],lv:[null,null,null,null,null,null],on:[0,0,0,0,0,0],open:{},draws:{},src:null,ctx:null,col:{}};
+  const B=rs.lo;if(!B.col)B.col={};if(!B.open)B.open={};if(!B.kat)B.kat=[null,null,null,null,null,null];if(!B.on)B.on=[0,0,0,0,0,0];if(!B.lv)B.lv=[null,null,null,null,null,null];return B}
 const loR=(D,k,d)=>{const v=D.rules&&D.rules[k];const x=parseFloat(String(v==null?"":v).replace(",","."));return isNaN(x)?d:x};
 const loInt=(B,k,a,b)=>a+Math.floor(gU(B,k)*(b-a+1));
 const loUni=(B,k,a)=>a&&a.length?a[Math.floor(gU(B,k)*a.length)]:null;
@@ -3446,7 +3584,9 @@ function loCore(D,B){const o=B.inp,cx=B.ctx||{},C={};
   C.extra=C.tiles.reduce((s,x)=>s+(x&&x.val?x.val:0),0);
   return C}
 // ---------- eine Kachel
-function loTile(D,B,C,i,kat){const p=`t${i}:`,X={i,kat};let pool=null,inh=null;
+// Level je Kachel (Martin 20.11.2026): automatisch nach Ortsstufe oder fest Level 1 / 2–3 / 4–5 – für Tränke, Gebrauchsgegenstände, Rezepte, Schriftrollen, Zauberbücher
+const LOLV={"1":[1,1],"23":[2,3],"45":[4,5]},LOLVK=["trank","gebrauch","rezept","schriftrolle","zauberbuch"];
+function loTile(D,B,C,i,kat){const p=`t${i}:`,X={i,kat};let pool=null,inh=null;const LV=LOLV[(B.lv||[])[i]]||null;
   if(kat==null||LOPOOLS.includes(kat)){
     if(kat){pool=kat}else{const w=C.F?C.F.w:{banal:1,nuetzlich:1,reserve:1,ausruestung:1,wertvoll:1,magisch:0};
       pool=(C.F&&C.F.sm&&i===0)?"magisch":gWPick(B,p+"pool",LOPOOLS.map(k=>({k,w:w[k]||0})).filter(x=>x.w>0)).k}
@@ -3456,7 +3596,12 @@ function loTile(D,B,C,i,kat){const p=`t${i}:`,X={i,kat};let pool=null,inh=null;
     if(M[kat]){[pool,inh]=M[kat]}
     else if(kat==="schrift"){pool="nuetzlich";inh=gWPick(B,p+"inh",[{k:"buch_banal",w:4},{k:"rezept",w:2},{k:"schriftrolle",w:2},{k:"buch_alt",w:2},{k:"werk",w:1},{k:"zauberbuch",w:1}]).k}
     else if(kat==="fokus"){pool="reserve";inh=gU(B,p+"inh")<.5?"fokus_1":"fokus_23"}}
-  X.pool=pool;X.k=inh;const S=C.S;
+  // festes Level: nur Inhalte mit Level (aus dem Pool, sonst aus „nützlich“); feste Kategorien wie Waffe bleiben
+  if(LV&&!LOLVK.includes(inh)&&(kat==null||LOPOOLS.includes(kat)||kat==="schrift")){
+    let c=(kat==="schrift"?[{k:"rezept",w:2},{k:"schriftrolle",w:2},{k:"zauberbuch",w:1}]:(D.pools[pool]||[]).filter(x=>LOLVK.includes(x.k)));
+    if(!c.length){pool="nuetzlich";c=(D.pools.nuetzlich||[]).filter(x=>LOLVK.includes(x.k))}
+    if(c.length)inh=gWPick(B,p+"inhL",c).k}
+  X.pool=pool;X.k=inh;const S=C.S;X.lvSel=LV;
   const lvIn=(a,lo,hi)=>{let r=a.filter(x=>x.l>=lo&&x.l<=hi);if(!r.length)r=a.filter(x=>x.l<=hi);return r.length?r:a};
   switch(inh){
     case "nichts":X.t=lot("none");break;
@@ -3477,16 +3622,16 @@ function loTile(D,B,C,i,kat){const p=`t${i}:`,X={i,kat};let pool=null,inh=null;
       const z=loW(D,B,"zus",p+"b"),m=inh==="kleidung"?null:loW(D,B,"mat",p+"c"),v=loW(D,B,"ver",p+"d");
       X.t=sCap(sW(e));X.tag=X.mf?lot("master"):"";X.s=[z,m,v].filter(Boolean).map(sW).join(" · ");
       X.d=`${e.sk?lot("skill")+": "+e.sk+" · ":""}${loTx(e,"t")}${X.mf?" · "+lot(inh==="kleidung"?"masterCl":"masterEq"):""}`;break}
-    case "trank":{let q;if(gU(B,p+"q")<.15)q=D.tr[0];else{const L=loInt(B,p+"l",S.tl[0],S.tl[1]);q=D.tr.find(x=>x.l===L)||D.tr[1]}
+    case "trank":{let q;const tmax=Math.max(...D.tr.map(x=>x.l));if(!LV&&gU(B,p+"q")<.15)q=D.tr[0];else{const L=LV?loInt(B,p+"l",Math.min(LV[0],tmax),Math.min(LV[1],tmax)):loInt(B,p+"l",S.tl[0],S.tl[1]);q=D.tr.find(x=>x.l===L)||D.tr[1]}
       const oil=gU(B,p+"o")<.3,str=loInt(B,p+"s",q.s[0],q.s[1]);X.q=q;
       const ef=[];for(let j=0;j<Math.max(1,q.n);j++){const typ=["O","R","C"][Math.floor(gU(B,p+"y"+j)*3)];const w=loUni(B,p+"e"+j,D.trw[typ]);if(w)ef.push(`${sW(w)} (${typ})`)}
       const ns=oil?0:str<=3?0:str<=6?1:str<=9?2:3,nw=[];for(let j=0;j<ns;j++){const pool2=D.trw.nw.filter(x=>!nw.includes(x));const w=loUni(B,p+"n"+j,pool2);if(w)nw.push(w)}
       X.t=LANG==="de"?`${sCap(q.de)}${oil?"es Öl":"er Trank"}`:`${sCap(q.en||q.de)} ${oil?"oil":"potion"}`;
       X.tag=q.l?`${lot("lvl")} ${q.l}`:"";X.s=`${lot("str")} ${str}${oil?" · "+lot("oil"):""}`;
       X.d=q.known?`${lot("eff")}: ${ef.join(" · ")}${nw.length?` · ${lot("side")}: ${nw.map(sW).join(" · ")}`:""}`:`${lot("unknown")} <span class="ss">(${esc(ef.join(" · "))}${nw.length?" · "+esc(nw.map(sW).join(" · ")):""})</span>`;X.dRaw=!q.known;break}
-    case "gebrauch":case "rezept":{const g=gWPick(B,p+"a",lvIn(D.gebr,S.lv[0],S.lv[1]));X.t=(inh==="rezept"?lot("recipe")+": ":"")+sCap(sW(g));X.tag=`${lot("lvl")} ${g.l}`;X.s=LANG==="de"?g.gde:g.gen;
+    case "gebrauch":case "rezept":{const g=gWPick(B,p+"a",lvIn(D.gebr,LV?LV[0]:S.lv[0],LV?LV[1]:S.lv[1]));X.t=(inh==="rezept"?lot("recipe")+": ":"")+sCap(sW(g));X.tag=`${lot("lvl")} ${g.l}`;X.s=LANG==="de"?g.gde:g.gen;
       if(inh==="rezept")X.s+=` · ${g.m}`;break}
-    case "schriftrolle":case "zauberbuch":{const lv=inh==="zauberbuch"?S.zb:null;let pool2=inh==="zauberbuch"?D.spells.filter(x=>lv.includes(x.l)):D.spells.filter(x=>x.l>=Math.max(1,S.lv[0])&&x.l<=Math.min(3,S.lv[1]));
+    case "schriftrolle":case "zauberbuch":{const lv=inh==="zauberbuch"?S.zb:null;let pool2=LV?D.spells.filter(x=>x.l>=LV[0]&&x.l<=LV[1]):inh==="zauberbuch"?D.spells.filter(x=>lv.includes(x.l)):D.spells.filter(x=>x.l>=Math.max(1,S.lv[0])&&x.l<=Math.min(3,S.lv[1]));
       if(!pool2.length)pool2=D.spells.filter(x=>x.l>=1&&x.l<=3);const sp=loUni(B,p+"a",pool2);
       X.t=`${lot(inh==="zauberbuch"?"spellbook":"scroll")}: ${sW(sp)}`;X.tag=`${lot("lvl")} ${sp.l}`;X.s=`${sp.dis} (${sp.sch}) · ${loTx(sp,"k")}`;X.d=lot("scrollT");break}
     case "buch_banal":case "buch_alt":{const fm=loL(D,B,"Buch: Form",p+"f");let th,ti;
@@ -3527,7 +3672,7 @@ function loMagic(D,B,C,p,ep){const M={ep},cx=B.ctx||{};
   M.alt=C.S.n>=2&&D.alt.length&&gU(B,p+"au")<.15?gWPick(B,p+"av",D.alt.filter(a=>a.w>0).length?D.alt.filter(a=>a.w>0):D.alt.map(a=>Object.assign({},a,{w:1}))):null;
   M.fac=M.alt?sW(M.alt):(fe?wFacN(D,fe.t):"");M.nm=(sub&&sNpcName(D,B,p+"en",sub))||sCap(sW(M.rolle));
   M.tod=gWPick(B,p+"td",D.echo.tod);M.ort=gWPick(B,p+"to",D.echo.ort);M.un=gWPick(B,p+"un",D.echo.un);
-  const art=M.un.x;M.art=art;M.akt=gWPick(B,p+"ak",D.akt[art]||D.akt.Tat);M.bed=gWPick(B,p+"zbd",D.bed);
+  const art=M.un.x;M.art=art;const gk=M.bo.gr&&M.bo.gr.k,akp=(D.akt[art]||D.akt.Tat).filter(a=>!a.only||a.only.includes(gk));M.akt=gWPick(B,p+"ak",akp.length?akp:(D.akt[art]||D.akt.Tat));M.bed=gWPick(B,p+"zbd",D.bed);
   const hw=D.hw[art]||[];M.hw=[];for(let j=0;j<Math.min(loR(D,"Hinweise je Gegenstand",2),hw.length);j++){const pool=hw.filter(x=>!M.hw.includes(x));M.hw.push(gWPick(B,p+"hw"+j,pool))}
   M.mk=loL(D,B,"Merkmal magisch",p+"zmk");M.bw=loL(D,B,"Beiwort magisch",p+"zbw");
   const fn=sCap(sW(M.form));M.name=LANG==="de"?`${fn} ${lot("of")} ${M.nm}`:`${M.nm}'s ${sW(M.form)}`;
@@ -3538,14 +3683,15 @@ function loMagic(D,B,C,p,ep){const M={ep},cx=B.ctx||{};
   return M}
 function loN(D,M,s){const ep=M.ep?"epic":"rare",en=(M.akt.en||"")+" "+s;
   if(/plunder/i.test(en))return loR(D,`Opfer: Plunder ${ep}`,M.ep?8:3);if(/focus/i.test(en))return loR(D,`Opfer: Fokus-Energie ${ep}`,M.ep?6:3);
-  if(/\bAP\b/.test(en))return loR(D,`Opfer: AP ${ep}`,M.ep?40:20);if(/level/i.test(en))return loR(D,`Bewährung: Skill-Level ${ep}`,M.ep?20:15);return loR(D,`Bewährung: Stärke ${ep}`,M.ep?12:8)}
+  if(/\bAP\b/.test(en))return loR(D,`Opfer: AP ${ep}`,M.ep?20:10);if(/\bchecks\b/i.test(en))return loR(D,`Bewährung: Anzahl Checks ${ep}`,M.ep?3:2);if(/level/i.test(en))return loR(D,`Bewährung: Skill-Level ${ep}`,M.ep?20:15);return loR(D,`Bewährung: Stärke ${ep}`,M.ep?12:8)}
 function loFill(D,M,x){let s=sW(x);const o=M.ort;
   return s.replace(/\{Name\}/g,M.nm).replace(/\{Fraktion\}/g,M.fac||"–").replace(/\{Ort\}/g,sW(o)).replace(/\{Geruch\}/g,loTx(o,"g")).replace(/\{Geräusch\}/g,loTx(o,"r"))
    .replace(/\{Skill\}/g,M.bo.sk||"").replace(/\{Unerledigt\}/g,sW(M.un)).replace(/\{N\}/g,loN(D,M,s))}
 // ---------- Anzeige
 function lootHTML(D,rs){SCOL=loState(rs).col;try{return lootHTML0(D,rs)}finally{SCOL=null}}
+function loLvSel(B,i){const cur=(B.lv||[])[i]||"";return `<select class="brk lolv" data-lolv="${i}" title="${esc(lot("lvT"))}">${[["",`${lot("lvl")} 🎲`],["1",`${lot("lvl")} 1`],["23",`${lot("lvl")} 2–3`],["45",`${lot("lvl")} 4–5`]].map(([v,l])=>`<option value="${v}" ${cur===v?"selected":""}>${esc(l)}</option>`).join("")}</select>`}
 function loKatSel(B,i,cur){const o=[["",`🎲 ${lot("tileAuto")}`]].concat(LOPOOLS.map(k=>[k,loPool(k)])).concat(LOKAT.map(k=>[k,lot("K")[k]]));
-  return `<select class="brk" data-lok="${i}" title="${esc(lot("cat"))}">${o.map(([v,l])=>`<option value="${v}" ${(cur||"")===v?"selected":""}>${esc(l)}</option>`).join("")}</select>`}
+  return `<select class="brk" data-lok="${i}" title="${esc(lot("cat"))}">${o.map(([v,l])=>`<option value="${v}" ${(cur||"")===v?"selected":""}>${esc(l)}</option>`).join("")}</select>`+loLvSel(B,i)}
 function lootHTML0(D,rs){
   const B=loState(rs),o=B.inp,C=loCore(D,B),cx=B.ctx||{};
   const sel=(k,cur,auto,opts)=>`<label class="ef"><span>${esc(lot(k))}</span><select data-loinp="${k}"><option value="">🎲 ${esc(lot("rand"))}${cur==null?" ("+esc(auto)+")":""}</option>${opts.map(([v,l])=>`<option value="${esc(String(v))}" ${cur!=null&&String(cur)===String(v)?"selected":""}>${esc(l)}</option>`).join("")}</select></label>`;
@@ -3611,6 +3757,11 @@ async function eToLoot(){const id=S.cur,g=GENS.find(x=>x.id===id),D=GD[id],G=GD.
   const st={Natur:1,Wildnis:1,Stadt:1,Korridor:2,Raum:2,Etappe:2,Zweitweltriss:boss?3:2,"Nebenhöhle":3,"Haupthöhle":3,Untertiefe:4}[ort.de]||1;
   const name=groups.map(x=>`${x.n}× ${x.g.title||gN(x.g.cr)}`).join(" · ");
   lootFrom({st,fs:boss?"boss":beast?"tier":"person",terr:null},{gen:id,title:`${gTitle(g)}: ${name}`,extra:[eW(D,ort)].filter(Boolean)})}
+// Check-Spalte der Rast-Aktionen und Zeitangaben der Altvölker stehen in den Stammtabellen nur deutsch (20.11.2026)
+const RAPR_EN={"je nach Fähigkeit":"depends on the ability","je nach Gegenstand":"depends on the item","wählbar":"any","keine":"none","Probenfolge":"sequence of checks"};
+const raPr=x=>LANG==="de"||!x?x:(RAPR_EN[x]||x);
+const ALTZ_EN={"uralt":"ancient","alt":"old","vergangen":"bygone","noch mächtig":"still powerful","Zeitalter der Drachen":"age of dragons","bis":"until","fiel vor":"fell","Jahren":"years ago","n. O.":"A.O."};
+const altZeit=x=>{if(LANG==="de"||!x)return x;let s=String(x);for(const[k,v]of Object.entries(ALTZ_EN).sort((a,b)=>b[0].length-a[0].length))s=s.split(k).join(v);return s};
 // ================= RAST (Stammtabelle Rast, dazu Territorien, Biome, Wetter, Fraktionen) =================
 // Martin 01.11.2026 (Neuordnung_Generatoren_Martin.md): Die Rast ist ein eigener Spielabschnitt. Viel Interaktion der Spieler untereinander –
 // das Enigma füttert nur an und schmückt aus. Störung nur bei behelfsmäßiger Rast (10 %), davon 20 % Kampf. Wetter nur Wildnis und Karawane,
@@ -3727,7 +3878,7 @@ function raHTML0(D,B){const o=B.inp,C=raBuild(D,B),O=C.O,cx=B.ctx||{};
    <p class="ssense">${esc(rat(C.A==="T"?"recT":"recB"))}${C.A==="T"?" · "+esc(rat("need")):""}</p></div>`;
   h+=`<div class="sgrid">`;
   // Rest-actions
-  let ab=`<div class="sid">${esc(rat("actsT"))}${C.A==="B"?" "+esc(rat("actsB")):""}</div><div class="rachips">${C.can.map(a=>`<button class="btn sm" data-raact="${esc(a.de)}" title="${esc(a.pr)}">${esc(rat("add"))} ${esc(sW(a))}</button>`).join("")}</div>`;
+  let ab=`<div class="sid">${esc(rat("actsT"))}${C.A==="B"?" "+esc(rat("actsB")):""}</div><div class="rachips">${C.can.map(a=>`<button class="btn sm" data-raact="${esc(a.de)}" title="${esc(raPr(a.pr))}">${esc(rat("add"))} ${esc(sW(a))}</button>`).join("")}</div>`;
   C.acts.forEach(x=>{const P=`ac:${x.id}:`,sam=x.a.de==="Sammeln";
     ab+=sRow(sW(x.a),`<span class="ss">${esc(rat("ok"))}</span> ${esc(sW(x.ok))}<br><span class="ss">${esc(rat("hard"))}</span> ${esc(sW(x.hard))}${x.luck?`<br><span class="ss">${esc(rat("luck"))}</span> ${esc(sW(x.luck))}`:""}${x.bad?` <span class="ss">(${esc(rat("actsB"))})</span>`:""} <button class="icon" data-radel="${x.id}" title="${esc(rat("del"))}">✕</button>`,P)+(sam&&D.sa?saBlock(D,B,C,x,P):"")});
   h+=sCard("ac",rat("acts"),ab,true);
@@ -4031,7 +4182,7 @@ function tbTierHTML(D,B){if(!D.pt)return "";const k="kt:",C=ptBuild(D.pt,B,k,"t"
 function tbPflText(D,B){return D.pt?[ptLine(D.pt,B,"pf:","p",B.inp.hab)]:[]}
 function tbTierText(D,B){if(!D.pt)return[];const C=ptBuild(D.pt,B,"kt:","t",B.inp.hab),o=[ptLine(D.pt,B,"kt:","t",B.inp.hab)];
   o.push(`  ${ptt("zut")}: ${ptt("fokus").replace("%p",C.pot)}${C.showBg?` · ${ptt("bg")}: ${C.bg.map(x=>ptW(x.m)).join(", ")}${C.bgX?" + "+ptW(C.bgX.m):""}`:""}`);return o}
-// ================= TOOLBOX (Stammtabelle Toolbox: Gift & Krankheit, Trauma & Narben, Pakt-Aufgabe, Spur & Rätsel, Box; Held aus Stammtabelle Helden, Pflanze & Kleintier aus Stammtabelle PflanzenTiere, Runenfalle aus Stammtabelle Runenfalle, 02.11.2026) =================
+// ================= TOOLBOX (Stammtabelle Toolbox: Zauberfehlschlag und Ambitionen seit 20.11.2026; Gift & Krankheit, Trauma & Narben, Pakt-Aufgabe, Spur & Rätsel, Box; Held aus Stammtabelle Helden, Pflanze & Kleintier aus Stammtabelle PflanzenTiere, Runenfalle aus Stammtabelle Runenfalle, 02.11.2026) =================
 // Martin 01.11.2026 (Toolbox_Martin.md): Die Toolbox fasst Regeln aus Buch 1 und 2 schnell zusammen – das Enigma soll mitten im Spiel nicht
 // nachschlagen. Ein Klick, kaum Eingaben, kurze Ergebnisse, keine Spielerkarten. Zustände und Seelenintegrität bleiben draußen.
 // Zufallsschlüssel: gi:a/s (Art, Stufe) gi:n1/n2/s1/s2/h/m/b · tr:a/p/t/n/nv/nt · pa:a/o/l/m · sp:… · rx:k/sm/mc/km/mt/hg · bx:i/b/g/v/i2/b2
@@ -4050,6 +4201,8 @@ const TBI18N={
   puzzle:"Rätsel",lock:"Schloss",key:"Schlüssel",grip:"Handgriff",of:"aus",
   kind:"Art",gew:"gewöhnlich",wich:"wichtig",cont:"Inhalt",adj:"Beiwort",secret:"Geheimnis",value:"Wert",plunder:"Plunder",again:"darin",
   d12:"W12",d20:"W20",
+  amb:"Ambitionen",zauber:"Zauberfehlschlag",zfw:"Wurf (2W20)",zfroll:"Wurf",zfagain:"Chaos: erneut",zfboth:"Chaos: auch",zffix:"eingetragen",zfall:"Ganze Tabelle (Buch 1 Table 3.6.4)",
+  zfT:"Buch 1, 3.6: Misslingt der Disziplin-Check eines Zaubers kritisch, würfelt der Zaubernde 2W20 auf dieser Tabelle. Das Enigma kann sie auch für andere magische Ereignisse mit unvorhersehbaren Folgen nutzen.",
   pfl:"Pflanze",tier:"Kleintier",hab:"Lebensraum",rune:"Runenfalle",rfart:"Art",rfherz:"Runenherz",
   held:"Held",hfac:"Heimatfraktion",spec:"Spezies",leb:"Lebensweg",blut:"Bluterbe",char:"Charakteristik",fate:"Schicksalsobjekt",self:"Selbstobjekt",own:"eigene Spezies",from:"aus",d50:"W50",nr:"Nr.",
   heldT:"Buch 1, 2.3: Das Bluterbe ist frei wählbar, unabhängig von der Spezies. Eine Charakteristik gelingt immer, einmal pro Session. Das Schicksalsobjekt bringt Vorteil und Nachteil. Ohne Selbstobjekt kann der Held keine AP ausgeben.",
@@ -4068,12 +4221,14 @@ const TBI18N={
   puzzle:"Puzzle",lock:"Lock",key:"Key",grip:"Handling",of:"of",
   kind:"Kind",gew:"ordinary",wich:"important",cont:"Content",adj:"Trait",secret:"Secret",value:"Value",plunder:"plunder",again:"inside",
   d12:"D12",d20:"D20",
+  amb:"Ambitions",zauber:"Spell failure",zfw:"Roll (2D20)",zfroll:"Roll",zfagain:"Chaos: again",zfboth:"Chaos: also",zffix:"entered",zfall:"Full table (Book 1 Table 3.6.4)",
+  zfT:"Book 1, 3.6: if the discipline-check to cast a spell critically fails, the caster rolls 2D20 on this table. The enigma can also use it for other magical effects with unforeseen, dangerous consequences.",
   pfl:"Plant",tier:"Small animal",hab:"Habitat",rune:"Rune-trap",rfart:"Kind",rfherz:"Rune-heart",
   held:"Hero",hfac:"Home-faction",spec:"Species",leb:"Life path",blut:"Blood inheritance",char:"Characteristic",fate:"Object of fate",self:"Self-object",own:"own species",from:"from",d50:"D50",nr:"No.",
   heldT:"Book 1, 2.3: the blood inheritance may be chosen freely, regardless of species. A characteristic always succeeds, once per session. The object of fate gives a benefit and a penalty. Without the self-object the hero cannot spend AP.",
   hint:"Pick an aid above. ⟳ on a row rolls only that row, “%r” the whole card. “%l” adds the open card."}};
 const tbt=k=>{const v=TBI18N[LANG][k];return v===undefined?TBI18N.de[k]:v};
-const TBTABS=["gift","trauma","pakt","spur","box","held","pfl","tier","rune"];
+const TBTABS=["gift","trauma","pakt","spur","box","held","amb","zauber","pfl","tier","rune"];
 const tbNew=()=>({tab:"gift",inp:{},draws:{},col:{}});
 function tbState(rs){if(!rs.tb)rs.tb=tbNew();const B=rs.tb;if(!B.inp)B.inp={};if(!B.draws)B.draws={};if(!B.col)B.col={};if(!TBTABS.includes(B.tab))B.tab="gift";return B}
 const tbPick=(B,k,a)=>a&&a.length?gWPick(B,k,a):null;
@@ -4212,15 +4367,35 @@ function tbHeldHTML(D,B){const o=B.inp,H=D.held,C=tbHeld(D,B);
 function tbHeldText(D,B){const C=tbHeld(D,B);
   return[`${tbt("held")}: ${C.spName} ${tbt("from")} ${tbW(C.fac,"de","en")} · ${tbt("leb")}: ${tbW(C.leb,"de","en")} (${tbW(C.leb,"sde","sen")})`,
     `  ${tbt("blut")}: ${tbW(C.blut,"de","en")} · ${tbt("char")}: ${tbW(C.char,"de","en")} · ${tbt("fate")}: ${tbW(C.fate,"de","en")}${C.self?" · "+tbt("self")+": "+tbW(C.self,"de","en"):""}`]}
+// ---------- Zauberfehlschlag (20.11.2026, Buch 1 Table 3.6.4): 2W20; 20 = erneut würfeln, noch einmal 20 = zweimal würfeln, beides gilt
+// Zufallsschlüssel zf:1a/zf:1b … zf:4; Feld „Wurf“ übernimmt einen am Tisch gewürfelten Wert
+function tbZf(D,B){const L=D.zf||[],o=B.inp;
+  const r=(k,fix)=>{if(fix){return{s:fix,fix:true,e:L.find(x=>x.w===fix)}}const a=1+tbIdx(B,k+"a",20),b=1+tbIdx(B,k+"b",20);return{a,b,s:a+b,e:L.find(x=>x.w===a+b)}};
+  const R=[r("zf:1",o.zfw?+o.zfw:null)];
+  if(R[0].s===20){const x=r("zf:2");R.push(x);
+    if(x.s===20)for(const k of ["zf:3","zf:4"]){let y=r(k),j=0;while(y.s===20&&j<10){j++;y=r(k+"#"+j)}R.push(y)}}
+  return R}
+function tbZfHTML(D,B){const o=B.inp,R=tbZf(D,B),L=D.zf||[];if(B.col.zfall===undefined)B.col.zfall=1;
+  let h=`<div class="ebar sbar">${tbSel("zfw",o.zfw,`${R[0].s}`,L.map(x=>[x.w,String(x.w)]),"zfw")}</div>`;
+  const lab=(x,i)=>i===0?tbt("zfroll"):(i===1?tbt("zfagain"):tbt("zfboth"));
+  let b=R.map((x,i)=>sRow(lab(x,i),`<b>${x.s}</b> – ${esc(tbW(x.e,"de","en")||"–")}`,i===0&&x.fix?null:("zf:"+(i+1)),x.fix?esc(tbt("zffix")):`${x.a} + ${x.b}`)).join("");
+  h+=sCard("zf",tbt("zauber"),b+`<div class="sid">${esc(tbt("zfT"))}</div>`,true);
+  h+=sCard("zfall",tbt("zfall"),L.map(x=>`<div class="sr"><span class="k">${x.w}</span><span class="v">${esc(tbW(x,"de","en"))}</span><span></span></div>`).join(""),true);
+  return h}
+function tbZfText(D,B){const R=tbZf(D,B);return[`${tbt("zauber")}: `+R.map(x=>`${x.s} – ${tbW(x.e,"de","en")}`).join(" · ")]}
+// ---------- Ambitionen (20.11.2026): Reiter der Toolbox, Ablauf wie der frühere Ambitions-Generator (Zustand in B.am)
+const tbAmbD=D=>({list:D.amb||[],rules:D.rules||{}});
+function tbAmbHTML(D,B){return amHTML(tbAmbD(D),B)}
+function tbAmbText(D,B){return amText(tbAmbD(D),B)}
 // ---------- Maske
 function tbSel(k,cur,auto,opts,lab,noRand){
   return`<label class="ef"><span>${esc(tbt(lab||k))}</span><select data-tbinp="${k}">${noRand?"":`<option value="">🎲 ${esc(tbt("rand"))}${cur==null&&auto!=null?" ("+esc(auto)+")":""}</option>`}${opts.map(([v,l])=>`<option value="${esc(String(v))}" ${cur!=null&&String(cur)===String(v)?"selected":""}>${esc(l)}</option>`).join("")}</select></label>`}
 function tbHTML(D,rs){const B=tbState(rs);SCOL=B.col;try{
   let h=`<div class="rachips tbchips">${TBTABS.map(k=>`<button class="btn ${B.tab===k?"primary":""}" data-tbtab="${k}">${esc(tbt(k))}</button>`).join("")}</div>`;
-  h+=({gift:tbGiftHTML,trauma:tbTraumaHTML,pakt:tbPaktHTML,spur:tbSpurHTML,box:tbBoxHTML,held:tbHeldHTML,pfl:tbPflHTML,tier:tbTierHTML,rune:tbRuneHTML})[B.tab](D,B);
+  h+=({gift:tbGiftHTML,trauma:tbTraumaHTML,pakt:tbPaktHTML,spur:tbSpurHTML,box:tbBoxHTML,held:tbHeldHTML,amb:tbAmbHTML,zauber:tbZfHTML,pfl:tbPflHTML,tier:tbTierHTML,rune:tbRuneHTML})[B.tab](D,B);
   return h+`<div class="hint">${esc(tbt("hint").replace("%r",t("regen")).replace("%l",t("toLog")))}</div>`}finally{SCOL=null}}
-function tbText(D,rs){const B=tbState(rs);return({gift:tbGiftText,trauma:tbTraumaText,pakt:tbPaktText,spur:tbSpurText,box:tbBoxText,held:tbHeldText,pfl:tbPflText,tier:tbTierText,rune:tbRuneText})[B.tab](D,B)}
-const TBPRE={gift:"gi:",trauma:"tr:",pakt:"pa:",spur:"sp:|rx:",box:"bx:",held:"he:",pfl:"pf:",tier:"kt:",rune:"rf:"};
+function tbText(D,rs){const B=tbState(rs);return({gift:tbGiftText,trauma:tbTraumaText,pakt:tbPaktText,spur:tbSpurText,box:tbBoxText,held:tbHeldText,amb:tbAmbText,zauber:tbZfText,pfl:tbPflText,tier:tbTierText,rune:tbRuneText})[B.tab](D,B)}
+const TBPRE={gift:"gi:",trauma:"tr:",pakt:"pa:",spur:"sp:|rx:",box:"bx:",held:"he:",pfl:"pf:",tier:"kt:",rune:"rf:",zauber:"zf:",amb:"am:"};
 function tbClear(B,pre){const ps=pre.split("|");for(const key of Object.keys(B.draws))if(ps.some(p=>key.startsWith(p)))delete B.draws[key]}
 // ================= AMBITIONEN (Stammtabelle Helden, Blatt Ambitionen = Buch 1 Table 2.5.1–2.5.3) =================
 // Martin 02.11.2026: eigener Ambitions-Generator. Buch 1, 2.5: drei Plätze je Held (Stufe 10, 20, 50), zu Sessionbeginn verteilt,
@@ -4588,6 +4763,7 @@ function renderAll(){applyLang();renderNav();if(S.cur==="_fate")renderFate();els
 
 // ================= events =================
 document.addEventListener("click",ev=>{
+  {const dc=ev.target.closest("[data-edecl]");if(dc&&S.cur&&GD[S.cur]&&GD[S.cur].hazards){if(rdChip(res(S.cur),dc.dataset.edecl)){saveRes(S.cur);renderGen()}return}}
   const b=ev.target.closest("button,[data-cell]");if(!b)return;
   const ds=b.dataset;
   if(ds.lang){LANG=ds.lang;try{localStorage.setItem(LS+":lang",LANG)}catch{}saveMain();renderAll();return}
@@ -4661,6 +4837,7 @@ document.addEventListener("click",ev=>{
   if(rs&&GD[S.cur].toolbox){const B=tbState(rs);
     if(ds.tbtab!=null){B.tab=ds.tbtab;saveRes(S.cur);renderGen();return}
     if(ds.scol!=null){B.col[ds.scol]=B.col[ds.scol]?0:1;saveRes(S.cur);renderGen();return}
+    if(B.tab==="amb"&&(ds.srr!=null||b.id==="regen")){const A=amState(B);if(b.id==="regen")A.draws={};else amClear(A,ds.srr);saveRes(S.cur);renderGen();return}
     if(ds.srr!=null){tbClear(B,ds.srr);saveRes(S.cur);renderGen();return}
     if(b.id==="regen"){tbClear(B,TBPRE[B.tab]);saveRes(S.cur);renderGen();return}
   }
@@ -4780,6 +4957,17 @@ document.addEventListener("click",ev=>{
     if(ds.ehp){const i=ds.ehp.lastIndexOf(":");eDamage(rs,ds.ehp.slice(0,i),+ds.ehp.slice(i+1));saveRes(S.cur);renderGen();return}
     if(ds.eclr){E.src=null;saveRes(S.cur);renderGen();return}
     if(ds.eloot!=null){eToLoot();return}
+    if(b.id==="rdRoll"||b.id==="rdNext"||b.id==="rdReset"||b.id==="rdAddH"||ds.rdmode||ds.rdsel!=null||ds.rddel!=null||ds.rdcs!=null||ds.rdhdel!=null){const R=rdState(E);
+      if(b.id==="rdRoll"){const{groups}=eGroups(GD[S.cur],GD.gegner,E);rdRoll(R,rdEnemies(GD.gegner,E,groups))}
+      else if(b.id==="rdNext"){rdClear(R,false);R.n++}
+      else if(b.id==="rdReset")rdClear(R,true);
+      else if(b.id==="rdAddH")R.heroes.push({id:"h"+(++R.hn),name:""});
+      else if(ds.rdmode)R.mode=ds.rdmode;
+      else if(ds.rdsel!=null)R.sel=R.sel===ds.rdsel?null:ds.rdsel;
+      else if(ds.rddel!=null){const[k,i]=ds.rddel.split("|");(R.d[k]||[]).splice(+i,1)}
+      else if(ds.rdcs!=null){const[k,i,dd]=ds.rdcs.split("|"),c=(R.c[k]||[])[+i];if(c){c.st+=+dd;if(c.st<1)R.c[k].splice(+i,1);else c.st=Math.min(c.st,rdCMax(GD[S.cur],c.k))}}
+      else if(ds.rdhdel!=null){R.heroes=R.heroes.filter(h=>h.id!==ds.rdhdel);delete R.t["h:"+ds.rdhdel]}
+      saveRes(S.cur);renderGen();return}
     if(b.id==="eFocus"){document.body.classList.toggle("efocus");return}
     if(b.id==="regen"){E.draws={};E.gd=[{},{},{}];E.ov=[{},{},{}];E.hp={};E.ph={};saveRes(S.cur);renderGen();return}
   }
@@ -4802,8 +4990,23 @@ document.addEventListener("click",ev=>{
   if(b.id==="sShuffle"){rs.deck={cards:newDeck(),drawn:null,u:0};saveRes(S.cur);renderGen();toast(t("shuffled"));return}
   if(b.id==="sReRes"){rs.deck.u=rand();saveRes(S.cur);renderGen();return}
 });
+let rdPend=false;
+document.addEventListener("focusout",()=>{if(!rdPend)return;setTimeout(()=>{const a=document.activeElement;if(a&&a.closest&&a.closest(".rdlist"))return;rdPend=false;renderGen()},0)});
 document.addEventListener("change",ev=>{
   const e=ev.target;
+  if(e.dataset.rdt!=null||e.dataset.rdhn!=null||e.dataset.rdsk!=null||e.dataset.rdcadd!=null||e.dataset.rdsur!=null){const rs=res(S.cur),E=eState(rs),R=rdState(E);
+    if(e.dataset.rdt!=null){const k=e.dataset.rdt,v=parseInt(e.value,10);if(isNaN(v))delete R.t[k];else R.t[k]=v;delete R.auto[k];delete R.nat[k];saveRes(S.cur);
+      // Tab ins nächste Timing-Feld: erst neu sortieren, wenn der Fokus die Timing-Felder verlässt
+      setTimeout(()=>{const a=document.activeElement;if(a&&a.closest&&a.closest(".rdlist"))rdPend=true;else renderGen()},0);return}
+    if(e.dataset.rdhn!=null){const h=R.heroes.find(x=>x.id===e.dataset.rdhn);if(h)h.name=e.value.trim();saveRes(S.cur);
+      setTimeout(()=>{const a=document.activeElement;if(a&&a.closest&&a.closest(".rdlist"))rdPend=true;else renderGen()},0);return}
+    if(e.dataset.rdsk!=null){const k=e.dataset.rdsk,{groups}=eGroups(GD[S.cur],GD.gegner,E),en=rdEnemies(GD.gegner,E,groups).find(x=>x.key===k);
+      if(en&&e.value!==""){const s=rdSkills(en.x.g,en.ph)[+e.value];if(s){rdDeclare(R,k,s.n,s.v);R.sel=k}}}
+    if(e.dataset.rdcadd!=null&&e.value){const k=e.dataset.rdcadd,a=(R.c[k]=R.c[k]||[]),c=a.find(x=>x.k===e.value);
+      // gleicher Zustand noch einmal: Stufe +1 (Buch 1 Kap. 1.2)
+      if(c)c.st=Math.min(c.st+1,rdCMax(GD[S.cur],c.k));else a.push({k:e.value,st:1})}
+    if(e.dataset.rdsur!=null)R.sur=e.checked?1:0;
+    saveRes(S.cur);renderGen();return}
   if(e.dataset.einp!=null||e.dataset.eov!=null||e.dataset.ehpin!=null){const rs=res(S.cur),E=eState(rs);
     if(e.dataset.ehpin!=null){const v=parseInt(e.value,10);if(!isNaN(v)&&v!==0)eDamage(rs,e.dataset.ehpin,v)}
     else if(e.dataset.eov!=null){const[f,gi]=e.dataset.eov.split(":");E.ov[+gi][f]=e.value===""?undefined:+e.value;if(f==="cre"||f==="cls")for(const k of Object.keys(E.hp))if(k.startsWith(gi+"#")){delete E.hp[k];delete E.ph[k]}}
@@ -4820,8 +5023,9 @@ document.addEventListener("change",ev=>{
     saveRes(S.cur);renderGen();return}
   if(e.dataset.loinp!=null){const B=loState(res(S.cur)),k=e.dataset.loinp,v=e.value===""?null:e.value;B.inp[k]=v;
     if(k==="fs"){delete B.draws["p:p"];delete B.draws["p:n"]}if(k==="ort"&&v!=null)B.inp.st=null;saveRes(S.cur);renderGen();return}
+  if(e.dataset.lolv!=null){const B=loState(res(S.cur)),i=+e.dataset.lolv;B.lv[i]=e.value||null;B.on[i]=1;for(const key of Object.keys(B.draws))if(key.startsWith(`t${i}:`))delete B.draws[key];saveRes(S.cur);renderGen();return}
   if(e.dataset.lok!=null){const B=loState(res(S.cur)),i=+e.dataset.lok;B.kat[i]=e.value||null;if(!e.value)B.on[i]=1;for(const key of Object.keys(B.draws))if(key.startsWith(`t${i}:`))delete B.draws[key];saveRes(S.cur);renderGen();return}
-  if(e.dataset.aminp!=null){const B=amState(res(S.cur));B.inp[e.dataset.aminp]=e.value===""?null:e.value;saveRes(S.cur);renderGen();return}
+  if(e.dataset.aminp!=null){const rs0=res(S.cur),B=amState(GD[S.cur]&&GD[S.cur].toolbox?tbState(rs0):rs0);B.inp[e.dataset.aminp]=e.value===""?null:e.value;saveRes(S.cur);renderGen();return}
   if(e.dataset.tbinp!=null){const B=tbState(res(S.cur)),k=e.dataset.tbinp,v=e.value===""?null:e.value;B.inp[k]=v;saveRes(S.cur);renderGen();return}
   if(e.dataset.rainp!=null){const B=raState(res(S.cur)),k=e.dataset.rainp,v=e.value===""?null:e.value;B.inp[k]=v;saveRes(S.cur);renderGen();return}
   if(e.dataset.brinp!=null){const B=brState(res(S.cur)),k=e.dataset.brinp,v=e.value===""?null:e.value;B.inp[k]=v;renderGen();brSave();return}
