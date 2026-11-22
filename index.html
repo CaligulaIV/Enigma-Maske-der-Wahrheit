@@ -4271,6 +4271,14 @@ const HBBASE={acrobatic:"Acrobatics",acrobatics:"Acrobatics"};
 function hbSkillOf(D,name){if(!name)return null;const n=(HBBASE[name.toLowerCase()]||name).toLowerCase();return D.skills.find(s=>s.n.toLowerCase()===n)||null}
 const hbParts=(D,f)=>(D.parts||[]).filter(p=>p.f===f);
 const hbPK=p=>p.g+"|"+p.n;
+// Wirkungstexte aus Buch 1 Kap. 3 (held.json → fx): "Fähigkeit|Teil", "style|Stil", "pact|Pakt"
+const hbFx=(D,f,n)=>(D.fx||{})[f+"|"+n];
+// Tooltip eines Teils: Wirkung (englisch, aus Buch 1) und Hinweis der Stammtabelle
+function hbPartTip(D,p){let e="";if(p.f==="Sorcery"){const s=((D.lt||{}).spells||[]).find(x=>x.en===p.n);e=s?(LANG==="de"?s.kde||s.ken:s.ken):""}
+  else{const x=hbFx(D,p.f,p.n);e=x&&typeof x==="object"?(x.s||""):(x||"")}return[e,p.h].filter(Boolean).join(" — ")}
+// Reserve eines Pakts nach Table 3.7.12: Inspiration oder Insight; Self-pact „beliebig“ → die höhere der beiden
+function hbPactRes(D,sub,R){const r=((hbFx(D,"pact",sub)||{}).res||"").toLowerCase();if(r.startsWith("inspiration"))return"Inspiration";if(r.startsWith("insight"))return"Insight";
+  if(r.startsWith("any"))return R&&R.aff>R.ada?"Inspiration":"Insight";return sub==="Calling"?"Inspiration":"Insight"}
 // Eintrag im Pool: k = Schlüssel (Charakterskill-Name oder "@Name"), n = Anzeige, s = Startwert, c = Charakterskill, dep = Basisskill, xa = Attribut für die Extra-Zeile auf Bogen 2
 const hbE=(n,s,o)=>Object.assign({k:"@"+n,n,s,c:false},o||{});
 const HBAB={
@@ -4280,7 +4288,7 @@ const HBAB={
     return[hbE(sc,x.R.ada,{note:"school"}),hbE("Insight",x.R.ada),...dis.map(d=>hbE(d,x.R.ada,{note:"disc"}))]},
   cands:x=>hbParts(x.D,"Sorcery").filter(p=>x.A.sub&&p.g.startsWith(x.A.sub+" – "))},
  "Pact-magic":{subs:D=>[...new Set(hbParts(D,"Pact-magic").map(p=>p.g))],
-  pool:x=>{const rs=x.A.sub==="Calling"?hbE("Inspiration",x.R.aff):hbE("Insight",x.R.ada);
+  pool:x=>{const rn=x.A.sub?hbPactRes(x.D,x.A.sub,x.R):"Insight",rs=rn==="Inspiration"?hbE("Inspiration",x.R.aff):hbE("Insight",x.R.ada);
     return[rs,...x.sel.filter(p=>p.f==="Pact-magic").map(p=>hbE(p.n,x.R.ada))]}, // Pakt-Skills starten bei Adaptation wie Insight (Martin 22.11.; Buch 1 Kap. 3.6 ist falsch)
   cands:x=>hbParts(x.D,"Pact-magic").filter(p=>p.g===x.A.sub),max:4},
  "Fighting style":{subs:D=>hbParts(D,"Fighting style").filter(p=>!p.g.startsWith("Manöver")).map(p=>p.n),
@@ -4548,7 +4556,7 @@ function hbAbHTML(D,H,R,j){const S=R.S,Ab=hbAbState(H,j),P=hbAbPar(D,S,j),X=R.ab
       if(g!==lastG){h+=`<span class="hbptg">${esc(g)}</span>`;lastG=g}
       const tpl=p.craft?"":free?hbt(/^Sprache/.test(p.n)?"known":"gratis"):def.seq?"":String(p.tp);
       if(hbRep(p))h+=`<label class="hbpt${dis&&!on?" dis":""}"><input type="number" min="0" max="9" data-hbpt="${j}|${esc(k)}" value="${Ab.pt[k]||0}" style="width:40px"> ${esc(p.n)} <span class="ss">${esc(p.tp)} ${esc(hbt("tp"))}</span></label>`;
-      else h+=`<label class="hbpt${dis?" dis":""}"${p.h?` title="${esc(p.h)}"`:""}><input type="checkbox" data-hbpt="${j}|${esc(k)}"${on?" checked":""}${dis?" disabled":""}> ${esc(p.n)}${tpl?` <span class="ss">${esc(tpl)}</span>`:""}</label>`}
+      else h+=`<label class="hbpt${dis?" dis":""}"${hbPartTip(D,p)?` title="${esc(hbPartTip(D,p))}"`:""}><input type="checkbox" data-hbpt="${j}|${esc(k)}"${on?" checked":""}${dis?" disabled":""}> ${esc(p.n)}${tpl?` <span class="ss">${esc(tpl)}</span>`:""}</label>`}
     h+=`</div>`}
   const fr=hbFreeList(D,H,X);if(fr.length)h+=`<div class="ss">${esc(hbt("gratis"))}: ${esc(fr.join(", "))}</div>`;
   if(X.pkg.length)h+=`<div class="ss">${esc(hbt("pkg"))}: ${esc(X.pkg.join(", "))}</div>`;
@@ -4767,17 +4775,17 @@ function hbAbFields(D,H,R){const F={},C=[],pages=new Set([0,1,2,3]),lv=k=>R.lvl[
       X.pool.filter(e=>e.note==="disc").forEach(e=>put(e.n,e.k));F.FocusObjects=(HBFOC[X.sub]||"")+" focus-objects ("+X.sub+")";
       const sp=[...hbParts(D,"Sorcery").filter(p=>p.g.startsWith(X.sub+" – ")&&+p.lv===0),...X.sel];
       sp.slice(0,41).forEach((p,i)=>{const pre=i<9?`Spell_${i+1}_`:`SpellB_${i-8}_`;F[pre+"Lvl"]=String(p.lv);F[pre+"Spell"]=p.n;F[pre+"Description"]=spFx(p.n);F[pre+"Discipline"]=p.g.split(" – ")[1]||""})}
-    else if(X.f==="Pact-magic"&&X.sub){const rs=X.sub==="Calling"?"Inspiration":"Insight";F.Pact=X.sub;F.PactReserve=`${rs} ${lv("@"+rs)}`;
-      X.sel.slice(0,8).forEach((p,i)=>{const n=i+1;F[`PactSkill${n}_Name`]=p.n+(p.lv==="advanced"?" (advanced)":"");put(`PactSkill${n}`,"@"+p.n);F[`PactSkill${n}_Stable`]=pkFx(p.n)})}
-    else if(X.f==="Fighting style"&&X.sub){const st=HBAB["Fighting style"].style(D,X.sub);F.Style=X.sub;
+    else if(X.f==="Pact-magic"&&X.sub){const rs=hbPactRes(D,X.sub,R),pk=hbFx(D,"pact",X.sub)||{};F.Pact=X.sub;F.PactReserve=`${rs} ${lv("@"+rs)}`;if(pk.master)F.PactMaster=pk.master;if(pk.passive)F.PactPassive=pk.passive;
+      X.sel.slice(0,8).forEach((p,i)=>{const n=i+1;F[`PactSkill${n}_Name`]=p.n+(p.lv==="advanced"?" (advanced)":"");put(`PactSkill${n}`,"@"+p.n);const e=hbFx(D,"Pact-magic",p.n)||{};F[`PactSkill${n}_Stable`]=e.s||pkFx(p.n);if(e.u)F[`PactSkill${n}_Unstable`]=e.u})}
+    else if(X.f==="Fighting style"&&X.sub){const st=HBAB["Fighting style"].style(D,X.sub);F.Style=X.sub;const sf=hbFx(D,"style",X.sub);if(sf){if(sf.code)F.Style_Code=sf.code;(sf.tech||[]).slice(0,5).forEach((t,i)=>{F[`Technique_${i+1}_Step`]=t[0];F[`Technique_${i+1}_Effect`]=t[1]})}
       if(st){if(st.base)F.Style_BaseSkill=`${st.base} ${lv(st.base)}`;F.StyleSkill_Name=st.sk;put("StyleSkill","@"+st.sk)}
-      put("Insight","@Insight");F.Insight_Current=lv("@Insight");X.sel.filter(p=>p.g.startsWith("Manöver")).slice(0,5).forEach((p,i)=>{F[`Maneuver${i+1}_Name`]=p.n;put(`Maneuver${i+1}`,"@"+p.n)})}
+      put("Insight","@Insight");F.Insight_Current=lv("@Insight");X.sel.filter(p=>p.g.startsWith("Manöver")).slice(0,5).forEach((p,i)=>{F[`Maneuver${i+1}_Name`]=p.n;put(`Maneuver${i+1}`,"@"+p.n);const e=hbFx(D,"Fighting style",p.n);if(e)F[`Maneuver${i+1}_Effect`]=e})}
     else if(X.f==="Companion"&&X.sub){F.Comp_Type=hbCap(HBAB.Companion.kind(X.sub));F.Comp_Description=X.sub;
-      HBCAT.forEach((c,i)=>{const n=(A.tr||{})[c];if(!n)return;F[`Trait${i+1}_Category`]=c;F[`Trait${i+1}_Name`]=n;put(`Trait${i+1}`,"@"+n)})}
+      HBCAT.forEach((c,i)=>{const n=(A.tr||{})[c];if(!n)return;F[`Trait${i+1}_Category`]=c;F[`Trait${i+1}_Name`]=n;put(`Trait${i+1}`,"@"+n);const e=hbFx(D,"Companion",n);if(e)F[`Trait${i+1}_Effect`]=e})}
     else if(X.f==="Passion"&&X.sub){const i=HBAB.Passion.info(D,X.sub);F.Passion=X.sub;
       if(i){F.PassionSkill_Name=i.sk;put("PassionSkill","@"+i.sk);if(i.base){F.PassionBase_Name=i.base.replace(/^@/,"");put("PassionBase",i.base)}}
       put("Inspiration","@Inspiration");F.Inspiration_Current=lv("@Inspiration");
-      [...hbFreeList(D,H,X),...X.sel.map(p=>p.n)].slice(0,13).forEach((n,k)=>{F[`FacetA_${k+1}_Facet`]=n;F[`FacetA_${k+1}_Status`]="learned"})}
+      [...hbFreeList(D,H,X),...X.sel.map(p=>p.n)].slice(0,13).forEach((n,k)=>{F[`FacetA_${k+1}_Facet`]=n;F[`FacetA_${k+1}_Status`]="learned";const p=X.sel.find(q=>q.n===n);if(p&&+p.lv>0)F[`FacetA_${k+1}_Objective`]=String(p.lv);const e=hbFx(D,"Passion",n);if(e)F[`FacetA_${k+1}_Notes`]=e})}
     else if(X.f==="Bending"){const BS=["Aura","Shield","Throw","Punch"],cnt={};BS.forEach(s=>put("Bend_"+s,"@"+s));
       X.sel.forEach(p=>{const[el,sk]=p.g.split(" – "),k=BS.indexOf(sk);if(k<0)return;cnt[sk]=(cnt[sk]||0)+1;if(cnt[sk]<=3)F[`Bend_${sk}_Aspect${cnt[sk]}`]=p.n;C.push(`Elem_${el}_${k+1}`)})}
     else if(X.f==="Crafting"){X.sel.filter(p=>p.craft).slice(0,3).forEach((p,i)=>{const c=HBCRAFT.find(c=>c[0]===p.n);F[`Craft${i+1}`]=HBCRSEL[p.n]||p.n;if(c)put(`Craft${i+1}_Skill`,"@"+c[1])});
