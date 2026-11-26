@@ -377,7 +377,8 @@ select.rdsel{width:auto;padding:1px 4px;font-size:12px;border-style:dashed;backg
 .estat.eattr .chip.pas{border:none}.estat.eattr i{font-style:normal;color:var(--muted);font-size:11.5px}
 @media (max-width:700px){.rdr{grid-template-columns:24px 1fr 70px}.rdr.rdh{grid-template-columns:24px 1fr 70px 26px}.rdhp,.rdsub{grid-column:2/-1}}
 select.brk.lolv{max-width:96px}.sch:has(select.lolv){flex-wrap:wrap}.sch:has(select.lolv) h3{min-width:0;white-space:nowrap}
-.hbcols{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px 14px}.hbcol{border-top:2px solid var(--line);padding-top:4px}.hbch{display:flex;justify-content:space-between;align-items:center;gap:6px;margin-bottom:2px}.hbtog .btn{padding:1px 7px;font-size:12px}.hbrow{display:grid;grid-template-columns:minmax(92px,1fr) 52px minmax(40px,auto) auto;gap:5px;align-items:center;padding:1px 0;font-size:13px}.hbklist .hbrow{grid-template-columns:minmax(80px,1fr) 46px minmax(60px,auto) auto}.hbrow .k{overflow-wrap:anywhere}.hbnum{padding:1px 3px;font-size:12.5px;width:100%}.hblv{color:var(--accent);font-size:14px}.hbpm .icon{padding:0 5px;font-weight:700}.hbwarn{color:var(--err);font-size:12.5px;margin:2px 0}.hbu .ef{margin-top:6px}.scard.hbwide{grid-column:1/-1}.hbtph{margin:6px 0 2px;font-size:13px}.hbpts{display:flex;flex-wrap:wrap;gap:3px 6px;align-items:center}.hbpt{font-size:12.5px;border:1px solid var(--line);border-radius:6px;padding:1px 6px;background:var(--surface2);white-space:nowrap;display:inline-flex;gap:3px;align-items:center}.hbpt.dis{opacity:.45}.hbptg{font-size:11.5px;font-weight:700;color:var(--accent);margin-left:4px;flex-basis:100%}.hbpls{width:100%}.hbplrow{display:grid;grid-template-columns:minmax(90px,130px) minmax(150px,260px) 1fr auto;gap:6px;align-items:center;padding:1px 0;font-size:13px}@media(max-width:560px){.hbplrow{grid-template-columns:58px minmax(100px,1fr) auto auto}.hbplrow .v .ss{display:none}}</style>
+.hbcols{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px 14px}.hbcol{border-top:2px solid var(--line);padding-top:4px}.hbch{display:flex;justify-content:space-between;align-items:center;gap:6px;margin-bottom:2px}.hbtog .btn{padding:1px 7px;font-size:12px}.hbrow{display:grid;grid-template-columns:minmax(92px,1fr) 52px minmax(40px,auto) auto;gap:5px;align-items:center;padding:1px 0;font-size:13px}.hbklist .hbrow{grid-template-columns:minmax(80px,1fr) 46px minmax(60px,auto) auto}.hbrow .k{overflow-wrap:anywhere}.hbnum{padding:1px 3px;font-size:12.5px;width:100%}.hblv{color:var(--accent);font-size:14px}.hbpm .icon{padding:0 5px;font-weight:700}.hbwarn{color:var(--err);font-size:12.5px;margin:2px 0}.hbu .ef{margin-top:6px}.scard.hbwide{grid-column:1/-1}.hbtph{margin:6px 0 2px;font-size:13px}.hbpts{display:flex;flex-wrap:wrap;gap:3px 6px;align-items:center}.hbpt{font-size:12.5px;border:1px solid var(--line);border-radius:6px;padding:1px 6px;background:var(--surface2);white-space:nowrap;display:inline-flex;gap:3px;align-items:center}.hbpt.dis{opacity:.45}.hbptg{font-size:11.5px;font-weight:700;color:var(--accent);margin-left:4px;flex-basis:100%}.hbpls{width:100%}.hbplrow{display:grid;grid-template-columns:minmax(90px,130px) minmax(150px,260px) 1fr auto;gap:6px;align-items:center;padding:1px 0;font-size:13px}@media(max-width:560px){.hbplrow{grid-template-columns:58px minmax(100px,1fr) auto auto}.hbplrow .v .ss{display:none}}.lomode{gap:6px}.lomode .btn{min-width:7em}
+</style>
 </head><body>
 
 <div class="wrap">
@@ -481,7 +482,7 @@ select.brk.lolv{max-width:96px}.sch:has(select.lolv){flex-wrap:wrap}.sch:has(sel
 <div class="toast" id="toast"></div>
 
 <script>
-const GENS=[{"id": "natur", "title": "Wildnis-Ort", "title_en": "Wilderness", "group": "Welt", "group_en": "World", "note": "Neue Maske, baut auf den Stammtabellen Territorien (47 Territorien mit drei Skalen, Fraktionen, Biome, Wetter, Landschaft) und Wildnis (Orte, Weg, Spuren, Hindernisse, Regeln) auf, dazu Kreaturen und Encounter (Tätigkeit, Verhalten, Umweltgefahren). Listen und Gewichte sind Vorschläge (orange). Je Gebiet auf Knopfdruck Pflanze oder Kleintier (Stammtabelle PflanzenTiere).", "special": "wildnis", "lang": "de/en", "chase": true, "rest": true, "file": "gens/natur.json"}, {"id": "gegner", "title": "Gegner", "title_en": "Enemies", "group": "Kampf", "group_en": "Combat", "special": "gegner", "lang": "en", "file": "gens/gegner.json"}, {"id": "encounter", "title": "Encounter", "title_en": "Encounter", "group": "Kampf", "group_en": "Combat", "note": "Baut auf den Stammtabellen Encounter (Budget, Ortsarten, Listen, Umweltgefahren) und Gegner auf. Aus einem Ort mit „⚔ Encounter erstellen“ übernimmt er Fraktionen, Gefahr und Lage.", "special": "encounter", "lang": "de/en", "file": "gens/encounter.json"}, {"id": "siedlung", "title": "Siedlung", "title_en": "Settlement", "group": "Welt", "group_en": "World", "note": "Neue Maske, baut auf der Stammtabelle Siedlung (Listen, Größen, 47 Territorien, Religionen) und den Stammtabellen Kreaturen (Fraktionen, Baustil, Handelsgut, Geruch, Namen) und Beiwörter (Laune, Charakter der NPCs) auf. Wortlisten noch deutsch. Mit „⚔ Encounter“ (ganze Siedlung oder je Aufgabe) entsteht ein Kampf mit Ortsart Stadt.", "special": "siedlung", "lang": "de", "enc": {"ort": "Stadt"}, "chase": true, "rest": true, "file": "gens/siedlung.json"}, {"id": "ritual", "title": "Ritual-Ort", "title_en": "Ritual site", "group": "Welt", "group_en": "World", "note": "Neue Maske, baut auf der Stammtabelle Ritualort (Themen, Gesetze mit Anzeichen und Schlüssel, Listen, Ausstrahlung, Regeln) auf, dazu Territorien und Fraktionen. Ersetzt den alten Generator Ritual-Ort. Gesetze, Listen und Gewichte sind Vorschläge (orange). Runenfalle (häufiger mit Runenmagier, Stammtabelle Runenfalle).", "special": "ritual", "lang": "de/en", "file": "gens/ritual.json"}, {"id": "riss", "title": "Zweitweltriss", "title_en": "Otherworld rift", "group": "Welt", "group_en": "World", "note": "Neue Maske, baut auf der Stammtabelle Zweitweltriss (Arten, Schandtaten, Objekte, Phänomene, Schauplätze, Gegnerstärke, Listen, Regeln) auf, dazu Territorien, Fraktionen mit Baustil und Altvölker. Ersetzt den alten Generator Zweitweltriss. Inhalte und Gewichte sind Vorschläge (orange).", "special": "riss", "lang": "de/en", "file": "gens/riss.json"}, {"id": "ruine", "title": "Ruine", "title_en": "Ruin", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "note": "Neue Maske, baut auf den Stammtabellen Ruine (Wegeformen, Zusätze, Abschluss, Zwecke, Räume, Listen, Regeln) und Altvölker (Erbauer, Baustile) auf, dazu Territorien, Kreaturen, Siedlung (Baustil, Namen) und Encounter (Umweltgefahren, Boss-Modifikatoren, Schatzraum-Gegner). Ersetzt den alten Generator Ruine. Listen und Gewichte sind Vorschläge (orange). Runenfallen je Raum (Stammtabelle Runenfalle).", "special": "ruine", "lang": "de/en", "rest": true, "file": "gens/ruine.json"}, {"id": "hoehle", "title": "Höhlensystem", "title_en": "Cave system", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "note": "Neue Maske, baut auf der Stammtabelle Höhle (Größe, Bewohner, Listen, Gefahren, Regeln) auf, dazu Territorien, Kreaturen, Siedlung (Namen) und Encounter (Umweltgefahren, Boss-Modifikatoren). Ersetzt den alten Generator Höhlensystem. Listen und Gewichte sind Vorschläge (orange). Runenfallen je Höhle (Stammtabelle Runenfalle).", "special": "hoehle", "lang": "de/en", "rest": true, "file": "gens/hoehle.json"}, {"id": "gebaeude", "title": "Gebäude", "title_en": "Building", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "note": "Neue Maske, baut auf der Stammtabelle Gebäude (vier Typen Villa, Tempel, Turm, Hof; Zustand, Haltung, Räume, Raumrollen, Listen) auf, dazu Territorien, Kreaturen (Raubtiere, Monster, Geruch), Siedlung (Baustil, Namen) und Religionen. Ersetzt die alten Generatoren Villa und Tempel. Listen und Gewichte sind Vorschläge (orange).", "special": "gebaeude", "lang": "de/en", "chase": true, "rest": true, "file": "gens/gebaeude.json"}, {"id": "npc", "title": "NPC", "title_en": "NPC", "group": "Personen", "group_en": "People", "note": "Neue Maske mit Postkarte. Baut auf den Stammtabellen NPC (Professionen nach Kap. 5.1, Lebensweg, Spezies, Aussehen, Laune-Skala, Sprüche), Religionen, Kreaturen (Fraktionen, Namen) und Beiwörter (Charakter, Ruf) auf. Level = Level der Profession; wichtige NPCs haben Level 6–9. Aus der Siedlung mit 👤 je wichtigem NPC. Modus „Zirkel“: schnelle Gruppe oder Kult mit dem NPC als Anführer (Stammtabelle Zirkel; ersetzt den alten Generator „Zirkel“).", "special": "npc", "lang": "de/en", "file": "gens/npc.json"}, {"id": "held", "title": "Held erschaffen", "title_en": "Create a hero", "group": "Personen", "group_en": "People", "note": "Für Spieler: Held nach Buch 1, Kap. 2 in drei Stufen (Anfänger 750, Fortgeschritten 1.500, Veteran 3.000 AP) mit den Zahlenlisten aus der Stammtabelle Helden_v3: Varianten, Fokus/Breit je Attribut, Kampf-Reihe nach Physique, Zusatzfähigkeit mit Plätzen und Teilpunkten (Veteran optional eine zweite), Ausrüstung je Stufe, Lebensweg obendrauf, freie AP. Rechnet die AP im Hintergrund und gibt die ausfüllbaren Charakterbögen als PDF aus (Bögen 1–4 und die Bögen der Fähigkeiten).", "special": "held", "lang": "de/en", "file": "gens/held.json"}, {"id": "mystery", "title": "Mysterium", "title_en": "Mystery", "group": "Abenteuer", "group_en": "Adventure", "note": "Neue Maske: ein Rätsel für etwa eine Sitzung – Opfer und drei Beteiligte (einer ist der Täter), je zwei Spuren; die Wahrheit ist zugeklappt. Stammtabelle Mysterium (aus dem alten Mystery-Blatt). Aus der Siedlung (🔍 an einer Stadt-Aufgabe) sind Opfer, Täter und Verdächtige Personen der Stadt; das Motiv ist eine Agenda.", "special": "mystery", "lang": "de/en", "file": "gens/mystery.json"}, {"id": "brett", "title": "Schwarzes Brett", "title_en": "Notice board", "group": "Abenteuer", "group_en": "Adventure", "note": "Neue Maske, baut auf der Stammtabelle Aufträge (6 Kategorien, Bausteine, Orte, Regeln) und dem Mysterium (Art, Tat) auf, dazu Territorien und Fraktionen. Immer 4 Aushänge, je aus einer anderen Kategorie; aus der Siedlung mit Personen und Stadtteilen der Stadt. Ersetzt den alten Generator Auftrag. Inhalte von Martin geprüft (01.11.).", "special": "brett", "lang": "de/en", "file": "gens/brett.json"}, {"id": "verfolgung", "title": "Verfolgungsjagd", "title_en": "Chase", "group": "Abenteuer", "group_en": "Adventure", "note": "Neue Maske nach Buch 1 (Kap. 4.4 Chase): Objective 50, Runden nach Dexterity der NPC-Gruppe, je Runde Szene und Abkürzung aus der Stammtabelle Verfolgung (Stadt und Natur). Stärken je Runde eintragen – der Status rechnet mit. Aus der Siedlung mit „🏃 Verfolgungsjagd“.", "special": "verfolgung", "lang": "de", "file": "gens/verfolgung.json"}, {"id": "rast", "title": "Rast", "title_en": "Rest", "group": "Abenteuer", "group_en": "Adventure", "note": "Neue Maske, baut auf der Stammtabelle Rast (Rastplätze, Merkmale, Sinne, Wortgruppen für die Rest-actions, Am Feuer, Träume, Störungen, Morgen, Regeln) auf, dazu Territorien, Biome, Wetter und Fraktionen. Aus Wildnis, Ruine, Höhle, Gebäude und Siedlung mit „🏕 Rast“. Inhalte sind Vorschläge (orange). Sammeln (Würfel oder Karten nach Buch 2, E1.4) direkt unter der Rest-action; ersetzt den alten Generator „Sammeln (Karten)“.", "special": "rast", "lang": "de/en", "file": "gens/rast.json"}, {"id": "toolbox", "title": "Toolbox", "title_en": "Toolbox", "group": "Toolbox", "group_en": "Toolbox", "note": "Neue Maske, baut auf der Stammtabelle Toolbox auf: Gift & Krankheit und Trauma & Narben fassen Buch 1, 4.2 zusammen (Stufen, Psychose, Narben, Behandlung aus Buch 2 E.16/E.17), dazu Pakt-Aufgabe (E.22), Spur & Rätsel und Box als kleine Inspirationshilfen; Held (Spezies, Heimatfraktion, Lebensweg, Bluterbe, Charakteristik, Schicksalsobjekt, Selbstobjekt) aus der Stammtabelle Helden (Buch 1, 2.2/2.3). Ersetzt die alten Generatoren Spuren & Hinweise, Pakt-Aufgabe, Trauma & Narben, Gift & Krankheit und Geheimnisvolle Box. Trauma-Tabelle und Herkunft sind Vorschläge (orange); Pflanze und Kleintier aus der Stammtabelle PflanzenTiere (ersetzt den alten Generator „Pflanze & Kleintier“, auch im Wildnis-Ort je Gebiet und im NPC). Runenfalle aus der Stammtabelle Runenfalle (ersetzt den alten Generator „Runenfalle“). Seit 20.11.2026 auch Ambitionen (Stammtabelle Helden, Buch 1 Table 2.5.1–2.5.3; ersetzt den eigenen Ambitions-Generator) und Zauberfehlschlag (Buch 1 Table 3.6.4, 2W20).", "special": "toolbox", "lang": "de/en", "file": "gens/toolbox.json"}, {"id": "loot", "title": "Loot & Dinge", "title_en": "Loot & things", "group": "Dinge", "group_en": "Things", "note": "Neue Maske, baut auf der Stammtabelle Loot (Fundstellen, Pools, Ortsstufen, Ausrüstung, Gebrauchsgegenstände, Tränke, Bücher, Fokus-Objekte, Zauber, Pakt, Boni, Echo, Aktivierung, Legendär) und den Beiwörtern auf, dazu Territorien, Fraktionen, Namen und Altvölker. Ersetzt Loot & Dinge, Objects und Trank & Öl. Zahlen nach Simulation eingestellt, Inhalte sind Vorschläge (orange).", "special": "loot", "lang": "de/en", "file": "gens/loot.json"}, {"id": "laden", "title": "Laden", "title_en": "Shop", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold (Buch 1: Wealth-Level).", "lang": "de", "file": "gens/laden.json"}, {"id": "tempeldienst", "title": "Tempeldienste", "title_en": "Temple services", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold.", "lang": "de", "file": "gens/tempeldienst.json"}, {"id": "taverne", "title": "Taverne", "title_en": "Tavern", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold, Speisenboni mit alten Begriffen.", "lang": "de", "file": "gens/taverne.json"}];
+const GENS=[{"id": "natur", "title": "Wildnis-Ort", "title_en": "Wilderness", "group": "Welt", "group_en": "World", "note": "Neue Maske, baut auf den Stammtabellen Territorien (47 Territorien mit drei Skalen, Fraktionen, Biome, Wetter, Landschaft) und Wildnis (Orte, Weg, Spuren, Hindernisse, Regeln) auf, dazu Kreaturen und Encounter (Tätigkeit, Verhalten, Umweltgefahren). Listen und Gewichte sind Vorschläge (orange). Je Gebiet auf Knopfdruck Pflanze oder Kleintier (Stammtabelle PflanzenTiere).", "special": "wildnis", "lang": "de/en", "chase": true, "rest": true, "file": "gens/natur.json"}, {"id": "gegner", "title": "Gegner", "title_en": "Enemies", "group": "Kampf", "group_en": "Combat", "special": "gegner", "lang": "en", "file": "gens/gegner.json"}, {"id": "encounter", "title": "Encounter", "title_en": "Encounter", "group": "Kampf", "group_en": "Combat", "note": "Baut auf den Stammtabellen Encounter (Budget, Ortsarten, Listen, Umweltgefahren) und Gegner auf. Aus einem Ort mit „⚔ Encounter erstellen“ übernimmt er Fraktionen, Gefahr und Lage.", "special": "encounter", "lang": "de/en", "file": "gens/encounter.json"}, {"id": "siedlung", "title": "Siedlung", "title_en": "Settlement", "group": "Welt", "group_en": "World", "note": "Neue Maske, baut auf der Stammtabelle Siedlung (Listen, Größen, 47 Territorien, Religionen) und den Stammtabellen Kreaturen (Fraktionen, Baustil, Handelsgut, Geruch, Namen) und Beiwörter (Laune, Charakter der NPCs) auf. Wortlisten noch deutsch. Mit „⚔ Encounter“ (ganze Siedlung oder je Aufgabe) entsteht ein Kampf mit Ortsart Stadt.", "special": "siedlung", "lang": "de", "enc": {"ort": "Stadt"}, "chase": true, "rest": true, "file": "gens/siedlung.json"}, {"id": "ritual", "title": "Ritual-Ort", "title_en": "Ritual site", "group": "Welt", "group_en": "World", "note": "Neue Maske, baut auf der Stammtabelle Ritualort (Themen, Gesetze mit Anzeichen und Schlüssel, Listen, Ausstrahlung, Regeln) auf, dazu Territorien und Fraktionen. Ersetzt den alten Generator Ritual-Ort. Gesetze, Listen und Gewichte sind Vorschläge (orange). Runenfalle (häufiger mit Runenmagier, Stammtabelle Runenfalle).", "special": "ritual", "lang": "de/en", "file": "gens/ritual.json"}, {"id": "riss", "title": "Zweitweltriss", "title_en": "Otherworld rift", "group": "Welt", "group_en": "World", "note": "Neue Maske, baut auf der Stammtabelle Zweitweltriss (Arten, Schandtaten, Objekte, Phänomene, Schauplätze, Gegnerstärke, Listen, Regeln) auf, dazu Territorien, Fraktionen mit Baustil und Altvölker. Ersetzt den alten Generator Zweitweltriss. Inhalte und Gewichte sind Vorschläge (orange).", "special": "riss", "lang": "de/en", "file": "gens/riss.json"}, {"id": "ruine", "title": "Ruine", "title_en": "Ruin", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "note": "Neue Maske, baut auf den Stammtabellen Ruine (Wegeformen, Zusätze, Abschluss, Zwecke, Räume, Listen, Regeln) und Altvölker (Erbauer, Baustile) auf, dazu Territorien, Kreaturen, Siedlung (Baustil, Namen) und Encounter (Umweltgefahren, Boss-Modifikatoren, Schatzraum-Gegner). Ersetzt den alten Generator Ruine. Listen und Gewichte sind Vorschläge (orange). Runenfallen je Raum (Stammtabelle Runenfalle).", "special": "ruine", "lang": "de/en", "rest": true, "file": "gens/ruine.json"}, {"id": "hoehle", "title": "Höhlensystem", "title_en": "Cave system", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "note": "Neue Maske, baut auf der Stammtabelle Höhle (Größe, Bewohner, Listen, Gefahren, Regeln) auf, dazu Territorien, Kreaturen, Siedlung (Namen) und Encounter (Umweltgefahren, Boss-Modifikatoren). Ersetzt den alten Generator Höhlensystem. Listen und Gewichte sind Vorschläge (orange). Runenfallen je Höhle (Stammtabelle Runenfalle).", "special": "hoehle", "lang": "de/en", "rest": true, "file": "gens/hoehle.json"}, {"id": "gebaeude", "title": "Gebäude", "title_en": "Building", "group": "Orte & Dungeons", "group_en": "Places & Dungeons", "note": "Neue Maske, baut auf der Stammtabelle Gebäude (vier Typen Villa, Tempel, Turm, Hof; Zustand, Haltung, Räume, Raumrollen, Listen) auf, dazu Territorien, Kreaturen (Raubtiere, Monster, Geruch), Siedlung (Baustil, Namen) und Religionen. Ersetzt die alten Generatoren Villa und Tempel. Listen und Gewichte sind Vorschläge (orange).", "special": "gebaeude", "lang": "de/en", "chase": true, "rest": true, "file": "gens/gebaeude.json"}, {"id": "npc", "title": "NPC", "title_en": "NPC", "group": "Personen", "group_en": "People", "note": "Neue Maske mit Postkarte. Baut auf den Stammtabellen NPC (Professionen nach Kap. 5.1, Lebensweg, Spezies, Aussehen, Laune-Skala, Sprüche), Religionen, Kreaturen (Fraktionen, Namen) und Beiwörter (Charakter, Ruf) auf. Level = Level der Profession; wichtige NPCs haben Level 6–9. Aus der Siedlung mit 👤 je wichtigem NPC. Modus „Zirkel“: schnelle Gruppe oder Kult mit dem NPC als Anführer (Stammtabelle Zirkel; ersetzt den alten Generator „Zirkel“).", "special": "npc", "lang": "de/en", "file": "gens/npc.json"}, {"id": "held", "title": "Held erschaffen", "title_en": "Create a hero", "group": "Personen", "group_en": "People", "note": "Für Spieler: Held nach Buch 1, Kap. 2 in drei Stufen (Anfänger 750, Fortgeschritten 1.500, Veteran 3.000 AP) mit den Zahlenlisten aus der Stammtabelle Helden_v3: Varianten, Fokus/Breit je Attribut, Kampf-Reihe nach Physique, Zusatzfähigkeit mit Plätzen und Teilpunkten (Veteran optional eine zweite), Ausrüstung je Stufe, Lebensweg obendrauf, freie AP. Rechnet die AP im Hintergrund und gibt die ausfüllbaren Charakterbögen als PDF aus (Bögen 1–4 und die Bögen der Fähigkeiten).", "special": "held", "lang": "de/en", "file": "gens/held.json"}, {"id": "mystery", "title": "Mysterium", "title_en": "Mystery", "group": "Abenteuer", "group_en": "Adventure", "note": "Neue Maske: ein Rätsel für etwa eine Sitzung – Opfer und drei Beteiligte (einer ist der Täter), je zwei Spuren; die Wahrheit ist zugeklappt. Stammtabelle Mysterium (aus dem alten Mystery-Blatt). Aus der Siedlung (🔍 an einer Stadt-Aufgabe) sind Opfer, Täter und Verdächtige Personen der Stadt; das Motiv ist eine Agenda.", "special": "mystery", "lang": "de/en", "file": "gens/mystery.json"}, {"id": "brett", "title": "Schwarzes Brett", "title_en": "Notice board", "group": "Abenteuer", "group_en": "Adventure", "note": "Neue Maske, baut auf der Stammtabelle Aufträge (6 Kategorien, Bausteine, Orte, Regeln) und dem Mysterium (Art, Tat) auf, dazu Territorien und Fraktionen. Immer 4 Aushänge, je aus einer anderen Kategorie; aus der Siedlung mit Personen und Stadtteilen der Stadt. Ersetzt den alten Generator Auftrag. Inhalte von Martin geprüft (01.11.).", "special": "brett", "lang": "de/en", "file": "gens/brett.json"}, {"id": "verfolgung", "title": "Verfolgungsjagd", "title_en": "Chase", "group": "Abenteuer", "group_en": "Adventure", "note": "Neue Maske nach Buch 1 (Kap. 4.4 Chase): Objective 50, Runden nach Dexterity der NPC-Gruppe, je Runde Szene und Abkürzung aus der Stammtabelle Verfolgung (Stadt und Natur). Stärken je Runde eintragen – der Status rechnet mit. Aus der Siedlung mit „🏃 Verfolgungsjagd“.", "special": "verfolgung", "lang": "de", "file": "gens/verfolgung.json"}, {"id": "rast", "title": "Rast", "title_en": "Rest", "group": "Abenteuer", "group_en": "Adventure", "note": "Neue Maske, baut auf der Stammtabelle Rast (Rastplätze, Merkmale, Sinne, Wortgruppen für die Rest-actions, Am Feuer, Träume, Störungen, Morgen, Regeln) auf, dazu Territorien, Biome, Wetter und Fraktionen. Aus Wildnis, Ruine, Höhle, Gebäude und Siedlung mit „🏕 Rast“. Inhalte sind Vorschläge (orange). Sammeln (Würfel oder Karten nach Buch 2, E1.4) direkt unter der Rest-action; ersetzt den alten Generator „Sammeln (Karten)“.", "special": "rast", "lang": "de/en", "file": "gens/rast.json"}, {"id": "toolbox", "title": "Toolbox", "title_en": "Toolbox", "group": "Toolbox", "group_en": "Toolbox", "note": "Neue Maske, baut auf der Stammtabelle Toolbox auf: Gift & Krankheit und Trauma & Narben fassen Buch 1, 4.2 zusammen (Stufen, Psychose, Narben, Behandlung aus Buch 2 E.16/E.17), dazu Pakt-Aufgabe (E.22), Spur & Rätsel und Box als kleine Inspirationshilfen; Held (Spezies, Heimatfraktion, Lebensweg, Bluterbe, Charakteristik, Schicksalsobjekt, Selbstobjekt) aus der Stammtabelle Helden (Buch 1, 2.2/2.3). Ersetzt die alten Generatoren Spuren & Hinweise, Pakt-Aufgabe, Trauma & Narben, Gift & Krankheit und Geheimnisvolle Box. Trauma-Tabelle und Herkunft sind Vorschläge (orange); Pflanze und Kleintier aus der Stammtabelle PflanzenTiere (ersetzt den alten Generator „Pflanze & Kleintier“, auch im Wildnis-Ort je Gebiet und im NPC). Runenfalle aus der Stammtabelle Runenfalle (ersetzt den alten Generator „Runenfalle“). Seit 20.11.2026 auch Ambitionen (Stammtabelle Helden, Buch 1 Table 2.5.1–2.5.3; ersetzt den eigenen Ambitions-Generator) und Zauberfehlschlag (Buch 1 Table 3.6.4, 2W20).", "special": "toolbox", "lang": "de/en", "file": "gens/toolbox.json"}, {"id": "loot", "title": "Loot & Dinge", "title_en": "Loot & things", "group": "Dinge", "group_en": "Things", "note": "Neue Maske, baut auf der Stammtabelle Loot_v3 auf (Größen, Arten, Arten je Ort, Kategorien, Läden, Ortsstufen = Stufe für Fund und Handel, Tränke einfach, Gebrauchsgegenstände, Bücher, Fokus-Objekte, Zauber, Pakt, Boni, Echo, Aktivierung, Legendär) und den Beiwörtern, dazu Territorien, Fraktionen, Namen und Altvölker. Drei Wege: Fundstelle, Gegenstand, Angebot. Zahlen nach Simulation eingestellt, Vorschläge orange.", "special": "loot", "lang": "de/en", "file": "gens/loot.json"}, {"id": "laden", "title": "Laden", "title_en": "Shop", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold (Buch 1: Wealth-Level).", "lang": "de", "file": "gens/laden.json"}, {"id": "tempeldienst", "title": "Tempeldienste", "title_en": "Temple services", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold.", "lang": "de", "file": "gens/tempeldienst.json"}, {"id": "taverne", "title": "Taverne", "title_en": "Tavern", "group": "Handel", "group_en": "Trade", "note": "Preise in Gold, Speisenboni mit alten Begriffen.", "lang": "de", "file": "gens/taverne.json"}];
 const DATA={"cards":[["Narr","richtig herum","Neustart, Überraschung, Potential, Freiheit, Unschuld",["Überraschung","Potential","Freiheit"]],["Narr","umgedreht","Dummheit, Überstürzt, Chaos, Naive, Grenzen, Hürden",["Dummheit","Chaos","Hürde"]],["Magier","richtig herum","Kraft, Kommunikation, Magie, Selbstbestimmung, Aktion",["Kommunikation","Magie","Selbstbestimmung"]],["Magier","umgedreht","Lüge, Kommunikationsblock, Stagnation, Schummeln, Falschheit",["Lüge","Kommunikationsblock","Stagnation"]],["Hohepriesterin","richtig herum","Mysterium, Intuition, Erleuchtung, Weisheit, Vorahnung",["Mysterium","Erleuchtung","Vorahnung"]],["Hohepriesterin","umgedreht","Geheimnisse, Unsicherheit, Verborgenheit, Unfähigkeit zu hören, Überraschung",["Geheimnis","Unsicherheit","Verborgenheit"]],["Königin","richtig herum","Pflege, Überschuss, Fruchtbarkeit, Mutterschaft, Schönheit, Liebe",["Überschuss","Mutterschaft","Schönheit"]],["Königin","umgedreht","Faulheit, Koordinationschwäche, Verschwendung, Beziehungskrise, Depression, Verbannung",["Koordinationsschwäche","Verschwendung","Beziehung senken"]],["König","richtig herum","Autorität, Ordnung, Struktur, Hierarchie, Aufstieg, Rationalität",["Autorität","Aufstieg","Rationalität"]],["König","umgedreht","Autokratisch, Unterdrücken, Zwang, Grausamkeit, keine Unterstützung, Machtmissbrauch, Irrationalität",["Zwang","Grausamkeit","Machtmissbrauch"]],["Hierophant","richtig herum","Tradition, Gruppenidentifikation, Lehre, Gesetze, Bruderschaft, Religion",["Gruppenidentifikation","Lehre","Religion"]],["Hierophant","umgedreht","Extremismus, Kulte, Verfall Gesellschaft, Abwendung Religion, Abbruch Gespräche, rückständig",["Extremismus","Abwendung Religion","Abbruch Gespräch"]],["Liebhaber","richtig herum","Zusammenkommen, Wahl, Zuneigung, Verpflichtung, Vertrauen, Bündnis",["Zusammenkommen","Vertrauen","Verpflichtung"]],["Liebhaber","umgedreht","Auseinanderbrechen, Angst vor Bindung, Fremd gehen, Bündnis brechen, Misstrauen",["Auseinanderbrechen","Angst vor Bindung","Misstrauen"]],["Wagen","richtig herum","Antrieb, Willenskraft, Richtung, Sieg, Probleme enden, zu Hilfe kommen",["Willenskraft","Richtung","zu Hilfe kommen"]],["Wagen","umgedreht","verirren, richtungslos, antriebslos, Zweifel, abbruch Reise, Verzögerung, braucht Hilfe",["verirren","Zweifel","braucht Hilfe"]],["Stärke","richtig herum","Stärke, Sicherheit, Selbstkontrolle, Geduld, Gesundheit, Leidenschaft",["Sicherheit","Gesundheit","Stärke"]],["Stärke","umgedreht","Schwäche, Zerbrechlichkeit, Ungeduld, Unbeherrscht, Überheblich, Doppelmoral",["Schwäche","Unbeherrscht","Zerbrechlichkeit"]],["Eremit","richtig herum","Selbstbetrachtung, Besinnung, Ruhe, Diskretion, Meditation",["Besinnung","Diskretion","Ruhe"]],["Eremit","umgedreht","Aberkennen, Rückzug, im stich lassen, Isolation, einsamkeit, Exil",["Rückzug","Im Stich lassen","Isolation"]],["Rad","richtig herum","Glück, Chance, Gelegenheit, Umschlagen, Gewinnen, Zyklus, Schicksal, ja",["Glück","Gelegenheit","Zyklus"]],["Rad","umgedreht","Unglück, Fehlschlag, verlieren, Not, Härte, Enttäuschung, nein",["Unglück","Not","Enttäuschung"]],["Gericht","richtig herum","Gerechtigkeit, Karma, Balance, Wahrheit, Verantwortung, Vereinbarung",["Gerechtigkeit","Wahrheit","Vereinbarung"]],["Gericht","umgedreht","Willkür, Unfair, Unrecht, Verruf, Ungleichheit, Falsche Entscheidung",["Willkür/ Unfair","Ungleichheit","Verruf"]],["Gehängte Mann","richtig herum","loslassen, Opferung, Aufgaben, Perspektivwechsel, Musterbrechen, Verspätung, Stoppen",["Loslassen","Perspektivwechsel","Stoppen"]],["Gehängte Mann","umgedreht","in Schwebe, Engstirnig, ins Leben zurück, falsches Motiv, nicht loslassen, zurückhalten",["in schwebe","ins Leben zurück","festhalten"]],["Tod","richtig herum","Ende, Sterblichkeit, echter Wandel, Bruch einer Bindung, Ende einer Ära, Transformation, Wiedergeburt",["Ende","Bindungsbruch","Transformation"]],["Tod","umgedreht","Ende aufgehalten, nicht loslassen können, lange Krankheit, Wandel ablehnen, falscher Wandel",["Aufhalten Ende","Krankheit","Wandel ablehnen"]],["Mäßigkeit","richtig herum","Harmonie, Balance, Mäßigung, Zusammenwirken, vermischen, verbinden",["Balance","Vermischen","Verbinden"]],["Mäßigkeit","umgedreht","Disharmonie,Krankheit, nichts bekommen, Trennen, Bruch",["Unbalance","trennen","leer ausgehen"]],["Dämon","richtig herum","Knechtschaft, Abhängigkeit, Versuchung, Gewalt, Angst, Überarbeitet",["Knechtschaft","Abhängigkeit","Gewalt"]],["Dämon","umgedreht","frei brechen, widerstehen, kraftlosigkeit, keine Verbindung",["frei brechen","widerstehen","keine Bindung"]],["Turm","richtig herum","Zerstörung, unerwarteter Wandel, ruinieren, schaden, stürzen, verdrängen, Gefahr",["Zerstörung","verdrängen","Gefahr"]],["Turm","umgedreht","Anhaltende Zerstörung, langfristige Krise, schwere Gewalt, chaotische Situation, Nachbeben",["Krise","Brutalität","Nachbeben"]],["Sterne","richtig herum","Hoffnung, Freude, Optimismus, Segen, Hilfe, Frieden",["Hoffnung","Segen","Frieden"]],["Sterne","umgedreht","Hoffnungslosigkeit, Unwohlsein, Enttäuschung, hilfe verweigern, Hindernisse des Glaubens",["Enttäuschung","Hoffnungslos","Glaubenskrise"]],["Mond","richtig herum","Träume, Alpträume, Illusionen, verborgene Feinde, Verwirrung, Geheimnis",["Alptraum","Illusion","verborgene Gefahr"]],["Mond","umgedreht","Offenbarung, Vision, durchschauen von Illusionen, Schlaflosigkeit",["Vision","Offenbarung","Schlaflosigkeit"]],["Sonne","richtig herum","Leben, Energie, Wärme, Erschaffung, Reichtum, Erfolg",["Energie","Erschaffung","Reichtum"]],["Sonne","umgedreht","Halber Erfolg, Kälte, hypersensibel, rosarote Brille",["Halber Erfolg","Kälte","rosarote Brille"]],["Urteil","richtig herum","Erlösung, Erwachen, Ruf zu Taten, Berufung, vollendeter Wandel, Entscheidung",["Erwachen","Berufung","Entscheidung"]],["Urteil","umgedreht","Ignorieren, Wider besseren Wissens, Zweifel, Leiten von Angst, entscheidungslos",["Ignorieren","Entgegen Wissen","Leiten von Angst"]],["Welt","richtig herum","Vollendung, Folgen, Resultate, Möglichkeiten, Ziele, Absolutheit, Reisen",["Vollendung","Resultate","Reisen"]],["Welt","umgedreht","Verplanen, unerledigte Aufgaben, Stagnation, festhalten, feststecken",["feststecken","nicht weiterkommen","keine Resultate"]]],"targets":["Spieler","Spieler-Gruppe","Gegenwart","Anderer Spieler","Gegner","NPC","Zukunft","Positiv","Negativ"],"ev":["entferntes Event","NPC Aktion","Neuer NPC","Strang voranbringen","Strang entfernen","Strang verändern","PC negativ","PC positiv","Ambivalentes Ereignis","NPC negativ","NPC positiv","Nemesis positiv","Nemesis negativ"],"act":["Ziel erreichen","Starten","Vernachlässigen","Kämpfen","Rekrutieren","Siegen","Verletzen","Widersetzen","Arglist","Kommunizieren","Verfolgen","Steigern","Senken","Verlassen","Befriedigen","Erkundigen","Verärgern","Bewegen","verschwenden","Wahrheit","Freilassen","Befreunden","urteilen","Desertieren","Dominieren","Aufschieben","Loben","Trennen","Nehmen","Brechen","Heilen","Verzögern","Stoppen","Lügen","Wiederkommen","Nachahmen","Ringen","informieren","verschenken","verschieben","entblößen","verhandeln","einsperren","feiern","verschleiern","entwickeln","reisen","blocken","verletzen","herabsetzen","überladen","Vertagen","Widrigkeiten","töten","unterbrechen","an sich reißen","erschaffen","verraten","zustimmen","ausnutzen","unterdrücken","inspezieren","überfallen","spionieren","tragen","offen","nachlässig","ruinieren","extravagant","Täuschen","ankommen","vorschlagen","trennen","ablehnen","misstrauen","grausamkeit","Intoleranz","vertrauen","Aufregung","Aktivität","Helfen","pflegen","leidenschaft","ablassen","hart arbeiten","kontrollieren","anziehen","versagen","nachgehen","rächen","aufgeben","streiten","bestrafen","führen","transformieren","unterwerfen","verändern","steigern","umstürzen","nähern"],"sub":["Ziele","Träume","Umwelt","Draußen","Innen","Realität","Verbündete","Feinde","Böse","Gute","Gefühle","Gegenteil","Krieg","Frieden","Unschuldige","Liebe","geistlich","intellektuell","Neue Ideen","Freude","Massage","Energie","Gleichgewicht","Spannung","Freundschaft","physisches","Projekt","Freuden","Schmerz","Besitz","Pläne","Lügen","Erwartungen","Gesetz","Bürokratie","Geschäft","Pfad","Neuigkeiten","äußere Faktoren","Ratschlag","Handlung","Wettbewerb","Gefängnis","Krankheit","Nahrung","Aufmerksamkeit","Erfolg","Versagen","Reise","Neid","Streit","Heimat","Investment","Leid","Wünsche","Taktik","Pattsituation","Willkür","Unglück","Tod","Unterbrechung","Macht","Bürde","Intrige","Ängste","Gerücht","Wunden","extravaganz","Repräsentation","Gegner","Reichtum","Freiheit","Militär","Gewöhnliches","Test","Massen","Fahrzeug","Kunst","Sieg","Unklarheit","Fülle","Status Quo","Technik","Hoffnung","Magie","Illusion","Portale","Gefahr","Waffen","Tiere","Wetter","Elemente","Natur","Öffentlichkeit","Führung","Ruhm","Zorn","Information","Vergangenheit","Götter"],"fac":["[GK] Sultane","[GK] Wesire","[GK] Kalifen","[FU] Monarchisten","[FU] Republikaner","[FU] Unabhängige","[ZRO] Restauratoren","[ZRO] Reformisten","[ZRO] Vergelter","[EIS] Familien","[EIS] Lord","[EIS] Marine","[HAI] Kachol","[HAI] Schemeschya","[HAI] Han","[GER] Aisin-Geren","[GER] Süd-Geren","[GER] Nord-Geren","[PIR] Wildling","[PIR] Waldlinge","[PIR] Berglinge","[WS] Waldelfen","[WS] Hochelfen","[WS] Lichterelfen","[HIV] Südkolonie","[HIV] Nordkolonie","[HIV] Exilanten","[ECH] Troglodyten","[ECH] Sumpfechsen","[ECH] Obsidianechsen","[NAG] Manipulatoren","[NAG] Usurpatoren","[NAG] Intriganten","[KOB] Patrioten","[KOB] Anarchisten","[KOB] Hungernd","[SAT] Zentauren","[SAT] Leotauren","[SAT] Aerotauren","[YET] Wanderer","[YET] Eroberer","[YET] Flüchtlinge","[GNO] Seeräuber","[GNO] Fischer","[GNO] Eisgnome"],"pred":["Drachaten","Teufel","Würmer","Schleichen","Pirscher","Säbelaffen","Salamander","Ofanten","Netzfüssler","Weber","Flattervieh","junges Monster"]};
 
 // ================= language =================
@@ -1551,7 +1552,7 @@ const SI18N={
  de:{terr:"Territorium",size:"Größe",mainF:"Hauptfraktion",rand:"zufällig",facs:"Fraktionen",haupt:"Haupt",neben:"Neben",minder:"Minder",
   look:"Stadtbild",style:"Baustil",feat:"Merkmale",smug:"Schmugglerweg",sights:"Sehenswürdigkeiten",dist:"Stadtteile",
   npcs:"Wichtige NPCs",pol:"Politik",gov:"Regierung",law:"Gesetz",judge:"Urteil",pun:"Strafe",order:"Ordnungsmacht",
-  groups:"Politik: Gruppen & Akteure",grp:"Gruppe",act:"Akteur",agenda:"Agendas",tasks:"Aufgaben",task:"Aufgabe",prob:"Problem",goal:"Ziel",rew:"Belohnung",spur:"Spur",tNat:"Natur",tCity:"Stadt",job:"Auftrag",where:"Ort",client:"Auftraggeber",chaseHint:"Suche und Verfolgung in der Stadt (🏃)",wage:"Lohn",wageT:"aushandeln · Richtwert %n Plunder je Sitzung",ml:"Markt-Level",best:"Das Beste hier",teach:"Lehrer",spells:"Zauber & Rezepte",spBonus:"(+1 durch Magie/Wissen)",black:"Schwarzmarkt",risk:"mit Risiko",upto:"bis W-L",stock:"Bestand",stockT:"je Lieferung höchstens 3 Stück – Versorgung unbegrenzt",allOff:"Gesamtes Angebot",
+  groups:"Politik: Gruppen & Akteure",grp:"Gruppe",act:"Akteur",agenda:"Agendas",tasks:"Aufgaben",task:"Aufgabe",prob:"Problem",goal:"Ziel",rew:"Belohnung",spur:"Spur",tNat:"Natur",tCity:"Stadt",job:"Auftrag",where:"Ort",client:"Auftraggeber",chaseHint:"Suche und Verfolgung in der Stadt (🏃)",wage:"Lohn",wageT:"aushandeln · Richtwert %n Plunder je Sitzung",ml:"Markt-Level",best:"Das Beste hier",teach:"Lehrer",spells:"Zauber & Rezepte",spBonus:"(+1 durch Magie/Wissen)",black:"Schwarzmarkt",risk:"mit Risiko",upto:"bis W-L",stock:"Bestand",stockT:"je Lieferung höchstens 3 Stück – Versorgung unbegrenzt",shopGo:"Laden",shopGoT:"erst bei Bedarf: Laden wählen, Stufe und Preise nach Markt-Level",allOff:"Gesamtes Angebot",
   tav:"Taverne",rep:"Ruf",rooms:"Zimmer",drink:"Getränk",dish:"Hausspeise",temples:"Tempel",trade:"Handel & Markt",goods:"Güter",
   fasc:"gefragt",sat:"im Überfluss",market:"Markt",offer:"Angebot",guild:"Gildenladen",scroll:"Schriftrollen/Rezepte bis Stufe",ident:"Identifizieren bis",repair:"Reparieren bis",
   smell:"Geruch",sound:"Geräusch",culture:"Kultur",mood:"Stimmung",fn:"Funktion",infl:"Einfluss",
@@ -1562,7 +1563,7 @@ const SI18N={
  en:{terr:"Territory",size:"Size",mainF:"Main faction",rand:"random",facs:"Factions",haupt:"Main",neben:"Side",minder:"Minor",
   look:"Townscape",style:"Style",feat:"Features",smug:"Smugglers' way",sights:"Sights",dist:"Districts",
   npcs:"Key NPCs",pol:"Politics",gov:"Government",law:"Law",judge:"Judgement",pun:"Punishment",order:"Enforcers",
-  groups:"Politics: groups & actors",grp:"Group",act:"Actor",agenda:"Agendas",tasks:"Tasks",task:"Task",prob:"Problem",goal:"Goal",rew:"Reward",spur:"Lead",tNat:"Wilds",tCity:"City",job:"Job",where:"Place",client:"Client",chaseHint:"Search and chase through the city (🏃)",wage:"Pay",wageT:"negotiate · guideline %n plunder per session",ml:"Market level",best:"Best on offer",teach:"Teachers",spells:"Spells & recipes",spBonus:"(+1 from magic/knowledge)",black:"Black market",risk:"risky",upto:"up to W-L",stock:"Stock",stockT:"max. 3 per delivery – supplies unlimited",allOff:"Full offer",
+  groups:"Politics: groups & actors",grp:"Group",act:"Actor",agenda:"Agendas",tasks:"Tasks",task:"Task",prob:"Problem",goal:"Goal",rew:"Reward",spur:"Lead",tNat:"Wilds",tCity:"City",job:"Job",where:"Place",client:"Client",chaseHint:"Search and chase through the city (🏃)",wage:"Pay",wageT:"negotiate · guideline %n plunder per session",ml:"Market level",best:"Best on offer",teach:"Teachers",spells:"Spells & recipes",spBonus:"(+1 from magic/knowledge)",black:"Black market",risk:"risky",upto:"up to W-L",stock:"Stock",stockT:"max. 3 per delivery – supplies unlimited",shopGo:"Shop",shopGoT:"only when needed: pick a shop, tier and prices by market level",allOff:"Full offer",
   tav:"Tavern",rep:"Reputation",rooms:"Rooms",drink:"Drink",dish:"House dish",temples:"Temples",trade:"Trade & market",goods:"Goods",
   fasc:"in demand",sat:"in surplus",market:"Market",offer:"Offer",guild:"Guild shop",scroll:"Scrolls/recipes up to level",ident:"Identify up to",repair:"Repair up to",
   smell:"Smell",sound:"Sound",culture:"Culture",mood:"Mood",fn:"Function",infl:"Influence",
@@ -1763,7 +1764,7 @@ function siedlungHTML0(D,rs){
     sRow(st("fasc"),esc(Tr.fasc.map(gd).join(", ")),"trade:f1|trade:f2")+sRow(st("sat"),esc(Tr.sat.map(gd).join(", ")),"trade:s1|trade:s2")+
     sRow(st("market"),`${esc(st("offer"))} ${C.Z.n} · ${esc([sW(Tr.ma),sW(Tr.mb)].filter(Boolean).join(", "))}`,"trade:ma|trade:mb")+
     sRow(st("guild"),`„${esc(sCap(sW(Tr.g1)))} ${esc(sW(Tr.g2))}“`,"trade:g1|trade:g2")+
-    sRow(st("ident"),esc(sE(C.Z,"ident")))+sRow(st("repair"),esc(sE(C.Z,"rep")))+sRow(st("stock"),esc(st("stockT")))+
+    sRow(st("ident"),esc(sE(C.Z,"ident")))+sRow(st("repair"),esc(sE(C.Z,"rep")))+sRow(st("stock"),esc(st("stockT")))+(GENS.find(x=>x.id==="loot")?sRow(st("shopGo"),`<button class="btn sm sgo" data-sladen="1">🛒 → ${esc(gTitle(GENS.find(x=>x.id==="loot")))}</button> <span class="ss">${esc(st("shopGoT"))}</span>`):"")+
     `<details class="soff"><summary>${esc(st("allOff"))} (${esc(st("upto"))} ${M.ml})</summary>${[...new Set(sOff(D,1,M.ml).map(o=>o.wl))].sort((a,b)=>b-a).map(l=>`<div class="sr"><span class="k">W-L ${l}</span><span class="v">${esc(sOff(D,l,l).map(sW).join(" · "))}</span><span></span></div>`).join("")}</details>`);
   return h+`</div>`;
 }
@@ -2217,7 +2218,7 @@ function gbRooms(D,B,C){
     const zk=C.Z.k==="fraktion"&&C.halt&&C.halt.foe?"banditen":C.Z.k;let role=gbPick(B,k+"role",D.roles,r=>r.w[zk]);let rk=role?role.k:"nichts";
     if(C.Z.k==="fraktion"&&rk!=="gefahr"&&gU(B,k+"gz")<gbN(D,"Gefahr: auch bewohnt %",10)/100)rk="gefahr";
     x.role=rk;
-    if(rk==="gefahr")x.c=gbL(D,B,"Gefahr",k+"c");else if(rk==="hinweis")x.c=gbL(D,B,"Hinweis",k+"c");else if(rk==="loot")x.c=gbL(D,B,"Loot",k+"c");
+    if(rk==="gefahr")x.c=gbL(D,B,"Gefahr",k+"c");else if(rk==="hinweis")x.c=gbL(D,B,"Hinweis",k+"c");else if(rk==="loot")x.c=null;
     else if(rk==="taktik"){x.ta=gbL(D,B,"Taktik: Art",k+"ta");x.c=x.ta?gbL(D,B,"Taktik: "+x.ta.de,k+"c",rt):null}
     else if(rk==="begegnung"){x.ba=gbL(D,B,"Begegnung: Art",k+"ba");x.bw=gbL(D,B,"Begegnung: Wer",k+"bw");x.bl=gbL(D,B,"Begegnung: Laune",k+"bl");x.bt=gbL(D,B,"Begegnung: Thema",k+"bt")}
   });
@@ -2234,7 +2235,7 @@ function gbRoomHTML(D,C,x,i){const R=C.L.R;
   else if(x.role==="herz")body=`<b>${esc(sW(x.c)||"")}</b>`;
   else if(x.role==="taktik")body=`${esc(sW(x.ta))}: <b>${esc(sW(x.c))}</b>`;
   else if(x.role==="begegnung")body=`<b>${esc(sCap(sW(x.ba)))}</b> <span class="ss">${esc([sW(x.bw),sW(x.bl),sW(x.bt)].filter(Boolean).join(" · "))}</span>`;
-  else if(x.role==="loot")body=`<b>${esc(sCap(sW(x.c)))}</b> ${wGo("loot",' data-lf="behaelter"')}`;
+  else if(x.role==="loot")body=`<b>${esc(sCap(loGrN("mittel")))}</b> ${wGo("loot",' data-lf="mittel"')}`;
   else if(x.c)body=`<b>${esc(sCap(sW(x.c)))}</b>`;
   const nb=x.nb.map(([j,t])=>`${sW(R[j].r)} (${sW(t)})`);
   const lines=[];
@@ -2818,7 +2819,7 @@ function hoCore(D,B){
   const boss={tyr,two,lab:tyr?hot("tyr"):two?hot("men2"):hot("men"),cls:tyr?6:5,n:two?2:1,mon,
     who:mon?{cre:hoCre(D,"Uraltes Monster")}:H1,mod:hoEL(D,B,"Boss-Modifikator","herz:md"),
     hz:gU(B,"herz:hz")<hoN(D,"Gefahr im Herz",.5)?hoPick(B,"herz:hzw",D.hz,x=>x[wk]):null,
-    sch:hoL(D,B,"Herz: Schatz","herz:sc"),lies:hoL(D,B,"Herz: Schatz liegt","herz:sl")};
+    sch:null,lies:hoL(D,B,"Herz: Schatz liegt","herz:sl")};
   boss.name=!mon&&boss.who.fac?sNpcName(D,B,"herz:nm",D.subs[boss.who.fac]||{}):"";
   return{T,tiefe,deep,lt,wk,size,n,h,nameDe,nameEn,gl,inh,bez,boss,ctx};
 }
@@ -2881,7 +2882,7 @@ function hoBuild(D,B){
     {const nt=gWPick(B,k+"tn",hoDist(D,"Gelände je Höhle","1:2 · 2:1")).v;o.ter=[];for(let i=0;i<nt;i++){const g=hoL(D,B,"Gelände",k+"t"+i);if(g&&!o.ter.includes(g))o.ter.push(g)}}
     o.echo=gU(B,k+"ep")<hoN(D,"Globales Merkmal je Höhle",.4)?(gU(B,k+"ew")<.5?0:1):null;
     if(gU(B,k+"ip")<hoN(D,"Interesse je Höhle",.7))o.int=hoL(D,B,"Interesse",k+"in");
-    if(gU(B,k+"lp")<hoN(D,x.main?"Loot: Haupthöhle":"Loot: Nebenhöhle",x.main?.5:.3)){o.loot=hoL(D,B,"Loot",k+"lo");o.lw=hoL(D,B,"Loot: Fundort",k+"lw")}
+    if(gU(B,k+"lp")<hoN(D,x.main?"Loot: Haupthöhle":"Loot: Nebenhöhle",x.main?.5:.3)){o.loot=1;o.lw=hoL(D,B,"Loot: Fundort",k+"lw")}
     if(!x.heart&&gU(B,k+"bp")<hoN(D,x.main?"Begegnung: Haupthöhle":"Begegnung: Nebenhöhle",x.main?.6:.4)){
       const b=hoL(D,B,"Begegnung",k+"ba");o.enc={art:b,typ:(b&&b.t)||"kampf"};const y=o.enc;
       if(y.typ==="kampf"&&C.inh.length){const w=C.inh.map((p,i)=>({p,w:ratio[i]||1}));y.who=gWPick(B,k+"bw",w).p}
@@ -2951,13 +2952,13 @@ function hoCaveHTML(D,C,j){const o=C.cv[j],G=C.G,k=`cv:${j}:`;const lines=[];
   if(G.N[j].heart){const b=C.boss;lines.push(`<div>⚔ <b>${esc(b.lab)}: ${esc(hoWho(D,b.who))}</b>${b.name?` – ${esc(b.name)}`:""} <button class="icon encb" data-hoboss="1" title="${esc(hot("toBoss"))}">⚔</button>${b.name?`<button class="icon encb" data-honpc="boss" title="${esc(hot("toNpc"))}">👤</button>`:""}</div>`);
     lines.push(`<div class="sid">${esc(hot("bmod"))}: <b>${esc(sW(b.mod))}</b>${b.hz?` · ${esc(hot("hz"))}: ${esc(sCap(eHzName(b.hz)))}${b.hz.eff?" ("+esc(eHzF(b.hz,"eff"))+")":""}`:""}</div>`);
     lines.push(`<div class="sid">${esc(hot("pacify"))}</div>`);
-    lines.push(`<div>💎 ${esc(hot("treasure"))}: <b>${esc(sCap(sW(b.sch)))}</b> <span class="ss">${esc(sW(b.lies))}</span> ${wGo("loot",' data-lf="gross"')}</div>`)}
+    lines.push(`<div>💎 ${esc(hot("treasure"))}: <b>${esc(sCap(loGrN("gross")))}</b> <span class="ss">${esc(sW(b.lies))}</span> ${wGo("loot",' data-lf="gross"')}</div>`)}
   else if(o.enc){const y=o.enc;lines.push(`<div>${hoEncW(D,y)}${y.typ==="kampf"?` <button class="icon encb" data-hoenc="${j}" title="${esc(hot("toEnc"))}">⚔</button>`:""}${(y.typ==="npc"||y.typ==="hilfe")&&y.name?` <button class="icon encb" data-honpc="${j}" title="${esc(hot("toNpc"))}">👤</button>`:""}</div>`)}
   if(o.ob){const b=o.ob;lines.push(`<div class="hoobw">🧩 ${esc(hot("obst"))}: <b>${esc(hoObHead(b))}</b> <span class="ss">– ${esc(sCap(hoOW(b.st,"b")))}</span><div class="sid">${esc(hot("sol"))}: ${esc(hoObSol(b))} · ${esc(hot("fail"))}: <b>${esc(hoObFl(b))}</b></div></div>`)}
   if(o.hz)lines.push(`<div>⚠ ${hoHzW(o)}</div>`);
   if(o.rf)lines.push(rfMini(D.rf,o.rf));
   if(o.int)lines.push(`<div class="sid">${esc(hot("interest"))}: ${esc(sCap(sW(o.int)))}</div>`);
-  if(o.loot)lines.push(`<div class="sid">${esc(hot("loot"))}: <b>${esc(sCap(sW(o.loot)))}</b> <span class="ss">${esc(sW(o.lw))}</span> ${wGo("loot",' data-lf="behaelter"')}</div>`);
+  if(o.loot)lines.push(`<div class="sid">${esc(hot("loot"))}: <b>${esc(sCap(loGrN("mittel")))}</b> <span class="ss">${esc(sW(o.lw))}</span> ${wGo("loot",' data-lf="mittel"')}</div>`);
   const ds=C.down.filter(d=>d.j===j);ds.forEach(d=>lines.push(`<div>↓ <b>${esc(hot("down"))}: ${esc(sCap(sW(d.art)))}</b> <span class="ss">${esc(sW(d.p.la))} · ${esc(hoPassW(d.p))}</span> ${C.deep?`<span class="ss">${esc(hot("deepNote"))}</span>`:`<button class="btn sm sgo" data-hodown="1">↓ ${esc(hot("next")[C.tiefe])}</button>`}</div>`));
   // Durchgänge
   const ps=[];if(j===0)ps.push(`E ${esc(hot("entry"))} <span class="ss">(${esc(sW(C.ent.p.lb))} · ${esc(hoPassW(C.ent.p))})</span>`);
@@ -2992,7 +2993,7 @@ function hoehleHTML0(D,rs){
   const b=C.boss;let hb=sRow(hot("foeT"),`<b>${esc(b.lab)}: ${esc(hoWho(D,b.who))}</b>${b.name?` – ${esc(b.name)}`:""} <button class="icon encb" data-hoboss="1" title="${esc(hot("toBoss"))}">⚔</button>`,"herz:sg|herz:mon|herz:nm");
   hb+=sRow(hot("bmod"),`<b>${esc(sW(b.mod))}</b>`,"herz:md");
   if(b.hz)hb+=sRow(hot("hz"),`${esc(sCap(eHzName(b.hz)))} <span class="ss">${esc(eHzF(b.hz,"eff")||"")}</span>`,"herz:hz");
-  hb+=sRow(hot("treasure"),`<b>${esc(sCap(sW(b.sch)))}</b> <span class="ss">${esc(sW(b.lies))}</span> ${wGo("loot",' data-lf="gross"')}`,"herz:sc|herz:sl");
+  hb+=sRow(hot("treasure"),`<b>${esc(sCap(loGrN("gross")))}</b> <span class="ss">${esc(sW(b.lies))}</span> ${wGo("loot",' data-lf="gross"')}`,"herz:sc|herz:sl");
   hb+=C.down.map(d=>sRow(hot("down"),`${esc(sCap(sW(d.art)))} <span class="ss">${esc(C.G.N[d.j].heart?hot("heart"):hoCaveName(C,d.j))}</span>`,null)).join("");
   h+=sCard("herz",hot("heart"),hb);
   // Ein- und Ausgänge
@@ -3012,7 +3013,7 @@ function hoehleText(D,rs){
   o.push(`${LANG==="de"?C.nameDe:C.nameEn} · ${hot(C.tiefe)} · ${C.n} ${hot("cavesL")} (${C.h} ${hot(C.h===1?"haupt":"hauptPl")}) · ${tn}`);
   o.push(`${hot("global")}: ${hoFeatW(C.gl[0])} · ${hoFeatW(C.gl[1])}`);
   o.push(`${hot("inh")}: ${C.inh.map(p=>hoWho(D,p)+(p.h?" ("+sW(p.h)+")":"")).join(" · ")}${C.bez?" · "+hot("rel")+": "+sW(C.bez):""}`);
-  const b=C.boss;o.push(`${hot("heart")}: ${b.lab} ${hoWho(D,b.who)}${b.name?" – "+b.name:""} · ${hot("bmod")}: ${sW(b.mod)}${b.hz?" · "+eHzName(b.hz):""} · ${hot("treasure")}: ${sW(b.sch)} (${sW(b.lies)})`);
+  const b=C.boss;o.push(`${hot("heart")}: ${b.lab} ${hoWho(D,b.who)}${b.name?" – "+b.name:""} · ${hot("bmod")}: ${sW(b.mod)}${b.hz?" · "+eHzName(b.hz):""} · ${hot("treasure")}: ${loGrN("gross")} (${sW(b.lies)})`);
   o.push(`${hot("entry")}: ${sW(C.ent.art)} → ${hoCaveName(C,0)} (${hoPassW(C.ent.p)})${C.exits.map(x=>` · ${hot("exit")}: ${sW(x.art)} – ${hoCaveName(C,x.j)} (${hoPassW(x.p)})`).join("")}`);
   o.push(C.down.map(d=>`${hot("down")}: ${sW(d.art)} – ${hoCaveName(C,d.j)} (${hoPassW(d.p)})${C.deep?" – "+hot("deepNote"):""}`).join(" · "));
   const order=[...Array(C.n).keys()].sort((a,b2)=>(G.N[a].heart?1:0)-(G.N[b2].heart?1:0)||G.no[a]-G.no[b2]);
@@ -3021,7 +3022,7 @@ function hoehleText(D,rs){
     if(c.enc){const y=c.enc;p.push(y.typ==="kampf"?`⚔ ${hoWho(D,y.who)}${y.tat?" ("+sW(y.tat)+(y.ziel?", "+sW(y.ziel):"")+")":""}`:`${sW(y.art)}${y.name?": "+y.name:""}`)}
     if(c.ob)p.push(`🧩 ${hot("obst")}: ${hoObHead(c.ob)} – ${hoOW(c.ob.st,"b")}; ${hot("sol")}: ${hoObSol(c.ob)}; ${hot("fail")}: ${hoObFl(c.ob)}`);
     if(c.hz)p.push(`⚠ ${eHzName(c.hz)}${c.hz.eff?" ("+eHzF(c.hz,"eff")+")":""}`);if(c.rf)p.push("✴ "+rfLine(D.rf,c.rf));
-    if(c.int)p.push(`${hot("interest")}: ${sW(c.int)}`);if(c.loot)p.push(`${hot("loot")}: ${sW(c.loot)} (${sW(c.lw)})`);
+    if(c.int)p.push(`${hot("interest")}: ${sW(c.int)}`);if(c.loot)p.push(`${hot("loot")}: ${loGrN("mittel")} (${sW(c.lw)})`);
     const ps=G.E.filter(e=>e.a===j||e.b===j).map(e=>{const y=e.a===j?e.b:e.a,q=C.pass[e.a+"-"+e.b];return `${G.N[y].heart?"◆":G.no[y]}${q.hard?" ["+sW(q.ch)+"]":""}`});
     o.push(`${G.N[j].heart?"◆ "+hot("heart"):hoCaveName(C,j)}: ${p.filter(Boolean).join(" · ")} · → ${ps.join(", ")}`)});
   return o;
@@ -3538,136 +3539,186 @@ async function brGo(i){const D=GD.brett,B=brState(res("brett")),R=brBuild(D,B),A
   go(gen)}
 
 // ================= LOOT & DINGE (Stammtabelle Loot, dazu Beiwörter, Territorien, Fraktionen, Namen, Altvölker) =================
-// 20.11.2026: Level je Kachel (1 / 2–3 / 4–5), Aktivierungen ausgeglichen (Loot_v2: „Nur bei Bonus“, {N} Checks, Opfer AP 10/20).
-// Martin 31.10.2026 (Loot_Martin.md): Ein Fund = Plunder + Gegenstände aus sechs Pools; die Fundstelle gibt die Gewichte, die Ortsstufe Level, Plunder-Faktor,
-// Anteil meisterhaft und episch. Bis zu 6 Kacheln: jede würfelt nach der Fundstelle oder nach einer gewählten Kategorie (so entsteht auch ein Einzelgegenstand).
-// Magische Gegenstände: ein Bonus (in der Gruppe gleich wahrscheinlich), Form und Echo nach der Domäne des Bonus gewichtet, Aktivierung aus „unerledigt“.
-// Zufallsschlüssel: c:st, c:fs, c:t (Kopf) · p:* (Plunder, Anzahl) · t<i>:* (Kachel i)
+// v3 (26.11.2026, Spieltest 25.11., Loot_v3): drei Wege – Fundstelle (Größe × Art), Gegenstand (Kategorie), Angebot (Laden mit Preisschild).
+// Eine Stufe 1–4 für Fund und Handel (Siedlung: Markt-Level → Stufe). Acht Kategorien: Supply, Trank, Gebrauch, Fokus, Plunder, Ausrüstung (nur meisterhaft),
+// Wissen, magisch; Kram nur als Beiwerk. Tränke: Stärke, Farbe, Geruch beim Fund; Art und Wirkung erst mit „Identifizieren / Trinken“ (gekaufte sind beschriftet).
+// Magische Gegenstände wie v2: ein Bonus (in der Gruppe gleich wahrscheinlich), Form und Echo nach Domäne gewichtet, Aktivierung aus „unerledigt“.
+// Zufallsschlüssel: c:st, c:t, c:l, c:gr, c:art (Kopf) · p:* (Plunder, leer, Beiwerk) · t<i>:* (Kachel i)
 const LOI18N={
- de:{fs:"Fundstelle",ort:"Ort",st:"Ortsstufe",terr:"Territorium",rand:"zufällig",fromT:"Aus",plunder:"Plunder",items:"Gegenstände",perS:"Je Session",
-  stufe:"Stufe",tileAuto:"zufällig",empty:"leer",addTile:"🎲 würfeln",cat:"Kategorie",none:"nichts",
-  P:{banal:"banal",nuetzlich:"nützlich",reserve:"Reserve",ausruestung:"Ausrüstung",wertvoll:"wertvoll",magisch:"magisch"},
-  K:{trank:"Trank",schrift:"Schriftstück",waffe:"Waffe",ruestung:"Rüstung",schild:"Schild",kleidung:"Kleidung",fokus:"Fokus-Objekt",wertsache:"Wertsache",mrare:"magisch: rare",mepic:"magisch: episch",leg:"legendär"},
-  master:"meisterhaft",masterEq:"meisterhaft: ein Bonus +1 oder +1 Angriff",masterCl:"meisterhaft: +1 Wetterschutz",skill:"Skill",supply:"Supply",potion:"Trank",oil:"Öl (auf eine Waffe)",drink:"zum Trinken",str:"Stärke",eff:"Wirkung",side:"Nebenwirkung",unknown:"Wirkung unbekannt – erst beim Trinken oder nach Analyse",
-  lvT:"Level für Tränke, Gebrauchsgegenstände, Rezepte, Schriftrollen und Zauberbücher: automatisch nach Ortsstufe oder fest. Mit festem Level zieht die Kachel nur Gegenstände mit Level.",
+ de:{weg:"Weg",wfund:"Fundstelle",wding:"Gegenstand",wladen:"Angebot",wfundT:"Was liegt hier? Größe und Art der Fundstelle (oder zufällig nach Ort), dazu die Stufe.",
+  wdingT:"Ein einzelner Gegenstand: Kategorie je Kachel wählen.",wladenT:"Was gibt es zu kaufen? Erst erzeugen, wenn die Helden gezielt kaufen wollen.",
+  gr:"Größe",art:"Art",ort:"Ort",st:"Stufe",terr:"Territorium",laden:"Laden",ml:"Markt-Level",rand:"zufällig",fromT:"Aus",plunder:"Plunder",items:"Funde",perS:"Je Session",
+  empty:"leer",emptyF:"Die Stelle ist leer.",addTile:"🎲 würfeln",cat:"Kategorie",also:"außerdem",bwT:"Beiwerk – zählt nicht als Fund",sure:"ein Fund sicher magisch",
+  K:{supply:"Supply",trank:"Trank",gebrauch:"Gebrauch",fokus:"Fokus",plunder:"Plunder",ausruestung:"Ausrüstung",wissen:"Wissen",magisch:"magisch",mrare:"magisch: rare",mepic:"magisch: episch",leg:"legendär"},
+  GR:{klein:"kleine Fundstelle",mittel:"mittlere Fundstelle",gross:"große Fundstelle"},
+  master:"meisterhaft",masterEq:"meisterhaft: ein Bonus +1 oder +1 Angriff",masterCl:"meisterhaft: +1 Wetterschutz",skill:"Skill",supply:"Supply",unl:"unbegrenzt",
+  str:"Stärke",smell:"riecht",potU:"Trank",idBtn:"🔍 Identifizieren / Trinken",idT:"Würfelt Art und Wirkung – nach einem Science-Check, der Analyse eines Alchemisten oder beim Trinken. Vorher ist nur sichtbar, was die Helden sehen.",
+  unk:"Art und Wirkung unbekannt",idHide:"verbergen",unkE:"Wirkung unbekannt",rolls:"Würfe",dur:"1 Stunde; ein zweiter Trank erfordert einen Metabolism-Rettungswurf",
   lvl:"Level",recipe:"Rezept",scroll:"Zauberschriftrolle",spellbook:"Zauberbuch",scrollT:"lesen = wirken mit Stärke 10, oder lernen",theme:"Thema",curse:"Fluch für Curseweaver",track:"Spur",form:"Form",
   rare:"rare",epic:"episch",effect:"Wirkung",feltT:"Die Helden spüren die Wirkung schon jetzt.",echo:"Echo",hints:"Hinweise",act:"Aktivierung",actOpen:"▸ Aktivierung (Identifikation)",actClose:"▾ Aktivierung (Identifikation)",
   cond:"Bedingung",ident:"Identifikation: Magier, Priester, Erfinder oder Opticarium der Karawane",idCost:"Plunder",sale:"Verkauf",inactive:"inaktiv",active:"aktiv",WP:"WP",
   activated:"aktiviert – die Schließung des Risses war die Aktivierung",choice:"Wahl der Helden: Form ODER Bonus",choiceF:"Formen (Bonus bleibt)",choiceB:"Boni (Form bleibt)",
   once:"einmal am Tag",stable:"stabile Form",onlyAb:"nur mit dieser Fähigkeit",ancient:"Altvolk",of:"von",dis:"Disziplin",
   pact:"Pakt",leg:"Legendärer Gegenstand",legT:"Abstrakte magische Fähigkeit, keine feste Mechanik – kommt nicht als normaler Loot vor.",rune:"Runenherz × Rahmen",
-  coins:"Münzen, Schmuckstücke",valuable:"Wertsache",worth:"wert",total:"zusammen",
-  passion:"Passion",path:"Pfad",place:"Ort",
-  encLootT:"Loot der besiegten Gegner: Fundstelle nach den Gegnern, Ortsstufe nach der Ortsart",hint:"Ein Fund: Plunder und bis zu sechs Gegenstände. Die Fundstelle bestimmt, aus welchen Pools gezogen wird, die Ortsstufe Level, Plunder und den Anteil meisterhafter und epischer Gegenstände. Jede Kachel würfelt nach der Fundstelle oder nach der gewählten Kategorie – so entsteht auch ein einzelner Gegenstand. Richtwert Lohn: 8 + Wealth-Level Plunder je Session. Nicht alles ist nützlich: Die Helden lernen, mit dem zu arbeiten, was sie finden."},
- en:{fs:"Find",ort:"Place",st:"Place tier",terr:"Territory",rand:"random",fromT:"From",plunder:"plunder",items:"items",perS:"Per session",
-  stufe:"Tier",tileAuto:"random",empty:"empty",addTile:"🎲 roll",cat:"Category",none:"nothing",
-  P:{banal:"mundane",nuetzlich:"useful",reserve:"reserve",ausruestung:"equipment",wertvoll:"valuable",magisch:"magical"},
-  K:{trank:"Potion",schrift:"Writing",waffe:"Weapon",ruestung:"Armor",schild:"Shield",kleidung:"Clothing",fokus:"Focus-object",wertsache:"Valuable",mrare:"magical: rare",mepic:"magical: epic",leg:"legendary"},
-  master:"masterful",masterEq:"masterful: one bonus +1 or +1 attack",masterCl:"masterful: +1 weather protection",skill:"Skill",supply:"supply",potion:"Potion",oil:"Oil (for a weapon)",drink:"to drink",str:"Strength",eff:"Effect",side:"Side effect",unknown:"Effect unknown – only when drunk or analysed",
-  lvT:"Level for potions, useful items, recipes, scrolls and spellbooks: automatic by place tier or fixed. With a fixed level the tile draws only items that have a level.",
+  coins:"Münzen, Schmuckstücke",valuable:"Wertsache",trophy:"Trophäe",worth:"wert",none:"nichts Passendes",
+  passion:"Passion",path:"Pfad",place:"Ort",price:"Preis",wl:"W-L",fe:"Fokus-Energie",
+  shopT:"Ein Laden ist eine Fundstelle mit Preisschild. Preis = Wealth-Level (Buch 1 Table 4.1.3): Die Helden kaufen, was höchstens ihr Wealth-Level hat. Höchstens 3 Stück je Bestand, Supply unbegrenzt.",
+  shopSmall:"In Häusern, Lagern und Weilern gibt es nur Läden, die zum Ort passen; ab der Kleinstadt sind alle da.",
+  mlT:"Markt-Level der Siedlung: setzt die Stufe (1–6 → 1, 7–8 → 2, 9–12 → 3, 13–16 → 4) und deckelt die Preise.",sp:"Zauber & Rezepte bis",bm:"Schwarzmarkt bis",inactiveShop:"inaktiv, Aktivierung nach Identifikation",
+  encLootT:"Loot der besiegten Gegner: Fundstelle nach den Gegnern, Stufe nach der Ortsart",
+  hint:"Eine Fundstelle hat eine Größe (klein: 1 Fund, 25 % leer · mittel: 2 · groß: 4, einer sicher magisch) und eine Art, die sagt, was dort liegt. Die Stufe legt Level, Trank-Stärke, Plunder und den Anteil von Potenz III und Episch fest. Jede Kachel würfelt nach der Art oder nach der gewählten Kategorie. Richtwert Lohn: 8 + Wealth-Level Plunder je Session."},
+ en:{weg:"Mode",wfund:"Find",wding:"Item",wladen:"Shop",wfundT:"What lies here? Size and kind of the find (or random by place), plus the tier.",
+  wdingT:"A single item: choose a category per tile.",wladenT:"What is for sale? Only create it when the heroes want to buy something specific.",
+  gr:"Size",art:"Kind",ort:"Place",st:"Tier",terr:"Territory",laden:"Shop",ml:"Market level",rand:"random",fromT:"From",plunder:"plunder",items:"finds",perS:"Per session",
+  empty:"empty",emptyF:"The spot is empty.",addTile:"🎲 roll",cat:"Category",also:"also",bwT:"Odds and ends – do not count as a find",sure:"one find surely magical",
+  K:{supply:"Supply",trank:"Potion",gebrauch:"Useful item",fokus:"Focus",plunder:"Plunder",ausruestung:"Equipment",wissen:"Knowledge",magisch:"magical",mrare:"magical: rare",mepic:"magical: epic",leg:"legendary"},
+  GR:{klein:"small find",mittel:"medium find",gross:"large find"},
+  master:"masterful",masterEq:"masterful: one bonus +1 or +1 attack",masterCl:"masterful: +1 weather protection",skill:"Skill",supply:"supply",unl:"unlimited",
+  str:"Strength",smell:"smells",potU:"Potion",idBtn:"🔍 Identify / drink",idT:"Rolls kind and effect – after a science-check, an alchemist’s analysis or when drunk. Until then only what the heroes see is shown.",
+  unk:"Kind and effect unknown",idHide:"hide",unkE:"Effect unknown",rolls:"Rolls",dur:"1 hour; a second potion requires a metabolism rescue-check",
   lvl:"Level",recipe:"Recipe",scroll:"Spell scroll",spellbook:"Spellbook",scrollT:"read = cast at strength 10, or learn",theme:"Theme",curse:"curse for a curseweaver",track:"Lead",form:"Form",
   rare:"rare",epic:"epic",effect:"Effect",feltT:"The heroes already sense the effect.",echo:"Echo",hints:"Clues",act:"Activation",actOpen:"▸ Activation (identification)",actClose:"▾ Activation (identification)",
   cond:"Condition",ident:"Identification: mages, priests, inventors or the caravan's opticarium",idCost:"plunder",sale:"Sale",inactive:"inactive",active:"active",WP:"WP",
   activated:"activated – closing the rift was the activation",choice:"The heroes choose: form OR bonus",choiceF:"Forms (bonus stays)",choiceB:"Bonuses (form stays)",
   once:"once per day",stable:"stable form",onlyAb:"only with this ability",ancient:"ancient faction",of:"of",dis:"discipline",
   pact:"Pact",leg:"Legendary item",legT:"An abstract magical ability, no fixed mechanic – never part of normal loot.",rune:"Rune-heart × frame",
-  coins:"coins, trinkets",valuable:"Valuable",worth:"worth",total:"in total",
-  passion:"Passion",path:"Path",place:"Place",
-  encLootT:"Loot of the defeated enemies: find by the enemies, place tier by the kind of place",hint:"A find: plunder and up to six items. The find decides which pools are drawn from; the place tier sets levels, plunder and the share of masterful and epic items. Each tile rolls by the find or by the chosen category – that is also how you get a single item. Guideline for pay: 8 + wealth-level plunder per session. Not everything is useful: the heroes learn to work with what they find."}};
+  coins:"coins, trinkets",valuable:"Valuable",trophy:"Trophy",worth:"worth",none:"nothing that fits",
+  passion:"Passion",path:"Path",place:"Place",price:"Price",wl:"W-L",fe:"focus-energy",
+  shopT:"A shop is a find with a price tag. Price = wealth-level (Book 1 Table 4.1.3): the heroes can buy what is at most their wealth-level. At most 3 per stock, supplies unlimited.",
+  shopSmall:"Single houses, camps and hamlets only have shops that fit the place; from a small town on, every shop is there.",
+  mlT:"Market level of the settlement: sets the tier (1–6 → 1, 7–8 → 2, 9–12 → 3, 13–16 → 4) and caps the prices.",sp:"Spells & recipes up to",bm:"Black market up to",inactiveShop:"inactive, activation after identification",
+  encLootT:"Loot of the defeated enemies: find by the enemies, tier by the kind of place",
+  hint:"A find has a size (small: 1 find, 25 % empty · medium: 2 · large: 4, one surely magical) and a kind that says what lies there. The tier sets levels, potion strength, plunder and the share of potency III and epic. Each tile rolls by the kind or by the chosen category. Guideline for pay: 8 + wealth-level plunder per session."}};
 const lot=k=>{const v=LOI18N[LANG][k];return v===undefined?LOI18N.de[k]:v};
-const LOPOOLS=["banal","nuetzlich","reserve","ausruestung","wertvoll","magisch"];
-const LOKAT=["trank","schrift","waffe","ruestung","schild","kleidung","fokus","wertsache","mrare","mepic","leg"];
-function loState(rs){if(!rs.lo)rs.lo={inp:{fs:null,ort:null,st:null,terr:null},kat:[null,null,null,null,null,null],lv:[null,null,null,null,null,null],on:[0,0,0,0,0,0],open:{},draws:{},src:null,ctx:null,col:{}};
-  const B=rs.lo;if(!B.col)B.col={};if(!B.open)B.open={};if(!B.kat)B.kat=[null,null,null,null,null,null];if(!B.on)B.on=[0,0,0,0,0,0];if(!B.lv)B.lv=[null,null,null,null,null,null];return B}
+const LOKAT=["supply","trank","gebrauch","fokus","plunder","ausruestung","wissen","magisch"],LOMAG=["mrare","mepic","leg"];
+const LODW={supply:15,trank:20,gebrauch:20,fokus:15,plunder:10,ausruestung:8,wissen:10,magisch:2};  // Weg „Gegenstand“ ohne Wahl
+const LOGRW=[{k:"klein",w:50},{k:"mittel",w:35},{k:"gross",w:15}];
+const LOGEN={natur:"wildnis"},LOLF={behaelter:"mittel",lager:"mittel",person:"mittel",tier:"klein",klein:"klein",mittel:"mittel",gross:"gross",boss:"gross",truhe:"gross"};
+const LOSPWL={0:1,1:2,2:3,3:5,4:7,5:11};
+const loGrN=k=>(lot("GR")||{})[k]||k;
+const loEmpty=()=>({gr:null,art:null,ort:null,st:null,terr:null,laden:null,ml:null});
+function loState(rs){if(!rs.lo||rs.lo.v!==3)rs.lo={v:3,mode:"fund",inp:loEmpty(),kat:[null,null,null,null,null,null],on:[0,0,0,0,0,0],open:{},id:{},draws:{},src:null,ctx:null,col:{}};
+  const B=rs.lo;["col","open","id","draws"].forEach(k=>{if(!B[k])B[k]={}});if(!B.kat)B.kat=[null,null,null,null,null,null];if(!B.on)B.on=[0,0,0,0,0,0];if(!B.inp)B.inp=loEmpty();if(!B.mode)B.mode="fund";return B}
 const loR=(D,k,d)=>{const v=D.rules&&D.rules[k];const x=parseFloat(String(v==null?"":v).replace(",","."));return isNaN(x)?d:x};
 const loInt=(B,k,a,b)=>a+Math.floor(gU(B,k)*(b-a+1));
 const loUni=(B,k,a)=>a&&a.length?a[Math.floor(gU(B,k)*a.length)]:null;
-const loL=(D,B,list,k)=>{const a=D.lists[list]||[];return a.length?gWPick(B,k,a):null};
-const loW=(D,B,key,k)=>{const a=(D.bw&&D.bw[key])||[];return a.length?gWPick(B,k,a):null};
+const loWP=(B,k,a)=>{const f=(a||[]).filter(x=>(x.w==null?1:x.w)>0);return f.length?gWPick(B,k,f):null};  // gWPick zählt Gewicht 0 als 1
+const loL=(D,B,list,k)=>loWP(B,k,D.lists[list]||[]);
+const loW=(D,B,key,k)=>loWP(B,k,(D.bw&&D.bw[key])||[]);
 const loTx=(o,f)=>!o?"":LANG==="de"?(o[f+"de"]||o[f+"en"]||""):(o[f+"en"]||o[f+"de"]||"");
-const loPool=k=>lot("P")[k]||k;
-function loCore(D,B){const o=B.inp,cx=B.ctx||{},C={};
+const loCatN=k=>(lot("K")||{})[k]||k;
+const loX=(s,X)=>String(s||"").replace(/X\/2/g,String(Math.ceil(X/2))).replace(/\bX\b/g,String(X));
+function loMl2St(D,ml){const s=D.stufen.find(x=>ml>=x.ml[0]&&ml<=x.ml[1]);return s?s.n:(ml>16?4:1)}
+function loArtPick(D,B,C){const a=D.ajo[C.gen]||null;const pool=a?(C.G&&C.G.k==="gross"&&a.gross?a.gross:a.normal):D.arten.map(x=>({k:x.k,w:1}));
+  const p=loWP(B,"c:art",pool);return D.arten.find(x=>x.k===(p&&p.k))||D.arten[0]}
+function loCore(D,B){const o=B.inp,cx=B.ctx||{},C={mode:B.mode};
   const oi=o.ort!=null?+o.ort:null;C.O=oi!=null?D.orte[oi]:null;
-  const sn=o.st!=null?+o.st:cx.st!=null?+cx.st:C.O?C.O.st:null;
+  let sn=o.st!=null?+o.st:null;
+  if(C.mode==="laden"){C.ml=o.ml!=null?+o.ml:cx.ml!=null?+cx.ml:null;if(sn==null&&C.ml!=null)sn=loMl2St(D,C.ml)}
+  if(sn==null)sn=cx.st!=null?+cx.st:C.O?C.O.st:null;
   C.S=(sn!=null&&D.stufen.find(x=>x.n===sn))||loUni(B,"c:st",D.stufen.filter(x=>x.n<=3));
-  const fk=o.fs!=null?o.fs:cx.fs!==undefined?cx.fs:null;
-  C.F=cx.riss&&fk==null&&o.fs==null?null:((fk&&D.fs.find(x=>x.k===fk))||loUni(B,"c:fs",D.fs.filter(x=>x.k!=="truhe")));
+  if(C.mode==="laden"&&C.ml==null)C.ml=C.S.ml[1];
+  C.sp=cx.sp||0;C.bm=cx.bm||0;
   const tn=o.terr!=null?+o.terr:cx.terr!=null?+cx.terr:null;
   C.T=(tn!=null&&D.terr.find(x=>x.nr===tn))||loUni(B,"c:t",D.terr);
-  C.pf=C.S.pf||1;
-  if(C.F){C.pl=Math.round(loInt(B,"p:p",C.F.p[0],C.F.p[1])*C.pf);C.n=Math.min(6,loInt(B,"p:n",C.F.i[0],C.F.i[1]))}else{C.pl=0;C.n=0}
-  C.tiles=[];for(let i=0;i<6;i++){const fixed=cx.riss&&i===0?(cx.riss.ep?"mepic":"mrare"):null;const k=B.kat[i]||fixed;
-    const act=i<C.n||B.on[i]||k!=null;C.tiles.push(act?loTile(D,B,C,i,k):null)}
-  C.extra=C.tiles.reduce((s,x)=>s+(x&&x.val?x.val:0),0);
+  C.pf=C.S.pf||1;C.gen=C.O?C.O.gen:(cx.gen||null);
+  C.tiles=[];C.pl=0;C.n=0;C.leer=false;C.bw=[];C.ohne=[];
+  if(C.mode==="fund"){const gf=cx.gf?D.gf[cx.gf]:null;C.gf=gf;
+    const gk=o.gr||(gf&&gf.gr)||cx.gr||(loWP(B,"c:gr",LOGRW)||{}).k;C.G=Object.assign({k:gk},D.gr[gk]||D.gr.klein);
+    const ak=o.art||(gf&&gf.art)||(o.gr==null&&o.ort==null?cx.art:null)||null;C.A=(ak&&D.arten.find(x=>x.k===ak))||loArtPick(D,B,C);
+    C.ohne=gf&&!o.art?gf.ohne||[]:[];
+    C.pl=Math.round(loInt(B,"p:p",C.G.p[0],C.G.p[1])*C.pf);C.leer=gU(B,"p:l")*100<C.G.leer;C.n=C.leer?0:C.G.n;
+    if(!C.leer&&gU(B,"p:bw")<loR(D,"Kram als Beiwerk: Chance",.5)){const m=1+Math.floor(gU(B,"p:bn")*2);for(let j=0;j<m;j++){const k=loL(D,B,"Kram","p:bk"+j);if(k&&!C.bw.includes(k))C.bw.push(k)}}
+    for(let i=0;i<6;i++){const k=B.kat[i]||(i===0&&C.G.sm&&!C.leer?"magisch":null);C.tiles.push(i<C.n||B.on[i]||B.kat[i]!=null?loTile(D,B,C,i,k):null)}}
+  else if(C.mode==="ding"){const fixed=cx.riss?(cx.riss.ep?"mepic":"mrare"):null;
+    for(let i=0;i<6;i++){const k=B.kat[i]||(i===0?fixed:null);C.tiles.push(i===0||B.on[i]||B.kat[i]!=null?loTile(D,B,C,i,k):null)}}
+  else{const lk=o.laden||cx.laden;C.L=(lk&&D.laden.find(x=>x.k===lk))||loUni(B,"c:l",D.laden);C.A=D.arten.find(x=>x.k===C.L.art)||null;C.n=Math.min(6,C.S.ang);
+    for(let i=0;i<6;i++)C.tiles.push(i<C.n||B.on[i]||B.kat[i]!=null?loTile(D,B,C,i,B.kat[i]):null)}
+  C.extra=C.mode==="fund"?C.tiles.reduce((s,x)=>s+(x&&x.val?x.val:0),0):0;
   return C}
+// ---------- Kategorie und Einschränkungen
+const loRestr=C=>C.mode==="laden"?C.L:C.mode==="fund"?C.A||{}:{};
+function loAvail(D,C,cat){if(C.mode!=="laden")return true;const ml=C.ml,mlx=Math.max(ml,C.sp||0),R=C.L||{};
+  switch(cat){case "trank":return C.S.twl<=ml;case "gebrauch":return D.gebr.some(x=>x.wl<=ml&&x.l<=C.S.lvmax&&(!R.gg||R.gg.includes(x.gen)));
+    case "fokus":return mlx>=2;case "ausruestung":return ml>=8;case "magisch":return ml>=loR(D,"Laden: magisch rare (Wealth-Level)",10);default:return true}}
+function loCatW(D,C){const src=C.mode==="laden"?C.L.w:C.mode==="fund"&&C.A?C.A.w:LODW;
+  return Object.keys(src).filter(k=>src[k]>0&&!C.ohne.includes(k)&&loAvail(D,C,k)&&!(k==="supply"&&C.mode==="laden"&&C.L.sup)).map(k=>({k,w:src[k]}))}
 // ---------- eine Kachel
-// Level je Kachel (Martin 20.11.2026): automatisch nach Ortsstufe oder fest Level 1 / 2–3 / 4–5 – für Tränke, Gebrauchsgegenstände, Rezepte, Schriftrollen, Zauberbücher
-const LOLV={"1":[1,1],"23":[2,3],"45":[4,5]},LOLVK=["trank","gebrauch","rezept","schriftrolle","zauberbuch"];
-function loTile(D,B,C,i,kat){const p=`t${i}:`,X={i,kat};let pool=null,inh=null;const LV=LOLV[(B.lv||[])[i]]||null;
-  if(kat==null||LOPOOLS.includes(kat)){
-    if(kat){pool=kat}else{const w=C.F?C.F.w:{banal:1,nuetzlich:1,reserve:1,ausruestung:1,wertvoll:1,magisch:0};
-      pool=(C.F&&C.F.sm&&i===0)?"magisch":gWPick(B,p+"pool",LOPOOLS.map(k=>({k,w:w[k]||0})).filter(x=>x.w>0)).k}
-    inh=gWPick(B,p+"inh",D.pools[pool]||[{k:"nichts",w:1}]).k}
-  else{const M={trank:["nuetzlich","trank"],waffe:["ausruestung","waffe"],ruestung:["ausruestung","ruestung"],schild:["ausruestung","schild"],kleidung:["ausruestung","kleidung"],
-    wertsache:["wertvoll","wertsache"],mrare:["magisch","mrare"],mepic:["magisch","mepic"],leg:["magisch","leg"]};
-    if(M[kat]){[pool,inh]=M[kat]}
-    else if(kat==="schrift"){pool="nuetzlich";inh=gWPick(B,p+"inh",[{k:"buch_banal",w:4},{k:"rezept",w:2},{k:"schriftrolle",w:2},{k:"buch_alt",w:2},{k:"werk",w:1},{k:"zauberbuch",w:1}]).k}
-    else if(kat==="fokus"){pool="reserve";inh=gU(B,p+"inh")<.5?"fokus_1":"fokus_23"}}
-  // festes Level: nur Inhalte mit Level (aus dem Pool, sonst aus „nützlich“); feste Kategorien wie Waffe bleiben
-  if(LV&&!LOLVK.includes(inh)&&(kat==null||LOPOOLS.includes(kat)||kat==="schrift")){
-    let c=(kat==="schrift"?[{k:"rezept",w:2},{k:"schriftrolle",w:2},{k:"zauberbuch",w:1}]:(D.pools[pool]||[]).filter(x=>LOLVK.includes(x.k)));
-    if(!c.length){pool="nuetzlich";c=(D.pools.nuetzlich||[]).filter(x=>LOLVK.includes(x.k))}
-    if(c.length)inh=gWPick(B,p+"inhL",c).k}
-  X.pool=pool;X.k=inh;const S=C.S;X.lvSel=LV;
-  const lvIn=(a,lo,hi)=>{let r=a.filter(x=>x.l>=lo&&x.l<=hi);if(!r.length)r=a.filter(x=>x.l<=hi);return r.length?r:a};
+function loTile(D,B,C,i,kat){const p=`t${i}:`,X={i,kat};let cat=kat,inh=null;const shop=C.mode==="laden",S=C.S,R=loRestr(C);
+  const MAG={mrare:"mrare",mepic:"mepic",leg:"leg"};
+  if(MAG[kat]){cat="magisch";inh=MAG[kat]}
+  else{if(!cat){const cw=loCatW(D,C);cat=(loWP(B,p+"cat",cw)||{k:"supply"}).k}
+    let pool=D.kat[cat]||[];
+    if(cat==="plunder"&&R.pi)pool=pool.filter(x=>R.pi.includes(x.k));if(cat==="wissen"&&R.wi)pool=pool.filter(x=>R.wi.includes(x.k));
+    if(shop&&cat==="fokus")pool=pool.filter(x=>x.k==="fokus");if(shop&&cat==="plunder")pool=pool.filter(x=>x.k==="wertsache");
+    inh=((loWP(B,p+"inh",pool)||(D.kat[cat]||[])[0])||{k:cat}).k}
+  X.cat=cat;X.k=inh;const mlx=shop?Math.max(C.ml,C.sp||0):99;
+  const lvMax=Math.max(1,S.lvmax);
   switch(inh){
-    case "nichts":X.t=lot("none");break;
-    case "kram":{const k=loL(D,B,"Kram",p+"a"),e=loW(D,B,"geg",p+"b");X.t=sCap(sW(k));X.s=e?sW(e):"";break}
-    case "supply":{const n=pool==="reserve"?loInt(B,p+"a",1,2):1;X.t=`${n} ${lot("supply")}`;break}
-    case "heilmittel":{const e=(D.pools[pool]||[]).find(x=>x.k==="heilmittel");X.t=sCap(sW(e)||"light remedy");break}
-    case "zutat":{const z=loUni(B,p+"a",D.trw.zut);X.t=z?(LANG==="de"?z.de:z.en.split(" – ")[0]):"";X.s=z&&LANG!=="de"?(z.en.split(" – ")[1]||""):"";break}
-    case "fokus_1":case "fokus_23":{const n=inh==="fokus_1"?loInt(B,p+"a",1,2):1;X.fo=[];
-      for(let j=0;j<n;j++){const g=inh==="fokus_1"?"I":(gU(B,p+"g"+j)*100<S.p3?"III":"II");const typ=["O","R","C"][Math.floor(gU(B,p+"y"+j)*3)];
-        const f=loUni(B,p+"f"+j,(D.fok[g]||[]).filter(x=>x.t===typ));if(f)X.fo.push({f,typ,g})}
-      X.t=X.fo.map(x=>`${sCap(sW(x.f))}, ${x.typ} ${x.f.p}/${x.f.p}`).join(" · ");X.s=X.fo.map(x=>"P "+x.g).join(" · ");X.fe=X.fo.reduce((s,x)=>s+x.f.p,0);break}
-    case "muenzen":{X.val=Math.round(loInt(B,p+"a",loR(D,"Münzen (Pool wertvoll): Plunder von",1),loR(D,"Münzen (Pool wertvoll): Plunder bis",3))*C.pf);X.t=`${X.val} ${lot("plunder")}`;X.s=lot("coins");break}
+    case "supply":{if(shop){X.t=`${lot("supply")}`;X.s=lot("unl");X.wl=1}else{const n=loInt(B,p+"a",loR(D,"Supply: je Eintrag von",1),loR(D,"Supply: je Eintrag bis",2));X.t=`${n} ${lot("supply")}`}break}
+    case "zutat":{const z=loUni(B,p+"a",D.trw.zut);X.t=z?(LANG==="de"?z.de:z.en.split(" – ")[0]):"";X.s=z&&LANG!=="de"?(z.en.split(" – ")[1]||""):"";X.wl=5;break}
+    case "trank":loPotion(D,B,C,X,p,i);break;
+    case "gebrauch":case "rezept":{const fits=x=>x.l<=lvMax&&(!shop||x.wl<=mlx);let it=null;
+      if(inh==="gebrauch"){let gg=D.ggr.filter(g=>!R.gg||R.gg.includes(g.en));gg=gg.filter(g=>D.gebr.some(x=>x.gen===g.en&&fits(x)&&(shop||x.lg>0)));
+        const g=loWP(B,p+"g",gg);if(g)it=loWP(B,p+"a",D.gebr.filter(x=>x.gen===g.en&&fits(x)).map(x=>Object.assign({},x,{w:shop?1:x.lg})))}
+      else it=loUni(B,p+"a",D.gebr.filter(fits));
+      if(!it){X.t=lot("none");break}
+      X.t=(inh==="rezept"?lot("recipe")+": ":"")+sCap(sW(it));X.tag=`${lot("lvl")} ${it.l}`;X.s=LANG==="de"?it.gde:it.gen;if(inh==="rezept")X.s+=` · ${it.m}`;X.wl=it.wl;break}
+    case "fokus":{const hi=R.fp==="II–III",lo=R.fp==="I",typs=R.ft&&R.ft.length?R.ft:["O","R","C"];X.fo=[];
+      if(shop){const cand=[];["I","II","III"].forEach(g=>{if((hi&&g==="I")||(lo&&g!=="I"))return;(D.fok[g]||[]).forEach(f=>{if(typs.includes(f.t)&&f.wl<=mlx)cand.push({f,g})})});
+        const c=loUni(B,p+"f0",cand);if(c){X.fo.push({f:c.f,typ:c.f.t,g:c.g});X.wl=c.f.wl}}
+      else{const n=hi?loInt(B,p+"a",loR(D,"Fokus II–III: Objekte je Eintrag von",1),loR(D,"Fokus II–III: Objekte je Eintrag bis",2)):loInt(B,p+"a",loR(D,"Fokus I: Objekte je Eintrag von",2),loR(D,"Fokus I: Objekte je Eintrag bis",4));
+        for(let j=0;j<n;j++){const g=hi?(gU(B,p+"g"+j)*100<S.p3?"III":"II"):"I";const typ=typs[Math.floor(gU(B,p+"y"+j)*typs.length)];
+          const f=loUni(B,p+"f"+j,(D.fok[g]||[]).filter(x=>x.t===typ));if(f)X.fo.push({f,typ,g})}}
+      if(!X.fo.length){X.t=lot("none");break}
+      X.t=X.fo.map(x=>`${sCap(sW(x.f))}, ${x.typ} ${x.f.p}/${x.f.p}`).join(" · ");X.fe=X.fo.reduce((s,x)=>s+x.f.p,0);const pc={};X.fo.forEach(x=>pc[x.g]=(pc[x.g]||0)+1);X.s=`${lot("fe")} ${X.fe} · `+Object.keys(pc).map(g=>`${pc[g]>1?pc[g]+" × ":""}P ${g}`).join(" · ");break}
+    case "muenzen":{X.val=Math.round(loInt(B,p+"a",loR(D,"Münzen: Plunder von",1),loR(D,"Münzen: Plunder bis",3))*C.pf);X.t=`${X.val} ${lot("plunder")}`;X.s=lot("coins");break}
     case "wertsache":{const w=loL(D,B,"Wertsache",p+"a"),m=loL(D,B,"Wertsache: Material",p+"b"),v=loW(D,B,"ver",p+"c");
-      X.val=Math.round(loInt(B,p+"d",loR(D,"Wertsache: Plunder von",2),loR(D,"Wertsache: Plunder bis",5))*C.pf);
-      X.t=LANG==="de"?`${sCap(sW(w))} aus ${sW(m)}`:`${sCap(sW(m))} ${sW(w)}`;X.s=`${v?sW(v)+" · ":""}${lot("worth")} ${X.val} ${lot("plunder")}`;break}
+      const val=Math.round(loInt(B,p+"d",loR(D,"Wertsache: Plunder von",2),loR(D,"Wertsache: Plunder bis",5))*C.pf);
+      X.t=LANG==="de"?`${sCap(sW(w))} aus ${sW(m)}`:`${sCap(sW(m))} ${sW(w)}`;X.s=`${v?sW(v)+" · ":""}${lot("worth")} ${val} ${lot("plunder")}`;
+      if(shop)X.pp=Math.round(val*loR(D,"Laden: Wertsache Preis × Wert",2));else X.val=val;break}
+    case "trophaee":{const tr=loL(D,B,"Trophäe",p+"a"),v=loW(D,B,"zus",p+"c");X.val=Math.round(loInt(B,p+"d",loR(D,"Trophäe: Plunder von",1),loR(D,"Trophäe: Plunder bis",4))*C.pf);
+      X.t=sCap(sW(tr));X.tag=lot("trophy");X.s=`${v?sW(v)+" · ":""}${lot("worth")} ${X.val} ${lot("plunder")}`;break}
     case "waffe":case "ruestung":case "schild":case "kleidung":{const art={waffe:"Waffe",ruestung:"Rüstung",schild:"Schild",kleidung:"Kleidung"}[inh];
-      const e=gWPick(B,p+"a",D.equip.filter(x=>x.a===art));X.eq=e;X.mf=gU(B,p+"m")*100<S.mf;
+      const e=loWP(B,p+"a",D.equip.filter(x=>x.a===art));if(!e){X.t=lot("none");break}X.eq=e;X.mf=true;
       const z=loW(D,B,"zus",p+"b"),m=inh==="kleidung"?null:loW(D,B,"mat",p+"c"),v=loW(D,B,"ver",p+"d");
-      X.t=sCap(sW(e));X.tag=X.mf?lot("master"):"";X.s=[z,m,v].filter(Boolean).map(sW).join(" · ");
-      X.d=`${e.sk?lot("skill")+": "+e.sk+" · ":""}${loTx(e,"t")}${X.mf?" · "+lot(inh==="kleidung"?"masterCl":"masterEq"):""}`;break}
-    case "trank":{let q;const tmax=Math.max(...D.tr.map(x=>x.l));if(!LV&&gU(B,p+"q")<.15)q=D.tr[0];else{const L=LV?loInt(B,p+"l",Math.min(LV[0],tmax),Math.min(LV[1],tmax)):loInt(B,p+"l",S.tl[0],S.tl[1]);q=D.tr.find(x=>x.l===L)||D.tr[1]}
-      const oil=gU(B,p+"o")<.3,str=loInt(B,p+"s",q.s[0],q.s[1]);X.q=q;
-      const ef=[];for(let j=0;j<Math.max(1,q.n);j++){const typ=["O","R","C"][Math.floor(gU(B,p+"y"+j)*3)];const w=loUni(B,p+"e"+j,D.trw[typ]);if(w)ef.push(`${sW(w)} (${typ})`)}
-      const ns=oil?0:str<=3?0:str<=6?1:str<=9?2:3,nw=[];for(let j=0;j<ns;j++){const pool2=D.trw.nw.filter(x=>!nw.includes(x));const w=loUni(B,p+"n"+j,pool2);if(w)nw.push(w)}
-      X.t=LANG==="de"?`${sCap(q.de)}${oil?"es Öl":"er Trank"}`:`${sCap(q.en||q.de)} ${oil?"oil":"potion"}`;
-      X.tag=q.l?`${lot("lvl")} ${q.l}`:"";X.s=`${lot("str")} ${str}${oil?" · "+lot("oil"):""}`;
-      X.d=q.known?`${lot("eff")}: ${ef.join(" · ")}${nw.length?` · ${lot("side")}: ${nw.map(sW).join(" · ")}`:""}`:`${lot("unknown")} <span class="ss">(${esc(ef.join(" · "))}${nw.length?" · "+esc(nw.map(sW).join(" · ")):""})</span>`;X.dRaw=!q.known;break}
-    case "gebrauch":case "rezept":{const g=gWPick(B,p+"a",lvIn(D.gebr,LV?LV[0]:S.lv[0],LV?LV[1]:S.lv[1]));X.t=(inh==="rezept"?lot("recipe")+": ":"")+sCap(sW(g));X.tag=`${lot("lvl")} ${g.l}`;X.s=LANG==="de"?g.gde:g.gen;
-      if(inh==="rezept")X.s+=` · ${g.m}`;break}
-    case "schriftrolle":case "zauberbuch":{const lv=inh==="zauberbuch"?S.zb:null;let pool2=LV?D.spells.filter(x=>x.l>=LV[0]&&x.l<=LV[1]):inh==="zauberbuch"?D.spells.filter(x=>lv.includes(x.l)):D.spells.filter(x=>x.l>=Math.max(1,S.lv[0])&&x.l<=Math.min(3,S.lv[1]));
-      if(!pool2.length)pool2=D.spells.filter(x=>x.l>=1&&x.l<=3);const sp=loUni(B,p+"a",pool2);
-      X.t=`${lot(inh==="zauberbuch"?"spellbook":"scroll")}: ${sW(sp)}`;X.tag=`${lot("lvl")} ${sp.l}`;X.s=`${sp.dis} (${sp.sch}) · ${loTx(sp,"k")}`;X.d=lot("scrollT");break}
-    case "buch_banal":case "buch_alt":{const fm=loL(D,B,"Buch: Form",p+"f");let th,ti;
-      if(inh==="buch_alt"){const ks=Object.keys(D.bi);const tk=ks[Math.floor(gU(B,p+"th")*ks.length)];th=(D.lists["Buch: Thema"]||[]).find(x=>x.en===tk)||{de:tk,en:tk};ti=loUni(B,p+"ti",D.bi[tk]);
-        X.t=LANG==="de"?`„${sW(ti)}“`:`“${sW(ti)}”`;X.tag=D.books.buch_alt?sW(D.books.buch_alt):"";X.s=`${sW(th)} · ${sCap(sW(fm))}`;X.d=`${lot("curse")} (${sW(th)})`}
+      X.t=sCap(sW(e));X.tag=lot("master");X.s=[shop?null:z,m,v].filter(Boolean).map(sW).join(" · ");X.wl=e.wl;
+      X.d=`${e.sk?lot("skill")+": "+e.sk+" · ":""}${loTx(e,"t")} · ${lot(inh==="kleidung"?"masterCl":"masterEq")}`;break}
+    case "schriftrolle":case "zauberbuch":{let lv=inh==="zauberbuch"?S.zb:[1,2,3].filter(l=>l<=Math.min(3,lvMax));if(shop)lv=lv.filter(l=>LOSPWL[l]<=mlx);
+      const pool2=D.spells.filter(x=>lv.includes(x.l));if(!pool2.length){X.t=lot("none");break}const sp=loUni(B,p+"a",pool2);
+      X.t=`${lot(inh==="zauberbuch"?"spellbook":"scroll")}: ${sW(sp)}`;X.tag=`${lot("lvl")} ${sp.l}`;X.s=`${sp.dis} (${sp.sch}) · ${loTx(sp,"k")}`;X.d=inh==="schriftrolle"?lot("scrollT"):"";X.wl=LOSPWL[sp.l];break}
+    case "buch":case "buch_banal":case "buch_alt":{const bk=inh==="buch_alt"?"buch_alt":"buch_banal";const fm=loL(D,B,"Buch: Form",p+"f");let th,ti;
+      if(bk==="buch_alt"&&(!shop||(D.books.buch_alt||{}).wl<=mlx)){const ks=Object.keys(D.bi);const tk=ks[Math.floor(gU(B,p+"th")*ks.length)];th=(D.lists["Buch: Thema"]||[]).find(x=>x.en===tk)||{de:tk,en:tk};ti=loUni(B,p+"ti",D.bi[tk]);
+        X.t=LANG==="de"?`„${sW(ti)}“`:`“${sW(ti)}”`;X.tag=D.books.buch_alt?sW(D.books.buch_alt):"";X.s=`${sW(th)} · ${sCap(sW(fm))}`;X.d=`${lot("curse")} (${sW(th)})`;X.wl=(D.books.buch_alt||{}).wl||5}
       else{const kt=loL(D,B,"Buch: banal",p+"k");th=loL(D,B,"Buch: Thema",p+"th");const t1=loL(D,B,"Buch: Titel 1",p+"t1"),t2=loL(D,B,"Buch: Titel 2",p+"t2");
-        X.t=LANG==="de"?`„${sW(t1)} ${sW(t2)}“`:`“${sW(t1)} ${sW(t2)}”`;X.tag=sCap(sW(kt));X.s=`${sCap(sW(fm))} · ${lot("theme")}: ${sW(th)}`}
-      const bk=D.books[inh];if(bk&&gU(B,p+"sp")<bk.spur){const sl=loL(D,B,"Spur",p+"sl");const gens=["ruine","hoehle","riss","ritual","gebaeude","natur"].filter(g=>GENS.find(x=>x.id===g));X.spur={t:sW(sl),g:loUni(B,p+"sg",gens)}}break}
-    case "werk":{const w=loL(D,B,"Werk: Inhalt",p+"a");X.t=sCap(sW(w));X.tag=D.books.werk?sW(D.books.werk):"";const de=w&&w.de||"";
+        X.t=LANG==="de"?`„${sW(t1)} ${sW(t2)}“`:`“${sW(t1)} ${sW(t2)}”`;X.tag=sCap(sW(kt));X.s=`${sCap(sW(fm))} · ${lot("theme")}: ${sW(th)}`;X.wl=(D.books.buch_banal||{}).wl||1}
+      const bd=D.books[bk];if(!shop&&bd&&gU(B,p+"sp")<bd.spur){const sl=loL(D,B,"Spur",p+"sl");const gens=["ruine","hoehle","riss","ritual","gebaeude","natur"].filter(g=>GENS.find(x=>x.id===g));X.spur={t:sW(sl),g:loUni(B,p+"sg",gens)}}break}
+    case "werk":{if(shop&&(D.books.werk||{}).wl>mlx){X.t=lot("none");break}const w=loL(D,B,"Werk: Inhalt",p+"a");X.t=sCap(sW(w));X.tag=D.books.werk?sW(D.books.werk):"";X.wl=(D.books.werk||{}).wl||11;const de=w&&w.de||"";
       if(/Passion/.test(de)){const ps=loL(D,B,"Werk: Passion",p+"b");X.s=`${lot("passion")}: ${sW(ps)}`}
       else if(/Manöver/.test(de)){const pf=loL(D,B,"Werk: Pfad",p+"b");X.s=`${lot("path")}: ${sW(pf)}`}
       else if(/Ort/.test(de)){const gens=["ruine","hoehle","riss","ritual"].filter(g=>GENS.find(x=>x.id===g));X.spur={t:"",g:loUni(B,p+"sg",gens)}}break}
-    case "magisch":case "mrare":case "mepic":{const ep=inh==="mepic"?true:inh==="mrare"?false:gU(B,p+"ep")*100<S.ep;X.m=loMagic(D,B,C,p,ep);X.t=X.m.name;X.tag=lot(ep?"epic":"rare");break}
-    case "leg":{const L=gWPick(B,p+"a",D.leg),f=gWPick(B,p+"f",D.klein),bw=loL(D,B,"Beiwort magisch",p+"b"),mk=loL(D,B,"Merkmal magisch",p+"c");
+    case "magisch":case "mrare":case "mepic":{const ep=inh==="mepic"?true:inh==="mrare"?false:shop?C.ml>=loR(D,"Laden: magisch episch (Wealth-Level)",14)&&gU(B,p+"ep")*100<S.ep:gU(B,p+"ep")*100<S.ep;
+      X.m=loMagic(D,B,C,p,ep);X.t=X.m.name;X.tag=lot(ep?"epic":"rare");if(shop){X.wl=loR(D,ep?"Laden: magisch episch (Wealth-Level)":"Laden: magisch rare (Wealth-Level)",ep?14:10);X.m.shop=true}break}
+    case "leg":{const L=loWP(B,p+"a",D.leg),f=loWP(B,p+"f",D.klein),bw=loL(D,B,"Beiwort magisch",p+"b"),mk=loL(D,B,"Merkmal magisch",p+"c");
       X.lg=L;X.t=sCap(sW(f));X.tag=lot("leg");X.s=[bw,mk].filter(Boolean).map(sW).join(" · ");X.d=`${lot("rune")}: <b>${esc(L.h)} × ${esc(L.f)}</b> – ${esc(sW(L))}`;X.dRaw=true;break}
     default:X.t=inh||"";
   }
   return X}
-// ---------- magischer Gegenstand
+// ---------- Trank (Tränke einfach): Art und Wirkung erst bei Identifikation oder beim Trinken
+function loPotion(D,B,C,X,p,i){const shop=C.mode==="laden",R=loRestr(C),allowed=R.ta&&R.ta.length?R.ta:null;
+  let te=D.te.filter(t=>!allowed||allowed.includes(t.k));if(shop)te=te.filter(t=>(t.lw>0)||(C.bm&&t.k==="giftig"));if(!te.length)te=D.te;
+  const str=C.S.ts;X.str=str;X.farbe=loL(D,B,"Trank: Farbe",p+"fa");X.geruch=loL(D,B,"Trank: Geruch",p+"ge");X.wl=C.S.twl;
+  const row=loWP(B,p+"ty",te.map(t=>({t,w:shop?(t.lw||1):(t.b-t.a+1)}))).t;X.te=row;X.d20=row.a+Math.floor(gU(B,p+"tyd")*(row.b-row.a+1));
+  const U=D.tu[row.k==="seltsam"?"staerk":row.k]||[];if(U.length){const mx=Math.max(...U.map(u=>u.d));X.u=U.find(u=>u.d===1+Math.floor(gU(B,p+"u")*mx))||U[0]}
+  if(row.k==="seltsam"&&D.tko.length)X.ko=D.tko[Math.floor(gU(B,p+"ko")*D.tko.length)];
+  X.known=shop||(!!allowed&&new Set(te.map(t=>t.k)).size===1);
+  X.idd=shop||(B.id[i]!=null&&B.id[i]===B.draws[p+"fa"]);
+  const u=X.u?loX(sW(X.u),str):"";const k=row.k;
+  X.res=k==="heil"?(X.d20===7||/shield/i.test(row.wen)?(LANG==="de"?`${str} Health shield`:`${str} health shield`):(LANG==="de"?`heilt ${str} Health`:`heals ${str} health`))
+    :k==="staerk"||k==="seltsam"?`+${str} ${u}`:k==="oel"?(LANG==="de"?`Treffer mit Schaden: ${u}`:`hit that deals damage: ${u}`):k==="gegengift"?loX(sW({de:row.wde,en:row.wen}),str):u;
+  X.t=X.idd||X.known?sCap(sW(row)):lot("potU");X.tag=`${lot("str")} ${str}`;
+  X.s=`${sCap(sW(X.farbe))} · ${lot("smell")} ${sW(X.geruch)}`}
+// ---------- magischer Gegenstand (wie v2)
 function loBonus(D,B,p,ep){const st=ep?"epic":"rare",gr=gWPick(B,p+"g",D.bg[st]),R={gr,ep};
   if(gr.k==="zauber"){const lo=loR(D,`Zauber ${ep?"episch":"selten"}: Level von`,ep?2:1),hi=loR(D,`Zauber ${ep?"episch":"selten"}: Level bis`,ep?3:2),S=loR(D,`Zauber ${ep?"episch":"selten"}: Stärke`,ep?10:8);
     const sp=loUni(B,p+"b",D.spells.filter(x=>x.l>=lo&&x.l<=hi));R.b=sp;R.dom=sp.dom;R.sk=sp.dis;
@@ -3694,51 +3745,63 @@ function loMagic(D,B,C,p,ep){const M={ep},cx=B.ctx||{};
   M.mk=loL(D,B,"Merkmal magisch",p+"zmk");M.bw=loL(D,B,"Beiwort magisch",p+"zbw");
   const fn=sCap(sW(M.form));M.name=LANG==="de"?`${fn} ${lot("of")} ${M.nm}`:`${M.nm}'s ${sW(M.form)}`;
   M.fill=s=>loFill(D,M,s);
-  if(cx.riss&&p==="t0:"){M.riss=true;M.altF=[];M.altB=[];
+  if(cx.riss&&p==="t0:"&&C.mode==="ding"){M.riss=true;M.altF=[];M.altB=[];
     for(let j=0;j<loR(D,"Riss: Möglichkeiten",3);j++){const pool=forms.filter(x=>x.f!==M.form&&!M.altF.includes(x.f));if(pool.length)M.altF.push(gWPick(B,p+"aF"+j,pool).f);
       M.altB.push(loBonus(D,B,p+"aB"+j+":",ep))}}
   return M}
 function loN(D,M,s){const ep=M.ep?"epic":"rare",en=(M.akt.en||"")+" "+s;
   if(/plunder/i.test(en))return loR(D,`Opfer: Plunder ${ep}`,M.ep?8:3);if(/focus/i.test(en))return loR(D,`Opfer: Fokus-Energie ${ep}`,M.ep?6:3);
-  if(/\bAP\b/.test(en))return loR(D,`Opfer: AP ${ep}`,M.ep?20:10);if(/\bchecks\b/i.test(en))return loR(D,`Bewährung: Anzahl Checks ${ep}`,M.ep?3:2);if(/level/i.test(en))return loR(D,`Bewährung: Skill-Level ${ep}`,M.ep?20:15);return loR(D,`Bewährung: Stärke ${ep}`,M.ep?12:8)}
+  if(/\bAP\b/.test(en))return loR(D,`Opfer: AP ${ep}`,M.ep?20:10);if(/\bchecks\b/i.test(en))return loR(D,`Bewährung: Anzahl Checks ${ep}`,M.ep?3:2);return loR(D,`Bewährung: Stärke ${ep}`,M.ep?12:8)}
 function loFill(D,M,x){let s=sW(x);const o=M.ort;
   return s.replace(/\{Name\}/g,M.nm).replace(/\{Fraktion\}/g,M.fac||"–").replace(/\{Ort\}/g,sW(o)).replace(/\{Geruch\}/g,loTx(o,"g")).replace(/\{Geräusch\}/g,loTx(o,"r"))
    .replace(/\{Skill\}/g,M.bo.sk||"").replace(/\{Unerledigt\}/g,sW(M.un)).replace(/\{N\}/g,loN(D,M,s))}
 // ---------- Anzeige
 function lootHTML(D,rs){SCOL=loState(rs).col;try{return lootHTML0(D,rs)}finally{SCOL=null}}
-function loLvSel(B,i){const cur=(B.lv||[])[i]||"";return `<select class="brk lolv" data-lolv="${i}" title="${esc(lot("lvT"))}">${[["",`${lot("lvl")} 🎲`],["1",`${lot("lvl")} 1`],["23",`${lot("lvl")} 2–3`],["45",`${lot("lvl")} 4–5`]].map(([v,l])=>`<option value="${v}" ${cur===v?"selected":""}>${esc(l)}</option>`).join("")}</select>`}
-function loKatSel(B,i,cur){const o=[["",`🎲 ${lot("tileAuto")}`]].concat(LOPOOLS.map(k=>[k,loPool(k)])).concat(LOKAT.map(k=>[k,lot("K")[k]]));
-  return `<select class="brk" data-lok="${i}" title="${esc(lot("cat"))}">${o.map(([v,l])=>`<option value="${v}" ${(cur||"")===v?"selected":""}>${esc(l)}</option>`).join("")}</select>`+loLvSel(B,i)}
+function loKatSel(B,i,cur,mode){const o=[["",`🎲 ${lot("rand")}`]].concat(LOKAT.map(k=>[k,loCatN(k)])).concat((mode==="laden"?[]:mode==="ding"?LOMAG:LOMAG.slice(0,2)).map(k=>[k,loCatN(k)]));
+  return `<select class="brk" data-lok="${i}" title="${esc(lot("cat"))}">${o.map(([v,l])=>`<option value="${v}" ${(cur||"")===v?"selected":""}>${esc(l)}</option>`).join("")}</select>`}
 function lootHTML0(D,rs){
   const B=loState(rs),o=B.inp,C=loCore(D,B),cx=B.ctx||{};
   const sel=(k,cur,auto,opts)=>`<label class="ef"><span>${esc(lot(k))}</span><select data-loinp="${k}"><option value="">🎲 ${esc(lot("rand"))}${cur==null?" ("+esc(auto)+")":""}</option>${opts.map(([v,l])=>`<option value="${esc(String(v))}" ${cur!=null&&String(cur)===String(v)?"selected":""}>${esc(l)}</option>`).join("")}</select></label>`;
-  let h=`<div class="ebar sbar">${sel("fs",o.fs,C.F?sW(C.F):"–",D.fs.map(x=>[x.k,sW(x)]))}${sel("ort",o.ort,C.O?sW(C.O):"–",D.orte.map((x,i)=>[i,sW(x)]))}${sel("st",o.st,`${C.S.n}`,D.stufen.map(x=>[x.n,`${x.n} – ${sW(x)}`]))}${sel("terr",o.terr,sW(C.T),D.terr.map(x=>[x.nr,`${x.nr} – ${sW(x)}`]))}</div>`;
+  let h=`<div class="ebar sbar lomode">${["fund","ding","laden"].map(m=>`<button class="btn sm${B.mode===m?" on":""}" data-lomode="${m}" title="${esc(lot("w"+m+"T"))}">${esc(lot("w"+m))}</button>`).join("")}</div>`;
+  const stSel=sel("st",o.st,`${C.S.n}`,D.stufen.map(x=>[x.n,`${x.n} – ${sW(x)}`])),tSel=sel("terr",o.terr,sW(C.T),D.terr.map(x=>[x.nr,`${x.nr} – ${sW(x)}`]));
+  if(C.mode==="fund")h+=`<div class="ebar sbar">${sel("gr",o.gr,loGrN(C.G.k),["klein","mittel","gross"].map(k=>[k,loGrN(k)]))}${sel("art",o.art,sW(C.A),D.arten.map(x=>[x.k,sW(x)]))}${sel("ort",o.ort,C.O?sW(C.O):"–",D.orte.map((x,i)=>[i,sW(x)]))}${stSel}${tSel}</div>`;
+  else if(C.mode==="ding")h+=`<div class="ebar sbar">${stSel}${tSel}</div>`;
+  else h+=`<div class="ebar sbar">${sel("laden",o.laden,sW(C.L),D.laden.map(x=>[x.k,sW(x)]))}${sel("ml",o.ml,`${C.ml}`,Array.from({length:16},(_,j)=>[j+1,`${j+1}`]))}${stSel}${tSel}</div>`;
   if(B.src){const g0=B.src.gen&&GENS.find(x=>x.id===B.src.gen);
     h+=`<div class="esrc">${g0?`<button class="btn sm" data-go="${esc(B.src.gen)}">← ${esc(gTitle(g0))}</button> `:""}↪ ${esc(lot("fromT"))}: <b>${esc(B.src.title||"")}</b>${B.src.extra&&B.src.extra.length?" · "+esc(B.src.extra.join(" · ")):""} <button class="icon" data-loclr="1" title="${t("eClear")}">✕</button></div>`}
-  const tiles=C.tiles.filter(Boolean),tot=C.pl+C.extra;
-  h+=`<div class="shero"><div class="sname"><h3>${esc(C.F?sCap(sW(C.F)):tiles.length===1?tiles[0].t:lot("items"))}</h3>${C.F?sRR("c:fs"):""}</div>
-   <div class="stags"><span class="stag">${esc(lot("stufe"))} ${C.S.n} · ${esc(sW(C.S))}</span>${C.O?`<span class="stag">${esc(sW(C.O))}</span>`:""}<span class="stag">${esc(sW(C.T))}</span></div>
-   ${C.F?`<p class="slead"><b style="font-size:1.25em">${tot} ${esc(lot("plunder"))}</b>${C.extra?` <span class="ss">(${C.pl} + ${C.extra} ${esc(lot("valuable"))})</span>`:""} ${sRR("p:p")} · ${tiles.length} ${esc(lot("items"))} ${sRR("p:n")}</p>
-   <p class="ssense">${esc(loTx(C.F,"b"))}</p>`:""}
-   ${C.O?`<p class="ssense">${esc(lot("perS"))}: ${esc(C.O.fs)}</p>`:""}</div>`;
+  const tiles=C.tiles.filter(Boolean),tags=`<span class="stag">${esc(lot("st"))} ${C.S.n} · ${esc(sW(C.S))}</span>${C.O?`<span class="stag">${esc(sW(C.O))}</span>`:""}<span class="stag">${esc(sW(C.T))}</span>`;
+  if(C.mode==="fund"){const tot=C.pl+C.extra;
+    h+=`<div class="shero"><div class="sname"><h3>${esc(sCap(loGrN(C.G.k)))} · ${esc(sW(C.A))}</h3>${sRR("c:gr|c:art|p:")}</div><div class="stags">${tags}${C.G.sm?`<span class="stag">${esc(lot("sure"))}</span>`:""}</div>
+     <p class="slead"><b style="font-size:1.25em">${tot} ${esc(lot("plunder"))}</b>${C.extra?` <span class="ss">(${C.pl} + ${C.extra})</span>`:""} ${sRR("p:p")} · ${C.leer?esc(lot("emptyF")):`${tiles.length} ${esc(lot("items"))}`} ${sRR("p:l")}</p>
+     <p class="ssense">${esc(loTx(C.A,"b"))}</p>${C.bw.length?`<p class="ssense">${esc(lot("also"))}: ${esc(C.bw.map(sW).join(", "))} <span class="ss" title="${esc(lot("bwT"))}">(${esc(lot("bwT"))})</span> ${sRR("p:bw|p:bn|p:bk")}</p>`:""}
+     ${C.O?`<p class="ssense">${esc(lot("perS"))}: ${esc(C.O.fs)}</p>`:""}</div>`}
+  else if(C.mode==="laden"){const M=[C.sp?`${lot("sp")} ${C.sp}`:"",C.bm?`${lot("bm")} ${C.bm}`:""].filter(Boolean);
+    h+=`<div class="shero"><div class="sname"><h3>${esc(sCap(sW(C.L)))}</h3>${sRR("c:l")}</div><div class="stags"><span class="stag" title="${esc(lot("mlT"))}">${esc(lot("ml"))} ${C.ml}</span>${tags}${M.map(x=>`<span class="stag">${esc(x)}</span>`).join("")}</div>
+     ${C.L.sup?`<p class="ssense"><b>${esc(lot("supply"))}</b>: ${esc(lot("unl"))} · ${esc(lot("wl"))} 1</p>`:""}<p class="ssense">${esc(lot("shopT"))} ${esc(lot("shopSmall"))}</p></div>`}
   h+=`<div class="sgrid">`;
   C.tiles.forEach((X,i)=>{
-    if(!X){h+=`<section class="scard"><div class="sch"><h3>${i+1} · ${esc(lot("empty"))}</h3>${loKatSel(B,i,null)}</div><div class="sr"><span class="k"></span><span class="v"><button class="btn sm" data-loadd="${i}">${esc(lot("addTile"))}</button></span><span></span></div></section>`;return}
-    const title=`${i+1} · ${X.kat&&!LOPOOLS.includes(X.kat)?lot("K")[X.kat]:loPool(X.pool)}`;
-    h+=sCard(`t${i}`,title,loTileBody(D,B,X,i),!!X.m,loKatSel(B,i,X.kat));
+    if(!X){h+=`<section class="scard"><div class="sch"><h3>${i+1} · ${esc(lot("empty"))}</h3>${loKatSel(B,i,null,C.mode)}</div><div class="sr"><span class="k"></span><span class="v"><button class="btn sm" data-loadd="${i}">${esc(lot("addTile"))}</button></span><span></span></div></section>`;return}
+    const title=`${i+1} · ${X.kat&&LOMAG.includes(X.kat)?loCatN(X.kat):loCatN(X.cat)}`;
+    h+=sCard(`t${i}`,title,loTileBody(D,B,C,X,i),!!X.m,loKatSel(B,i,X.kat,C.mode));
   });
-  return h+`</div><div class="hint">${esc(lot("hint"))}</div>`;
+  return h+`</div><div class="hint">${esc(C.mode==="fund"?lot("hint"):lot("w"+C.mode+"T"))}</div>`;
 }
-function loTileBody(D,B,X,i){const p=`t${i}:`;
-  if(X.m)return loMagicBody(D,B,X.m,i);
-  let b=`<div class="sitem"><div class="sit"><b>${esc(X.t)}</b>${X.tag?`<span class="shead">${esc(X.tag)}</span>`:""}</div>${X.s?`<div class="sid">${esc(X.s)}</div>`:""}${X.d?`<div class="sid">${X.dRaw?X.d:esc(X.d)}</div>`:""}`;
+function loPrice(X){return X.pp!=null?`<span class="shead">${esc(lot("price"))} ${X.pp} ${esc(lot("plunder"))}</span>`:X.wl!=null?`<span class="shead">${esc(lot("price"))}: ${esc(lot("wl"))} ${X.wl}</span>`:""}
+function loTileBody(D,B,C,X,i){const p=`t${i}:`,shop=C.mode==="laden";
+  if(X.m)return loMagicBody(D,B,X.m,i,shop?loPrice(X):"");
+  let b=`<div class="sitem"><div class="sit"><b>${esc(X.t)}</b>${X.tag?`<span class="shead">${esc(X.tag)}</span>`:""}${shop?loPrice(X):""} ${sRR(p)}</div>${X.s?`<div class="sid">${esc(X.s)}</div>`:""}${X.d?`<div class="sid">${X.dRaw?X.d:esc(X.d)}</div>`:""}`;
+  if(X.te){const row=X.te;
+    if(X.idd){b+=`<div class="sid"><b>${esc(sCap(X.res))}</b>${X.ko?` · ${esc(sW(X.ko))}`:""}</div><div class="sid ss">${esc(loX(sW({de:row.wde,en:row.wen}),X.str))} · ${esc(lot("dur"))}</div>`;
+      const dW=x=>LANG==="de"?x:x.replace(/W/g,"D");
+      if(!shop)b+=`<div class="sid ss">${esc(lot("rolls"))}: ${dW("W20")} ${X.d20} → ${esc(sW(row))}${X.u?` · ${esc(dW(row.u.split(" ")[0]))} ${X.u.d} → ${esc(loX(sW(X.u),X.str))}`:""}${X.ko?` · ${dW("W20")} ${X.ko.d}`:""} <button class="btn sm" data-loid="${i}">${esc(lot("idHide"))}</button></div>`}
+    else b+=`<div class="sid">${esc(lot(X.known?"unkE":"unk"))} <button class="btn sm" data-loid="${i}" title="${esc(lot("idT"))}">${esc(lot("idBtn"))}</button></div>`}
   if(X.spur){const g=GENS.find(x=>x.id===X.spur.g);b+=`<div class="sid">${esc(lot(X.spur.t?"track":"place"))}${X.spur.t?": "+esc(sCap(X.spur.t)):""} ${g?`<button class="btn sm sgo" data-go="${esc(X.spur.g)}">→ ${esc(gTitle(g))}</button>`:""}</div>`}
   return b+`</div>`}
-function loMagicBody(D,B,M,i){const p=`t${i}:`,op=B.open[i];
-  let b=`<div class="sitem"><div class="sit"><b>${esc(M.name)}</b><span class="shead">${esc(lot(M.ep?"epic":"rare"))}</span>${M.bw?`<span class="shead">${esc(sW(M.bw))}</span>`:""}</div>
+function loMagicBody(D,B,M,i,price){const p=`t${i}:`,op=B.open[i];
+  let b=`<div class="sitem"><div class="sit"><b>${esc(M.name)}</b><span class="shead">${esc(lot(M.ep?"epic":"rare"))}</span>${M.bw?`<span class="shead">${esc(sW(M.bw))}</span>`:""}${price||""}</div>
    <div class="sid">${esc(sCap(sW(M.form)))}${M.form.a&&M.form.a!=="Kleinod"&&M.form.sk?` · ${esc(M.form.sk)}`:""}${M.mk?` · ${esc(sW(M.mk))}`:""} ${sRR(p+"f|"+p+"zmk|"+p+"zbw")}</div></div>`;
   b+=sRow(lot("effect"),M.bo.txt,p+"b",M.bo.sub?" "+esc(M.bo.sub):"");
-  b+=`<div class="sid">${esc(lot("feltT"))}</div>`;
+  b+=`<div class="sid">${esc(lot(M.shop?"inactiveShop":"feltT"))}</div>`;
   b+=sRow(lot("echo"),`<b>${esc(M.nm)}</b>, ${esc(sW(M.rolle))}${M.fac?` (${M.alt?esc(lot("ancient"))+": ":""}${esc(M.fac)})`:""} · ${esc(sW(M.tod))} ${esc(sW(M.ort))} · ${esc(sW(M.un))}`,p+"r|"+p+"en|"+p+"ef|"+p+"au|"+p+"av|"+p+"td|"+p+"to|"+p+"un|"+p+"ak|"+p+"hw|"+p+"zbd");
   if(M.riss){b+=sRow(lot("act"),`<b>${esc(lot("activated"))}</b>`,null);
     b+=`<div class="sitem"><div class="sit"><b>${esc(lot("choice"))}</b></div><div class="sid"><span class="ss">${esc(lot("choiceF"))}:</span> ${M.altF.map(f=>esc(sCap(sW(f)))).join(" · ")} ${sRR(p+"aF")}</div><div class="sid"><span class="ss">${esc(lot("choiceB"))}:</span> ${M.altB.map(x=>esc(x.plain)).join(" · ")} ${sRR(p+"aB")}</div></div>`;
@@ -3750,35 +3813,35 @@ function loMagicBody(D,B,M,i){const p=`t${i}:`,op=B.open[i];
   return b}
 function lootText(D,rs){const B=loState(rs),C=loCore(D,B),o=[];
   if(B.src)o.push(`${lot("fromT")}: ${B.src.title||""}`);
-  o.push(`${C.F?sCap(sW(C.F)):lot("items")} · ${lot("stufe")} ${C.S.n} · ${sW(C.T)}${C.F?` · ${C.pl+C.extra} ${lot("plunder")}`:""}`);
-  C.tiles.forEach((X,i)=>{if(!X)return;
-    if(X.m){const M=X.m;o.push(`${i+1}. ${M.name} (${lot(M.ep?"epic":"rare")}) – ${M.bo.plain} · ${lot("echo")}: ${M.nm}, ${sW(M.rolle)}${M.fac?" ("+M.fac+")":""}, ${sW(M.tod)} ${sW(M.ort)} · ${sW(M.un)}`);
+  if(C.mode==="fund")o.push(`${sCap(loGrN(C.G.k))} · ${sW(C.A)} · ${lot("st")} ${C.S.n} · ${sW(C.T)} · ${C.pl+C.extra} ${lot("plunder")}${C.leer?" · "+lot("emptyF"):""}${C.bw.length?" · "+lot("also")+": "+C.bw.map(sW).join(", "):""}`);
+  else if(C.mode==="laden")o.push(`${sCap(sW(C.L))} · ${lot("ml")} ${C.ml} · ${lot("st")} ${C.S.n}${C.L.sup?" · "+lot("supply")+" "+lot("unl"):""}`);
+  else o.push(`${lot("wding")} · ${lot("st")} ${C.S.n} · ${sW(C.T)}`);
+  C.tiles.forEach((X,i)=>{if(!X)return;const pr=C.mode==="laden"?(X.pp!=null?` [${lot("price")} ${X.pp} ${lot("plunder")}]`:X.wl!=null?` [${lot("wl")} ${X.wl}]`:""):"";
+    if(X.m){const M=X.m;o.push(`${i+1}. ${M.name} (${lot(M.ep?"epic":"rare")})${pr} – ${M.bo.plain} · ${lot("echo")}: ${M.nm}, ${sW(M.rolle)}${M.fac?" ("+M.fac+")":""}, ${sW(M.tod)} ${sW(M.ort)} · ${sW(M.un)}`);
       if(M.riss)o.push(`   ${lot("activated")} · ${lot("choiceF")}: ${M.altF.map(sW).join(", ")} · ${lot("choiceB")}: ${M.altB.map(x=>x.plain).join(", ")}`);
       else o.push(`   ${lot("hints")}: ${M.hw.map(h=>M.fill(h)).join(" · ")} · ${lot("act")}: ${M.fill(M.akt)} (${lot("cond")}: ${M.fill(M.bed)})`);return}
-    const d=X.d?(" · "+String(X.d).replace(/<[^>]+>/g,"")):"";o.push(`${i+1}. ${X.t}${X.tag?" ("+X.tag+")":""}${X.s?" · "+X.s:""}${d}${X.spur?" · "+lot("track")+(X.spur.t?": "+X.spur.t:""):""}`)});
+    const d=X.d?(" · "+String(X.d).replace(/<[^>]+>/g,"")):"";const tr=X.te?(X.idd?` · ${sCap(X.res)}${X.ko?" · "+sW(X.ko):""}`:` · ${lot(X.known?"unkE":"unk")}`):"";
+    o.push(`${i+1}. ${X.t}${X.tag?" ("+X.tag+")":""}${pr}${X.s?" · "+X.s:""}${d}${tr}${X.spur?" · "+lot("track")+(X.spur.t?": "+X.spur.t:""):""}`)});
   return o}
 // ---------- Übergaben
 async function lootFrom(ctx,src){await loadGen("loot");await loadRes("loot");const B=loState(res("loot"));
-  B.ctx=ctx;B.inp={fs:null,ort:null,st:null,terr:null};B.kat=[null,null,null,null,null,null];B.on=[0,0,0,0,0,0];B.open={};B.src=src;B.draws={};saveRes("loot");go("loot")}
+  B.ctx=ctx;B.mode=ctx.mode||"fund";B.inp=loEmpty();B.kat=[null,null,null,null,null,null];B.on=[0,0,0,0,0,0];B.open={};B.id={};B.src=src;B.draws={};saveRes("loot");go("loot")}
 async function lootFromHere(b){const id=S.cur,g=GENS.find(x=>x.id===id),D=GD[id],rs=res(id);let C=null;
   try{C=id==="ruine"?ruCore(D,ruState(rs)):id==="hoehle"?hoCore(D,hoState(rs)):id==="gebaeude"?gbCore(D,gbState(rs)):id==="natur"?wBuild(D,wState(rs)):null}catch(e){C=null}
   const st=b.dataset.lst!=null?+b.dataset.lst:({ruine:2,hoehle:3,gebaeude:1,natur:1,riss:2,ritual:2}[id]||1);
   const name=C?(LANG==="de"?(C.nameDe||C.name||""):(C.nameEn||C.nameDe||C.name||"")):"";
-  lootFrom({st,fs:b.dataset.lf||"klein",terr:C&&C.T?C.T.nr:null},{gen:id,title:`${gTitle(g)}${name?" "+name:""}`,extra:b.dataset.ll?[b.dataset.ll]:[]})}
+  lootFrom({mode:"fund",st,gr:LOLF[b.dataset.lf]||"mittel",art:b.dataset.la||null,gen:LOGEN[id]||id,terr:C&&C.T?C.T.nr:null},{gen:id,title:`${gTitle(g)}${name?" "+name:""}`,extra:b.dataset.ll?[b.dataset.ll]:[]})}
 async function rsToLoot(){const id=S.cur,g=GENS.find(x=>x.id===id),D=GD[id],B=rsState(res(id)),C=rsBuild(D,B);
-  lootFrom({st:C.big?3:2,fs:null,riss:{ep:!!C.big},terr:C.T.nr},{gen:id,title:`${gTitle(g)} ${LANG==="de"?C.nameDe:C.nameEn}`,extra:[sW(C.obj)]})}
-
+  lootFrom({mode:"ding",st:C.big?3:2,riss:{ep:!!C.big},terr:C.T.nr},{gen:id,title:`${gTitle(g)} ${LANG==="de"?C.nameDe:C.nameEn}`,extra:[sW(C.obj)]})}
 async function eToLoot(){const id=S.cur,g=GENS.find(x=>x.id===id),D=GD[id],G=GD.gegner,E=eState(res(id));if(!G)return;
   const{groups}=eGroups(D,G,E),ort=D.orte[E.inp.ort]||{};
   const boss=!!E.inp.boss||groups.some(x=>x.boss||x.g.cls>=5),beast=groups.length&&groups.every(x=>["Raubtier","Monster"].includes(x.g.cr["Kategorie"]));
   const st={Natur:1,Wildnis:1,Stadt:1,Korridor:2,Raum:2,Etappe:2,Zweitweltriss:boss?3:2,"Nebenhöhle":3,"Haupthöhle":3,Untertiefe:4}[ort.de]||1;
+  const gen={Natur:"wildnis",Wildnis:"wildnis",Stadt:"siedlung",Korridor:"ruine",Raum:"ruine",Etappe:"ruine",Zweitweltriss:"riss","Nebenhöhle":"hoehle","Haupthöhle":"hoehle",Untertiefe:"hoehle"}[ort.de]||null;
   const name=groups.map(x=>`${x.n}× ${x.g.title||gN(x.g.cr)}`).join(" · ");
-  lootFrom({st,fs:boss?"boss":beast?"tier":"person",terr:null},{gen:id,title:`${gTitle(g)}: ${name}`,extra:[eW(D,ort)].filter(Boolean)})}
-// Check-Spalte der Rast-Aktionen und Zeitangaben der Altvölker stehen in den Stammtabellen nur deutsch (20.11.2026)
-const RAPR_EN={"je nach Fähigkeit":"depends on the ability","je nach Gegenstand":"depends on the item","wählbar":"any","keine":"none","Probenfolge":"sequence of checks"};
-const raPr=x=>LANG==="de"||!x?x:(RAPR_EN[x]||x);
-const ALTZ_EN={"uralt":"ancient","alt":"old","vergangen":"bygone","noch mächtig":"still powerful","Zeitalter der Drachen":"age of dragons","bis":"until","fiel vor":"fell","Jahren":"years ago","n. O.":"A.O."};
-const altZeit=x=>{if(LANG==="de"||!x)return x;let s=String(x);for(const[k,v]of Object.entries(ALTZ_EN).sort((a,b)=>b[0].length-a[0].length))s=s.split(k).join(v);return s};
+  lootFrom({mode:"fund",st,gf:boss?"boss":beast?"tiere":"personen",gen,terr:null},{gen:id,title:`${gTitle(g)}: ${name}`,extra:[eW(D,ort)].filter(Boolean)})}
+async function siedlungToLaden(k){const id=S.cur,g=GENS.find(x=>x.id===id),D=GD[id],Sx=sState(res(id)),r=sBuild(D,Sx),M=r.market||{};let city="";try{city=brCtxS(D,r).city||""}catch(e){}
+  lootFrom({mode:"laden",laden:k,ml:M.ml,sp:M.sp||0,bm:M.bm||0,terr:r.C&&r.C.T?r.C.T.nr:null},{gen:id,title:`${gTitle(g)} ${city}`.trim(),extra:[`${lot("ml")} ${M.ml}`]})}
 // ================= RAST (Stammtabelle Rast, dazu Territorien, Biome, Wetter, Fraktionen) =================
 // Martin 01.11.2026 (Neuordnung_Generatoren_Martin.md): Die Rast ist ein eigener Spielabschnitt. Viel Interaktion der Spieler untereinander –
 // das Enigma füttert nur an und schmückt aus. Störung nur bei behelfsmäßiger Rast (10 %), davon 20 % Kampf. Wetter nur Wildnis und Karawane,
@@ -5560,6 +5623,8 @@ document.addEventListener("click",ev=>{
     if(b.id==="regen"){B.draws={};B.dream=false;saveRes(S.cur);renderGen();return}
   }
   if(rs&&GD[S.cur].loot){const B=loState(rs);
+    if(ds.lomode){B.mode=ds.lomode;B.kat=[null,null,null,null,null,null];B.on=[0,0,0,0,0,0];B.open={};B.id={};for(const key of Object.keys(B.draws))if(key[0]==="t"||key.startsWith("p:"))delete B.draws[key];saveRes(S.cur);renderGen();return}
+    if(ds.loid!=null){const i=+ds.loid,v=B.draws["t"+i+":fa"];if(B.id[i]!=null&&B.id[i]===v)delete B.id[i];else B.id[i]=v;saveRes(S.cur);renderGen();return}
     if(ds.loadd!=null){B.on[+ds.loadd]=1;saveRes(S.cur);renderGen();return}
     if(ds.loop!=null){B.open[ds.loop]=B.open[ds.loop]?0:1;saveRes(S.cur);renderGen();return}
     if(ds.loclr){B.src=null;B.ctx=null;saveRes(S.cur);renderGen();return}
@@ -5645,6 +5710,7 @@ document.addEventListener("click",ev=>{
     if(ds.sbrett!=null){siedlungToBrett();return}
     if(ds.srr==="brett:"){brS(Sx).draws={};saveRes(S.cur);renderGen();return}
     if(ds.smys!=null){siedlungToMystery(ds.smys);return}
+    if(ds.sladen!=null){siedlungToLaden(null);return}
     if(ds.stpr!=null){Sx.pr=Sx.pr||{};Sx.pr[ds.stpr]=1;saveRes(S.cur);renderGen();return}
     if(ds.snpc!=null){const tip=document.getElementById("pctip");if(eTouch&&ds.pc&&(!tip||tip.hidden||tip.dataset.k!==ds.pc)){pcTip(b);return}pcTip(null);siedlungToNpc(ds.snpc);return}
     if(ds.schase!=null){siedlungToChase(ds.schase);return}
@@ -5727,8 +5793,7 @@ document.addEventListener("change",ev=>{
     for(const key of Object.keys(N.draws))if(drop.some(d=>key.startsWith(d)))delete N.draws[key];
     saveRes(S.cur);renderGen();return}
   if(e.dataset.loinp!=null){const B=loState(res(S.cur)),k=e.dataset.loinp,v=e.value===""?null:e.value;B.inp[k]=v;
-    if(k==="fs"){delete B.draws["p:p"];delete B.draws["p:n"]}if(k==="ort"&&v!=null)B.inp.st=null;saveRes(S.cur);renderGen();return}
-  if(e.dataset.lolv!=null){const B=loState(res(S.cur)),i=+e.dataset.lolv;B.lv[i]=e.value||null;B.on[i]=1;for(const key of Object.keys(B.draws))if(key.startsWith(`t${i}:`))delete B.draws[key];saveRes(S.cur);renderGen();return}
+    if(k==="gr"||k==="art"||k==="laden"||k==="ort"){for(const key of Object.keys(B.draws))if(key[0]==="t"||key.startsWith("p:"))delete B.draws[key]}if((k==="ort"||k==="ml")&&v!=null)B.inp.st=null;saveRes(S.cur);renderGen();return}
   if(e.dataset.lok!=null){const B=loState(res(S.cur)),i=+e.dataset.lok;B.kat[i]=e.value||null;if(!e.value)B.on[i]=1;for(const key of Object.keys(B.draws))if(key.startsWith(`t${i}:`))delete B.draws[key];saveRes(S.cur);renderGen();return}
   if(e.dataset.aminp!=null){const rs0=res(S.cur),B=amState(GD[S.cur]&&GD[S.cur].toolbox?tbState(rs0):rs0);B.inp[e.dataset.aminp]=e.value===""?null:e.value;saveRes(S.cur);renderGen();return}
   if(e.dataset.tbinp!=null){const B=tbState(res(S.cur)),k=e.dataset.tbinp,v=e.value===""?null:e.value;B.inp[k]=v;saveRes(S.cur);renderGen();return}
