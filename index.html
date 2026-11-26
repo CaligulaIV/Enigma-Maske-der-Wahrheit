@@ -361,7 +361,7 @@ body.efocus .wrap{max-width:none}
 .rdpos{font-weight:800;color:var(--muted);text-align:center}
 .rdname{border:none;background:none;text-align:left;cursor:pointer;font-weight:700;padding:2px 0;color:var(--ink);font-size:13.5px}
 .rdname:hover{color:var(--accent)}.rdflag{font-size:11px;color:var(--err);font-weight:600}
-.rdtw{display:flex;align-items:center;gap:2px}.rdtw .rdm{font-size:11px;color:var(--muted);font-weight:700}
+.rdtw{display:flex;align-items:center;gap:2px}.rdslot{font-size:11px;font-weight:600;color:var(--muted);border:1px solid var(--line,#ccc);border-radius:4px;padding:0 4px;margin-left:3px}.rdslot.sp{color:var(--accent);border-color:var(--accent)}.rdspm{font-size:15px}.rdtw .rdm{font-size:11px;color:var(--muted);font-weight:700}
 input.rdt{width:56px;padding:3px 5px;font-weight:700;text-align:center}
 input.rdhn{padding:3px 6px}
 .rdhp{display:grid;grid-template-columns:70px 52px auto 48px auto;gap:3px;align-items:center}
@@ -516,7 +516,7 @@ de:{appTitle:"Enigma-Werkzeuge",sessPh:"Sitzung (z. B. Sitzung 12 – Rostriff)"
  newDone:"Neue Sitzung – Kampagnenlisten und Generatoren bleiben erhalten",bkDone:"Sicherung gespeichert",bkErr:"Sichern nicht möglich",bkLoaded:"Sicherung geladen",bkWrong:"Das ist keine Sicherung der Enigma-Werkzeuge",
  toLogDone:"Ins Protokoll übernommen",stLocal:"nur in diesem Browser gespeichert",stCloud:"gespeichert (geräteübergreifend)",stSaved:"gespeichert",stFull:"Speicher voll – alte Einträge löschen",stLoad:"lädt…",reroll:"Neu würfeln",locale:"de-DE",
  eHeroes:"Helden",eLeft:"übrig: %n Punkte",eBig:"große Karte (wichtiger Kampf)",eTube:"Schlauchkarte",eLevel:"Heldenstufe",eDiff:"Schwierigkeit",eDiffT:"Punkte zum Budget, −4 bis +12, frei wählbar. Die Heldenstufe fließt hier ein (siehe Enigma's Guide).",eBoss:"Bosskampf",eMaxCls:"höchstens %c",eEndHint:"Fällt der Hauptgegner und bleiben nur schwache Gegner, beendet das Enigma den Kampf: Die Helden besiegen den Rest in einer kurzen Szene, oder der Rest flieht.",eMonFill:"%a: nur eines (junge: höchstens 3) im Kampf – hier ein Raubtier.",eRandGroup:"zufällig aus Gruppe",eBossT:"Höchste bezahlbare Klasse der Hauptfraktion als Boss, der Rest des Budgets als Unterstützung bis Threat",eBossTag:"Boss",ePlace:"Ort",eMain:"Hauptfraktion",eSide:"Nebenfraktion",eMinor:"Minderfraktion",eNone:"– keine –",eFocusT:"Vollbild: Navigation ausblenden",eFrom:"Aus",eAlso:"außerdem am Ort",eClear:"Verbindung zum Ort lösen",eSetting:"Schauplatz",eBudget:"Budget",ePts:"Punkte",eRoll:"Wurf",eZones:"Zonen",eShape:"Karte",eCover:"Deckung",eSpecial:"Besonderheit",eSplit:"Aufteilung",eWhere:"Lage",eWant:"Was die Gegner wollen",eDoing:"Tun",eForm:"Formation",eCirc:"Umstand",eProb:"Problem",eRel:"Beziehung",eHazard:"Umweltgefahr",eHz:"Gefahr",eEffect:"Wirkung",eExtent:"Ausdehnung",eOrigin:"Ursprung",eSense:"Geruch · Geräusch",eNoHz:"Keine Gefahr – nur Stimmung.",eDmg:"Sch.",eDmgT:"Schaden eintippen und Enter (negative Zahl heilt)",eP2Hint:"Fällt Health auf 0, beginnt Phase 2 (② neue Health, zusätzliche Skills, 2 Sofortaktionen).",eP2Start:"Phase 2! Neue Health, zusätzliche Skills und 2 Sofortaktionen.",toEnc:"⚔ Encounter erstellen",eBackT:"Zurück zum Ort (bleibt wie er war)",toEncOpenT:"Zum offenen Encounter dieses Ortes wechseln",toEncRow:"Encounter für diese Begegnung erstellen",toEncT:"Encounter mit den Fraktionen, Raubtieren und Gefahren dieses Ortes erstellen",gPhase2:"Phase 2",gP2Act:"Darf sofort %n Aktionen durchführen, die nicht an eine Phase gebunden sind.",gP2Trig:"Wenn Health das erste Mal auf 0 fällt:",gP2New:"neue Health",gP2En:"Energie wieder voll",gP2Skills:"zusätzliche Skills",gRole:"Rolle", gAdd:"+ Gegner",gHint:"Kreatur und Klasse wählen oder auf „zufällig“ lassen. ⟳ würfelt einzelne Werte neu.",gRerollAll:"Diesen Gegner neu würfeln",
- gLook:"Merkmal",gSmell:"Geruch",gSound:"Geräusch",gStd:"Standard",gResArm:"enthält Rüstung %a (%t)",gPassive:"Fraktionspassiv",gDefense:"Verteidigung",gAttack:"Angriff",gSpecial:"Spezial",gEnergy:"Energie",
+ gLook:"Merkmal",gSmell:"Geruch",gSound:"Geräusch",gMove:"Bewegung",gStd:"Standard",gResArm:"enthält Rüstung %a (%t)",gPassive:"Fraktionspassiv",gDefense:"Verteidigung",gAttack:"Angriff",gSpecial:"Spezial",gEnergy:"Energie",
  gItem:"sichtbar als",gEPass:"Energiepassiv",gEPassT:"Nur aktiv, wenn der zugehörige Skill diese Runde deklariert wurde.",gSwapCls:"%a gibt es nur als %b – Klasse %c wird zu %b.",gSwapCre:"%a stellen in %c keine Kämpfer – hier: %b.",
  gNoCls:"%a gibt es nicht als %c – stattdessen %b.",gCat_Raubtier:"Raubtiere",gCat_Monster:"Monster",gCat_Abenteurer:"Abenteurer",gCat_Heimatfraktion:"Heimatfraktionen",gCat_Sonderfraktion:"Sonderfraktionen"},
 en:{appTitle:"Enigma Tools",sessPh:"Session (e.g. Session 12 – Rustreef)",fate:"Fate",fateGroup:"Fate",chooseGen:"Choose a tool…",
@@ -549,7 +549,7 @@ en:{appTitle:"Enigma Tools",sessPh:"Session (e.g. Session 12 – Rustreef)",fate
  newDone:"New session – campaign lists and generators are kept",bkDone:"Backup saved",bkErr:"Backup not possible",bkLoaded:"Backup restored",bkWrong:"This is not an Enigma Tools backup",
  toLogDone:"Added to log",stLocal:"saved in this browser only",stCloud:"saved (across devices)",stSaved:"saved",stFull:"Storage full – delete old entries",stLoad:"loading…",reroll:"Reroll",locale:"en-GB",
  eHeroes:"Heroes",eLeft:"left over: %n points",eBig:"large map (important fight)",eTube:"tube map",eLevel:"Hero level",eDiff:"Difficulty",eDiffT:"Points added to the budget, −4 to +12, any value. The hero level is included here (see the Enigma's Guide).",eBoss:"Boss fight",eMaxCls:"at most %c",eEndHint:"When the main enemy falls and only weak enemies remain, the enigma ends the fight: the heroes defeat the rest in a short scene, or the rest flees.",eMonFill:"%a: only one in a fight (young ones: at most 3) – a predator instead.",eRandGroup:"random from group",eBossT:"Highest affordable class of the main faction as the boss, the rest of the budget as support up to Threat",eBossTag:"Boss",ePlace:"Place",eMain:"Main faction",eSide:"Side faction",eMinor:"Minor faction",eNone:"– none –",eFocusT:"Full screen: hide navigation",eFrom:"From",eAlso:"also here",eClear:"Unlink from the place",eSetting:"Setting",eBudget:"Budget",ePts:"points",eRoll:"roll",eZones:"zones",eShape:"Map",eCover:"Cover",eSpecial:"Special",eSplit:"Layout",eWhere:"Position",eWant:"What the enemies want",eDoing:"Doing",eForm:"Formation",eCirc:"Circumstance",eProb:"Problem",eRel:"Relation",eHazard:"Environmental hazard",eHz:"Hazard",eEffect:"Effect",eExtent:"Extent",eOrigin:"Origin",eSense:"Smell · sound",eNoHz:"No hazard – atmosphere only.",eDmg:"dmg",eDmgT:"Type damage and press Enter (a negative number heals)",eP2Hint:"When health drops to 0, phase 2 begins (② new health, extra skills, 2 immediate actions).",eP2Start:"Phase 2! New health, extra skills, and 2 immediate actions.",toEnc:"⚔ Create encounter",eBackT:"Back to the place (unchanged)",toEncOpenT:"Switch to the open encounter of this place",toEncRow:"Create an encounter for this encounter point",toEncT:"Create an encounter with the factions, predators, and hazards of this place",gPhase2:"Phase 2",gP2Act:"May immediately take %n actions that are not bound to a phase.",gP2Trig:"When its health drops to 0 for the first time:",gP2New:"new health",gP2En:"energy refilled",gP2Skills:"additional skills",gRole:"Role",gP2HintEN:"The enemy repositions. Add an event or obstacle (reinforcements, a collapsing ceiling, a ritual …). It may also flee to deliver a better fight at the end.", gAdd:"+ Enemy",gHint:"Choose creature and class, or leave them on “random”. ⟳ rerolls single values.",gRerollAll:"Reroll this enemy",
- gLook:"Feature",gSmell:"Smell",gSound:"Sound",gStd:"Standard",gResArm:"includes armor %a (%t)",gPassive:"Faction passive",gDefense:"Defense",gAttack:"Attack",gSpecial:"Special",gEnergy:"Energy",
+ gLook:"Feature",gSmell:"Smell",gSound:"Sound",gMove:"Movement",gStd:"Standard",gResArm:"includes armor %a (%t)",gPassive:"Faction passive",gDefense:"Defense",gAttack:"Attack",gSpecial:"Special",gEnergy:"Energy",
  gItem:"seen as",gEPass:"Energy passive",gEPassT:"Only active if its skill was declared this round.",gSwapCls:"%a only exist as %b – class %c becomes %b.",gSwapCre:"%a have no fighters of class %c – here: %b.",
  gNoCls:"%a do not exist as %c – %b instead.",gCat_Raubtier:"Predators",gCat_Monster:"Monsters",gCat_Abenteurer:"Adventurers",gCat_Heimatfraktion:"Home factions",gCat_Sonderfraktion:"Special factions"}};
 let LANG="de";
@@ -1263,7 +1263,8 @@ const RDI18N={
   selT:"Gegner auswählen – danach deklariert ein Klick auf einen Skill seiner Karte diesen Skill",dist:"abgelenkt: zuletzt im Timing",heroName:"Name",del:"Held entfernen",
   r1:"Runde 1: Jede Kreatur darf einen freien, plötzlichen Rückzugs- oder Verfolgungs-Check machen, höchstes Timing zuerst.",
   rescue:"Rundenende: Rettungswürfe gegen aktive Zustände; misslungene dürfen einmal wiederholt werden. In der ersten Runde eines Zustands muss der Rettungswurf die Stärke der Quelle übertreffen.",
-  hint:"Timing der Helden eintragen; für die Gegner eintragen oder „Gegner Timing-Wurf“. Einen Gegner in der Liste anklicken, dann auf seiner Karte Skills anklicken – sie stehen dann in seiner Zeile. Klick auf einen deklarierten Skill nimmt ihn zurück.",
+  hint:"Timing der Helden eintragen; für die Gegner eintragen oder „Gegner Timing-Wurf“. Einen Gegner in der Liste anklicken, dann auf seiner Karte Skills anklicken – sie stehen dann in seiner Zeile. Klick auf einen deklarierten Skill nimmt ihn zurück. Gegner mit mehreren Timing-Slots stehen mehrfach in der Liste (eigenes Timing, eigene Aktionen; Health und Zustände gemeinsam); die Sonderaktion steht bei der Ausführung immer oben.",
+  slot:"Slot %n",sp:"Sonderaktion",spT:"Sonderaktion: immer zuerst im Timing, wird darum zuletzt deklariert – gleicht eine schlechte Timing-Runde aus.",actSl:"%s Timing-Slots mit je %a Aktionen (eigenes Timing je Slot)",actX:" + %x Sonderaktion (immer zuerst im Timing, zuletzt deklariert)",act1:"%a Aktionen",
   rs:"Rettungswurf",stUp:"Stufe höher",stDown:"Stufe niedriger (auf Stufe 0 endet der Zustand)",undecl:"Deklaration zurücknehmen",tie:"Gleichstand: Helden zuerst",order:"Reihenfolge",none:"–"},
  en:{title:"Round",round:"Round %n",hero:"Hero",addHero:"+ Hero",roll:"🎲 Enemy timing roll",rollT:"Rolls D20 + timing for every enemy whose field is empty or was rolled. Values you entered stay. A rolled 20 means timing 0.",
   sur:"surprised",surT:"Surprised enemies do not add their timing-value (D20 only).",next:"New round",nextT:"Clears timing and declarations. Health and conditions stay.",
@@ -1272,7 +1273,8 @@ const RDI18N={
   selT:"Select the enemy – then a click on a skill on its card declares that skill",dist:"distracted: last in timing",heroName:"Name",del:"Remove hero",
   r1:"Round 1: every creature may make a free and sudden retreat- or pursuit-check, highest timing first.",
   rescue:"End of round: rescue-checks against active conditions; failed ones may be repeated once. In a condition's first round the rescue-check must beat the strength of the source.",
-  hint:"Enter the heroes' timing; enter the enemies' too or use “Enemy timing roll”. Click an enemy in the list, then click skills on its card – they appear in its row. Click a declared skill to take it back.",
+  hint:"Enter the heroes' timing; enter the enemies' too or use “Enemy timing roll”. Click an enemy in the list, then click skills on its card – they appear in its row. Click a declared skill to take it back. Enemies with several timing slots appear once per slot (own timing, own actions; health and conditions shared); the special action is always on top when executing.",
+  slot:"Slot %n",sp:"Special action",spT:"Special action: always first in the timing order, therefore declared last – it makes up for a bad timing round.",actSl:"%s timing slots with %a actions each (own timing per slot)",actX:" + %x special action (always first in timing, declared last)",act1:"%a actions",
   rs:"Rescue-check",stUp:"Stage up",stDown:"Stage down (at stage 0 the condition ends)",undecl:"Take back the declaration",tie:"Tie: heroes first",order:"Order",none:"–"}};
 const rdt=k=>{const v=RDI18N[LANG][k];return v===undefined?RDI18N.de[k]:v};
 const RDATTR={Strength:"Str",Dexterity:"Dex",Constitution:"Con",Intuition:"Itu",Intelligence:"Int"};
@@ -1289,7 +1291,7 @@ function rdEnemies(G,E,groups){const L=[];
 // Andere Gegner (neuer Encounter): Schlüssel, die es nicht mehr gibt, fallen weg; ganz neue Aufstellung = Runde 1
 function rdSync(R,groups,ens){const sig=groups.map(x=>(x.g.cr&&x.g.cr["Name EN"])+":"+x.g.cls).join("|");
   if(R.sig!==sig){if(R.sig!=null)rdClear(R,true);R.sig=sig}
-  const ok=new Set(ens.map(e=>"e:"+e.key).concat(R.heroes.map(h=>"h:"+h.id)));
+  const ok=new Set(ens.map(e=>"e:"+e.key).concat(rdUnits(ens).map(u=>"e:"+u.key)).concat(R.heroes.map(h=>"h:"+h.id)));
   for(const m of [R.t,R.auto,R.nat])for(const k of Object.keys(m))if(!ok.has(k))delete m[k];
   for(const m of [R.d,R.c])for(const k of Object.keys(m))if(!ok.has("e:"+k))delete m[k];
   if(R.sel&&!ok.has("e:"+R.sel))R.sel=null}
@@ -1297,26 +1299,39 @@ function rdCond(D,k,st){return(D.cond||[]).find(c=>c.k===k&&c.st===st)||null}
 const rdCMax=(D,k)=>Math.max(1,...(D.cond||[]).filter(c=>c.k===k).map(c=>c.st));
 const rdCN=c=>c?(LANG==="de"?(c.de||c.en):(c.en||c.de)):"";
 function rdOrder(R,ens){
-  const rows=R.heroes.map((h,i)=>({h,key:"h:"+h.id,name:h.name||rdt("hero")+" "+(i+1)})).concat(ens.map(e=>({e,key:"e:"+e.key,name:e.name})));
+  const rows=R.heroes.map((h,i)=>({h,key:"h:"+h.id,name:h.name||rdt("hero")+" "+(i+1)})).concat(rdUnits(ens).map(u=>({e:u.e,u,key:"e:"+u.key,name:u.e.name+(u.lab?" · "+u.lab:"")})));
   rows.forEach(r=>{const v=R.t[r.key];r.v=v==null||v===""?null:+v;r.dist=!!(r.e&&(R.c[r.e.key]||[]).some(c=>c.k==="distracted"));r.dead=!!(r.e&&r.e.dead)});
-  const sv=r=>r.dead?-3e9:r.dist?-2e9+(r.v||0):r.v==null?-1e9:r.v;
+  const sv=r=>r.dead?-3e9:r.u&&r.u.sp?3e9:r.dist?-2e9+(r.v||0):r.v==null?-1e9:r.v;
   rows.sort((a,b)=>sv(b)-sv(a)||(b.h?1:0)-(a.h?1:0)||(a.e&&b.e?b.e.tim-a.e.tim:0));
   if(R.mode==="decl"){const live=rows.filter(r=>!r.dead).reverse();return live.concat(rows.filter(r=>r.dead))}
   return rows}
 // Skills eines Gegners (Standard, Verteidigung, Angriff, Spezial, Energie; in Phase 2 dazu die Phase-2-Skills)
-function rdSkills(g,ph){const a=g.std.map(s=>({n:s.n,v:s.val}));
+function rdSkills(g,ph){const a=g.std.map(s=>({n:s.n,v:s.val}));((GD.gegner&&GD.gegner.movement)||[]).filter(m=>m.decl).forEach(m=>a.push({n:m.n,v:g.st.move}));
   [[g.sk.def,g.v.def],[g.sk.att,g.v.atk],[g.sk.spec,g.v.spec],[g.sk.e1,g.v.en],[g.sk.e2,g.v.en]].forEach(([s,v])=>{if(s)a.push({n:gS(s,"name"),v})});
   if(ph===2&&g.p2)g.p2.skills.forEach(s=>a.push({n:gS(s.s,"name"),v:s.slot==="spec"?g.v.spec:(s.slot[0]==="e"?g.v.en:null)}));
   return a}
+// Timing-Slots (Regeln_v8, Martin 25.11.2026): „2/2“ = zwei Timing-Würfe mit je 2 Aktionen, „+1“ = Sonderaktion (immer zuerst im Timing, zuletzt deklariert)
+function rdSlotInfo(g){const K=((GD.gegner||{}).classes||[])[g.cls-1]||{};const a=String(g.st.actions||K.actions||"1"),p=a.split("+"),parts=p[0].split("/").map(n=>+n||1);
+  return{n:K.slots||parts.length,acts:K.sact||parts[0],extra:K.extra!=null?+K.extra:(+p[1]||0)}}
+function rdUnits(ens){const U=[];for(const e of ens){const I=rdSlotInfo(e.x.g);
+  for(let s=0;s<I.n;s++)U.push({e,s,key:I.n>1?e.key+"~"+(s+1):e.key,acts:I.acts,lab:I.n>1?rdt("slot").replace("%n",s+1):""});
+  if(I.extra)U.push({e,s:"x",key:e.key+"~x",acts:I.extra,sp:true,lab:rdt("sp")})}
+  return U}
+const rdEK=k=>String(k).split("~")[0];
+function rdActTip(g){const I=rdSlotInfo(g);return(I.n>1?rdt("actSl").replace("%s",I.n).replace("%a",I.acts):rdt("act1").replace("%a",I.acts))+(I.extra?rdt("actX").replace("%x",I.extra):"")}
+// Bewegungszeile (Regeln_v8, Blatt Bewegung = Buch 1 Table 1.2.3): Sprint, Pursuit, Retreat deklarierbar mit dem Movement-Wert
+const eMoveChips=(g,gi)=>{const M=(GD.gegner&&GD.gegner.movement)||[];if(!M.length)return "";
+  return `<div class="echips estd emove"><span class="estl">${esc(t("gMove"))}</span>${M.map(m=>{const tx=LANG==="de"?(m.text_de||m.text):m.text,ph=LANG==="de"?m.ph_de:m.ph_en,tip=m.n+" ("+ph+"): "+tx;
+    return m.decl?`<span class="chip fix edecl" data-edecl="${esc(gi+"|"+m.n+"|"+g.st.move)}" data-tip="${esc(tip)}">${esc(m.n)} <b>${g.st.move}</b></span>`:`<span class="chip pas" data-tip="${esc(tip)}">${esc(m.n)}</span>`}).join("")}</div>`};
 // Aktionen „2/2+1“: größter Wert der Teile (2+1 = 3) als Obergrenze für die Warnung
 const rdActMax=a=>Math.max(1,...String(a||"1").split("/").map(x=>x.split("+").reduce((s,n)=>s+(+n||0),0)));
-function rdRoll(R,ens){for(const e of ens){if(e.dead)continue;const k="e:"+e.key;if(R.t[k]!=null&&R.t[k]!==""&&!R.auto[k])continue;
+function rdRoll(R,ens){for(const u of rdUnits(ens)){const e=u.e;if(e.dead||u.sp)continue;const k="e:"+u.key;if(R.t[k]!=null&&R.t[k]!==""&&!R.auto[k])continue;
   const d=1+Math.floor(rand()*20);R.t[k]=d===20?0:d+(R.sur?0:e.tim);R.auto[k]=1;if(d===20)R.nat[k]=1;else delete R.nat[k]}}
 function rdDeclare(R,key,n,v){(R.d[key]=R.d[key]||[]).push({n,v:v===""||v==null?null:+v})}
 // Klick auf einen Skill-Chip einer Gegnerkarte: dem ausgewählten Gegner dieser Gruppe zuordnen (sonst dem ersten kampffähigen der Gruppe)
 function rdChip(rs,spec){const D=GD.encounter,G=GD.gegner,E=eState(rs);if(!D||!G||(E.col||{}).rd)return false;
   const[gi,n,v]=spec.split("|");const{groups}=eGroups(D,G,E);const ens=rdEnemies(G,E,groups);const R=rdState(E);rdSync(R,groups,ens);
-  let tg=R.sel&&R.sel.startsWith(gi+"#")?R.sel:null;if(!tg){const e=ens.find(e=>String(e.x.gi)===gi&&!e.dead)||ens.find(e=>String(e.x.gi)===gi);if(!e)return false;tg=e.key;R.sel=tg}
+  let tg=R.sel&&R.sel.startsWith(gi+"#")?R.sel:null;if(!tg){const e=ens.find(e=>String(e.x.gi)===gi&&!e.dead)||ens.find(e=>String(e.x.gi)===gi);if(!e)return false;tg=rdUnits([e])[0].key;R.sel=tg}
   rdDeclare(R,tg,n,v);return true}
 function rdHTML(D,G,E,groups){
   const R=rdState(E),ens=rdEnemies(G,E,groups);rdSync(R,groups,ens);const rows=rdOrder(R,ens);
@@ -1334,22 +1349,22 @@ function rdHTML(D,G,E,groups){
       <input type="text" class="rdhn" data-rdhn="${esc(r.h.id)}" value="${esc(r.h.name)}" placeholder="${esc(r.name)}" title="${esc(rdt("heroName"))}">
       <input type="number" class="rdt" data-rdt="${esc(r.key)}" value="${tv}" placeholder="Tim" title="${esc(rdt("timT"))}">
       <button class="icon" data-rdhdel="${esc(r.h.id)}" title="${esc(rdt("del"))}">✕</button></div>`;continue}
-    const e=r.e,g=e.x.g,sel=R.sel===e.key,w=Math.max(0,Math.min(100,e.cur/e.mx*100));
-    const dl=R.d[e.key]||[],cs=R.c[e.key]||[];
+    const e=r.e,u=r.u,uk=u.key,g=e.x.g,sel=R.sel===uk,w=Math.max(0,Math.min(100,e.cur/e.mx*100));
+    const dl=R.d[uk]||[],cs=R.c[e.key]||[];
     const opts=`<option value="">${esc(rdt("addSk"))}</option>`+rdSkills(g,e.ph).map((s,i)=>`<option value="${i}">${esc(s.n)}${s.v!=null?" "+s.v:""}</option>`).join("");
     body+=`<div class="rdr rde${sel?" sel":""}${e.dead?" dead":""}"><span class="rdpos">${pos}</span>
-      <button class="rdname" data-rdsel="${esc(e.key)}" title="${esc(rdt("selT"))}">${esc(e.name)}${e.ph===2?" ②":""}<span class="ss"> · ${esc(ECLS[g.cls-1])} · Tim ${e.tim}</span>${r.dist?` <span class="rdflag">${esc(rdt("dist"))}</span>`:""}</button>
-      <span class="rdtw"><input type="number" class="rdt" data-rdt="${esc(r.key)}" value="${tv}" placeholder="Tim" title="${esc(rdt("timT"))}">${R.nat[r.key]?`<span class="rdm" title="${esc(rdt("nat20"))}">20!</span>`:R.auto[r.key]?`<span class="rdm" title="${esc(rdt("auto"))}">🎲</span>`:""}</span>
+      <button class="rdname" data-rdsel="${esc(uk)}" title="${esc(rdt("selT"))}">${esc(e.name)}${u.lab?` <span class="rdslot${u.sp?" sp":""}"${u.sp?` title="${esc(rdt("spT"))}"`:""}>${esc(u.lab)}</span>`:""}${e.ph===2?" ②":""}<span class="ss"> · ${esc(ECLS[g.cls-1])} · Tim ${e.tim}</span>${r.dist?` <span class="rdflag">${esc(rdt("dist"))}</span>`:""}</button>
+      ${u.sp?`<span class="rdtw"><span class="rdm rdspm" title="${esc(rdt("spT"))}">⚡</span></span>`:`<span class="rdtw"><input type="number" class="rdt" data-rdt="${esc(r.key)}" value="${tv}" placeholder="Tim" title="${esc(rdt("timT"))}">${R.nat[r.key]?`<span class="rdm" title="${esc(rdt("nat20"))}">20!</span>`:R.auto[r.key]?`<span class="rdm" title="${esc(rdt("auto"))}">🎲</span>`:""}</span>`}
       <span class="rdhp"><span class="hb${w<34?" lo":""}"><span style="width:${w}%"></span></span><span class="hv"><b>${e.cur}</b>/${e.mx}</span><button class="icon" data-ehp="${e.key}:1" title="−1">−</button><input type="number" class="hd" data-ehpin="${e.key}" placeholder="${t("eDmg")}" title="${t("eDmgT")}"><button class="icon" data-ehp="${e.key}:-1" title="+1">+</button></span>
-      <div class="rdsub"><span class="rdd"><span class="estl${dl.length>rdActMax(g.st.actions)?" over":""}">${esc(rdt("acts"))} ${dl.length}/${esc(g.st.actions)}</span>${dl.map((s,i)=>`<button class="chip rdchip" data-rddel="${esc(e.key)}|${i}" title="${esc(rdt("undecl"))}">${esc(s.n)}${s.v!=null?` <b>${s.v}</b>`:""} ✕</button>`).join("")}<select class="rdsel" data-rdsk="${esc(e.key)}">${opts}</select></span>
+      <div class="rdsub"><span class="rdd"><span class="estl${dl.length>u.acts?" over":""}" title="${esc(rdActTip(g))}">${esc(rdt("acts"))} ${dl.length}/${u.acts}</span>${dl.map((s,i)=>`<button class="chip rdchip" data-rddel="${esc(uk)}|${i}" title="${esc(rdt("undecl"))}">${esc(s.n)}${s.v!=null?` <b>${s.v}</b>`:""} ✕</button>`).join("")}<select class="rdsel" data-rdsk="${esc(uk)}">${opts}</select></span>
       <span class="rdc">${cs.map((c,i)=>{const z=rdCond(D,c.k,c.st);if(!z)return "";const rs=LANG==="de"?z.rsde:z.rs;
         return `<span class="chip rdcond" data-tip="${esc(rdCN(z)+" – "+(LANG==="de"?z.effde:z.eff)+(rs&&rs!=="—"?"\n"+rdt("rs")+": "+rs:""))}"><button class="icon" data-rdcs="${esc(e.key)}|${i}|-1" title="${esc(rdt("stDown"))}">−</button>${esc(rdCN(z))}<button class="icon" data-rdcs="${esc(e.key)}|${i}|1" title="${esc(rdt("stUp"))}">+</button></span>`}).join("")}
       <select class="rdsel" data-rdcadd="${esc(e.key)}">${condOpts()}</select></span></div></div>`}
   body+=`</div><div class="sid">${R.n===1?esc(rdt("r1"))+" ":""}${esc(rdt("rescue"))} ${esc(rdt("tie"))}.</div><div class="hint">${esc(rdt("hint"))}</div>`;
   return eCard(E,"rd",esc(rdt("title")),body,null,"","rdcard")}
-function rdText(D,G,E,groups){const R=E.rd;if(!R)return[];const ens=rdEnemies(G,E,groups);const rows=rdOrder(R,ens).filter(r=>r.v!=null||(r.e&&((R.d[r.e.key]||[]).length||(R.c[r.e.key]||[]).length)));
+function rdText(D,G,E,groups){const R=E.rd;if(!R)return[];const ens=rdEnemies(G,E,groups);const rows=rdOrder(R,ens).filter(r=>r.v!=null||(r.e&&((R.d[r.u.key]||[]).length||(R.c[r.e.key]||[]).length)));
   if(!rows.length)return[];const L=[`${rdt("round").replace("%n",R.n)} – ${rdt("order")} (${rdt(R.mode==="decl"?"decl":"act")}):`];
-  rows.forEach((r,i)=>{const dl=r.e?(R.d[r.e.key]||[]).map(s=>s.n+(s.v!=null?" "+s.v:"")):[],cs=r.e?(R.c[r.e.key]||[]).map(c=>rdCN(rdCond(D,c.k,c.st))):[];
+  rows.forEach((r,i)=>{const dl=r.e?(R.d[r.u.key]||[]).map(s=>s.n+(s.v!=null?" "+s.v:"")):[],cs=r.e?(R.c[r.e.key]||[]).map(c=>rdCN(rdCond(D,c.k,c.st))):[];
     L.push(`   ${i+1}. ${r.name} (${r.v==null?rdt("none"):r.v})${r.e?` · Health ${r.e.cur}/${r.e.mx}`:""}${dl.length?" · "+dl.join(", "):""}${cs.length?" · "+cs.join(", "):""}`)});
   return L}
 function eHTML(D,rs){
@@ -1405,9 +1420,9 @@ function eHTML(D,rs){
        <select data-eov="cls:${x.gi}" title="${eit("csel")}"><option value="">🎲 ${ECLS[g.cls-1]}</option>${ECLS.map((c,i)=>`<option value="${i+1}" ${ov.cls===i+1?"selected":""}>${c}</option>`).join("")}</select></div>
      <div class="stags">${x.boss?`<span class="stag eboss">${t("eBossTag")}</span>`:""}<span class="stag">${esc(ECLS[g.cls-1])}</span><span class="stag">${esc(gN(cr))}${subTxt?" · "+esc(subTxt):""}</span><span class="stag">${x.p} ${x.p===1?eit("pt1"):t("ePts")}</span></div>
      <div class="gnm"><div class="gnmh"><b>${esc(gName(g))}</b><span class="chip pas esense" data-tip="${esc(eit("smellOf")+": "+(gTxt(cr,"Geruch EN","Geruch DE")||"–")+"\n"+eit("soundOf")+": "+(gTxt(cr,"Geräusch EN","Geräusch DE")||"–"))}">👃 👂</span></div><div class="gdesc">${esc(gLookItems(g).map(sCap).join(" · "))}</div></div>
-     <div class="estat"><span class="chip pas" data-tip="${esc(t("gResArm").replace("%a",g.st.armor).replace("%t",g.st.armorType||"–"))}">Res <b>${g.st.resist}</b></span><span>Gr <b>${g.st.grounding}</b></span><span>Fight <b>${g.st.fight}</b></span><span>Tim <b>${g.st.timing}</b></span><span>Mov <b>${g.st.move}</b></span><span>Act <b>${esc(g.st.actions)}</b></span><span>En <b>${g.st.energy}</b></span></div>
+     <div class="estat"><span class="chip pas" data-tip="${esc(t("gResArm").replace("%a",g.st.armor).replace("%t",g.st.armorType||"–"))}">Res <b>${g.st.resist}</b></span><span>Gr <b>${g.st.grounding}</b></span><span>Fight <b>${g.st.fight}</b></span><span>Tim <b>${g.st.timing}</b></span><span>Mov <b>${g.st.move}</b></span><span class="chip pas" data-tip="${esc(rdActTip(g))}">Act <b>${esc(g.st.actions)}</b></span><span>En <b>${g.st.energy}</b></span></div>
      <div class="estat eattr">${GATTR.map(a=>`<span class="chip pas" data-tip="${esc(a+": "+g.A[a]+" · "+ggt("mod")+" "+ggSign(gMod(G,g.A[a])))}">${RDATTR[a]||a} <b>${g.A[a]}</b> <i>${ggSign(gMod(G,g.A[a]))}</i></span>`).join("")}</div>
-     ${eStdChips(g,x.gi)}${g.passive?`<div class="epass2"><span class="estl">${t("gPassive")}</span> ${esc(g.passive)}</div>`:""}<div class="echips">
+     ${eStdChips(g,x.gi)}${eMoveChips(g,x.gi)}${g.passive?`<div class="epass2"><span class="estl">${t("gPassive")}</span> ${esc(g.passive)}</div>`:""}<div class="echips">
       ${eTipSkill(sk.def,g.v.def,t("gDefense"),0,x.gi)}${eTipSkill(sk.att,g.v.atk,t("gAttack"),0,x.gi)}${eTipSkill(sk.spec,g.v.spec,t("gSpecial"),0,x.gi)}${eTipSkill(sk.e1,g.v.en,t("gEnergy"),0,x.gi)}${eTipSkill(sk.e2,g.v.en,t("gEnergy")+" 2",0,x.gi)}
      </div>${gEPassBox(sk.e1)}${gEPassBox(sk.e2)}<div class="ehp${x.n>4?" many":""}">`;
     for(let k=0;k<x.n;k++){
@@ -5690,7 +5705,7 @@ document.addEventListener("change",ev=>{
       setTimeout(()=>{const a=document.activeElement;if(a&&a.closest&&a.closest(".rdlist"))rdPend=true;else renderGen()},0);return}
     if(e.dataset.rdhn!=null){const h=R.heroes.find(x=>x.id===e.dataset.rdhn);if(h)h.name=e.value.trim();saveRes(S.cur);
       setTimeout(()=>{const a=document.activeElement;if(a&&a.closest&&a.closest(".rdlist"))rdPend=true;else renderGen()},0);return}
-    if(e.dataset.rdsk!=null){const k=e.dataset.rdsk,{groups}=eGroups(GD[S.cur],GD.gegner,E),en=rdEnemies(GD.gegner,E,groups).find(x=>x.key===k);
+    if(e.dataset.rdsk!=null){const k=e.dataset.rdsk,{groups}=eGroups(GD[S.cur],GD.gegner,E),en=rdEnemies(GD.gegner,E,groups).find(x=>x.key===rdEK(k));
       if(en&&e.value!==""){const s=rdSkills(en.x.g,en.ph)[+e.value];if(s){rdDeclare(R,k,s.n,s.v);R.sel=k}}}
     if(e.dataset.rdcadd!=null&&e.value){const k=e.dataset.rdcadd,a=(R.c[k]=R.c[k]||[]),c=a.find(x=>x.k===e.value);
       // gleicher Zustand noch einmal: Stufe +1 (Buch 1 Kap. 1.2)
